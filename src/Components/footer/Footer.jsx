@@ -158,7 +158,7 @@ const Footer = () => {
               <li className={style.fListItem}>
                 <Link to="/contact" className="d-flex justify-content-start">
                   <CallIcon className="me-2" />{" "}
-                  <span className=" fs-6">+91 (729) 0900835</span>
+                  <span className=" fs-6">+91 (811) 5510050</span>
                 </Link>
               </li>
               <li className={style.fListItem}>
