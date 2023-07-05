@@ -1,0 +1,101 @@
+.footer {
+  font-size: 12px;
+  margin-top: 20px;
+}
+
+.fLists {
+  margin-bottom: 50px;
+}
+
+.fList {
+  list-style: none;
+  padding-left: 10px;
+}
+
+.fListItem {
+  font-size: 18px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.fListItem a {
+  color: white;
+}
+
+.fText {
+  text-align: center;
+  color: white;
+}
+
+.insta {
+  /* border: 1px solid black; */
+  background-color: white;
+  /* color: black; */
+  color: #c32aa3;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.tweeter {
+  /* border: 1px solid black; */
+  background-color: white;
+  /* color: black; */
+  color: #1da1f2;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.facebook {
+  /* border: 1px solid black; */
+  background-color: white;
+  /* color: black; */
+  color: #1877f2;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.linkedin {
+  /* border: 1px solid black; */
+  background-color: white;
+  /* color: black; */
+  color: #0077b5;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.custom {
+  padding: 1px;
+}
+
+.insta:hover {
+  transform: scale3d(1.3, 1.3, 1.3);
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.linkedin:hover {
+  transform: scale3d(1.3, 1.3, 1.3);
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.facebook:hover {
+  transform: scale3d(1.3, 1.3, 1.3);
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.tweeter:hover {
+  transform: scale3d(1.3, 1.3, 1.3);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+
+/* @media screen and (max-width: 768px) {
+  .fLists {
+    flex-direction: column;
+  }
+
+
+} */

@@ -1,0 +1,23 @@
+.BookingCardColor {
+    border-radius: 15px;
+    text-align: center;
+}
+
+.SecondGridView {
+    display: grid;
+    place-items: center;
+}
+
+
+@media (max-width:786px) {
+
+    .mobflex {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .SecondGridView {
+        display: revert;
+    }
+
+}

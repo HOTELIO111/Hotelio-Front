@@ -1,0 +1,13 @@
+.previousButton {
+    position: absolute !important;
+    z-index: 1;
+    top: 30vh;
+    left: 15px;
+}
+
+.NextButton {
+    position: absolute !important;
+    z-index: 1;
+    top: 30vh;
+    right: 15px;
+}
