@@ -675,8 +675,12 @@ const Navbar = ({ list }) => {
                     >
                       <MenuItem onClick={() => navigate('/signin')}>Login as Customer</MenuItem>
                       <MenuItem onClick={() => navigate('/signup')}>Signup as Customer</MenuItem>
-                      <MenuItem onClick={() => navigate('https://hotelio-dashboard-trickle.netlify.app/login')}>Login as Vendor</MenuItem>
-                      <MenuItem onClick={() => navigate('hhttps://hotelio-dashboard-trickle.netlify.app/register')}>Signup as Vendor</MenuItem>
+                      <MenuItem >
+                        <Link to={"https://hotelio-dashboard-trickle.netlify.app/login"}>Login as Vendor </Link></MenuItem>
+                      <MenuItem > <Link to={"https://hotelio-dashboard-trickle.netlify.app/register"}>
+                        Signup as Vendor
+                      </Link>
+                      </MenuItem>
                     </Menu>
                   </li>
                   {login ? (
