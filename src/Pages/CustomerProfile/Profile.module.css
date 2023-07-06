@@ -5,13 +5,9 @@
   height: fit-content;
   border-radius: 20px;
   padding: 10px;
-  text-align: center;
   background: #ededed;
 }
 
-.box1 {
-  margin-top: 10px;
-}
 
 .content {
   margin: 15px 2px;
@@ -55,7 +51,7 @@
 }
 
 .job_discription {
-  font-size: 1.7em;
+  font-size: 1.0em;
   color: gray;
   margin: 10px 30px 20px;
 }

@@ -1,5 +1,4 @@
 import React from 'react'
-import Search from './Search'
 import List from './List'
 import Navbar from '../Navbar/Navbar'
 
