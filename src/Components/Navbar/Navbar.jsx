@@ -487,15 +487,17 @@ const Navbar = ({ list }) => {
                       />
                     </NavLink>
                   </li>
-                  <li>
+                  {/* <li>
                     <Button
                       id="demo-positioned-button"
-                      aria-controls={openBox ? 'demo-positioned-menu' : undefined}
+                      aria-controls={
+                        openBox ? "demo-positioned-menu" : undefined
+                      }
                       aria-haspopup="true"
-                      aria-expanded={openBox ? 'true' : undefined}
+                      aria-expanded={openBox ? "true" : undefined}
                       onClick={handleClickLogin}
                       endIcon={<KeyboardArrowDownIcon />}
-                      sx={{ color: 'black', fontWeight: 700, my: 1, pt: 0 }}
+                      sx={{ color: "black", fontWeight: 700, my: 1, pt: 0 }}
                     >
                       <KeyIcon /> Sign In / Sign Up
                     </Button>
@@ -506,25 +508,42 @@ const Navbar = ({ list }) => {
                       open={openBox}
                       onClose={handleCloseLogin}
                       anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'left',
+                        vertical: "top",
+                        horizontal: "left",
                       }}
                       transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'left',
+                        vertical: "top",
+                        horizontal: "left",
                       }}
                     >
-                      <MenuItem onClick={() => navigate('/signin')}>Login as Customer</MenuItem>
-                      <MenuItem onClick={() => navigate('/signup')}>Signup as Customer</MenuItem>
-                      <MenuItem >
-                        <Link to={"https://hotelio-dashboard-trickle.netlify.app/login"}>Login as Vendor </Link></MenuItem>
-                      <MenuItem > <Link to={"https://hotelio-dashboard-trickle.netlify.app/register"}>
-                        Signup as Vendor
-                      </Link>
+                      <MenuItem onClick={() => navigate("/signin")}>
+                        Login as Customer
+                      </MenuItem>
+                      <MenuItem onClick={() => navigate("/signup")}>
+                        Signup as Customer
+                      </MenuItem>
+                      <MenuItem>
+                        <Link
+                          to={
+                            "https://hotelio-dashboard-trickle.netlify.app/login"
+                          }
+                        >
+                          Login as Vendor{" "}
+                        </Link>
+                      </MenuItem>
+                      <MenuItem>
+                        {" "}
+                        <Link
+                          to={
+                            "https://hotelio-dashboard-trickle.netlify.app/register"
+                          }
+                        >
+                          Signup as Vendor
+                        </Link>
                       </MenuItem>
                     </Menu>
-                  </li>
-                  {login ? (
+                  </li> */}
+                  {!currentUser ? (
                     <>
                       {/* <li>
                         <button
@@ -579,23 +598,23 @@ const Navbar = ({ list }) => {
                           <MenuItem onClick={() => navigate("/signup")}>
                             Signup as Customer
                           </MenuItem>
-                          <MenuItem
-                            onClick={() =>
-                              navigate("http://localhost:3001/login", {
-                                replace: true,
-                              })
-                            }
-                          >
-                            Login as Vendor
+                          <MenuItem>
+                            <Link
+                              to={
+                                "https://hotelio-dashboard-trickle.netlify.app/"
+                              }
+                            >
+                              Login as Vendor
+                            </Link>
                           </MenuItem>
-                          <MenuItem
-                            onClick={() =>
-                              navigate("http://localhost:3001/register", {
-                                replace: true,
-                              })
-                            }
-                          >
-                            Signup as Vendor
+                          <MenuItem>
+                            <Link
+                              to={
+                                "https://hotelio-dashboard-trickle.netlify.app/register"
+                              }
+                            >
+                              Signup as Vendor
+                            </Link>
                           </MenuItem>
                         </Menu>
                       </li>
@@ -616,7 +635,7 @@ const Navbar = ({ list }) => {
                           onClick={handleClick}
                           endIcon={<KeyboardArrowDownIcon />}
                         >
-                          {currentUser.name}
+                          {currentUser ? currentUser.name : ""}
                         </Button>
                         <StyledMenu
                           id="demo-customized-menu"
