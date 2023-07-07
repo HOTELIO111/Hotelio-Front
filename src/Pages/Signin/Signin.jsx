@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import * as Yup from "yup";
+import { ScaleLoader } from "react-spinners";
 import {
   Avatar,
   Button,
@@ -25,6 +27,9 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { Formik } from "formik";
+import Swal from "sweetalert2";
+import { API_URL } from "../../config";
 
 const Signin = () => {
   // code for loader top
@@ -35,40 +40,9 @@ const Signin = () => {
     event.preventDefault();
   };
 
-  const api = process.env.REACT_APP_BACKEND_URL_LOCAL;
+  // loader state
+  const [Loader, setLoader] = useState(false);
 
-  const googleAuth = async (event) => {
-    event.preventDefault();
-    const url = `${api}/user/auth/example`;
-    const options = {
-      method: "GET",
-      withCredentials: true,
-    };
-    const response = await axios(url, options);
-    const data = response.data;
-  };
-
-  const [progress, setProgress] = React.useState(0);
-  const [buffer, setBuffer] = React.useState(10);
-
-  const progressRef = React.useRef(() => { });
-
-  useEffect(() => {
-    progressRef.current = () => {
-      if (progress > 100) {
-        setProgress(0);
-        setBuffer(10);
-      } else {
-        const diff = Math.random() * 10;
-        const diff2 = Math.random() * 10;
-        setProgress(progress + diff);
-        setBuffer(progress + diff + diff2);
-      }
-    };
-  });
-
-  // code for loader top
-  const theme = createTheme();
   const Navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -87,166 +61,163 @@ const Signin = () => {
     );
   }
 
-  const { activePath } = useSelector((state) => state.activePath);
-  // const { redirectRoute } = useSelector((state) => state.getRedirectRoute);
-  const redirectRoute = "dashboard"
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
+  // initial values
+  const initialValues = {
+    email: "",
+    password: "",
   };
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
+  // validation schema
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().required("Email is required"),
+    password: Yup.string().required("Password is required"),
+  });
 
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    // show the loader
-    setLoading(true);
-
+  const handleSubmit = async (values, { resetForm }) => {
     try {
-      // const response = await axios.post(
-      //   `${api}/user/userlogin`,
-      //   {
-      //     email,
-      //     password,
-      //   },
-      //   {
-      //     withCredentials: true,
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     onUploadProgress: (progressEvent) => {
-      //       // update the progress bar
-      //       const progress = Math.round(
-      //         (progressEvent.loaded / progressEvent.total) * 100
-      //       );
-      //       setProgress(progress);
-      //       setBuffer(progress + 10);
-      //     },
-      //   }
-      // );
+      setLoader(true);
+      const response = await fetch(API_URL + "/api/login", {
+        method: "POST",
+        body: JSON.stringify(values),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-      // const data = response.data;
-      // dispatch({ type: "SET_LOGGEDIN_USER", payload: data });
-      // dispatch({ type: "SETVIEWTYPE", payload: data.user.account_type });
-      // dispatch({ type: "LOGIN", payload: true });
-      
-        if (redirectRoute === "dashboard") {
-          Navigate("/dashboard");
-        }
-        if (redirectRoute === "/") {
-          Navigate("/");
-        }
+      if (response.ok) {
+        const data = await response.json();
+        Swal.fire({
+          title: "Successfully Logged In",
+          icon: "success",
+          text: `Welcome ${data.name}`,
+        });
+        sessionStorage.setItem("customer", JSON.stringify(data));
+        setLoader(false);
+        Navigate("/");
+      } else {
+        setLoader(false);
+        throw new Error("Login Failed");
+      }
     } catch (error) {
-      console.error(error);
-    } finally {
-      // hide the loader
-      setLoading(false);
+      Swal.fire({
+        title: "Login Failed",
+        icon: "error",
+        text: "Login Failed. Please try again.",
+      });
+      setLoader(false);
     }
+
+    resetForm();
   };
 
   return (
     <>
-      {loading && (
-        <Box sx={{ width: "100%" }}>
-          <LinearProgress
-            variant="buffer"
-            value={progress}
-            valueBuffer={buffer}
-          />
-        </Box>
-      )}
-      <ThemeProvider theme={theme}>
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <Box
-            sx={{
-              marginTop: 8,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
+      <Container component="main" maxWidth="xs">
+        <ScaleLoader
+          color="#ff0000"
+          loading={Loader}
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            zIndex: "9999",
+          }}
+        />
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <Formik
+            onSubmit={handleSubmit}
+            initialValues={initialValues}
+            validationSchema={validationSchema}
           >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Sign in
-            </Typography>
-            <Box
-              component="form"
-              // onSubmit={handleSubmit}
-              noValidate
-              sx={{ mt: 1 }}
-            >
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                value={email}
-                onChange={handleEmailChange}
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-              />
-
-              <FormControl sx={{ mt: 2, width: "100%" }} variant="outlined">
-                <InputLabel htmlFor="outlined-adornment-password">
-                  Password
-                </InputLabel>
-                <OutlinedInput
-                  id="outlined-adornment-password"
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                  label="Password"
-                  value={password}
-                  onChange={handlePasswordChange}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-              </FormControl>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                onClick={handleSubmit}
+            {({ values, handleChange, handleSubmit, errors, touched }) => (
+              <Box
+                component="form"
+                onSubmit={handleSubmit}
+                noValidate
+                sx={{ mt: 1 }}
               >
-                Sign In
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link to="/forgetpassword">Forgot password?</Link>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  onChange={handleChange}
+                  value={values.email}
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                />
+                {errors.email && touched.email && (
+                  <div className="error-message">{errors.email}</div>
+                )}
+
+                <FormControl sx={{ mt: 2, width: "100%" }} variant="outlined">
+                  <InputLabel htmlFor="outlined-adornment-password">
+                    Password
+                  </InputLabel>
+                  <OutlinedInput
+                    id="outlined-adornment-password"
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    onChange={handleChange}
+                    value={values.password}
+                    label="Password"
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                  />
+                </FormControl>
+                {errors.password && touched.password && (
+                  <div className="error-message">{errors.password}</div>
+                )}
+
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Sign In
+                </Button>
+                <Grid container>
+                  <Grid item xs>
+                    <Link to="/forgetpassword">Forgot password?</Link>
+                  </Grid>
+                  <Grid item>
+                    <Link to="/signup">Don't have an account? Sign Up</Link>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <Link to="/signup">Don't have an account? Sign Up</Link>
-                </Grid>
-              </Grid>
-              
-            </Box>
-          </Box>
-          <Copyright sx={{ mt: 8, mb: 4 }} />
-        </Container>
-      </ThemeProvider>
+              </Box>
+            )}
+          </Formik>
+        </Box>
+        <Copyright sx={{ mt: 8, mb: 4 }} />
+      </Container>
     </>
   );
 };
