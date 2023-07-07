@@ -7,7 +7,6 @@ import Twinbed2 from "../../images/2bed1.jpg";
 import Twinbed3 from "../../images/2bed3.jpg";
 import Twinbed4 from "../../images/2bed4.jpg";
 import Familybed1 from "../../images/family1.jpg";
-import Familybed2 from "../../images/family2.jpg";
 import Familybed3 from "../../images/family3.jpg";
 import Familybed4 from "../../images/family4.jpg";
 

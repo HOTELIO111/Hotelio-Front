@@ -18,6 +18,7 @@ import IconButton from "@mui/material/IconButton";
 import Collapse from "@mui/material/Collapse";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
+import * as Yup from "yup";
 import { useState } from "react";
 import Googlelogo from "../Signin/googlelogo.png";
 import { useDispatch } from "react-redux";
@@ -27,6 +28,12 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { Form } from "react-bootstrap";
+import { Formik } from "formik";
+import Swal from "sweetalert2";
+import { API_URL } from "../../config";
+import axios from "axios";
+import { ScaleLoader } from "react-spinners";
 
 function Copyright(props) {
   return (
@@ -38,7 +45,6 @@ function Copyright(props) {
     >
       {"Copyright © "}
       <Link to="/">www.hoteliorooms.com</Link> {new Date().getFullYear()}
-      
     </Typography>
   );
 }
@@ -69,87 +75,105 @@ export default function SignUp() {
   const [alertOn, setAlertOn] = useState(false);
   const [open, setOpen] = useState(true);
 
+  // loader state
+  const [Loader, setLoader] = useState(false);
 
-  const api = process.env.REACT_APP_BACKEND_URL_LOCAL;
+  // get geo locations
 
-  const googleAuth = async () => {
-    // const url = `${api}/user/google`;
-    // const options = {
-    //   method: "GET",
-    //   headers: {
-    //     withCredentials: true,
-    //     // "Content-Type": "application/json",
-    //   },
-    // };
-
-    // try {
-    //   const response = await fetch(url, options);
-    //   if (response.ok) {
-    //     const { user } = await response.json();
-    //     // Dispatch action to set the logged-in user
-    //     dispatch({ type: "SET_LOGGEDIN_USER", payload: user });
-
-    //     console.log("User:", user);
-    //   } else {
-    //     // Handle error case
-    //     console.error("Authentication failed:", response.statusText);
-    //   }
-    // } catch (error) {
-    //   // Handle network or other errors
-    //   console.error("Error during authentication:", error);
-    // }
-
-    window.open(`${api}/user/google`);
-  };
-
-  const handleOnclik = async (event) => {
-    console.log("clicked");
-    event.preventDefault();
-    const response = await fetch(`${api}/user/registeration`, {
-      method: "POST",
-      // credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        firstName,
-        lastName,
-        email,
-        account_type,
-        password,
-        c_password,
-      }),
+  const getLocationDetails = () => {
+    return new Promise((resolve, reject) => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            resolve({ latitude, longitude });
+          },
+          (error) => {
+            reject(error.message);
+          }
+        );
+      } else {
+        reject("Geolocation is not supported by this browser.");
+      }
     });
-    if (response.status === 200) {
-      setOpen(true);
-      setAlertOn(true);
-      // setAlertTitle("Info");
-      setAlertMessage("A verification email is sent to email " + email);
-      setAlertType("success");
-      setEmail("");
-      setPassword("");
-      setFirstName("");
-      setLastName("");
-      setCpassword("");
-    } else if (response.status === 422) {
-      setOpen(true);
-      setAlertOn(true);
-      // setAlertTitle("Error");
-      setAlertMessage("Email already exist!");
-      setAlertType("error");
-    } else {
-      setOpen(true);
-      setAlertOn(true);
-      // setAlertTitle("Error");
-      setAlertMessage("Something went wrong!");
-      setAlertType("error");
-    }
-    const data = await response.json();
-    // dispatch({ type: "SET_LOGGEDIN_USER", payload: data });
   };
 
-  // console.log(email, password, firstName, lastName);
-  console.log(password, c_password);
+  const handleLocationButtonClick = () => {
+    getLocationDetails()
+      .then(({ latitude, longitude }) => {
+        console.log("Latitude:", latitude);
+        console.log("Longitude:", longitude);
+        // Do something with the location details
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+        // Handle the error
+      });
+  };
+
+  const initialValues = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    mobileNo: "",
+    password: "",
+    cpassword: "",
+  };
+
+  const validationSchema = Yup.object().shape({
+    firstName: Yup.string().required("First Name is required"),
+    lastName: Yup.string().required("Last Name is required"),
+    email: Yup.string().email("Invalid email").required("Email is required"),
+    mobileNo: Yup.number().required("Mobile Number is required"),
+    password: Yup.string().required("Password is required"),
+    cpassword: Yup.string()
+      .oneOf([Yup.ref("password"), null], "Passwords must match")
+      .required("Confirm Password is required"),
+  });
+
+  // API TO GET THE SIGN UP
+  const handleSubmit = async (values, { resetForm }) => {
+    setLoader(true);
+    const { cpassword, firstName, lastName, ...rest } = values;
+    const combinedName = `${firstName} ${lastName}`;
+
+    const dataToSend = {
+      name: combinedName,
+      ...rest,
+    };
+
+    try {
+      const response = await fetch(API_URL + "/api/signup", {
+        method: "POST",
+        body: JSON.stringify(dataToSend),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        Swal.fire({
+          title: "Successfully Registered",
+          icon: "success",
+          text: `Welcome to the Hotelio`,
+        });
+        setLoader(false);
+      } else {
+        setLoader(false);
+        throw new Error("Registration failed");
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "Registration Failed",
+        icon: "error",
+        text: "Registration Failed. Please try again.",
+      });
+      setLoader(false);
+    }
+
+    resetForm();
+  };
 
   return (
     <>
@@ -178,194 +202,180 @@ export default function SignUp() {
         </Collapse>
       )}
 
-      <ThemeProvider theme={theme}>
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <Box
-            sx={{
-              marginTop: 8,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
+      <Container component="main" maxWidth="xs">
+        <ScaleLoader
+          color="#ff0000"
+          loading={Loader}
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            zIndex: "9999",
+          }}
+        />
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+
+          <Formik
+            onSubmit={handleSubmit}
+            initialValues={initialValues}
+            validationSchema={validationSchema}
           >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Sign up
-            </Typography>
-            <Box
-              component="form"
-              noValidate
-              // onSubmit={handleSubmit}
-              sx={{ mt: 3 }}
-            >
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    autoComplete="given-name"
-                    name="firstName"
-                    required
-                    fullWidth
-                    id="firstName"
-                    onChange={(e) => {
-                      setFirstName(e.target.value);
-                    }}
-                    label="First Name"
-                    autoFocus
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    required
-                    fullWidth
-                    id="lastName"
-                    onChange={(e) => {
-                      setLastName(e.target.value);
-                    }}
-                    label="Last Name"
-                    name="lastName"
-                    autoComplete="family-name"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    required
-                    fullWidth
-                    id="email"
-                    label="Email Address"
-                    name="email"
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                    }}
-                    autoComplete="email"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    required
-                    fullWidth
-                    id="mobileNumber"
-                    label="Mobile Number"
-                    name="mobileNumber"
-                    value={mobileNumber}
-                    onChange={(e) => setMobileNumber(e.target.value)}
-                    autoComplete="tel"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <FormControl sx={{ width: "100%" }} variant="outlined">
-                    <InputLabel htmlFor="outlined-adornment-password">
-                      Password
-                    </InputLabel>
-                    <OutlinedInput
-                      id="outlined-adornment-password"
-                      type={showPassword ? "text" : "password"}
-                      name="password"
-                      label="Password"
-                      onChange={(e) => {
-                        setPassword(e.target.value);
-                      }}
-                      // value={password}
-                      endAdornment={
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowPassword}
-                            // onMouseDown={handleMouseDownPassword}
-                            edge="end"
-                          >
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                          </IconButton>
-                        </InputAdornment>
-                      }
-                    />
-                  </FormControl>
-                  <FormControl sx={{ mt: 2, width: "100%" }} variant="outlined">
-                    <InputLabel htmlFor="outlined-adornment-password">
-                      Confirm Password
-                    </InputLabel>
-                    <OutlinedInput
-                      id="outlined-adornment-password"
-                      type={showConfirmPassword ? "text" : "password"}
-                      name="cpassword"
-                      label="Confirm Password"
-                      onChange={(e) => {
-                        setCpassword(e.target.value);
-                      }}
-                      endAdornment={
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowConfirmPassword}
-                            // onMouseDown={handleMouseDownPassword}
-                            edge="end"
-                          >
-                            {showConfirmPassword ? (
-                              <VisibilityOff />
-                            ) : (
-                              <Visibility />
-                            )}
-                          </IconButton>
-                        </InputAdornment>
-                      }
-                    />
-                  </FormControl>
-                  {/* <TextField
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                    }}
-                    type="password"
-                    id="password"
-                    autoComplete="new-password"
-                  />
-                  <TextField
-                    className="mt-3"
-                    required
-                    fullWidth
-                    name="cpassword"
-                    label="Confirm Password"
-                    onChange={(e) => {
-                      setCpassword(e.target.value);
-                    }}
-                    type="password"
-                    id="password"
-                    autoComplete="new-password"
-                  /> */}
-                </Grid>
-                {/* <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid> */}
-              </Grid>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                onClick={handleOnclik}
-                sx={{ mt: 3, mb: 2 }}
+            {({ values, handleChange, handleSubmit }) => (
+              <Box
+                component="form"
+                noValidate
+                onSubmit={handleSubmit}
+                sx={{ mt: 3 }}
               >
-                Sign Up
-              </Button>
-              <Grid container justifyContent="flex-end">
-                <Grid item>
-                  <Link to="/signin">Already have an account? Sign in</Link>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      autoComplete="given-name"
+                      name="firstName"
+                      required
+                      fullWidth
+                      id="firstName"
+                      onChange={handleChange}
+                      value={values.firstName}
+                      label="First Name"
+                      autoFocus
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      required
+                      fullWidth
+                      id="lastName"
+                      onChange={handleChange}
+                      value={values.lastName}
+                      label="Last Name"
+                      name="lastName"
+                      autoComplete="family-name"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      fullWidth
+                      id="email"
+                      label="Email Address"
+                      name="email"
+                      onChange={handleChange}
+                      value={values.email}
+                      autoComplete="email"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      fullWidth
+                      id="mobileNo"
+                      label="Mobile Number"
+                      name="mobileNo"
+                      value={values.mobileNo}
+                      onChange={handleChange}
+                      autoComplete="tel"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FormControl sx={{ width: "100%" }} variant="outlined">
+                      <InputLabel htmlFor="outlined-adornment-password">
+                        Password
+                      </InputLabel>
+                      <OutlinedInput
+                        id="outlined-adornment-password"
+                        type={showPassword ? "text" : "password"}
+                        name="password"
+                        label="Password"
+                        onChange={handleChange}
+                        value={values.password}
+                        // value={password}
+                        endAdornment={
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              // onMouseDown={handleMouseDownPassword}
+                              edge="end"
+                            >
+                              {showPassword ? (
+                                <VisibilityOff />
+                              ) : (
+                                <Visibility />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        }
+                      />
+                    </FormControl>
+                    <FormControl
+                      sx={{ mt: 2, width: "100%" }}
+                      variant="outlined"
+                    >
+                      <InputLabel htmlFor="outlined-adornment-password">
+                        Confirm Password
+                      </InputLabel>
+                      <OutlinedInput
+                        id="outlined-adornment-password"
+                        type={showConfirmPassword ? "text" : "password"}
+                        name="cpassword"
+                        label="Confirm Password"
+                        onChange={handleChange}
+                        value={values.cpassword}
+                        endAdornment={
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowConfirmPassword}
+                              // onMouseDown={handleMouseDownPassword}
+                              edge="end"
+                            >
+                              {showConfirmPassword ? (
+                                <VisibilityOff />
+                              ) : (
+                                <Visibility />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        }
+                      />
+                    </FormControl>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Box>
-          </Box>
-          <Copyright sx={{ mt: 5 }} />
-        </Container>
-      </ThemeProvider>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Sign Up
+                </Button>
+                <Grid container justifyContent="flex-end">
+                  <Grid item>
+                    <Link to="/signin">Already have an account? Sign in</Link>
+                  </Grid>
+                </Grid>
+              </Box>
+            )}
+          </Formik>
+        </Box>
+        <Copyright sx={{ mt: 5 }} />
+      </Container>
     </>
   );
 }

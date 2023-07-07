@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import style from "./navbar.module.css";
-import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
+import {
+  Link,
+  NavLink,
+  useNavigate,
+  useLocation,
+  Navigate,
+} from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import $ from "jquery";
 import ParkingDate from "../DateForPaking/ParkingDate";
@@ -9,10 +15,10 @@ import Dropdown from "../dropdown/Dropdown";
 import hotel from "../../images/hotel-bg.png";
 import hotelparking from "../../images/hotelparking-bg.jpg";
 import parking from "../../images/parking-bg.jpg";
-import { styled, alpha } from '@mui/material/styles';
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import { styled, alpha } from "@mui/material/styles";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import Avatar from "@mui/material/Avatar";
 import PersonIcon from "@mui/icons-material/Person";
 import HotelIcon from "@mui/icons-material/Hotel";
@@ -30,12 +36,18 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Logout from "@mui/icons-material/Logout";
-import NavBanner from '../../images/NavBanner.jpg'
-import HotelioLogo from '../../images/HotelioLogo.png'
-import { BsFillBuildingFill, BsFillBuildingsFill, BsTranslate, BsFillPersonFill } from "react-icons/bs";
-import KeyIcon from '@mui/icons-material/Key';
+import NavBanner from "../../images/NavBanner.jpg";
+import HotelioLogo from "../../images/HotelioLogo.png";
+import {
+  BsFillBuildingFill,
+  BsFillBuildingsFill,
+  BsTranslate,
+  BsFillPersonFill,
+} from "react-icons/bs";
+import KeyIcon from "@mui/icons-material/Key";
+import Swal from "sweetalert2";
 
 const Navbar = ({ list }) => {
   // Get Logged In User
@@ -56,19 +68,6 @@ const Navbar = ({ list }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorEl1, setAnchorEl1] = useState(null);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClick1 = (event) => {
-    setAnchorEl1(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  const handleClose1 = () => {
-    setAnchorEl1(null);
-  };
   const open = Boolean(anchorEl);
   const open1 = Boolean(anchorEl1);
 
@@ -81,21 +80,10 @@ const Navbar = ({ list }) => {
     setLogin(null);
   };
 
-  const id = open ? "simple-popover" : undefined;
-  const id1 = open1 ? "simple-popover" : undefined;
-
   // Popover Material UI Code
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  // Hotel City
-  const { city } = useSelector((state) => state.searchCity);
-  // Parking City
-  const { cityParking } = useSelector((state) => state.searchParkingCity);
-  // Hotel And Parking City
-  const { cityHotelAndParking } = useSelector(
-    (state) => state.searchHotelAndParkingCity
-  );
   const { dates } = useSelector((state) => state.searchDate);
   const datesParking = useSelector((state) => state.searchParkingDate.dates);
   const { resultPerson } = useSelector((state) => state.personAlert);
@@ -120,50 +108,51 @@ const Navbar = ({ list }) => {
     <Menu
       elevation={0}
       anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'right',
+        vertical: "bottom",
+        horizontal: "right",
       }}
       transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: "top",
+        horizontal: "right",
       }}
       {...props}
     />
   ))(({ theme }) => ({
-    '& .MuiPaper-root': {
+    "& .MuiPaper-root": {
       borderRadius: 6,
       marginTop: theme.spacing(1),
       minWidth: 180,
       color:
-        theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
+        theme.palette.mode === "light"
+          ? "rgb(55, 65, 81)"
+          : theme.palette.grey[300],
       boxShadow:
-        'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
-      '& .MuiMenu-list': {
-        padding: '4px 0',
+        "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
+      "& .MuiMenu-list": {
+        padding: "4px 0",
       },
-      '& .MuiMenuItem-root': {
-        '& .MuiSvgIcon-root': {
+      "& .MuiMenuItem-root": {
+        "& .MuiSvgIcon-root": {
           fontSize: 18,
           color: theme.palette.text.secondary,
           marginRight: theme.spacing(1),
         },
-        '&:active': {
+        "&:active": {
           backgroundColor: alpha(
             theme.palette.primary.main,
-            theme.palette.action.selectedOpacity,
+            theme.palette.action.selectedOpacity
           ),
         },
       },
     },
   }));
 
-  const handleOption = (name, operation) => {
-    setOption((prev) => {
-      return {
-        ...prev,
-        [name]: operation === "i" ? options[name] + 1 : options[name] - 1,
-      };
-    });
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   //For Mobile Rsponsive of Navbar Search Bar
@@ -215,168 +204,6 @@ const Navbar = ({ list }) => {
       });
     }, 2000);
   }
-
-  const handleOnSearch = async () => {
-    dispatch({ type: "SET_FEATURED_DATA", payload: [] });
-    setOpenOptions(false);
-    if (path === "/") {
-      dispatch({
-        type: "ALERTPERSON",
-        payload: validRoom(),
-      });
-      if (city === "") {
-        dispatch({
-          type: "ALERTCITY",
-          payload: true,
-        });
-      } else {
-        dispatch({
-          type: "ALERTCITY",
-          payload: false,
-        });
-      }
-      if (dates[0] === undefined || dates[1] === undefined) {
-        dispatch({
-          type: "ALERTDATE",
-          payload: true,
-        });
-      } else {
-        dispatch({
-          type: "ALERTDATE",
-          payload: false,
-        });
-      }
-    } else if (path === "/parking") {
-      if (cityParking === "") {
-        dispatch({
-          type: "ALERTCITY",
-          payload: true,
-        });
-      } else {
-        dispatch({
-          type: "ALERTCITY",
-          payload: false,
-        });
-      }
-      if (datesParking[0] === undefined || datesParking[1] === undefined) {
-        dispatch({
-          type: "ALERTDATETIME",
-          payload: true,
-        });
-      } else {
-        dispatch({
-          type: "ALERTDATE",
-          payload: false,
-        });
-      }
-      if (path !== "/" && c === "") {
-        dispatch({
-          type: "ALERTVEHICLE",
-          payload: true,
-        });
-      } else {
-        dispatch({
-          type: "ALERTVEHICLE",
-          payload: false,
-        });
-      }
-    } else if (path === "/HotelAndParking") {
-      dispatch({
-        type: "ALERTPERSON",
-        payload: validRoom(),
-      });
-      if (cityHotelAndParking === "") {
-        dispatch({
-          type: "ALERTCITY",
-          payload: true,
-        });
-      } else {
-        dispatch({
-          type: "ALERTCITY",
-          payload: false,
-        });
-      }
-      if (dates[0] === undefined || dates[1] === undefined) {
-        dispatch({
-          type: "ALERTDATE",
-          payload: true,
-        });
-      } else {
-        dispatch({
-          type: "ALERTDATE",
-          payload: false,
-        });
-      }
-      if (c === "") {
-        dispatch({
-          type: "ALERTVEHICLE",
-          payload: true,
-        });
-      } else {
-        dispatch({
-          type: "ALERTVEHICLE",
-          payload: false,
-        });
-      }
-    }
-
-    if (
-      (path === "/" &&
-        (city === "" ||
-          dates[0] === undefined ||
-          dates[1] === undefined ||
-          validRoom())) ||
-      (path === "/parking" &&
-        (cityParking === "" ||
-          datesParking[0] === undefined ||
-          datesParking[1] === undefined ||
-          c === "")) ||
-      (path === "/HotelAndParking" &&
-        (cityHotelAndParking === "" ||
-          dates[0] === undefined ||
-          dates[1] === undefined ||
-          validRoom() ||
-          c === ""))
-    ) {
-      // alert("Please fill all the fields");
-      return;
-    }
-
-    if (option) {
-      dispatch({
-        type: "SET_OPTION",
-        payload: option,
-      });
-    }
-
-    navSearch
-      ? navigate(`/listHotel`)
-      : nav2
-        ? navigate("/HotelAndParkingList")
-        : navigate(`/ParkingList`);
-
-    if (path === "/parking") {
-      try {
-        const url = `${api}/parking/search?city=${cityParking}&vehicles=${c}`;
-        const response = await fetch(url, {
-          method: "GET",
-          // credentials: "include",
-        });
-        const { parkingList } = await response.json();
-        if (parkingList) {
-          dispatch({
-            type: "SET_PARKING_DATA",
-            payload: parkingList,
-          });
-        } else {
-          dispatch({
-            type: "SET_PARKING_DATA",
-            payload: { message: "No Parking Found" },
-          });
-        }
-      } catch (error) { }
-    }
-  };
 
   const HandleLogout = async () => {
     localStorage.clear();
@@ -512,10 +339,8 @@ const Navbar = ({ list }) => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
-
-
   // room management function
-  const [manageRoom, setManageRoom] = useState([{ room: 1, guest: 1 }])
+  const [manageRoom, setManageRoom] = useState([{ room: 1, guest: 1 }]);
 
   const HandleManageRoom = (work, index) => {
     const updatedRooms = [...manageRoom];
@@ -533,7 +358,6 @@ const Navbar = ({ list }) => {
     setManageRoom(updatedRooms);
   };
 
-
   const ManageRoomAddandDelete = (action) => {
     const newRoom = { room: manageRoom.length + 1, guest: 1 };
     if (action === "add") {
@@ -545,10 +369,6 @@ const Navbar = ({ list }) => {
     }
   };
 
-
-
-
-
   const getTotalGuests = () => {
     let totalGuests = 0;
     for (let i = 0; i < manageRoom.length; i++) {
@@ -557,15 +377,36 @@ const Navbar = ({ list }) => {
     return totalGuests;
   };
 
+  // after login fuctins
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(sessionStorage.getItem("customer"))
+  );
 
-
-
+  const HandleLogOutCustomer = () => {
+    sessionStorage.removeItem("customer");
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Log Out Successfully",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    setCurrentUser(sessionStorage.getItem("customer"));
+    Navigate("/");
+  };
+  useEffect(() => {
+    if (currentUser !== {}) {
+      setIsLoggedIn(true);
+    }
+  }, [currentUser]);
 
   return (
     <div className="w-100">
       <header
-        className={`${style.header_area}  ${style.header_sticky} ${style.wow} ${style.slideInDown
-          } ${!list ? "bg-light position-static border-bottom" : ""}`}
+        className={`${style.header_area}  ${style.header_sticky} ${style.wow} ${
+          style.slideInDown
+        } ${!list ? "bg-light position-static border-bottom" : ""}`}
         data-wow-duration="0.75s"
         data-wow-delay="0s"
       >
@@ -575,17 +416,14 @@ const Navbar = ({ list }) => {
               <nav
                 style={{
                   background: `linear-gradient(4deg, rgba(255,255,255,1) 17%, rgba(188,124,124,0.3394607843137255) 89%), url(${NavBanner})`,
-                  backgroundPosition: 'center',
-                  backgroundSize: 'cover',
-                  backgroundRepeat: 'no-repeat'
+                  backgroundPosition: "center",
+                  backgroundSize: "cover",
+                  backgroundRepeat: "no-repeat",
                 }}
-                className={style.main_nav}>
+                className={style.main_nav}
+              >
                 <Link to="/" className={`${style.logo} ms-4`}>
-                  <img
-                    alt="logo"
-                    src={HotelioLogo}
-                    width={150}
-                  />
+                  <img alt="logo" src={HotelioLogo} width={150} />
                 </Link>
                 <ul className={style.nav}>
                   <li>
@@ -601,15 +439,16 @@ const Navbar = ({ list }) => {
                     >
                       <BsFillBuildingFill /> Become a Member of Hotelio
                       <hr
-                        className={`mt-0 ${style.activeTab} ${activePath === "hotel" ? "d-block" : "d-none"
-                          }`}
+                        className={`mt-0 ${style.activeTab} ${
+                          activePath === "hotel" ? "d-block" : "d-none"
+                        }`}
                       />
                     </NavLink>
                   </li>
                   <li>
                     <NavLink
                       // to="/parking"
-                      to='/'
+                      to="/"
                       className={`${!list ? "text-dark" : ""}`}
                       onClick={() => {
                         dispatch({
@@ -620,15 +459,16 @@ const Navbar = ({ list }) => {
                     >
                       <BsFillBuildingsFill /> List your rooms with Hotelio
                       <hr
-                        className={`mt-0 ${style.activeTab} ${activePath === "parking" ? "d-block" : "d-none"
-                          }`}
+                        className={`mt-0 ${style.activeTab} ${
+                          activePath === "parking" ? "d-block" : "d-none"
+                        }`}
                       />
                     </NavLink>
                   </li>
                   <li>
                     <NavLink
                       // to="/HotelAndParking"
-                      to='/'
+                      to="/"
                       className={`${!list ? "text-dark" : ""}`}
                       onClick={() => {
                         dispatch({
@@ -639,10 +479,11 @@ const Navbar = ({ list }) => {
                     >
                       <BsTranslate /> English
                       <hr
-                        className={`mt-0 ${style.activeTab} ${activePath === "hotelAndParking"
-                          ? "d-block"
-                          : "d-none"
-                          }`}
+                        className={`mt-0 ${style.activeTab} ${
+                          activePath === "hotelAndParking"
+                            ? "d-block"
+                            : "d-none"
+                        }`}
                       />
                     </NavLink>
                   </li>
@@ -685,7 +526,7 @@ const Navbar = ({ list }) => {
                   </li>
                   {login ? (
                     <>
-                      <li>
+                      {/* <li>
                         <button
                           onClick={() => {
                             navigate("/contact");
@@ -694,173 +535,137 @@ const Navbar = ({ list }) => {
                         >
                           Contact us
                         </button>
-                      </li>
+                      </li> */}
                       <NavLink
                         to="/contact"
-                        className={`${!list ? "text-dark" : ""} ${style.iconHide
-                          }`}
+                        className={`${!list ? "text-dark" : ""} ${
+                          style.iconHide
+                        }`}
                       >
                         Contact us
                       </NavLink>
                       <li>
-                        <div>
-                          <React.Fragment>
-                            <Box
-                              sx={{
-                                display: "flex",
-                                alignItems: "center",
-                                textAlign: "center",
-                              }}
-                            >
-                              <Tooltip title="Account">
-                                <IconButton
-                                  className={style.iconShow}
-                                  onClick={handleonClick}
-                                  size="small"
-                                  sx={{ ml: 2 }}
-                                  aria-controls={
-                                    open ? "account-menu" : undefined
-                                  }
-                                  aria-haspopup="true"
-                                  aria-expanded={open ? "true" : undefined}
-                                >
-                                  <Avatar sx={{ width: 32, height: 32 }}>
-                                    M
-                                  </Avatar>
-                                </IconButton>
-                              </Tooltip>
-                            </Box>
-                            <Menu
-                              anchorEl={sidetooltip}
-                              id="account-menu"
-                              open={openTooltip}
-                              onClose={handleonClose}
-                              onClick={handleonClose}
-                              PaperProps={{
-                                elevation: 0,
-                                sx: {
-                                  overflow: "visible",
-                                  filter:
-                                    "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-                                  mt: 1.5,
-                                  "& .MuiAvatar-root": {
-                                    width: 32,
-                                    height: 32,
-                                    ml: -0.5,
-                                    mr: 1,
-                                  },
-                                  "&:before": {
-                                    content: '""',
-                                    display: "block",
-                                    position: "absolute",
-                                    top: 0,
-                                    right: 14,
-                                    width: 10,
-                                    height: 10,
-                                    bgcolor: "background.paper",
-                                    transform: "translateY(-50%) rotate(45deg)",
-                                    zIndex: 0,
-                                  },
-                                },
-                              }}
-                              transformOrigin={{
-                                horizontal: "right",
-                                vertical: "top",
-                              }}
-                              anchorOrigin={{
-                                horizontal: "right",
-                                vertical: "bottom",
-                              }}
-                            >
-                              <MenuItem onClick={handleonClose}>
-                                <Avatar />{" "}
-                                <Link
-                                  className="text-dark"
-                                  to={loggedinUser ? "/dashboard" : "/signin"}
-                                >
-                                  My Dashboard
-                                </Link>
-                              </MenuItem>
-                              <Divider />
-
-                              <MenuItem onClick={handleonClose}>
-                                {loggedinUser ? (
-                                  <>
-                                    <ListItemIcon>
-                                      <Logout fontSize="small" />
-                                    </ListItemIcon>
-                                    <Link
-                                      to="/"
-                                      className="text-dark"
-                                      onClick={HandleLogout}
-                                    >
-                                      Logout
-                                    </Link>
-                                  </>
-                                ) : (
-                                  <>
-                                    <ListItemIcon>
-                                      <Logout fontSize="small" />
-                                    </ListItemIcon>
-                                    <Link to="/signin" className="text-dark">
-                                      Sign-in
-                                    </Link>
-                                  </>
-                                )}
-                              </MenuItem>
-                            </Menu>
-                          </React.Fragment>
-                          <span
-                            className={style.iconHide}
-                            onClick={handleonClick}
+                        <Button
+                          id="demo-positioned-button"
+                          aria-controls={
+                            openBox ? "demo-positioned-menu" : undefined
+                          }
+                          aria-haspopup="true"
+                          aria-expanded={openBox ? "true" : undefined}
+                          onClick={handleClickLogin}
+                          endIcon={<KeyboardArrowDownIcon />}
+                          sx={{ color: "black", fontWeight: 700, my: 1, pt: 0 }}
+                        >
+                          <KeyIcon /> Sign In / Sign Up
+                        </Button>
+                        <Menu
+                          id="demo-positioned-menu"
+                          aria-labelledby="demo-positioned-button"
+                          anchorEl={Login}
+                          open={openBox}
+                          onClose={handleCloseLogin}
+                          anchorOrigin={{
+                            vertical: "top",
+                            horizontal: "left",
+                          }}
+                          transformOrigin={{
+                            vertical: "top",
+                            horizontal: "left",
+                          }}
+                        >
+                          <MenuItem onClick={() => navigate("/signin")}>
+                            Login as Customer
+                          </MenuItem>
+                          <MenuItem onClick={() => navigate("/signup")}>
+                            Signup as Customer
+                          </MenuItem>
+                          <MenuItem
+                            onClick={() =>
+                              navigate("http://localhost:3001/login", {
+                                replace: true,
+                              })
+                            }
                           >
-                            Profile
-                          </span>
-                        </div>
+                            Login as Vendor
+                          </MenuItem>
+                          <MenuItem
+                            onClick={() =>
+                              navigate("http://localhost:3001/register", {
+                                replace: true,
+                              })
+                            }
+                          >
+                            Signup as Vendor
+                          </MenuItem>
+                        </Menu>
                       </li>
                     </>
                   ) : (
                     <>
-
-                      {/* after login show this component */}
-
-                      {" "}
-                      {/* <li>
+                      {/* after login show this component */}{" "}
+                      <li>
                         <Button
                           id="demo-customized-button"
-                          sx={{ color: 'black' }}
-                          aria-controls={open ? 'demo-customized-menu' : undefined}
+                          sx={{ color: "black" }}
+                          aria-controls={
+                            open ? "demo-customized-menu" : undefined
+                          }
                           aria-haspopup="true"
-                          aria-expanded={open ? 'true' : undefined}
+                          aria-expanded={open ? "true" : undefined}
                           disableElevation
                           onClick={handleClick}
                           endIcon={<KeyboardArrowDownIcon />}
                         >
-                          Profile
+                          {currentUser.name}
                         </Button>
                         <StyledMenu
                           id="demo-customized-menu"
                           MenuListProps={{
-                            'aria-labelledby': 'demo-customized-button',
+                            "aria-labelledby": "demo-customized-button",
                           }}
                           anchorEl={anchorEl}
                           open={open}
                           onClose={handleClose}
                         >
-                          <MenuItem sx={{ paddingY: 0 }} onClick={handleClose} disableRipple>
-                            <NavLink to={'/CustomerNameProfile'}>My Profile</NavLink>
+                          <MenuItem
+                            sx={{ paddingY: 0 }}
+                            onClick={handleClose}
+                            disableRipple
+                          >
+                            <NavLink to={"/CustomerNameProfile"}>
+                              My Profile
+                            </NavLink>
                           </MenuItem>
-                          <MenuItem sx={{ paddingY: 0 }} onClick={handleClose} disableRipple>
-                            <NavLink to='/YourBooking'>Your Booking</NavLink>
+                          <MenuItem
+                            sx={{ paddingY: 0 }}
+                            onClick={handleClose}
+                            disableRipple
+                          >
+                            <NavLink to="/YourBooking">Your Booking</NavLink>
                           </MenuItem>
-                          <MenuItem sx={{ paddingY: 0 }} onClick={handleClose} disableRipple>
-                            <NavLink to='/contact'>Emergency Number</NavLink>
+                          <MenuItem
+                            sx={{ paddingY: 0 }}
+                            onClick={handleClose}
+                            disableRipple
+                          >
+                            <NavLink to="/contact">Emergency Number</NavLink>
                           </MenuItem>
-                          <MenuItem sx={{ paddingY: 0 }} onClick={handleClose} disableRipple>
-                            <NavLink to='/about'>About Us</NavLink>
+                          <MenuItem
+                            sx={{ paddingY: 0 }}
+                            onClick={handleClose}
+                            disableRipple
+                          >
+                            <NavLink to="/about">About Us</NavLink>
+                          </MenuItem>
+                          <MenuItem
+                            sx={{ paddingY: 0 }}
+                            onClick={handleClose}
+                            disableRipple
+                          >
+                            <div onClick={HandleLogOutCustomer}>Log Out</div>
                           </MenuItem>
                         </StyledMenu>
-                      </li> */}
+                      </li>
                     </>
                   )}
 
@@ -869,8 +674,9 @@ const Navbar = ({ list }) => {
                   </li>
                 </ul>
                 <a
-                  className={`${style.menu_trigger} ${menuOpen ? style.active : ""
-                    }`}
+                  className={`${style.menu_trigger} ${
+                    menuOpen ? style.active : ""
+                  }`}
                   onClick={() => {
                     setMenuOpen(!menuOpen);
                     $(`.${style.header_area} .${style.nav}`).slideToggle(200);
@@ -882,15 +688,16 @@ const Navbar = ({ list }) => {
             </div>
           </div>
         </div>
-      </header >
+      </header>
 
       {list && (
         <>
           <div
             className={style.main_banner}
             style={{
-              backgroundImage: `linear-gradient(0deg, rgba(33, 33, 33,0.4), rgb(33, 33, 33,0.5)),url(${navSearch ? hotel : nav2 ? hotelparking : parking
-                })`,
+              backgroundImage: `linear-gradient(0deg, rgba(33, 33, 33,0.4), rgb(33, 33, 33,0.5)),url(${
+                navSearch ? hotel : nav2 ? hotelparking : parking
+              })`,
             }}
           >
             <div className="container">
@@ -915,10 +722,14 @@ const Navbar = ({ list }) => {
                         </fieldset>
                       </div>
                       <div
-                        className={`${nav2 ? "col-lg-3" : "col-lg-4"
-                          } align-self-center`}
+                        className={`${
+                          nav2 ? "col-lg-3" : "col-lg-4"
+                        } align-self-center`}
                       >
-                        <fieldset style={{ borderRight: '2px solid red' }} className="d-flex align-items-center">
+                        <fieldset
+                          style={{ borderRight: "2px solid red" }}
+                          className="d-flex align-items-center"
+                        >
                           <CalendarMonthIcon className="text-danger me-2" />
                           {navSearch ? (
                             <Dates />
@@ -930,12 +741,13 @@ const Navbar = ({ list }) => {
                         </fieldset>
                       </div>
                       <div
-                        className={`${nav2
-                          ? "col-lg-5"
-                          : navSearch
+                        className={`${
+                          nav2
+                            ? "col-lg-5"
+                            : navSearch
                             ? "col-lg-4"
                             : "col-lg-3"
-                          } align-self-center position-relative`}
+                        } align-self-center position-relative`}
                       >
                         <fieldset className="d-flex align-items-center">
                           <PersonIcon className="text-danger me-2" />
@@ -949,7 +761,9 @@ const Navbar = ({ list }) => {
                             }}
                             className={`d-flex ${style.headerSearchText}`}
                           >
-                            {`${getTotalGuests()} Guests · ${manageRoom.length} room`}
+                            {`${getTotalGuests()} Guests · ${
+                              manageRoom.length
+                            } room`}
                             <div className="ms-3 text-dark">
                               {openOptions ? (
                                 <ExpandLessIcon />
@@ -960,7 +774,6 @@ const Navbar = ({ list }) => {
                           </span>
                           {openOptions && (
                             <div className={`shadow-lg p-2 ${style.options}`}>
-
                               <div className="row">
                                 <div className="col">
                                   <div className="d-flex justify-content-evenly">
@@ -973,22 +786,22 @@ const Navbar = ({ list }) => {
                               {manageRoom.map((item, index) => (
                                 <div className="row">
                                   <div className="col-6">
-
                                     <div className={style.optionItem}>
-                                      <div className={`d-flex justify-content-between`}>
+                                      <div
+                                        className={`d-flex justify-content-between`}
+                                      >
                                         Rooms
                                       </div>
-                                      <div className={`d-flex justify-content-between`}>
+                                      <div
+                                        className={`d-flex justify-content-between`}
+                                      >
                                         {item.room}
                                       </div>
-
                                     </div>
                                   </div>
                                   <div className="col-6">
                                     <div className={style.optionItem}>
-                                      <span
-                                        className={`${style.optionText} `}
-                                      >
+                                      <span className={`${style.optionText} `}>
                                         Guests
                                       </span>
                                       <div
@@ -1024,17 +837,21 @@ const Navbar = ({ list }) => {
 
                               <div className="row">
                                 <div className="col">
-                                  <div className="d-flex justify-content-evenly align-items-center" >
+                                  <div className="d-flex justify-content-evenly align-items-center">
                                     <div
                                       className={`${style.optionText} `}
                                       style={{ marginRight: "10px" }}
-                                      onClick={() => ManageRoomAddandDelete("remove")}
+                                      onClick={() =>
+                                        ManageRoomAddandDelete("remove")
+                                      }
                                     >
                                       Delete Room
                                     </div>
                                     <div
                                       className={`${style.optionText} `}
-                                      onClick={() => ManageRoomAddandDelete("add")}
+                                      onClick={() =>
+                                        ManageRoomAddandDelete("add")
+                                      }
                                     >
                                       Add Room
                                     </div>
@@ -1046,14 +863,15 @@ const Navbar = ({ list }) => {
                         </fieldset>
                       </div>
                       <div
-                        className={`${isDesktop ? "mt-3" : ""} ${nav2 || navSearch ? "col-lg-2" : "col-lg-3"
-                          }`}
+                        className={`${isDesktop ? "mt-3" : ""} ${
+                          nav2 || navSearch ? "col-lg-2" : "col-lg-3"
+                        }`}
                       >
                         <fieldset>
                           <button
                             className={style.main_button}
                             // onClick={handleOnSearch}
-                            onClick={() => navigate('/searchedhotels')}
+                            onClick={() => navigate("/searchedhotels")}
                           >
                             <SearchIcon /> Search Now
                           </button>
@@ -1091,9 +909,8 @@ const Navbar = ({ list }) => {
             </div>
           </div>
         </>
-      )
-      }
-    </div >
+      )}
+    </div>
   );
 };
 
