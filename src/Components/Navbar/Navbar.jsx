@@ -428,7 +428,7 @@ const Navbar = ({ list }) => {
                 <ul className={style.nav}>
                   <li>
                     <NavLink
-                      to="/"
+                      to="/hoteliomember"
                       className={`${!list ? "text-dark" : ""}`}
                       onClick={() => {
                         dispatch({
