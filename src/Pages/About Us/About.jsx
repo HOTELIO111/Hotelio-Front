@@ -27,7 +27,20 @@ const About = () => {
                   <div className={style.ap_title}>
                     <h2>Welcome To Hotelio.</h2>
                     <p style={{ fontFamily: "Rubik" }}>
-                      Hotelio Is Online Booking Platform for Easy And Comfortable stay For Travelers throug Hotelio app and Hotelio Web.It was founded In 13th may 2023 , Hotelio is owning by Company 'Houda Carjour Tourism pvt Ltd' Registered at Roc Kanpur Uttar pradesh. Hotelio is India's trusted and fastest growing hotel chain network. It's India's first AI Enabled app and website.
+                      Hotelio, India's leading online booking
+                      platform, revolutionizes the way travelers
+                      find and book accommodations. With our
+                      user-friendly app and website, we bring
+                      easy and comfortable stays to your
+                      fingertips. Explore our vast network of
+                      premium hotels, budget-friendly options,
+                      and authentic homestays. As India's first
+                      AI-enabled platform, we prioritize your
+                      comfort and provide hassle-free check-ins.
+                      Join us on a journey where travel meets
+                      convenience, and let Hotelio be your
+                      trusted partner for unforgettable stays
+                      wherever your adventures take you.
                     </p>
                   </div>
                 </div>

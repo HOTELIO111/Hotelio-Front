@@ -1,0 +1,11 @@
+.MiddlePadding {
+    padding: 3rem;
+}
+
+@media (max-width:786px) {
+
+    .MiddlePadding {
+        padding: 0rem 1rem;
+    }
+
+}

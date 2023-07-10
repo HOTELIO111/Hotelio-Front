@@ -12,17 +12,17 @@ const Process = () => {
                         <Grid container spacing={2}>
                             <Grid item xs={12} md={4}>
                                 <Typography variant="h5" gutterBottom>
-                                    Book & relax
+                                    Search & Select
                                 </Typography>
                             </Grid>
                             <Grid item xs={12} md={4}>
                                 <Typography variant="h5" gutterBottom>
-                                    Smart checklist
+                                    Book & Confirm
                                 </Typography>
                             </Grid>
                             <Grid item xs={12} md={4}>
-                                <Typography variant="h5" gutterBottom>
-                                    Save more
+                                <Typography variant="h5" className='pr-2' gutterBottom>
+                                    Enjoy Your Stay
                                 </Typography>
                             </Grid>
                         </Grid>

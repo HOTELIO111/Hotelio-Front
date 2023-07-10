@@ -55,12 +55,7 @@ const Home = (props) => {
 
       <NewOffer />
       <div className={`${style.homeContainer} container text-center`}>
-        <h1
-          className={`${style.homeTitle} fw-bold ${isXtraSmallScreen ? "fs-4" : "fs-3"
-            }`}
-        >
-          Promotions, deals and special offers for you
-        </h1>
+
 
         {/* <p>Promotions, deals and special offers for you</p> */}
         {/* <Offer /> */}
@@ -80,8 +75,10 @@ const Home = (props) => {
 
       <Process />
       
+      <WeServe />
+
       <div className={`${style.homeContainer} container text-center`}>
-        <WeServe />
+        
 
         <AboutUs />
 

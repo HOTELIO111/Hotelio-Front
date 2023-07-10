@@ -8,10 +8,16 @@ const Featured = () => {
       className={`row rounded ${style.featuredContainer}`}
     >
       {/* Left Column */}
+      <div className="col-xl-4 col-sm-12" style={{ display: 'grid', placeItems: 'center' }}>
+        <div className={`${style.textColourwithPadding}`}>
+          {/* Image */}
+          <img className='img-fluid rounded' src='https://www.maunakearesort.com/images/hero/full/SHOT01_COUPLE_WALKING_SAND_0500.jpg' alt="" />
+        </div>
+      </div>
       <div className="col-xl-8 col-sm-12" style={{ display: 'grid', placeItems: 'center' }}>
         <div className={`${style.textColourwithPadding}`}>
           <h4 className=''>Take your longest holiday yet</h4>
-          <p>
+          <p className='text-dark'>
             {/* Description */}
             Unwind amidst nature's embrace, beneath the sun's warm rays,
             Embrace the freedom to wander, to explore in endless ways.
@@ -23,12 +29,6 @@ const Featured = () => {
         </div>
       </div>
       {/* Right Column */}
-      <div className="col-xl-4 col-sm-12" style={{ display: 'grid', placeItems: 'center' }}>
-        <div className={`${style.textColourwithPadding}`}>
-          {/* Image */}
-          <img className='img-fluid rounded' src='https://hips.hearstapps.com/hmg-prod/images/champagne-beach-espiritu-santo-island-vanuatu-royalty-free-image-1655672510.jpg?crop=1.00xw:0.755xh;0,0.173xh&resize=1200:*' alt="" />
-        </div>
-      </div>
     </div>
   );
 }
