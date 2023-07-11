@@ -404,9 +404,8 @@ const Navbar = ({ list }) => {
   return (
     <div className="w-100">
       <header
-        className={`${style.header_area}  ${style.header_sticky} ${style.wow} ${
-          style.slideInDown
-        } ${!list ? "bg-light position-static border-bottom" : ""}`}
+        className={`${style.header_area}  ${style.header_sticky} ${style.wow} ${style.slideInDown
+          } ${!list ? "bg-light position-static border-bottom" : ""}`}
         data-wow-duration="0.75s"
         data-wow-delay="0s"
       >
@@ -426,7 +425,7 @@ const Navbar = ({ list }) => {
                   <img alt="logo" src={HotelioLogo} width={150} />
                 </Link>
                 <ul className={style.nav}>
-                  <li>
+                  <li style={{ listStyle: 'none'}}>
                     <NavLink
                       to="/hoteliomember"
                       className={`${!list ? "text-dark" : ""}`}
@@ -439,13 +438,12 @@ const Navbar = ({ list }) => {
                     >
                       <BsFillBuildingFill /> Become a Member of Hotelio
                       <hr
-                        className={`mt-0 ${style.activeTab} ${
-                          activePath === "hotel" ? "d-block" : "d-none"
-                        }`}
+                        className={`mt-0 ${style.activeTab} ${activePath === "hotel" ? "d-block" : "d-none"
+                          }`}
                       />
                     </NavLink>
                   </li>
-                  <li>
+                  <li style={{ listStyle: 'none'}}>
                     <NavLink
                       // to="/parking"
                       to="/"
@@ -459,13 +457,12 @@ const Navbar = ({ list }) => {
                     >
                       <BsFillBuildingsFill /> List your rooms with Hotelio
                       <hr
-                        className={`mt-0 ${style.activeTab} ${
-                          activePath === "parking" ? "d-block" : "d-none"
-                        }`}
+                        className={`mt-0 ${style.activeTab} ${activePath === "parking" ? "d-block" : "d-none"
+                          }`}
                       />
                     </NavLink>
                   </li>
-                  <li>
+                  <li style={{ listStyle: 'none'}}>
                     <NavLink
                       // to="/HotelAndParking"
                       to="/"
@@ -479,11 +476,10 @@ const Navbar = ({ list }) => {
                     >
                       <BsTranslate /> English
                       <hr
-                        className={`mt-0 ${style.activeTab} ${
-                          activePath === "hotelAndParking"
-                            ? "d-block"
-                            : "d-none"
-                        }`}
+                        className={`mt-0 ${style.activeTab} ${activePath === "hotelAndParking"
+                          ? "d-block"
+                          : "d-none"
+                          }`}
                       />
                     </NavLink>
                   </li>
@@ -557,13 +553,12 @@ const Navbar = ({ list }) => {
                       </li> */}
                       <NavLink
                         to="/contact"
-                        className={`${!list ? "text-dark" : ""} ${
-                          style.iconHide
-                        }`}
+                        className={`${!list ? "text-dark" : ""} ${style.iconHide
+                          }`}
                       >
                         Contact us
                       </NavLink>
-                      <li>
+                      <li style={{ listStyle: 'none'}}>
                         <Button
                           id="demo-positioned-button"
                           aria-controls={
@@ -622,7 +617,7 @@ const Navbar = ({ list }) => {
                   ) : (
                     <>
                       {/* after login show this component */}{" "}
-                      <li>
+                      <li style={{ listStyle: 'none'}}>
                         <Button
                           id="demo-customized-button"
                           sx={{ color: "black" }}
@@ -688,14 +683,13 @@ const Navbar = ({ list }) => {
                     </>
                   )}
 
-                  <li>
+                  <li style={{ listStyle: 'none'}}>
                     <span className={style.main_white_button}></span>
                   </li>
                 </ul>
                 <a
-                  className={`${style.menu_trigger} ${
-                    menuOpen ? style.active : ""
-                  }`}
+                  className={`${style.menu_trigger} ${menuOpen ? style.active : ""
+                    }`}
                   onClick={() => {
                     setMenuOpen(!menuOpen);
                     $(`.${style.header_area} .${style.nav}`).slideToggle(200);
@@ -714,21 +708,23 @@ const Navbar = ({ list }) => {
           <div
             className={style.main_banner}
             style={{
-              backgroundImage: `linear-gradient(0deg, rgba(33, 33, 33,0.4), rgb(33, 33, 33,0.5)),url(${
-                navSearch ? hotel : nav2 ? hotelparking : parking
-              })`,
+              backgroundImage: `linear-gradient(0deg, rgba(33, 33, 33,0.4), rgb(33, 33, 33,0.5)),url(${navSearch ? hotel : nav2 ? hotelparking : parking
+                })`,
             }}
           >
             <div className="container">
               <div className="row">
                 <div className="col-lg-12">
                   <div className={`${style.top_text} ${style.header_text}`}>
-                    <h4 className={style.text_shadow}>
+                    <h3 className={` text-white ${style.text_shadow}`}>
                       Welcome To Hotelio Rooms
+                    </h3>
+                    <h4 className={`py-3 text-white ${style.text_shadow}`}>
+                      Unlock the world of seamless travel
+                      experiences with Hotelio, where comfort meets
+                      convenience and your journey begins with a
+                      click
                     </h4>
-                    <h2 className={style.text_shadow}>
-                      We make the best for all our customers
-                    </h2>
                   </div>
                 </div>
                 <div className="col-lg-12 px-0">
@@ -741,9 +737,8 @@ const Navbar = ({ list }) => {
                         </fieldset>
                       </div>
                       <div
-                        className={`${
-                          nav2 ? "col-lg-3" : "col-lg-4"
-                        } align-self-center`}
+                        className={`${nav2 ? "col-lg-3" : "col-lg-4"
+                          } align-self-center`}
                       >
                         <fieldset
                           style={{ borderRight: "2px solid red" }}
@@ -760,13 +755,12 @@ const Navbar = ({ list }) => {
                         </fieldset>
                       </div>
                       <div
-                        className={`${
-                          nav2
-                            ? "col-lg-5"
-                            : navSearch
+                        className={`${nav2
+                          ? "col-lg-5"
+                          : navSearch
                             ? "col-lg-4"
                             : "col-lg-3"
-                        } align-self-center position-relative`}
+                          } align-self-center position-relative`}
                       >
                         <fieldset className="d-flex align-items-center">
                           <PersonIcon className="text-danger me-2" />
@@ -780,9 +774,8 @@ const Navbar = ({ list }) => {
                             }}
                             className={`d-flex ${style.headerSearchText}`}
                           >
-                            {`${getTotalGuests()} Guests · ${
-                              manageRoom.length
-                            } room`}
+                            {`${getTotalGuests()} Guests · ${manageRoom.length
+                              } room`}
                             <div className="ms-3 text-dark">
                               {openOptions ? (
                                 <ExpandLessIcon />
@@ -882,9 +875,8 @@ const Navbar = ({ list }) => {
                         </fieldset>
                       </div>
                       <div
-                        className={`${isDesktop ? "mt-3" : ""} ${
-                          nav2 || navSearch ? "col-lg-2" : "col-lg-3"
-                        }`}
+                        className={`${isDesktop ? "mt-3" : ""} ${nav2 || navSearch ? "col-lg-2" : "col-lg-3"
+                          }`}
                       >
                         <fieldset>
                           <button

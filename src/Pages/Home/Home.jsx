@@ -71,9 +71,13 @@ const Home = (props) => {
 
         <Featured />
 
+        
       </div>
 
+
       <Process />
+
+
       
       <WeServe />
 

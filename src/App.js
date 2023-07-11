@@ -22,7 +22,6 @@ import Loader from "./Components/Loader/Loader";
 import SearchBar from "./Components/SearchBar/SearchBar";
 import PageNotFound from "./Components/No Data Page/PageNotFound";
 
-import Dashboard from "./Pages/Dashboard/Dashboard";
 import Profile from "./Pages/Profile/Profile";
 import HotelsList from "./Pages/HotelsList/HotelsList";
 import ProfileDataForm from "./Components/Forms/Profile_Data_Form/profileDataForm";
@@ -121,10 +120,10 @@ function App() {
           element={<PrivateRoute Component={Viewproperty} />}
         />
 
-        <Route
+        {/* <Route
           path="/dashboard"
           element={<PrivateRoute Component={Dashboard} />}
-        />
+        /> */}
         <Route path="/profile" element={<PrivateRoute Component={Profile} />} />
         <Route
           path="/hotels"

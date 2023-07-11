@@ -20,11 +20,20 @@
   height: 70%;
 }
 
+.textSize {
+  font-size: 1.2vw;
+}
+
 
 @media (max-width:786px) {
 
   .card {
     height: 90%;
+  }
+
+  .textSize {
+    font-size: 1.3vh;
+    line-height: 20px;
   }
 
 }

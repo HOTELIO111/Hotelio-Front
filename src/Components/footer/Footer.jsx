@@ -27,7 +27,7 @@ const Footer = () => {
   return (
     <footer
       className="pt-4 pb-4 text-white position-absolute end-0 container-fluid"
-      style={{ backgroundColor: "#ff0600", marginTop: "25px" }}
+      style={{ backgroundColor: "#ff0600"}}
     >
       <div className="container text-md-left">
         <div

@@ -8,13 +8,11 @@ const Featured = () => {
       className={`row rounded ${style.featuredContainer}`}
     >
       {/* Left Column */}
-      <div className="col-xl-4 col-sm-12" style={{ display: 'grid', placeItems: 'center' }}>
-        <div className={`${style.textColourwithPadding}`}>
-          {/* Image */}
-          <img className='img-fluid rounded' src='https://www.maunakearesort.com/images/hero/full/SHOT01_COUPLE_WALKING_SAND_0500.jpg' alt="" />
-        </div>
+      <div className={`col-xl-12 col-sm-12 m-0 p-0 ${style.featuredContainerOne}`}  >
+        {/* Image */}
+        {/* <img className='img-fluid rounded' src='https://www.maunakearesort.com/images/hero/full/SHOT01_COUPLE_WALKING_SAND_0500.jpg' alt="" /> */}
       </div>
-      <div className="col-xl-8 col-sm-12" style={{ display: 'grid', placeItems: 'center' }}>
+      <div className="col-xl-12 col-sm-12 m-0 p-5 text-center" style={{ display: 'grid', placeItems: 'center' }}>
         <div className={`${style.textColourwithPadding}`}>
           <h4 className=''>Take your longest holiday yet</h4>
           <p className='text-dark'>
