@@ -393,7 +393,7 @@ const Navbar = ({ list }) => {
       timer: 1500,
     });
     setCurrentUser(sessionStorage.getItem("customer"));
-    Navigate("/");
+    navigate("/");
   };
   useEffect(() => {
     if (currentUser !== {}) {
