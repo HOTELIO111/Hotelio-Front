@@ -318,22 +318,22 @@ const Navbar = ({ list }) => {
 
   const [color, setColor] = useState("#fff");
 
-  useEffect(() => {
-    $(window).scroll(() => {
-      let scroll = $(window).scrollTop();
-      let box = $(`.${style.header_text}`).height();
-      let header = $("header").height();
-      if (scroll > box - header) {
-        setColor("silver");
-        $("header").addClass(`${style.background_header}`);
-        $("li a").removeClass(`${style.text_shadow}`);
-      } else {
-        setColor("silver");
-        $("li a").addClass(`${style.text_shadow}`);
-        $("header").removeClass(`${style.background_header}`);
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   $(window).scroll(() => {
+  //     let scroll = $(window).scrollTop();
+  //     let box = $(`.${style.header_text}`).height();
+  //     let header = $("header").height();
+  //     if (scroll > box - header) {
+  //       setColor("silver");
+  //       $("header").addClass(`${style.background_header}`);
+  //       $("li a").removeClass(`${style.text_shadow}`);
+  //     } else {
+  //       setColor("silver");
+  //       $("li a").addClass(`${style.text_shadow}`);
+  //       $("header").removeClass(`${style.background_header}`);
+  //     }
+  //   });
+  // }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);

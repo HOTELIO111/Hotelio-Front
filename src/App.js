@@ -49,6 +49,7 @@ import Privacy from "./Pages/Privacy/Privacy";
 import HotelResults from "./Pages/HotelsResults/HotelResults";
 import HotelDetail from "./Pages/HotelDetail/HotelDetail";
 import Member from "./Pages/Member/Member";
+import JoinOurNetwork from "./Pages/JoinOurNetwork/JoinOurNetwork";
 // import ReactDataTable from "./Components/ReactDataTable/ReactDataTable";
 
 function App() {
@@ -92,6 +93,7 @@ function App() {
         <Route path='/searchedhotels' element={<HotelResults />} />
         <Route path='/searchedhotelname' element={<HotelDetail />} />
         <Route path='/hoteliomember' element={<Member />} />
+        <Route path='/JoinOurNetwork' element={<JoinOurNetwork />} />
         <Route
           path="/listproperty"
           element={<PrivateRoute Component={Listing} />}

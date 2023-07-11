@@ -21,7 +21,7 @@ const CardMember = () => {
           <Card className={` ${style.Cardcolor}`}>
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
-                <StarsIcon sx={{ fontSize: "4rem" }} />
+                <StarsIcon sx={{ fontSize: "4rem", color: "#076045" }} />
               </Typography>
               <h5 gutterBottom variant="h5" component="div">
                 Gets bookings Fast
@@ -41,7 +41,7 @@ const CardMember = () => {
           <Card className={` ${style.CardcolorOne}`}>
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
-                <DiscountIcon sx={{ fontSize: "4rem" }} />
+                <DiscountIcon sx={{ fontSize: "4rem", color: "#044754" }} />
               </Typography>
               <h5 gutterBottom variant="h5" component="div">
                 Stand out from the competition
@@ -62,7 +62,7 @@ const CardMember = () => {
           <Card className={` ${style.CardcolorThree}`}>
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
-                <ApartmentIcon sx={{ fontSize: "4rem" }} />
+                <ApartmentIcon sx={{ fontSize: "4rem", color: "#F06317" }} />
               </Typography>
               <h5 gutterBottom variant="h5" component="div">
                 List any property type
@@ -82,7 +82,7 @@ const CardMember = () => {
           <Card className={` ${style.CardcolorTwo}`}>
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
-                <PeopleAltIcon sx={{ fontSize: "4rem" }} />
+                <PeopleAltIcon sx={{ fontSize: "4rem", color: "#E21AAC" }} />
               </Typography>
               <h5 gutterBottom variant="h5" component="div">
                 Reach a global audience
@@ -102,7 +102,7 @@ const CardMember = () => {
           <Card className={` ${style.CardcolorFour}`}>
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
-                <HeadsetMicIcon sx={{ fontSize: "4rem" }} />
+                <HeadsetMicIcon sx={{ fontSize: "4rem", color: "#3b71ca" }} />
               </Typography>
               <h5 gutterBottom variant="h5" component="div">
                 Support
@@ -165,7 +165,7 @@ const CardMember = () => {
         color="error"
         // style={{ position: "static" }}
       >
-        Success
+        Join
       </Button>
     </Container>
   );

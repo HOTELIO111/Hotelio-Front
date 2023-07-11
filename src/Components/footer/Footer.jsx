@@ -9,17 +9,17 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InfoIcon from "@mui/icons-material/Info";
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
-import PermPhoneMsgIcon from '@mui/icons-material/PermPhoneMsg';
-import PaymentsIcon from '@mui/icons-material/Payments';
-import PolicyIcon from '@mui/icons-material/Policy';
-import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
-import SpaIcon from '@mui/icons-material/Spa';
-import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
-import PoolIcon from '@mui/icons-material/Pool';
-import HotTubIcon from '@mui/icons-material/HotTub';
-import Applestore from '../../images/apple.png'
-import Playstore from '../../images/playstored.png'
+import GroupAddIcon from "@mui/icons-material/GroupAdd";
+import PermPhoneMsgIcon from "@mui/icons-material/PermPhoneMsg";
+import PaymentsIcon from "@mui/icons-material/Payments";
+import PolicyIcon from "@mui/icons-material/Policy";
+import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
+import SpaIcon from "@mui/icons-material/Spa";
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
+import PoolIcon from "@mui/icons-material/Pool";
+import HotTubIcon from "@mui/icons-material/HotTub";
+import Applestore from "../../images/apple.png";
+import Playstore from "../../images/playstored.png";
 
 const Footer = () => {
   const isXtraSmallScreen = useMediaQuery("(max-width:576px)");
@@ -31,24 +31,26 @@ const Footer = () => {
     >
       <div className="container text-md-left">
         <div
-          className={`row  ${isXtraSmallScreen ? "text-start ms-2" : "text-start"
-            } text-md-left justify-content-between`}
+          className={`row  ${
+            isXtraSmallScreen ? "text-start ms-2" : "text-start"
+          } text-md-left justify-content-between`}
         >
           <div
-            className={`col-lg-5 ${isXtraSmallScreen ? "ps-4" : ""
-              } my-1 col-xl-3 col-md-5 col-sm-5 col-8`}
+            className={`col-lg-5 ${
+              isXtraSmallScreen ? "ps-4" : ""
+            } my-1 col-xl-3 col-md-5 col-sm-5 col-8`}
           >
             <h5 className="text-uppercase" style={{ fontSize: "20px" }}>
               About Us
             </h5>
-            <p className="mt-4 text-white">Hotelio Is Online Booking Platform for Easy And Comfortable
-              stay For Travelers throug Hotelio app and Hotelio Web.
-              It was founded In 13th may 2023 , Hotelio is owning
-              by Company 'Houda Carjour Tourism pvt Ltd'
-              Registered at Roc Kanpur Uttar pradesh.
-              Hotelio is India's trusted and fastest
-              growing hotel chain network.
-              It's India's first AI Enabled app and website.</p>
+            <p className="mt-4 text-white">
+              Hotelio Is Online Booking Platform for Easy And Comfortable stay
+              For Travelers throug Hotelio app and Hotelio Web. It was founded
+              In 13th may 2023 , Hotelio is owning by Company 'Houda Carjour
+              Tourism pvt Ltd' Registered at Roc Kanpur Uttar pradesh. Hotelio
+              is India's trusted and fastest growing hotel chain network. It's
+              India's first AI Enabled app and website.
+            </p>
             {/* <ul className={`${style.fList} mt-4`}>
               <li className={style.fListItem}>
                 <Link to="/" className="d-flex justify-content-start">
@@ -74,8 +76,9 @@ const Footer = () => {
             </ul> */}
           </div>
           <div
-            className={`col-lg-5 ${isXtraSmallScreen ? "ps-4" : ""
-              } my-1 col-xl-3 col-md-5 col-sm-5 col-8`}
+            className={`col-lg-5 ${
+              isXtraSmallScreen ? "ps-4" : ""
+            } my-1 col-xl-3 col-md-5 col-sm-5 col-8`}
           >
             <h4 className="text-uppercase" style={{ fontSize: "20px" }}>
               Useful Links
@@ -113,17 +116,20 @@ const Footer = () => {
                 </Link>
               </li>
               <li className={style.fListItem}>
-                <Link to="/about" className="d-flex justify-content-start">
+                <Link
+                  to="/JoinOurNetwork"
+                  className="d-flex justify-content-start"
+                >
                   <GroupAddIcon className="me-2" />
                   <span className="fs-6">Join Our Network</span>
                 </Link>
               </li>
-
             </ul>
           </div>
           <div
-            className={`col-lg-5 ${isXtraSmallScreen ? "ps-4" : ""
-              } my-1 col-xl-3 col-md-5 col-sm-5 col-8`}
+            className={`col-lg-5 ${
+              isXtraSmallScreen ? "ps-4" : ""
+            } my-1 col-xl-3 col-md-5 col-sm-5 col-8`}
           >
             <h4 className="text-uppercase" style={{ fontSize: "20px" }}>
               Hotelio Facilities
@@ -135,7 +141,7 @@ const Footer = () => {
                   <SpaIcon className="me-2" /> Spa
                 </Link>
                 <Link to="/" className="d-flex justify-content-start">
-                  <FitnessCenterIcon className="me-2" />  Fitness Center
+                  <FitnessCenterIcon className="me-2" /> Fitness Center
                 </Link>
                 <Link to="/" className="d-flex justify-content-start">
                   <PoolIcon className="me-2" /> Swimming Pool
@@ -147,8 +153,9 @@ const Footer = () => {
             </ul>
           </div>
           <div
-            className={`col-lg-5 ${isXtraSmallScreen ? "ps-4" : ""
-              } my-1 col-xl-3 col-md-5 col-sm-5 col-8`}
+            className={`col-lg-5 ${
+              isXtraSmallScreen ? "ps-4" : ""
+            } my-1 col-xl-3 col-md-5 col-sm-5 col-8`}
           >
             <h4 className="text-uppercase" style={{ fontSize: "20px" }}>
               Contact Us
@@ -175,8 +182,7 @@ const Footer = () => {
               </li>
             </ul>
             <div
-              className={`${isXtraSmallScreen ? "text-center" : "text-start"
-                }`}
+              className={`${isXtraSmallScreen ? "text-center" : "text-start"}`}
             >
               <InstagramIcon className={`mx-1 fs-1  ${style.insta} `} />
               <FacebookIcon className={`mx-1 fs-1 ${style.facebook}`} />
@@ -190,7 +196,9 @@ const Footer = () => {
           <hr className="mt-3 " />
           <div className="row m-0">
             <div
-              className={`${style.footersec5}  ${isXtraSmallScreen ? "text-center" : "text-start"}  col-xl-6 col-md-6 col-12 `}
+              className={`${style.footersec5}  ${
+                isXtraSmallScreen ? "text-center" : "text-start"
+              }  col-xl-6 col-md-6 col-12 `}
             >
               {/* <InstagramIcon className={`mx-1 fs-1  ${style.insta} `} />
               <FacebookIcon className={`mx-1 fs-1 ${style.facebook}`} />
@@ -198,15 +206,23 @@ const Footer = () => {
               <LinkedInIcon className={`mx-1 fs-1 ${style.linkedin}`} /> */}
               {/* <p>Download Hotelio app for excitng offers.</p> */}
               <div className="d-flex align-items-center">
-                <img style={{ width: '150px' }} src={Applestore} alt="applestore" />
+                <img
+                  style={{ width: "150px" }}
+                  src={Applestore}
+                  alt="applestore"
+                />
 
-                <img style={{ width: '150px' }} src={Playstore} alt="playstored" />
+                <img
+                  style={{ width: "150px" }}
+                  src={Playstore}
+                  alt="playstored"
+                />
               </div>
-
             </div>
             <div
-              className={`${isXtraSmallScreen ? "text-center" : "text-end"
-                }  col-xl-6 col-md-6 col-12`}
+              className={`${
+                isXtraSmallScreen ? "text-center" : "text-end"
+              }  col-xl-6 col-md-6 col-12`}
               style={{ fontSize: "20px" }}
             >
               2023 © www.hoteliorooms.com
