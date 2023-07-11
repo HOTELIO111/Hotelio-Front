@@ -1,21 +1,34 @@
-import { useState } from 'react';
-import style from './Profile.module.css';
-import Backdrop from '@mui/material/Backdrop';
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Fade from '@mui/material/Fade';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import List from '../../Components/YourBookings/List';
-import { Grid, TextField } from '@mui/material';
-import { MuiOtpInput } from 'mui-one-time-password-input';
+import { useState } from "react";
+import style from "./Profile.module.css";
+import Backdrop from "@mui/material/Backdrop";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import Fade from "@mui/material/Fade";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import List from "../../Components/YourBookings/List";
+import { Grid, TextField } from "@mui/material";
+import { MuiOtpInput } from "mui-one-time-password-input";
+import { useEffect } from "react";
 
 const Profile = () => {
+  // Logged user data
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(sessionStorage.getItem("customer"))
+  );
+
+  useEffect(() => {
+    if (currentUser !== {}) {
+      setIsLoggedIn(true);
+    }
+  }, [currentUser]);
+
   // State variables
   const [profileUpdateOpen, setProfileUpdateOpen] = useState(false);
   const [passwordUpdateOpen, setPasswordUpdateOpen] = useState(false);
   const [validate, setValidate] = useState(false);
-  const [otp, setOtp] = useState('');
+  const [otp, setOtp] = useState("");
 
   // Profile update modal handlers
   const handleProfileUpdateOpen = () => setProfileUpdateOpen(true);
@@ -35,15 +48,15 @@ const Profile = () => {
   // Profile update modal component
   const ProfileUpdateModal = () => {
     const styleo = {
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
       width: 400,
-      bgcolor: 'background.paper',
-      border: '2px solid #fff',
-      filter: 'drop-shadow(10px 8px 6px red)',
-      borderRadius: '5px',
+      bgcolor: "background.paper",
+      border: "2px solid #fff",
+      filter: "drop-shadow(10px 8px 6px red)",
+      borderRadius: "5px",
       boxShadow: 24,
       p: 4,
     };
@@ -74,6 +87,7 @@ const Profile = () => {
                     type="text"
                     label="Enter Full Name"
                     variant="outlined"
+                    value={currentUser.name}
                   />
                 </Grid>
                 <Grid xs={12} className="text-center" item>
@@ -81,6 +95,7 @@ const Profile = () => {
                     type="number"
                     label="Enter Mobile No."
                     variant="outlined"
+                    value={currentUser.mobileNo}
                   />
                 </Grid>
                 <Grid xs={12} className="text-center" item>
@@ -88,10 +103,15 @@ const Profile = () => {
                     type="email"
                     label="Enter Email Id"
                     variant="outlined"
+                    value={currentUser.email}
                   />
                 </Grid>
                 <Grid xs={6} className="text-center" item>
-                  <Button onClick={handleProfileUpdateClose} variant="outlined" color="error">
+                  <Button
+                    onClick={handleProfileUpdateClose}
+                    variant="outlined"
+                    color="error"
+                  >
                     Cancel
                   </Button>
                 </Grid>
@@ -104,22 +124,22 @@ const Profile = () => {
             </Box>
           </Fade>
         </Modal>
-      </div >
+      </div>
     );
   };
 
   // Password update modal component
   const PasswordUpdateModal = () => {
     const styleo = {
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
       width: 400,
-      bgcolor: 'background.paper',
-      border: '2px solid #fff',
-      filter: 'drop-shadow(10px 8px 6px red)',
-      borderRadius: '5px',
+      bgcolor: "background.paper",
+      border: "2px solid #fff",
+      filter: "drop-shadow(10px 8px 6px red)",
+      borderRadius: "5px",
       boxShadow: 24,
       p: 3,
     };
@@ -236,24 +256,48 @@ const Profile = () => {
           <div className={`text-center ${style.box}`}>
             <div className={` ${style.content}`}>
               <div className={` ${style.image}`}>
-                <img src="https://i.postimg.cc/bryMmCQB/profile-image.jpg" alt="Profile Image" />
+                <img
+                  src="https://i.postimg.cc/bryMmCQB/profile-image.jpg"
+                  alt="Profile Image"
+                />
               </div>
               <div className={` ${style.level}`}>
                 <p>PRO</p>
               </div>
               <div className={` ${style.text}`}>
-                <p className={` ${style.name}`}>Ethan Rivers</p>
-                <h5 className={` ${style.job_title}`}>8090300447</h5>
-                <h5 className={` mt-0 ${style.job_discription}`}>abc@gmail.com</h5>
+                <p className={` ${style.name}`}>
+                  {currentUser ? currentUser.name : "Your Name"}
+                </p>
+                <h5 className={` ${style.job_title}`}>
+                  {currentUser ? currentUser.mobileNo : "XXXXXXXXXX"}
+                </h5>
+                <h5 className={` mt-0 ${style.job_discription}`}>
+                  {currentUser ? currentUser.email : "youremail@gmail.com"}
+                </h5>
               </div>
               <div className={` ${style.button}`}>
                 <div>
-                  <Button variant="contained" color="error" className={` ${style.connect}`} onClick={handleProfileUpdateOpen}>Edit</Button>
+                  <Button
+                    variant="contained"
+                    color="error"
+                    className={` ${style.connect}`}
+                    onClick={handleProfileUpdateOpen}
+                  >
+                    Edit
+                  </Button>
                 </div>
               </div>
               <div className={`mt-1 ${style.button}`}>
                 <div>
-                  <Button color="error" variant="contained" className={` ${style.connect}`} type="button" onClick={handlePasswordUpdateOpen}>Update Password</Button>
+                  <Button
+                    color="error"
+                    variant="contained"
+                    className={` ${style.connect}`}
+                    type="button"
+                    onClick={handlePasswordUpdateOpen}
+                  >
+                    Update Password
+                  </Button>
                 </div>
               </div>
             </div>
@@ -262,7 +306,14 @@ const Profile = () => {
           <PasswordUpdateModal />
         </Grid>
         <Grid item xs={8}>
-          <div style={{ overflowY: 'auto', maxHeight: '90vh', paddingBottom: '10rem' }} className={` ${style.box}`}>
+          <div
+            style={{
+              overflowY: "auto",
+              maxHeight: "90vh",
+              paddingBottom: "10rem",
+            }}
+            className={` ${style.box}`}
+          >
             <List />
           </div>
         </Grid>
