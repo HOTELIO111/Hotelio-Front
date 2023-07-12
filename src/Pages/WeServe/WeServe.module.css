@@ -1,6 +1,9 @@
 .MiddlePadding {
     padding: 3rem;
 }
+.rowRevert {
+    --mdb-gutter-x: revert !important;
+  }
 
 @media (max-width:786px) {
 

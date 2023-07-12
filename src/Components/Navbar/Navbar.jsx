@@ -409,7 +409,7 @@ const Navbar = ({ list }) => {
         data-wow-duration="0.75s"
         data-wow-delay="0s"
       >
-        <div className={`${style.Container} pe-2`}>
+        <div className={`${style.Container}`}>
           <div className="row">
             <div className="col-12 p-0">
               <nav

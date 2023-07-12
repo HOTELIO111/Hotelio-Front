@@ -371,3 +371,7 @@ body {
   color: red;
   font-size: smaller;
 }
+
+.row{
+  --mdb-gutter-x: revert !important;
+}

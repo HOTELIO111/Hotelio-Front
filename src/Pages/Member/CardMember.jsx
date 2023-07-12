@@ -163,6 +163,7 @@ const CardMember = () => {
         variant="contained"
         fullWidth
         color="error"
+        className="mb-1"
         // style={{ position: "static" }}
       >
         Join

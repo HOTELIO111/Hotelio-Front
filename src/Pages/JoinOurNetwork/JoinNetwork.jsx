@@ -29,7 +29,7 @@ const JoinNetwork = () => {
               color="error"
               size="large"
               fullWidth
-              className="mt-3"
+              className="mt-3" 
             >
               Join Us
             </Button>
