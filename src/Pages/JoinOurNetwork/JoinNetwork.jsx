@@ -1,9 +1,15 @@
 import React from "react";
 import BusinessCoverImg from "../../images/BusinessCoverImg.jpg";
 import Button from "@mui/material/Button";
-
 import style from "./Join.module.css";
 import { Link } from "react-router-dom";
+import { Card, CardContent, Container, Grid, Typography } from "@mui/material";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import HeadsetMicIcon from "@mui/icons-material/HeadsetMic";
+import ApartmentIcon from "@mui/icons-material/Apartment";
+import StarsIcon from "@mui/icons-material/Stars";
+import DiscountIcon from "@mui/icons-material/Discount";
+
 const JoinNetwork = () => {
   return (
     <div>
@@ -16,37 +22,110 @@ const JoinNetwork = () => {
           height: "100vh",
         }}
       >
-        {/* <img src={BusinessCoverImg} alt="coverImg" /> */}
-        <div className={` ${style.topleft}`}>
-          <h2 className="text-danger">Join Our Network</h2>
-        </div>
-        <div className={` w-100 ${style.bottomleft}`}>
-          <h2>Focus on delivering exceptional value to your customers.</h2>
-          <h2>Build strong relationships with customers and stakeholders.</h2>
+        <Container maxWidth="lg" className="min-vh-100">
+          <Grid container spacing={2}>
+            <Grid item lg={6} xs={12} className="mt-5">
+              <Card className="bg-transparent">
+                <CardContent
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography gutterBottom variant="h5" component="div">
+                    <StarsIcon sx={{ fontSize: "4rem", color: "#076045" }} />
+                  </Typography>
+                  <h5
+                    gutterBottom
+                    variant="h5"
+                    component="div"
+                    className="text-light"
+                  >
+                    Gets bookings Fast
+                  </h5>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item lg={6} xs={12} className="mt-5">
+              <Card className="bg-transparent">
+                <CardContent
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography gutterBottom variant="h5" component="div">
+                    <StarsIcon sx={{ fontSize: "4rem", color: "#076045" }} />
+                  </Typography>
+                  <h5
+                    gutterBottom
+                    variant="h5"
+                    component="div"
+                    className="text-light"
+                  >
+                    Gets bookings Fast
+                  </h5>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item lg={6} xs={12} className>
+              <Card className="bg-transparent">
+                <CardContent
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography gutterBottom variant="h5" component="div">
+                    <StarsIcon sx={{ fontSize: "4rem", color: "#076045" }} />
+                  </Typography>
+                  <h5
+                    gutterBottom
+                    variant="h5"
+                    component="div"
+                    className="text-light"
+                  >
+                    Gets bookings Fast
+                  </h5>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item lg={6} xs={12} className>
+              <Card className="bg-transparent">
+                <CardContent
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography gutterBottom variant="h5" component="div">
+                    <StarsIcon sx={{ fontSize: "4rem", color: "#076045" }} />
+                  </Typography>
+                  <h5
+                    gutterBottom
+                    variant="h5"
+                    component="div"
+                    className="text-light"
+                  >
+                    Gets bookings Fast
+                  </h5>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+          <div className="text-center text-light mt-5">
+            <h2>Build strong relationships with customers and stakeholders</h2>
+            <h2>Focus on delivering exceptional value to your customers.</h2>
+          </div>
           <Link to={"https://hotelio-dashboard-trickle.netlify.app/register"}>
-            <Button
-              variant="contained"
-              color="error"
-              size="large"
-              fullWidth
-              className="mt-3" 
-            >
-              Join Us
-            </Button>
+            <div className="mt-5">
+              <Button variant="contained" color="error" size="large" fullWidth>
+                Join Us
+              </Button>
+            </div>
           </Link>
-        </div>
+        </Container>
       </div>
-      {/* <div className="p-3"> 
-        <Button
-          variant="contained"
-          color="error"
-          size="large"
-          fullWidth
-          
-        >
-          Join Us
-        </Button>
-      </div> */}
     </div>
   );
 };

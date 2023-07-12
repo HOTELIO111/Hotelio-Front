@@ -13,7 +13,13 @@
 }
 .bottomleft {
   position: absolute;
-  top: 58%;
+  top: 66%;
   color: whitesmoke;
   padding: 5rem;
+}
+.centeredThisCard {
+  position: absolute;
+  top: 48%;
+  left: 32%;
+  transform: translate(-22%, -50%);
 }
