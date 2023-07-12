@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import style from "./Profile.module.css";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
@@ -18,6 +18,11 @@ import { WaitLoader } from "../../Components/Elements/WaitLoader";
 const Profile = () => {
   // Logged user data
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Loader
+  const [Loader, setLoader] = useState(false);
+
+  // Update the user details
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("customer"))
   );
@@ -32,7 +37,6 @@ const Profile = () => {
   const [profileUpdateOpen, setProfileUpdateOpen] = useState(false);
   const [passwordUpdateOpen, setPasswordUpdateOpen] = useState(false);
   const [validate, setValidate] = useState(false);
-  const [otp, setOtp] = useState("");
 
   // Profile update modal handlers
   const handleProfileUpdateOpen = () => setProfileUpdateOpen(true);
@@ -45,9 +49,8 @@ const Profile = () => {
     setValidate(false);
   };
 
-  const handleChange = (newValue) => {
-    setOtp(newValue);
-  };
+  // otp after sent recieved data
+  const [otpData, setotpData] = useState(null);
 
   // Profile update modal component
   const ProfileUpdateModal = () => {
@@ -196,6 +199,80 @@ const Profile = () => {
 
   // Password update modal component
   const PasswordUpdateModal = () => {
+    const [otp, setOtp] = useState("");
+
+    const handleChange = (newValue) => {
+      setOtp(newValue);
+    };
+
+    // Timer
+    const [seconds, setSeconds] = useState(120);
+
+    useEffect(() => {
+      if (seconds > 0) {
+        const timerId = setTimeout(() => setSeconds(seconds - 1), 1000);
+        return () => clearTimeout(timerId);
+      }
+    }, [seconds]);
+
+    const formatTime = (time) => {
+      const minutes = Math.floor(time / 60);
+      const seconds = time % 60;
+      return `${minutes.toString().padStart(2, "0")}:${seconds
+        .toString()
+        .padStart(2, "0")}`;
+    };
+
+    // new passwords
+    const [updatedPassword, setUpdatedPassword] = useState(null);
+    const [confirmUpdatedPassword, setConfirmUpdatedPassword] = useState(null);
+
+    // Verify Otp and submit to update
+    const HandleChangePassword = async () => {
+      const formdata = {
+        otp: otp,
+        key: otpData.response,
+        password: updatedPassword,
+      };
+      // put the req to change the password
+      try {
+        setLoader(true);
+        const isChanged = await axios.post(
+          API_URL + "/api/update-pass/" + currentUser._id,
+          formdata
+        );
+
+        if (isChanged.status === 200) {
+          setLoader(false);
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Password Changed Successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          sessionStorage.setItem(
+            "customer",
+            JSON.stringify(isChanged.data.data)
+          );
+          setCurrentUser(JSON.parse(sessionStorage.getItem("customer")));
+          handlePasswordUpdateClose();
+        } else {
+          setLoader(false);
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Failed to Change Password",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      } catch (error) {
+        setLoader(false);
+        console.log(error);
+      }
+    };
+
     const styleo = {
       position: "absolute",
       top: "50%",
@@ -227,6 +304,18 @@ const Profile = () => {
         >
           <Fade in={passwordUpdateOpen}>
             <Box component="form" sx={styleo}>
+              <h6 className="d-flex align-items-center justify-content-center gap-3">
+                {formatTime(seconds)}{" "}
+                <Button
+                  style={{ cursor: "pointer", zIndex: "4", userSelect: "none" }}
+                  className="text-error h-100 w-100"
+                  variant="outlined"
+                  disabled={seconds > 10 ? true : false}
+                  color={"primary"}
+                >
+                  Resend otp
+                </Button>
+              </h6>
               <Grid container spacing={2}>
                 <Grid xs={12} className="text-center" item>
                   <Typography id="modal-modal-description" sx={{ mt: 2 }}>
@@ -241,6 +330,8 @@ const Profile = () => {
                     type="password"
                     label="Enter Password"
                     variant="outlined"
+                    value={updatedPassword}
+                    onChange={(e) => setUpdatedPassword(e.target.value)}
                   />
                 </Grid>
                 <Grid xs={12} className="text-center" item>
@@ -248,6 +339,10 @@ const Profile = () => {
                     type="password"
                     label="Confirm Password"
                     variant="outlined"
+                    onChange={(e) => {
+                      setConfirmUpdatedPassword(e.target.value);
+                    }}
+                    value={confirmUpdatedPassword}
                   />
                 </Grid>
                 <Grid xs={6} className="text-center" item>
@@ -261,9 +356,10 @@ const Profile = () => {
                 </Grid>
                 <Grid xs={6} className="text-center" item>
                   <Button
-                    onClick={handlePasswordUpdateClose}
+                    onClick={HandleChangePassword}
                     variant="contained"
                     color="error"
+                    disabled={updatedPassword !== confirmUpdatedPassword}
                   >
                     Save
                   </Button>
@@ -276,9 +372,44 @@ const Profile = () => {
     );
   };
 
+  // sendOtpFunction
+  const sendOtpToNumber = async () => {
+    try {
+      setLoader(true);
+      const isSended = await axios.get(
+        API_URL + "/api/sendopt/" + currentUser.mobileNo
+      );
+      if (isSended.status === 200) {
+        setLoader(false);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Otp Sent Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        handlePasswordUpdateOpen();
+        setotpData(isSended.data);
+      } else {
+        setLoader(false);
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: "Otp Failed To sent Try Again After Sometime",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    } catch (error) {
+      setLoader(false);
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <Grid container className="min-vh-100" spacing={2}>
+        <WaitLoader loading={Loader} />
         <Grid xs={12} className="text-center" item>
           <h3>Welcome to Hotelio! Please Update YourProfile</h3>
           <p>Membership Offer Coming Soon</p>
@@ -325,7 +456,7 @@ const Profile = () => {
                     variant="contained"
                     className={` ${style.connect}`}
                     type="button"
-                    onClick={handlePasswordUpdateOpen}
+                    onClick={() => sendOtpToNumber()}
                   >
                     Update Password
                   </Button>
