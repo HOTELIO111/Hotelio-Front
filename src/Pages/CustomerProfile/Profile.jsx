@@ -10,6 +10,10 @@ import List from "../../Components/YourBookings/List";
 import { Grid, TextField } from "@mui/material";
 import { MuiOtpInput } from "mui-one-time-password-input";
 import { useEffect } from "react";
+import { API_URL } from "../../config";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { WaitLoader } from "../../Components/Elements/WaitLoader";
 
 const Profile = () => {
   // Logged user data
@@ -47,7 +51,15 @@ const Profile = () => {
 
   // Profile update modal component
   const ProfileUpdateModal = () => {
+    // Loader
+    const [Loader, setLoader] = useState(false); // State to track the loading status
+
+    // onchange States
+    const [isEmail, setIsEmail] = useState(currentUser.email); // State to track the email input value
+    const [isName, setIsName] = useState(currentUser.name); // State to track the name input value
+
     const styleo = {
+      // Styling for the modal
       position: "absolute",
       top: "50%",
       left: "50%",
@@ -61,13 +73,58 @@ const Profile = () => {
       p: 4,
     };
 
+    // Function to update user data
+    const UpdateUserData = async () => {
+      let formData = {
+        name: isName,
+        email: isEmail,
+      };
+
+      if (isName !== null && isEmail !== null) {
+        try {
+          setLoader(true); // Show loader
+          // Call the API to update user data
+          const response = await axios.patch(
+            API_URL + "/api/update/" + currentUser._id,
+            formData,
+            { method: "POST" }
+          );
+
+          if (response.status === 200) {
+            setLoader(false); // Hide loader
+            handleProfileUpdateClose(); // Close the profile update modal
+            Swal.fire({
+              title: "Updated Successfully",
+              icon: "success",
+            });
+            sessionStorage.setItem(
+              "customer",
+              JSON.stringify(response.data.data)
+            );
+            setCurrentUser(JSON.parse(sessionStorage.getItem("customer")));
+          }
+        } catch (error) {
+          setLoader(false); // Hide loader
+          Swal.fire({
+            title: "Something Error To Update! Try Again",
+            icon: "error",
+          });
+        }
+      } else {
+        Swal.fire({
+          title: "Invalid Input",
+          icon: "error",
+        });
+      }
+    };
+
     return (
       <div>
         <Modal
           aria-labelledby="transition-modal-title"
           aria-describedby="transition-modal-description"
-          open={profileUpdateOpen}
-          onClose={handleProfileUpdateClose}
+          open={profileUpdateOpen} // Indicates whether the profile update modal is open or not
+          onClose={handleProfileUpdateClose} // Function to handle the close event of the modal
           closeAfterTransition
           slots={{ backdrop: Backdrop }}
           slotProps={{
@@ -78,6 +135,9 @@ const Profile = () => {
         >
           <Fade in={profileUpdateOpen}>
             <Box component="form" sx={styleo}>
+              {/* Loader */}
+              <WaitLoader loading={Loader} />
+
               <Grid container spacing={2}>
                 <Grid xs={12} className="text-center" item>
                   <h3> Edit Your Profile </h3>
@@ -87,7 +147,8 @@ const Profile = () => {
                     type="text"
                     label="Enter Full Name"
                     variant="outlined"
-                    value={currentUser.name}
+                    onChange={(e) => setIsName(e.target.value)} // Update the name state when input value changes
+                    value={isName} // Set the input value to the name state
                   />
                 </Grid>
                 <Grid xs={12} className="text-center" item>
@@ -95,7 +156,7 @@ const Profile = () => {
                     type="number"
                     label="Enter Mobile No."
                     variant="outlined"
-                    value={currentUser.mobileNo}
+                    value={currentUser.mobileNo} // Display the current user's mobile number
                   />
                 </Grid>
                 <Grid xs={12} className="text-center" item>
@@ -103,7 +164,8 @@ const Profile = () => {
                     type="email"
                     label="Enter Email Id"
                     variant="outlined"
-                    value={currentUser.email}
+                    onChange={(e) => setIsEmail(e.target.value)} // Update the email state when input value changes
+                    value={isEmail} // Set the input value to the email state
                   />
                 </Grid>
                 <Grid xs={6} className="text-center" item>
@@ -116,7 +178,11 @@ const Profile = () => {
                   </Button>
                 </Grid>
                 <Grid xs={6} className="text-center" item>
-                  <Button variant="contained" color="error">
+                  <Button
+                    variant="contained"
+                    onClick={UpdateUserData}
+                    color="error"
+                  >
                     Save
                   </Button>
                 </Grid>
@@ -161,83 +227,48 @@ const Profile = () => {
         >
           <Fade in={passwordUpdateOpen}>
             <Box component="form" sx={styleo}>
-              {validate ? (
-                // Render the OTP input and password fields when validate is true
-                <Grid container spacing={2}>
-                  <Grid xs={12} className="text-center" item>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                      Enter OTP
-                    </Typography>
-                  </Grid>
-                  <Grid xs={12} className="text-center" item>
-                    <MuiOtpInput value={otp} onChange={handleChange} />
-                  </Grid>
-                  <Grid xs={12} className="text-center" item>
-                    <TextField
-                      type="password"
-                      label="Enter Password"
-                      variant="outlined"
-                    />
-                  </Grid>
-                  <Grid xs={12} className="text-center" item>
-                    <TextField
-                      type="password"
-                      label="Confirm Password"
-                      variant="outlined"
-                    />
-                  </Grid>
-                  <Grid xs={6} className="text-center" item>
-                    <Button
-                      onClick={() => setValidate(false)}
-                      variant="outlined"
-                      color="error"
-                    >
-                      Cancel
-                    </Button>
-                  </Grid>
-                  <Grid xs={6} className="text-center" item>
-                    <Button
-                      onClick={handlePasswordUpdateClose}
-                      variant="contained"
-                      color="error"
-                    >
-                      Save
-                    </Button>
-                  </Grid>
+              <Grid container spacing={2}>
+                <Grid xs={12} className="text-center" item>
+                  <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                    we sent you a otp on you number {currentUser.mobileNo}
+                  </Typography>
                 </Grid>
-              ) : (
-                // Render the mobile number input and validate button when validate is false
-                <Grid container spacing={2}>
-                  <Grid xs={12} className="text-center" item>
-                    <h3> Update Your Password </h3>
-                  </Grid>
-                  <Grid xs={12} className="text-center" item>
-                    <TextField
-                      type="number"
-                      label="Enter Mobile No."
-                      variant="outlined"
-                    />
-                  </Grid>
-                  <Grid xs={6} className="text-center" item>
-                    <Button
-                      onClick={handlePasswordUpdateClose}
-                      variant="outlined"
-                      color="error"
-                    >
-                      Cancel
-                    </Button>
-                  </Grid>
-                  <Grid xs={6} className="text-center" item>
-                    <Button
-                      onClick={() => setValidate(true)}
-                      variant="contained"
-                      color="error"
-                    >
-                      Validate
-                    </Button>
-                  </Grid>
+                <Grid xs={12} className="text-center" item>
+                  <MuiOtpInput value={otp} onChange={handleChange} />
                 </Grid>
-              )}
+                <Grid xs={12} className="text-center" item>
+                  <TextField
+                    type="password"
+                    label="Enter Password"
+                    variant="outlined"
+                  />
+                </Grid>
+                <Grid xs={12} className="text-center" item>
+                  <TextField
+                    type="password"
+                    label="Confirm Password"
+                    variant="outlined"
+                  />
+                </Grid>
+                <Grid xs={6} className="text-center" item>
+                  <Button
+                    onClick={() => setValidate(false)}
+                    variant="outlined"
+                    color="error"
+                  >
+                    Cancel
+                  </Button>
+                </Grid>
+                <Grid xs={6} className="text-center" item>
+                  <Button
+                    onClick={handlePasswordUpdateClose}
+                    variant="contained"
+                    color="error"
+                  >
+                    Save
+                  </Button>
+                </Grid>
+              </Grid>
             </Box>
           </Fade>
         </Modal>
