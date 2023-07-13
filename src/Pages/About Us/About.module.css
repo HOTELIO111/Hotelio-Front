@@ -20,9 +20,12 @@
 .about_pic img {
   min-width: 100%;
 }
+.aboutus_page_sectionOne {
+  padding-top: 0;
+  background: url('https://img.freepik.com/free-photo/watercolor-violet-shades-background_23-2148226982.jpg?w=1060&t=st=1689246213~exp=1689246813~hmac=f7112f51c912ae8ce8fb3e76a11e7c67a04f3ef4fd9da76a9da3ca4d4fa203b8');
+}
 .aboutus_page_section {
   padding-top: 0;
-  /* padding-bottom: 70px; */
 }
 .about_page_text {
   margin-bottom: 65px;

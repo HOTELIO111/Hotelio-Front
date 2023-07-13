@@ -1,12 +1,9 @@
 .WhyChooseUsContainer {
-  /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
   border-radius: 15px;
   overflow: hidden;
   width: 100%;
   background: none;
 }
-
-
 
 .CardContentWrapper {
   height: 100%;
@@ -16,24 +13,14 @@
   overflow: hidden;
 }
 
-.card {
-  height: 70%;
-}
 
-.textSize {
-  font-size: 1.2vw;
-}
-
-
-@media (max-width:786px) {
-
+@media (max-width: 786px) {
   .card {
-    height: 90%;
+    height: 100%;
   }
 
   .textSize {
-    font-size: 1.3vh;
+    font-size: 3.5vw;
     line-height: 20px;
   }
-
 }

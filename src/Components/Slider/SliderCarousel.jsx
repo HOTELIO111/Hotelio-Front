@@ -47,6 +47,7 @@ const SliderCarousel = () => {
             paddingRight={50}
             responsive={responsive}
             disableButtonsControls // Disable the left and right navigation icons
+            
         />
     );
 };

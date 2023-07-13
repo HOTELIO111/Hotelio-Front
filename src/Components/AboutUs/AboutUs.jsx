@@ -2,6 +2,7 @@ import React from 'react'
 import style from './AboutUs.module.css'
 import AboutUsImage from '../../images/AboutUs.png'
 import AboutUsBanner from '../../images/AboutUsBanner.png'
+import { NavLink } from 'react-router-dom'
 
 const AboutUs = () => {
     return (
@@ -23,12 +24,13 @@ const AboutUs = () => {
                                 fingertips. Explore our vast network of
                                 premium hotels, budget-friendly options,
                                 and authentic homestays.
+                                <span><NavLink to='/about'> Read more...</NavLink></span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className={`p-5 ${style.AboutUsContainerSecond}`}>
+            {/* <div className={`p-5 ${style.AboutUsContainerSecond}`}>
                 <div className="row">
                     <div className='col-xl-8' style={{ display: 'grid', placeItems: 'center' }}>
                         <div>
@@ -42,7 +44,7 @@ const AboutUs = () => {
                         <img className='img-fluid' src={AboutUsBanner} />
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }

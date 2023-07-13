@@ -1,0 +1,26 @@
+.TestimonialSliderStyle {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background: radial-gradient(circle, rgba(220, 140, 54, 0.555) 0%, rgba(255, 255, 255, 0.6924019607843137) 100%);
+    border-radius: 5px;
+    overflow: hidden;
+    clip-path: polygon(100% 0, 0 10%, 0 85%, 100% 100%);
+    /* transform-style: preserve-3d; */
+    padding: 2rem 1rem 0rem 2rem;
+    min-height: 300px;
+    color: black;
+}
+
+@media (max-width:786px) {
+
+    .TestimonialSliderStyle {
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        background: radial-gradient(circle, rgba(220, 140, 54, 0.555) 0%, rgba(255, 255, 255, 0.6924019607843137) 100%);
+        border-radius: 5px;
+        overflow: hidden;
+        clip-path: revert;
+        padding: 2rem 1rem 0rem 2rem;
+        min-height: 500px;
+        color: black;
+    }
+
+}

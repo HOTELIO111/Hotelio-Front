@@ -12,6 +12,7 @@ import Hotel4 from "../../images/hotelPic4.jpg";
 import Hotel12 from "../../images/hotelPic12.jpg";
 import Hotel25 from "../../images/hotelPic25.jpg";
 import Hotel6 from "../../images/hotelPic7.jpg";
+import AboutUsBanner from '../../images/AboutUsBanner.jpg'
 import LabelImportantRoundedIcon from "@mui/icons-material/LabelImportantRounded";
 
 const About = () => {
@@ -19,6 +20,7 @@ const About = () => {
     <>
       <Navbar />
       <div className="conatiner-fluid">
+
         <section className={`${style.aboutus_page_section} mt-5`}>
           <div className="container">
             <div className={style.about_page_text}>
@@ -293,6 +295,80 @@ const About = () => {
             </div>
           </div>
         </section>
+
+        <section >
+          <div className="container-fluid">
+            <div className="row" style={{ background: 'url(https://img.freepik.com/free-photo/woman-talking-with-hotel-receptionist-lobby_23-2149304051.jpg?w=900&t=st=1689250295~exp=1689250895~hmac=11307d5481c4db04b0d8d6ae392bcccc234f9ff37feb4c0aafac4746af640ff3)' }}>
+              <div className="col-xl-8"
+                style={{
+                  display: 'grid', placeItems: 'center', clipPath: 'circle(133% at 0 51%)', background: "whitesmoke"
+                }}
+              >
+                <h1><b>Our Vision</b></h1>
+                <ul>
+                  <li>
+                    <b>Extensive Quality Assurance</b>: <p>Hotelio ensures standardized
+                      quality across accommodations by implementing a
+                      stringent quality assurance program, verifying and rating
+                      properties based on a set of predefined criteria to ensure
+                      consistent and satisfactory experiences for travelers.</p>
+                  </li>
+                  <li>
+                    <b>Transparent Pricing</b>: <p>Hotelio provides transparent pricing
+                      information, displaying comprehensive details of rates, fees,
+                      and any additional charges upfront. This allows travelers to
+                      make informed decisions and find the best deals,
+                      promoting fairness and transparency in the booking
+                      process.</p>
+                  </li>
+                  <li>
+                    <b>Increased Availability and Options</b>: <p>Hotelio actively expands
+                      its network of accommodations, forging partnerships with a
+                      diverse range of properties to ensure availability and
+                      options even during peak seasons. By offering a wide
+                      selection of stays, travelers can find suitable
+                      accommodations that meet their preferences and needs</p>
+                  </li>
+                </ul>
+              </div>
+              <div className="col-xl-4">
+                {/* <img className="w-100 rounded" style={{ height: '500px' }} src="https://i.pinimg.com/736x/a7/96/98/a79698e6e8d74213650194e941b155df.jpg" alt="" /> */}
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <section className={`${style.aboutus_page_sectionOne} pt-4`}>
+          <div className="container">
+            <div className="row">
+              <div className="col-xl-8" style={{ display: 'grid', placeItems: 'center' }}>
+                <h1><b>Our Founder</b></h1>
+                <p className="text-white">
+                  Aditya Jaiswal, the founder of Hotelio, is a visionary
+                  entrepreneur with a strong background in the real estate
+                  and hospitality sectors. With over 12 years of vast
+                  experience in these industries, he brings valuable insights
+                  and expertise to the table. Aditya has successfully managed
+                  numerous real estate projects, gaining comprehensive
+                  knowledge of property development and operations. His
+                  deep understanding of the hospitality sector, coupled with
+                  his passion for providing exceptional customer experiences,
+                  has driven him to establish Hotelio as a leading online
+                  booking platform. Aditya's strategic vision and leadership
+                  have played a pivotal role in shaping Hotelio's growth and
+                  establishing it as India's trusted and fastest growing hotel
+                  chain network.
+                </p>
+              </div>
+              <div className="col-xl-4">
+                <img className="w-100 rounded" style={{ height: '500px' }} src="https://i.pinimg.com/736x/a7/96/98/a79698e6e8d74213650194e941b155df.jpg" alt="" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+
       </div>
       <Footer />
     </>

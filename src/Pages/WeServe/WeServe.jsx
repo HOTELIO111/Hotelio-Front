@@ -30,20 +30,44 @@ const WeServe = () => {
             <div className="row">
               <div className="col-xl-4 col-sm-12">
                 <div className="px-3">
-                  <h2>80</h2>
+                  <b><h2>80</h2></b>
                   <p>Cities</p>
                 </div>
               </div>
               <div className="col-xl-4 col-sm-12">
                 <div className="px-3">
-                  <h2>45000+</h2>
+                  <b><h2>45000+</h2></b>
                   <p>Hotels</p>
                 </div>
               </div>
               <div className="col-xl-4 col-sm-12">
                 <div className="px-3">
-                  <h2>150,000</h2>
+                  <b><h2>150,000</h2></b>
                   <p>Vacation Homes</p>
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-xl-6 col-sm-12">
+                <div className="p-3">
+                  <h4>Mumbai</h4>
+                </div>
+              </div>
+              <div className="col-xl-6 col-sm-12">
+                <div className="p-3">
+                  <h4>Delhi</h4>
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-xl-6 col-sm-12">
+                <div className="p-3">
+                  <h4>Lucknow</h4>
+                </div>
+              </div>
+              <div className="col-xl-6 col-sm-12">
+                <div className="p-3">
+                  <h4>Chennai</h4>
                 </div>
               </div>
             </div>

@@ -716,12 +716,11 @@ const Navbar = ({ list }) => {
               <div className="row">
                 <div className="col-lg-12">
                   <div className={`${style.top_text} ${style.header_text}`}>
-                    <h3 className={` text-white ${style.text_shadow}`}>
+                    <h2 className={` text-white ${style.text_shadow}`}>
                       Welcome To Hotelio Rooms
-                    </h3>
+                    </h2>
                     <h4 className={`py-3 text-white ${style.text_shadow}`}>
-                      Unlock the world of seamless travel
-                      experiences with Hotelio, where comfort meets
+                      Where comfort meets
                       convenience and your journey begins with a
                       click
                     </h4>

@@ -16,6 +16,7 @@ import Offer from "../../Components/Offer/Offer";
 import WhyChooseUs from "../../Components/WhyChooseUs/WhyChooseUs";
 import AboutUs from "../../Components/AboutUs/AboutUs";
 import NewOffer from "../../Components/NewOffer/NewOffer";
+import Testimonial from "../../Components/Testimonial/Testimonial";
 
 const Home = (props) => {
   const api = process.env.REACT_APP_BACKEND_URL_LOCAL;
@@ -81,10 +82,24 @@ const Home = (props) => {
       
       <WeServe />
 
+
+
       <div className={`${style.homeContainer} container text-center`}>
         
 
         <AboutUs />
+        <h1
+          className={`${style.homeTitle}  fw-bold pb-4 ${isXtraSmallScreen ? "fs-4" : "fs-3"
+            }`}
+        >
+          Our Testimonial
+        </h1>
+      </div>
+
+      <Testimonial/>
+
+      <div className={`${style.homeContainer} container text-center`}>
+        
 
         <h1
           className={`${style.homeTitle}  fw-bold pb-4 ${isXtraSmallScreen ? "fs-4" : "fs-3"
@@ -93,6 +108,7 @@ const Home = (props) => {
           Explore Premium Partner's Properties With Hotelio
         </h1>
       </div>
+
       <SliderCarousel />
       <Footer />
     </div>
