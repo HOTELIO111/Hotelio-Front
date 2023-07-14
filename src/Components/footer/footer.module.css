@@ -1,6 +1,12 @@
 .footer {
   font-size: 12px;
-  margin-top: 20px;
+}
+
+.footerBanner {
+  background: linear-gradient(37deg, rgba(221, 97, 97, 0.9375) 0%, rgba(170, 42, 42, 0.6924019607843137) 100%), url(../../images/FooterMainBanner.jpg);
+  background-size: contain;
+  background-position: center;
+  background-repeat: repeat;
 }
 
 .fLists {
@@ -33,7 +39,7 @@
   /* color: black; */
   color: #c32aa3;
   border-radius: 50%;
-  padding: 5px;
+  padding: 10px;
 }
 
 .tweeter {
@@ -42,7 +48,7 @@
   /* color: black; */
   color: #1da1f2;
   border-radius: 50%;
-  padding: 5px;
+  padding: 10px;
 }
 
 .facebook {
@@ -51,7 +57,7 @@
   /* color: black; */
   color: #1877f2;
   border-radius: 50%;
-  padding: 5px;
+  padding: 10px;
 }
 
 .linkedin {
@@ -60,7 +66,7 @@
   /* color: black; */
   color: #0077b5;
   border-radius: 50%;
-  padding: 5px;
+  padding: 10px;
 }
 
 .custom {
@@ -91,11 +97,37 @@
   cursor: pointer;
 }
 
+.acceptPaymentStyle {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
 
-/* @media screen and (max-width: 768px) {
-  .fLists {
-    flex-direction: column;
+.acceptPaymentStyle>img {
+  aspect-ratio: 3/1;
+  object-fit: contain;
+  padding: 0.5rem;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.536);
+}
+
+@media screen and (max-width: 768px) {
+  .insta {
+    padding: 5px;
   }
+  
+  .tweeter {
+    padding: 5px;
+  }
+  
+  .facebook {
+    padding: 5px;
+  }
+  
+  .linkedin {
+    padding: 5px;
+  }  
 
 
-} */
+}

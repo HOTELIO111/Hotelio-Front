@@ -425,7 +425,7 @@ const Navbar = ({ list }) => {
                   <img alt="logo" src={HotelioLogo} width={150} />
                 </Link>
                 <ul className={style.nav}>
-                  <li style={{ listStyle: 'none'}}>
+                  <li style={{ listStyle: 'none' }}>
                     <NavLink
                       to="/hoteliomember"
                       className={`${!list ? "text-dark" : ""}`}
@@ -443,7 +443,7 @@ const Navbar = ({ list }) => {
                       />
                     </NavLink>
                   </li>
-                  <li style={{ listStyle: 'none'}}>
+                  <li style={{ listStyle: 'none' }}>
                     <NavLink
                       // to="/parking"
                       to="/"
@@ -462,7 +462,10 @@ const Navbar = ({ list }) => {
                       />
                     </NavLink>
                   </li>
-                  <li style={{ listStyle: 'none'}}>
+                  <li style={{ listStyle: 'none' }}>
+                    <NavLink to="/contact">+91 (811)55 10050</NavLink>
+                  </li>
+                  <li style={{ listStyle: 'none' }}>
                     <NavLink
                       // to="/HotelAndParking"
                       to="/"
@@ -558,7 +561,7 @@ const Navbar = ({ list }) => {
                       >
                         Contact us
                       </NavLink>
-                      <li style={{ listStyle: 'none'}}>
+                      <li style={{ listStyle: 'none' }}>
                         <Button
                           id="demo-positioned-button"
                           aria-controls={
@@ -570,7 +573,7 @@ const Navbar = ({ list }) => {
                           endIcon={<KeyboardArrowDownIcon />}
                           sx={{ color: "black", fontWeight: 700, my: 1, pt: 0 }}
                         >
-                          <KeyIcon /> Sign In / Sign Up
+                          <KeyIcon /> Log In / Sign Up
                         </Button>
                         <Menu
                           id="demo-positioned-menu"
@@ -588,10 +591,10 @@ const Navbar = ({ list }) => {
                           }}
                         >
                           <MenuItem onClick={() => navigate("/signin")}>
-                            Login as Customer
+                            Customer Login
                           </MenuItem>
                           <MenuItem onClick={() => navigate("/signup")}>
-                            Signup as Customer
+                            Customer Signup
                           </MenuItem>
                           <MenuItem>
                             <Link
@@ -599,7 +602,7 @@ const Navbar = ({ list }) => {
                                 "https://hotelio-dashboard-trickle.netlify.app/"
                               }
                             >
-                              Login as Vendor
+                              Partner Login
                             </Link>
                           </MenuItem>
                           <MenuItem>
@@ -608,7 +611,7 @@ const Navbar = ({ list }) => {
                                 "https://hotelio-dashboard-trickle.netlify.app/register"
                               }
                             >
-                              Signup as Vendor
+                              Partner Signup
                             </Link>
                           </MenuItem>
                         </Menu>
@@ -617,7 +620,7 @@ const Navbar = ({ list }) => {
                   ) : (
                     <>
                       {/* after login show this component */}{" "}
-                      <li style={{ listStyle: 'none'}}>
+                      <li style={{ listStyle: 'none' }}>
                         <Button
                           id="demo-customized-button"
                           sx={{ color: "black" }}
@@ -662,7 +665,7 @@ const Navbar = ({ list }) => {
                             onClick={handleClose}
                             disableRipple
                           >
-                            <NavLink to="/contact">Emergency Number</NavLink>
+                            <NavLink to="/contact">+91 (811)55 10050</NavLink>
                           </MenuItem>
                           <MenuItem
                             sx={{ paddingY: 0 }}
@@ -683,7 +686,7 @@ const Navbar = ({ list }) => {
                     </>
                   )}
 
-                  <li style={{ listStyle: 'none'}}>
+                  <li style={{ listStyle: 'none' }}>
                     <span className={style.main_white_button}></span>
                   </li>
                 </ul>

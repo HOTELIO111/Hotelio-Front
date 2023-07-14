@@ -12,7 +12,10 @@ import Hotel4 from "../../images/hotelPic4.jpg";
 import Hotel12 from "../../images/hotelPic12.jpg";
 import Hotel25 from "../../images/hotelPic25.jpg";
 import Hotel6 from "../../images/hotelPic7.jpg";
-import AboutUsBanner from '../../images/AboutUsBanner.jpg'
+import DecorImage from '../../images/DecorImage.png'
+import DecorImageS from '../../images/DecoreImageS.jpg'
+import AboutUsTopBanner from '../../images/AboutUsTopBanner.jpg'
+import Client from '../../images/Client.jpg'
 import LabelImportantRoundedIcon from "@mui/icons-material/LabelImportantRounded";
 
 const About = () => {
@@ -20,8 +23,18 @@ const About = () => {
     <>
       <Navbar />
       <div className="conatiner-fluid">
+        <section style={{ background: `linear-gradient(37deg, rgba(255,255,255,0.8016456582633054) 0%, rgba(255,255,255,0.38147759103641454) 100%), url(${AboutUsTopBanner})`, backgroundSize: 'cover', backgroundPosition: 'bottom', backgroundAttachment: 'fixed' }}>
+          <div className="row">
+            <div style={{ display: 'grid', placeItems: 'center' }} className="col-12 p-5">
+              <div className="border rounded p-2 text-center text-danger">
+                <h1>About Us</h1>
+                <h4>Home 	&#62; About Us</h4>
+              </div>
+            </div>
+          </div>
+        </section>
 
-        <section className={`${style.aboutus_page_section} mt-5`}>
+        <section style={{ background: `url(${DecorImageS})`, backgroundSize: 'cover' }} className={`${style.aboutus_page_section} pt-4 `}>
           <div className="container">
             <div className={style.about_page_text}>
               <div className="row d-flex flex-row justify-content-between">
@@ -120,7 +133,7 @@ const About = () => {
           </div>
         </section>
 
-        <section className={style.hp_room_section}>
+        <section style={{ background: `url(${DecorImageS})`, backgroundSize: 'contain' }} className={style.hp_room_section}>
           <div className="container">
             <div className="row">
               <div className="col-lg-12">
@@ -236,7 +249,7 @@ const About = () => {
           </div>
         </section>
 
-        <section className={`${style.gallery_section}`}>
+        <section style={{ background: `url(${DecorImageS})`, backgroundSize: 'cover' }} className={`${style.gallery_section}`}>
           <div className="container">
             <div className="row">
               <div className="col-lg-12">
@@ -296,12 +309,41 @@ const About = () => {
           </div>
         </section>
 
-        <section >
+        <section className={`${style.aboutus_page_sectionOne} pt-4`}>
+          <div className="container">
+            <div className="row">
+              <div className="col-xl-5">
+                <img className="rounded-circle img-fluid" style={{ height: '500px' }}  src={Client} alt="" />
+              </div>
+              <div className="col-xl-7" style={{ display: 'grid', placeItems: 'center' }}>
+                <h1><b>Our Founder</b></h1>
+                <h5 className="text-white pb-5">
+                  Aditya Jaiswal, the founder of Hotelio, is a visionary
+                  entrepreneur with a strong background in the real estate
+                  and hospitality sectors. With over 12 years of vast
+                  experience in these industries, he brings valuable insights
+                  and expertise to the table. Aditya has successfully managed
+                  numerous real estate projects, gaining comprehensive
+                  knowledge of property development and operations. His
+                  deep understanding of the hospitality sector, coupled with
+                  his passion for providing exceptional customer experiences,
+                  has driven him to establish Hotelio as a leading online
+                  booking platform. Aditya's strategic vision and leadership
+                  have played a pivotal role in shaping Hotelio's growth and
+                  establishing it as India's trusted and fastest growing hotel
+                  chain network.
+                </h5>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="p-0" >
           <div className="container-fluid">
             <div className="row" style={{ background: 'url(https://img.freepik.com/free-photo/woman-talking-with-hotel-receptionist-lobby_23-2149304051.jpg?w=900&t=st=1689250295~exp=1689250895~hmac=11307d5481c4db04b0d8d6ae392bcccc234f9ff37feb4c0aafac4746af640ff3)' }}>
-              <div className="col-xl-8"
+              <div className="col-xl-8 p-2 "
                 style={{
-                  display: 'grid', placeItems: 'center', clipPath: 'circle(133% at 0 51%)', background: "whitesmoke"
+                  display: 'grid', placeItems: 'center', clipPath: 'circle(133% at 0 51%)', background: `linear-gradient(37deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.4290966386554622) 100%),url(${DecorImage})`
                 }}
               >
                 <h1><b>Our Vision</b></h1>
@@ -338,36 +380,6 @@ const About = () => {
           </div>
 
         </section>
-
-        <section className={`${style.aboutus_page_sectionOne} pt-4`}>
-          <div className="container">
-            <div className="row">
-              <div className="col-xl-8" style={{ display: 'grid', placeItems: 'center' }}>
-                <h1><b>Our Founder</b></h1>
-                <p className="text-white">
-                  Aditya Jaiswal, the founder of Hotelio, is a visionary
-                  entrepreneur with a strong background in the real estate
-                  and hospitality sectors. With over 12 years of vast
-                  experience in these industries, he brings valuable insights
-                  and expertise to the table. Aditya has successfully managed
-                  numerous real estate projects, gaining comprehensive
-                  knowledge of property development and operations. His
-                  deep understanding of the hospitality sector, coupled with
-                  his passion for providing exceptional customer experiences,
-                  has driven him to establish Hotelio as a leading online
-                  booking platform. Aditya's strategic vision and leadership
-                  have played a pivotal role in shaping Hotelio's growth and
-                  establishing it as India's trusted and fastest growing hotel
-                  chain network.
-                </p>
-              </div>
-              <div className="col-xl-4">
-                <img className="w-100 rounded" style={{ height: '500px' }} src="https://i.pinimg.com/736x/a7/96/98/a79698e6e8d74213650194e941b155df.jpg" alt="" />
-              </div>
-            </div>
-          </div>
-        </section>
-
 
       </div>
       <Footer />
