@@ -25,7 +25,7 @@
   }
 }
 
-@media (max-width: 786px) {
+@media (min-width: 786px) and (max-width: 1024px) {
   .card {
     height: 100%;
   }
