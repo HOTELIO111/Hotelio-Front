@@ -14,6 +14,17 @@
 }
 
 
+@media (max-width: 1200px) {
+  .card {
+    height: 100%;
+  }
+
+  .textSize {
+    font-size: 1vw;
+    line-height: 20px;
+  }
+}
+
 @media (max-width: 786px) {
   .card {
     height: 100%;

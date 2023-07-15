@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     textSize: {
         fontSize: '0.9vw',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '3.5vw',
+            fontSize: '2.9vw',
         },
     },
 }));
@@ -79,9 +79,7 @@ const WhyChooseUs = () => {
                         <span style={{ color: '#ff5419' }}>Sanitization</span>
                     </h5>
                     <p className={`card-text ${classes.textSize}`}>
-                        Our hotel takes cleaning and sanitization seriously, placing the safety and well-being of our
-                        guests as a top priority. Our dedicated housekeeping team adheres to rigorous cleaning protocols
-                        to ensure a pristine and hygienic environment throughout the hotel.
+                        Sanitization is essential for maintaining cleanliness and hygiene. It involves rigorous cleaning protocols to ensure a pristine environment. It prioritizes the safety and well-being of guests by eliminating germs and maintaining a hygienic atmosphere.
                     </p>
                 </div>
             </div>
