@@ -35,6 +35,8 @@ import { API_URL } from "../../config";
 import axios from "axios";
 import { ScaleLoader } from "react-spinners";
 import { WaitLoader } from "../../Components/Elements/WaitLoader";
+import { MuiOtpInput } from 'mui-one-time-password-input'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 function Copyright(props) {
   return (
@@ -51,6 +53,21 @@ function Copyright(props) {
 }
 
 const theme = createTheme();
+
+const OtpVerfication = () => {
+  const [otp, setOtp] = React.useState('')
+
+  const handleChange = (newValue) => {
+    setOtp(newValue)
+  }
+  return (
+    <div className="text-center">
+      <h4 className="py-4">Enter OTP</h4>
+      <MuiOtpInput value={otp} onChange={handleChange} />
+    </div>
+
+  )
+}
 
 export default function SignUp() {
   const [alertmessage, setAlertMessage] = useState("");
@@ -75,6 +92,7 @@ export default function SignUp() {
   const [mobileNumber, setMobileNumber] = useState(""); // New state variable
   const [alertOn, setAlertOn] = useState(false);
   const [open, setOpen] = useState(true);
+  const [hideOtp, setShowOtp] = useState(false)
 
   // loader state
   const [Loader, setLoader] = useState(false);
@@ -178,6 +196,7 @@ export default function SignUp() {
 
   return (
     <>
+      {/* Display alert message */}
       {alertOn && (
         <Collapse in={open}>
           <Stack sx={{ width: "100%" }} spacing={1}>
@@ -234,134 +253,163 @@ export default function SignUp() {
                 onSubmit={handleSubmit}
                 sx={{ mt: 3 }}
               >
-                <Grid container spacing={2}>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      autoComplete="given-name"
-                      name="firstName"
-                      required
-                      fullWidth
-                      id="firstName"
-                      onChange={handleChange}
-                      value={values.firstName}
-                      label="First Name"
-                      autoFocus
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      required
-                      fullWidth
-                      id="lastName"
-                      onChange={handleChange}
-                      value={values.lastName}
-                      label="Last Name"
-                      name="lastName"
-                      autoComplete="family-name"
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      required
-                      fullWidth
-                      id="email"
-                      label="Email Address"
-                      name="email"
-                      onChange={handleChange}
-                      value={values.email}
-                      autoComplete="email"
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      required
-                      fullWidth
-                      id="mobileNo"
-                      label="Mobile Number"
-                      name="mobileNo"
-                      value={values.mobileNo}
-                      onChange={handleChange}
-                      autoComplete="tel"
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <FormControl sx={{ width: "100%" }} variant="outlined">
-                      <InputLabel htmlFor="outlined-adornment-password">
-                        Password
-                      </InputLabel>
-                      <OutlinedInput
-                        id="outlined-adornment-password"
-                        type={showPassword ? "text" : "password"}
-                        name="password"
-                        label="Password"
+                {hideOtp ?
+                  /* Display OTP verification component */
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <OtpVerfication />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Button
+                        fullWidth
+                        variant="outlined"
+                        onClick={() => setShowOtp(false)}
+                        sx={{ mt: 3, mb: 2 }}
+                      >
+                        <ArrowBackIcon /> Back
+                      </Button>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                      >
+                        Sign Up
+                      </Button>
+                    </Grid>
+                    <Grid item xs={12} display={"flex"} justifyContent={"flex-end"}>
+                      <Link to="/signin">Already have an account? Sign in</Link>
+                    </Grid>
+                  </Grid> : /* Display regular sign up form */
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        autoComplete="given-name"
+                        name="firstName"
+                        required
+                        fullWidth
+                        id="firstName"
                         onChange={handleChange}
-                        value={values.password}
-                        // value={password}
-                        endAdornment={
-                          <InputAdornment position="end">
-                            <IconButton
-                              aria-label="toggle password visibility"
-                              onClick={handleClickShowPassword}
-                              // onMouseDown={handleMouseDownPassword}
-                              edge="end"
-                            >
-                              {showPassword ? (
-                                <VisibilityOff />
-                              ) : (
-                                <Visibility />
-                              )}
-                            </IconButton>
-                          </InputAdornment>
-                        }
+                        value={values.firstName}
+                        label="First Name"
+                        autoFocus
                       />
-                    </FormControl>
-                    <FormControl
-                      sx={{ mt: 2, width: "100%" }}
-                      variant="outlined"
-                    >
-                      <InputLabel htmlFor="outlined-adornment-password">
-                        Confirm Password
-                      </InputLabel>
-                      <OutlinedInput
-                        id="outlined-adornment-password"
-                        type={showConfirmPassword ? "text" : "password"}
-                        name="cpassword"
-                        label="Confirm Password"
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        required
+                        fullWidth
+                        id="lastName"
                         onChange={handleChange}
-                        value={values.cpassword}
-                        endAdornment={
-                          <InputAdornment position="end">
-                            <IconButton
-                              aria-label="toggle password visibility"
-                              onClick={handleClickShowConfirmPassword}
-                              // onMouseDown={handleMouseDownPassword}
-                              edge="end"
-                            >
-                              {showConfirmPassword ? (
-                                <VisibilityOff />
-                              ) : (
-                                <Visibility />
-                              )}
-                            </IconButton>
-                          </InputAdornment>
-                        }
+                        value={values.lastName}
+                        label="Last Name"
+                        name="lastName"
+                        autoComplete="family-name"
                       />
-                    </FormControl>
-                  </Grid>
-                </Grid>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  Sign Up
-                </Button>
-                <Grid container justifyContent="flex-end">
-                  <Grid item>
-                    <Link to="/signin">Already have an account? Sign in</Link>
-                  </Grid>
-                </Grid>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        id="email"
+                        label="Email Address"
+                        name="email"
+                        onChange={handleChange}
+                        value={values.email}
+                        autoComplete="email"
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        id="mobileNo"
+                        label="Mobile Number"
+                        name="mobileNo"
+                        value={values.mobileNo}
+                        onChange={handleChange}
+                        autoComplete="tel"
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <FormControl sx={{ width: "100%" }} variant="outlined">
+                        <InputLabel htmlFor="outlined-adornment-password">
+                          Password
+                        </InputLabel>
+                        <OutlinedInput
+                          id="outlined-adornment-password"
+                          type={showPassword ? "text" : "password"}
+                          name="password"
+                          label="Password"
+                          onChange={handleChange}
+                          value={values.password}
+                          endAdornment={
+                            <InputAdornment position="end">
+                              <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={handleClickShowPassword}
+                                edge="end"
+                              >
+                                {showPassword ? (
+                                  <VisibilityOff />
+                                ) : (
+                                  <Visibility />
+                                )}
+                              </IconButton>
+                            </InputAdornment>
+                          }
+                        />
+                      </FormControl>
+                      <FormControl
+                        sx={{ mt: 2, width: "100%" }}
+                        variant="outlined"
+                      >
+                        <InputLabel htmlFor="outlined-adornment-password">
+                          Confirm Password
+                        </InputLabel>
+                        <OutlinedInput
+                          id="outlined-adornment-password"
+                          type={showConfirmPassword ? "text" : "password"}
+                          name="cpassword"
+                          label="Confirm Password"
+                          onChange={handleChange}
+                          value={values.cpassword}
+                          endAdornment={
+                            <InputAdornment position="end">
+                              <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={handleClickShowConfirmPassword}
+                                edge="end"
+                              >
+                                {showConfirmPassword ? (
+                                  <VisibilityOff />
+                                ) : (
+                                  <Visibility />
+                                )}
+                              </IconButton>
+                            </InputAdornment>
+                          }
+                        />
+                      </FormControl>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Button
+                        onClick={() => setShowOtp(true)}
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                      >
+                        Next
+                      </Button>
+                      <Grid container justifyContent="flex-end">
+                        <Grid item>
+                          <Link to="/signin">Already have an account? Sign in</Link>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>}
               </Box>
             )}
           </Formik>

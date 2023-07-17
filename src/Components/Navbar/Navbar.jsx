@@ -48,6 +48,7 @@ import {
 } from "react-icons/bs";
 import KeyIcon from "@mui/icons-material/Key";
 import Swal from "sweetalert2";
+import QuickFilterNav from "../../Pages/QuickFilterNav/QuickFilterNav";
 
 const Navbar = ({ list }) => {
   // Get Logged In User
@@ -436,7 +437,7 @@ const Navbar = ({ list }) => {
                         });
                       }}
                     >
-                      <BsFillBuildingFill /> Become a Member of Hotelio
+                      <BsFillBuildingFill /> Become a Hotelio Partner
                       <hr
                         className={`mt-0 ${style.activeTab} ${activePath === "hotel" ? "d-block" : "d-none"
                           }`}
@@ -920,6 +921,7 @@ const Navbar = ({ list }) => {
                 </div>
               </div>
             </div>
+            <QuickFilterNav   />
           </div>
         </>
       )}

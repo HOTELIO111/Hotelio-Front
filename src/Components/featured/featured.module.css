@@ -1,14 +1,13 @@
 .featuredContainer {
-  /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
-  border-radius: 10px;
+  border-radius: 15px;
   background: radial-gradient(circle, rgba(220, 167, 93, 0.555) 0%, rgba(255, 255, 255, 0.6924019607843137) 100%);
-  /* clip-path: polygon(0 0, 100% 10%, 100% 85%, 0 100%); */
 }
 
 .featuredContainerOne {
   display: grid;
   place-items: center;
-  background: linear-gradient(to right, rgba(255, 107, 77, 0.2), rgba(255, 107, 77, 0.208)), url(https://www.maunakearesort.com/images/hero/full/SHOT01_COUPLE_WALKING_SAND_0500.jpg);
+  /* background: linear-gradient(to right, rgba(255, 107, 77, 0.2), rgba(255, 107, 77, 0.208)), url('https://img.freepik.com/free-photo/beautiful-girl-standing-boat-looking-mountains-ratchaprapha-dam-khao-sok-national-park-surat-thani-province-thailand_335224-849.jpg?w=1060&t=st=1689576446~exp=1689577046~hmac=a29d208e4d311bd4b4e4a5a96cc006f523ddbefd71fd1358e6372e6932a653eb'); */
+  background: url('https://img.freepik.com/free-photo/beautiful-girl-standing-boat-looking-mountains-ratchaprapha-dam-khao-sok-national-park-surat-thani-province-thailand_335224-849.jpg?w=1060&t=st=1689576446~exp=1689577046~hmac=a29d208e4d311bd4b4e4a5a96cc006f523ddbefd71fd1358e6372e6932a653eb');
   background-attachment: fixed;
   height: 45vh;
   width: 90vw;
@@ -25,9 +24,6 @@
   color: #ee2e24;
 }
 
-.featuredContainer:hover {
-  /* transform: scale(1.2); */
-}
 
 @media (max-width:786px) {
 

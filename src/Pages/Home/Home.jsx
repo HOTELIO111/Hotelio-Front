@@ -17,6 +17,7 @@ import WhyChooseUs from "../../Components/WhyChooseUs/WhyChooseUs";
 import AboutUs from "../../Components/AboutUs/AboutUs";
 import NewOffer from "../../Components/NewOffer/NewOffer";
 import Testimonial from "../../Components/Testimonial/Testimonial";
+import QuickFilterNav from "../QuickFilterNav/QuickFilterNav";
 
 const Home = (props) => {
   const api = process.env.REACT_APP_BACKEND_URL_LOCAL;
@@ -46,14 +47,14 @@ const Home = (props) => {
   return (
     <div
       style={{
-        background: ` linear-gradient(0deg, rgba(56,227,229,0.3254551820728291) 0%, rgba(255,255,255,0.499124649859944) 100%), url(${FeaturedBanner})`,
+        background: ` linear-gradient(0deg, rgba(186,221,231,0.8688725490196079) 0%, rgba(255,255,255,0) 100%), url(${FeaturedBanner})`,
         backgroundPosition: 'bottom',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
       }}
     >
       <Navbar list={true} />
-
+      {/* <QuickFilterNav /> */}
       <NewOffer />
       <div className={`${style.homeContainer} container text-center`}>
 
@@ -70,7 +71,7 @@ const Home = (props) => {
 
         <WhyChooseUs />
 
-        <Featured />
+        {/* <Featured /> */}
 
 
       </div>
