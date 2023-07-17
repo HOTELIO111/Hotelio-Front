@@ -46,7 +46,7 @@ const Home = (props) => {
   return (
     <div
       style={{
-        background: `linear-gradient(257deg, rgba(238,46,36,1) 0%, rgba(255,255,255,0.6924019607843137) 100%), url(${FeaturedBanner})`,
+        background: ` linear-gradient(0deg, rgba(56,227,229,0.3254551820728291) 0%, rgba(255,255,255,0.499124649859944) 100%), url(${FeaturedBanner})`,
         backgroundPosition: 'bottom',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
@@ -62,7 +62,7 @@ const Home = (props) => {
         {/* <Offer /> */}
 
         <h1
-          className={`${style.homeTitle}  fw-bold ${isXtraSmallScreen ? "fs-4" : "fs-3"
+          className={`${style.homeTitle} text-dark fw-bold ${isXtraSmallScreen ? "fs-4" : "fs-3"
             }`}
         >
           What will you get if you'll join us
@@ -72,37 +72,37 @@ const Home = (props) => {
 
         <Featured />
 
-        
+
       </div>
 
 
       <Process />
 
 
-      
+
       <WeServe />
 
 
 
       <div className={`${style.homeContainer} container text-center`}>
-        
+
 
         <AboutUs />
         <h1
-          className={`${style.homeTitle}  fw-bold pb-4 ${isXtraSmallScreen ? "fs-4" : "fs-3"
+          className={`${style.homeTitle} text-dark  fw-bold pb-4 ${isXtraSmallScreen ? "fs-4" : "fs-3"
             }`}
         >
           Our Testimonial
         </h1>
       </div>
 
-      <Testimonial/>
+      <Testimonial />
 
-      <div className={`${style.homeContainer} container text-center`}>
-        
+      <div className={` ${style.homeContainer} container text-center`}>
+
 
         <h1
-          className={`${style.homeTitle}  fw-bold pb-4 ${isXtraSmallScreen ? "fs-4" : "fs-3"
+          className={` text-dark ${style.homeTitle}  fw-bold pb-4 ${isXtraSmallScreen ? "fs-4" : "fs-3"
             }`}
         >
           Explore Premium Partner's Properties With Hotelio
