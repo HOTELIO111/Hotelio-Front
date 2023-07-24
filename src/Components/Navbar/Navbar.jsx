@@ -20,6 +20,7 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Avatar from "@mui/material/Avatar";
+import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from "@mui/icons-material/Person";
 import HotelIcon from "@mui/icons-material/Hotel";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
@@ -428,7 +429,7 @@ const Navbar = ({ list }) => {
                 <ul className={style.nav}>
                   <li style={{ listStyle: 'none' }}>
                     <NavLink
-                      to="/hoteliomember"
+                      to="/"
                       className={`${!list ? "text-dark" : ""}`}
                       onClick={() => {
                         dispatch({
@@ -437,9 +438,27 @@ const Navbar = ({ list }) => {
                         });
                       }}
                     >
-                      <BsFillBuildingFill /> Become a Hotelio Partner
+                      <HomeIcon /> Home
                       <hr
                         className={`mt-0 ${style.activeTab} ${activePath === "hotel" ? "d-block" : "d-none"
+                          }`}
+                      />
+                    </NavLink>
+                  </li>
+                  <li style={{ listStyle: 'none' }}>
+                    <NavLink
+                      to="/hoteliomember"
+                      className={`${!list ? "text-dark" : ""}`}
+                      onClick={() => {
+                        dispatch({
+                          type: "activePath",
+                          payload: "hotels",
+                        });
+                      }}
+                    >
+                      <BsFillBuildingFill /> Become a Hotelio Partner
+                      <hr
+                        className={`mt-0 ${style.activeTab} ${activePath === "hotels" ? "d-block" : "d-none"
                           }`}
                       />
                     </NavLink>
@@ -463,9 +482,9 @@ const Navbar = ({ list }) => {
                       />
                     </NavLink>
                   </li>
-                  <li style={{ listStyle: 'none' }}>
+                  {/* <li style={{ listStyle: 'none' }}>
                     <NavLink to="/contact">+91 (811)55 10050</NavLink>
-                  </li>
+                  </li> */}
                   <li style={{ listStyle: 'none' }}>
                     <NavLink
                       // to="/HotelAndParking"
@@ -921,7 +940,7 @@ const Navbar = ({ list }) => {
                 </div>
               </div>
             </div>
-            <QuickFilterNav   />
+            <QuickFilterNav />
           </div>
         </>
       )}
