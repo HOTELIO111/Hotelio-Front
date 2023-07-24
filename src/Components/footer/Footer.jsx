@@ -101,7 +101,7 @@ const Footer = () => {
                   </li>
                   <li className={style.fListItem}>
                     <Link
-                      to="/JoinOurNetwork"
+                      to="/hoteliomember"
                       className="d-flex justify-content-start"
                     >
                       <GroupAddIcon className="me-2" />

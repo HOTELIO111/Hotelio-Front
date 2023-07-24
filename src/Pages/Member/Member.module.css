@@ -1,15 +1,26 @@
+.MemberBackground {
+  background: linear-gradient(0deg, rgba(186, 221, 231, 0.8688725490196079) 0%, rgba(255, 255, 255, 0) 100%), url(../../images/Memberbanner.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 .Cardcolor {
   background: #e2edfe !important;
 }
+
 .CardcolorOne {
   background-color: #c5f5d8 !important;
 }
+
 .CardcolorTwo {
   background-color: #ffded5 !important;
 }
+
 .CardcolorThree {
   background-color: #f5edfc !important;
 }
+
 .CardcolorFour {
   background-color: #faf3d5 !important;
 }

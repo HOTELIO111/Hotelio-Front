@@ -15,7 +15,7 @@ import Member from "../../images/MemberIcon.jpg";
 const CardMember = () => {
   return (
     <Container maxWidth="lg" className="min-vh-100">
-      <h2 className="text-center p-1">So many reasons become a member</h2>
+      <h2 className="text-center p-1">So many reasons become a partner</h2>
       <Grid container spacing={2} mt={0}>
         <Grid item lg={6} xs={12}>
           <Card className={` ${style.Cardcolor}`}>
