@@ -31,7 +31,7 @@ import LocalParkingIcon from "@mui/icons-material/LocalParking";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import { useMediaQuery } from "@mui/material";
+import { FormControl, InputLabel, Select, useMediaQuery } from "@mui/material";
 import Box from "@mui/material/Box";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
@@ -162,18 +162,6 @@ const Navbar = ({ list }) => {
   const isDesktop = useMediaQuery("(max-width: 992px)");
   const isTablet = useMediaQuery("(max-width: 768px)");
 
-  const validRoom = () => {
-    const numOfPerson = options.adult + option.children;
-    const totalSingleRoomCapacity = option.singleRoom;
-    const totalTwinRoomCapacity = option.twinRoom * 2;
-    const totalfamilyRoomCapacity = option.familyRoom * 5;
-    const totalRoomCapacity =
-      totalSingleRoomCapacity + totalTwinRoomCapacity + totalfamilyRoomCapacity;
-    if (numOfPerson > totalRoomCapacity) {
-      return true;
-    }
-    return false;
-  };
 
   // Hidding Alerts After Two Seconds
   if (
@@ -207,12 +195,6 @@ const Navbar = ({ list }) => {
     }, 2000);
   }
 
-  const HandleLogout = async () => {
-    localStorage.clear();
-    dispatch({ type: "SET_LOGGEDIN_USER", payload: {} });
-    dispatch({ type: "LOGIN", payload: false });
-    navigate("/");
-  };
 
   useEffect(() => {
     if (path === "/" || path === "/listHotel" || path === "/singleHotel") {
@@ -319,6 +301,14 @@ const Navbar = ({ list }) => {
   }, [option]);
 
   const [color, setColor] = useState("#fff");
+  // Initial state for the selected language
+  const [selectedLanguage, setSelectedLanguage] = useState('');
+
+  // Event handler for language change
+  const handleChange = (event) => {
+    setSelectedLanguage(event.target.value);
+    // You can add additional code here to handle language change in your application.
+  };
 
   // useEffect(() => {
   //   $(window).scroll(() => {
@@ -447,26 +437,8 @@ const Navbar = ({ list }) => {
                   </li>
                   <li style={{ listStyle: 'none' }}>
                     <NavLink
-                      to="/hoteliomember"
-                      className={`${!list ? "text-dark" : ""}`}
-                      onClick={() => {
-                        dispatch({
-                          type: "activePath",
-                          payload: "hotels",
-                        });
-                      }}
-                    >
-                      <BsFillBuildingFill /> Become a Hotelio Partner
-                      <hr
-                        className={`mt-0 ${style.activeTab} ${activePath === "hotels" ? "d-block" : "d-none"
-                          }`}
-                      />
-                    </NavLink>
-                  </li>
-                  <li style={{ listStyle: 'none' }}>
-                    <NavLink
                       // to="/parking"
-                      to="/"
+                      to="/hoteliomember"
                       className={`${!list ? "text-dark" : ""}`}
                       onClick={() => {
                         dispatch({
@@ -475,7 +447,7 @@ const Navbar = ({ list }) => {
                         });
                       }}
                     >
-                      <BsFillBuildingsFill /> List your rooms with Hotelio
+                      <BsFillBuildingsFill /> Become a Hotelio Partner
                       <hr
                         className={`mt-0 ${style.activeTab} ${activePath === "parking" ? "d-block" : "d-none"
                           }`}
@@ -484,83 +456,6 @@ const Navbar = ({ list }) => {
                   </li>
                   {/* <li style={{ listStyle: 'none' }}>
                     <NavLink to="/contact">+91 (811)55 10050</NavLink>
-                  </li> */}
-                  <li style={{ listStyle: 'none' }}>
-                    <NavLink
-                      // to="/HotelAndParking"
-                      to="/"
-                      className={`${!list ? "text-dark" : ""}`}
-                      onClick={() => {
-                        dispatch({
-                          type: "activePath",
-                          payload: "hotelAndParking",
-                        });
-                      }}
-                    >
-                      <BsTranslate /> English
-                      <hr
-                        className={`mt-0 ${style.activeTab} ${activePath === "hotelAndParking"
-                          ? "d-block"
-                          : "d-none"
-                          }`}
-                      />
-                    </NavLink>
-                  </li>
-                  {/* <li>
-                    <Button
-                      id="demo-positioned-button"
-                      aria-controls={
-                        openBox ? "demo-positioned-menu" : undefined
-                      }
-                      aria-haspopup="true"
-                      aria-expanded={openBox ? "true" : undefined}
-                      onClick={handleClickLogin}
-                      endIcon={<KeyboardArrowDownIcon />}
-                      sx={{ color: "black", fontWeight: 700, my: 1, pt: 0 }}
-                    >
-                      <KeyIcon /> Sign In / Sign Up
-                    </Button>
-                    <Menu
-                      id="demo-positioned-menu"
-                      aria-labelledby="demo-positioned-button"
-                      anchorEl={Login}
-                      open={openBox}
-                      onClose={handleCloseLogin}
-                      anchorOrigin={{
-                        vertical: "top",
-                        horizontal: "left",
-                      }}
-                      transformOrigin={{
-                        vertical: "top",
-                        horizontal: "left",
-                      }}
-                    >
-                      <MenuItem onClick={() => navigate("/signin")}>
-                        Login as Customer
-                      </MenuItem>
-                      <MenuItem onClick={() => navigate("/signup")}>
-                        Signup as Customer
-                      </MenuItem>
-                      <MenuItem>
-                        <Link
-                          to={
-                            "https://hotelio-dashboard-trickle.netlify.app/login"
-                          }
-                        >
-                          Login as Vendor{" "}
-                        </Link>
-                      </MenuItem>
-                      <MenuItem>
-                        {" "}
-                        <Link
-                          to={
-                            "https://hotelio-dashboard-trickle.netlify.app/register"
-                          }
-                        >
-                          Signup as Vendor
-                        </Link>
-                      </MenuItem>
-                    </Menu>
                   </li> */}
                   {!currentUser ? (
                     <>

@@ -5,6 +5,20 @@
   background-repeat: no-repeat;
 }
 
+.MemberBackgroundS {
+  background: linear-gradient(0deg, rgba(186, 221, 231, 0.8688725490196079) 0%, rgba(255, 255, 255, 0) 100%), url(../../images/MemberBannerS.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.MemberBackgroundL {
+  background: linear-gradient(0deg, rgba(186, 221, 231, 0.8688725490196079) 0%, rgba(255, 255, 255, 0) 100%), url(https://img.freepik.com/free-vector/ombre-blue-line-patterned-background-vector_53876-173744.jpg?w=1380&t=st=1690282935~exp=1690283535~hmac=8edfdc2aa1946cd13d9dc1b49bc78912ed44dbbb0792f2cbaec886e702a8aa30);
+  background-position: bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 .Cardcolor {
   background: #e2edfe !important;
 }

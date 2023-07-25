@@ -1,174 +1,103 @@
-import React, { useState, useEffect } from "react";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import StarsIcon from "@mui/icons-material/Stars";
-import DiscountIcon from "@mui/icons-material/Discount";
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import HeadsetMicIcon from "@mui/icons-material/HeadsetMic";
-import ApartmentIcon from "@mui/icons-material/Apartment";
-import style from "./Member.module.css";
-import { Container, Grid } from "@mui/material";
+import React, { useState } from "react";
+import { Container, Grid, TextField } from "@mui/material";
 import Button from "@mui/material/Button";
-import Member from "../../images/MemberIcon.jpg";
+import HoteliLogo from '../../images/HotelioLogo.png'
 
 const CardMember = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    company: "",
+    email: "",
+    mobile: "",
+  });
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Handle form submission here, e.g., sending data to a server
+    console.log(formData);
+  };
+
   return (
-    <Container maxWidth="lg" className="min-vh-100">
-      <h2 className="text-center p-1">So many reasons become a partner</h2>
-      <Grid container spacing={2} mt={0}>
-        <Grid item lg={6} xs={12}>
-          <Card className={` ${style.Cardcolor}`}>
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                <StarsIcon sx={{ fontSize: "4rem", color: "#076045" }} />
-              </Typography>
-              <h5 gutterBottom variant="h5" component="div">
-                Gets bookings Fast
-              </h5>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                className="pt-2"
-              >
-                Our statistics show that the majority of new listings receive a
-                booking within the first 3 months of joining our community.
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item lg={6} xs={12}>
-          <Card className={` ${style.CardcolorOne}`}>
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                <DiscountIcon sx={{ fontSize: "4rem", color: "#044754" }} />
-              </Typography>
-              <h5 gutterBottom variant="h5" component="div">
-                Stand out from the competition
-              </h5>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                className="pt-2"
-              >
-                New listings get a special boost in visibility. Keep the
-                spotlight on your property with a range of options to increase
-                your exposure.
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item lg={4} xs={12}>
-          <Card className={` ${style.CardcolorThree}`}>
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                <ApartmentIcon sx={{ fontSize: "4rem", color: "#F06317" }} />
-              </Typography>
-              <h5 gutterBottom variant="h5" component="div">
-                List any property type
-              </h5>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                className="pt-2"
-              >
-                List a hotel, apartment, house, and so many other property types
-                for free on Agoda.
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item lg={4} xs={12}>
-          <Card className={` ${style.CardcolorTwo}`}>
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                <PeopleAltIcon sx={{ fontSize: "4rem", color: "#E21AAC" }} />
-              </Typography>
-              <h5 gutterBottom variant="h5" component="div">
-                Reach a global audience
-              </h5>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                className="pt-2"
-              >
-                More than 9 million Agoda users from around the world will get
-                to see your property.
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item lg={4} xs={12}>
-          <Card className={` ${style.CardcolorFour}`}>
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                <HeadsetMicIcon sx={{ fontSize: "4rem", color: "#3b71ca" }} />
-              </Typography>
-              <h5 gutterBottom variant="h5" component="div">
-                Support
-              </h5>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                className="pt-2"
-              >
-                Find support through online material, the support widget on YCS
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
+    <Grid container spacing={2} padding={5}>
+      <Grid item xs={12}>
+        <div className="text-center text-white">
+          <h2>Hotelio Business is a corporate hotel booking solution by Hotelio.</h2>
+        </div>
       </Grid>
-      <Grid container spacing={2} mt={0}>
-        <Grid item lg={4} xs={12}>
-          <div className="d-flex justify-content-center align-items-center gap-3 p-2">
-            <div>
-              <img
-                src={Member}
-                style={{ height: "100px", width: "100px" }}
-                alt="icon"
-                className="rounded-circle"
-              />
-            </div>
-            <h2>Join</h2>
-          </div>
-        </Grid>
-        <Grid item lg={4} xs={12}>
-          <div className="d-flex justify-content-center align-items-center gap-3 p-2">
-            <div>
-              <img
-                src={Member}
-                style={{ height: "100px", width: "100px" }}
-                alt="icon"
-                className="rounded-circle"
-              />
-            </div>
-            <h2>Book</h2>
-          </div>
-        </Grid>
-        <Grid item lg={4} xs={12}>
-          <div className="d-flex justify-content-center align-items-center gap-3 p-2">
-            <div>
-              <img
-                src={Member}
-                style={{ height: "100px", width: "100px" }}
-                alt="icon"
-                className="rounded-circle"
-              />
-            </div>
-            <h2>Relax</h2>
-          </div>
-        </Grid>
+
+      <Grid item xs={12} xl={7} style={{ display: 'grid', placeItems: 'center' }}>
+        <img src={HoteliLogo} alt=".." />
       </Grid>
-      <Button
-        variant="contained"
-        fullWidth
-        color="error"
-        className="mb-1"
-        // style={{ position: "static" }}
-      >
-        Join
-      </Button>
-    </Container>
+
+      <Grid item xs={12} xl={5} style={{ display: 'grid', placeItems: 'center' }}>
+        <form className="bg-white rounded p-4" onSubmit={handleSubmit}>
+          <h3>Get Started</h3>
+          {/* Name input */}
+          <TextField
+            fullWidth
+            id="name"
+            name="name"
+            label="Name"
+            value={formData.name}
+            onChange={handleInputChange}
+            variant="outlined"
+            margin="normal"
+          />
+
+          {/* Company input */}
+          <TextField
+            fullWidth
+            id="company"
+            name="company"
+            label="Company"
+            value={formData.company}
+            onChange={handleInputChange}
+            variant="outlined"
+            margin="normal"
+          />
+
+          {/* Email input */}
+          <TextField
+            fullWidth
+            id="email"
+            name="email"
+            label="Email address"
+            value={formData.email}
+            onChange={handleInputChange}
+            variant="outlined"
+            margin="normal"
+          />
+
+          {/* Mobile number input */}
+          <TextField
+            fullWidth
+            id="mobile"
+            name="mobile"
+            label="Mobile Number"
+            value={formData.mobile}
+            onChange={handleInputChange}
+            variant="outlined"
+            margin="normal"
+          />
+
+          <div className="text-center">
+            {/* Submit button */}
+            <Button variant="contained" color="error" type="submit">
+              Register Now
+            </Button>
+          </div>
+
+        </form>
+      </Grid>
+    </Grid>
   );
 };
 
