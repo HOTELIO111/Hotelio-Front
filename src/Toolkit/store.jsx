@@ -17,7 +17,7 @@ import { noOfVehicle } from "./reducer/noOfVehicle";
 import { cityParkingReducer } from "./reducer/ParkingCity";
 import { hotelAndParkingCity } from "./reducer/hotelAndParkingCity";
 import { Hotel_Static_Data } from "./reducer/static_hotel_data";
-import { Parking_Static_Data } from "./reducer/static_parking_data";
+// import { Parking_Static_Data } from "./reducer/static_parking_data";
 import { Hotel_Parking_Static_Data } from "./reducer/static_hotel_parking";
 import { Selected_Hotel } from "./reducer/Set_Seleted_hotel";
 import { Room_Static_Data } from "./reducer/static_room_data";
@@ -91,7 +91,7 @@ const reducer = combineReducers({
   dateAlert: alertDate,
   dateTimeAlert: alertDateTime,
   activePath: activePath,
-  getStaticParking: Parking_Static_Data,
+  // getStaticParking: Parking_Static_Data,
   getStaicHotalParking: Hotel_Parking_Static_Data,
   getSearchLocation: setSearchLoaction,
   mode: mode,

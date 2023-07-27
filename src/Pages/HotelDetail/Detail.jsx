@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardContent, Chip, Grid, Typography, styled } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Card, CardContent, Chip, Grid, Typography, styled } from '@mui/material';
 import React from 'react';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
 import ConnectedTvIcon from '@mui/icons-material/ConnectedTv';
@@ -8,6 +8,7 @@ import BathroomIcon from '@mui/icons-material/Bathroom';
 import { FcApproval } from "react-icons/fc";
 import style from './Hotel.module.css'
 import CircularProgress from '@mui/material/CircularProgress';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PropTypes from 'prop-types';
 import RatingC from './RatingC';
 
@@ -26,7 +27,7 @@ const Detail = () => {
     function CircularProgressWithLabel(props) {
         return (
             <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-                <CircularProgress color='error' variant="determinate" {...props} />
+                <CircularProgress color='error' size={90} variant="determinate" {...props} />
                 <Box
                     sx={{
                         top: 0,
@@ -40,9 +41,11 @@ const Detail = () => {
                     }}
                 >
                     <Typography variant="caption" component="div" color="text.secondary">
-                        {`${Math.round(props.value)}%`}
+                        <h5>{`${Math.round(props.value)}%`}</h5>
                     </Typography>
+
                 </Box>
+
             </Box>
         );
     }
@@ -99,7 +102,7 @@ const Detail = () => {
                 </Grid>
                 <Grid item xs={12} lg={6} xl={6}>
                     <Card sx={{ margin: 1 }}>
-                        <div className='p-2' style={{ background: '#848484', color: '#fff' }}>
+                        <div className='p-2' style={{ background: 'linear-gradient(0deg, rgba(231,197,186,0.8688725490196079) 0%, rgba(255,255,255,0) 100%)', color: '#8d8d8d' }}>
                             Your Chosen Room
                         </div>
                         <CardContent>
@@ -125,23 +128,117 @@ const Detail = () => {
                 </Grid>
                 <Grid item xs={12} lg={6} xl={6}>
                     <Card sx={{ margin: 1 }}>
-                        <div className='p-2 d-flex justify-content-between align-items-center' style={{ background: '#848484', color: '#fff' }}>
+                        <div className='p-2 d-flex justify-content-between align-items-center' style={{ background: 'linear-gradient(0deg, rgba(231,197,186,0.8688725490196079) 0%, rgba(255,255,255,0) 100%)', color: '#8d8d8d' }}>
                             Hotel Review & Rating
                             <RatingC />
                         </div>
                         <CardContent>
                             <div className="d-flex justify-content-between align-items-center">
                                 <div sx={{ maxHeight: '134px', width: 200 }}>
-                                    <CircularProgressWithLabel  value={75} />
+                                    <CircularProgressWithLabel value={75} />
+                                    <p>Value of Money</p>
+                                </div>
+                                <div sx={{ maxHeight: '134px', width: 200 }}>
+                                    <CircularProgressWithLabel value={80} />
+                                    <p>Cleanliness</p>
+                                </div>
+                                <div sx={{ maxHeight: '134px', width: 200 }}>
+                                    <CircularProgressWithLabel value={90} />
+                                    <p>Comfort</p>
                                 </div>
 
-                                <Card sx={{ maxHeight: '134px' }} >
-                                    <img className='img-thumbnail' style={{ width: '200px' }} src="https://images.oyoroomscdn.com/uploads/hotel_image/109466/large/8f8433f482cb77d1.jpg" alt=".." />
+                                <Card sx={{ maxHeight: '134px', width: 200, p: 1 }} >
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis maxime officiis error id nesciunt quos officia.
                                 </Card>
 
                             </div>
                         </CardContent>
                     </Card>
+                </Grid>
+
+                <Grid item xs={12} lg={12} xl={12} padding={1} >
+                    <hr />
+                    <div className='p-2'>
+                        <h4 className='py-3 text-dark'>Travellers are asking</h4>
+                        <Accordion>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                            >
+                                <Typography>Is there a swimming pool</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Typography>
+                                    No
+                                </Typography>
+                            </AccordionDetails>
+                        </Accordion>
+                        <Accordion>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel2a-content"
+                                id="panel2a-header"
+                            >
+                                <Typography>Do they serve breakfast</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Typography>
+                                    Yes, We serve
+                                </Typography>
+                            </AccordionDetails>
+                        </Accordion>
+                    </div>
+
+                </Grid>
+                <Grid item xs={12} lg={12} xl={12} padding={1} >
+                    <hr />
+                    <div className='p-2'>
+                        <h4 className='py-3 text-dark'>Our Rules</h4>
+                        <Accordion>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                            >
+                                <Typography>Check-in Time</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Typography>
+                                    Available 24 hours
+                                </Typography>
+                            </AccordionDetails>
+                        </Accordion>
+                        <Accordion>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel2a-content"
+                                id="panel2a-header"
+                            >
+                                <Typography>Check-out Time</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Typography>
+                                    From 08:00 to 10:00
+                                </Typography>
+                            </AccordionDetails>
+                        </Accordion>
+                        <Accordion>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel2a-content"
+                                id="panel2a-header"
+                            >
+                                <Typography>Cancellation/prepayment</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Typography>
+                                    Cancellation and prepayment policies vary according to accommodation type. Please check what conditions may apply to each option when making your selection.
+                                </Typography>
+                            </AccordionDetails>
+                        </Accordion>
+                    </div>
+
                 </Grid>
             </Grid>
         </div>

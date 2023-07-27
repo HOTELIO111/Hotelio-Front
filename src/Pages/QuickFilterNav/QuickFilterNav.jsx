@@ -36,57 +36,27 @@ const QuickFilterNav = () => {
 
     return (
         <Container className='mt-5' maxWidth="md">
-            <Grid container spacing={5} justifyContent="center">
-                <Grid item xs={12} sm={6} md={4}>
-                    <StyledCard onClick={() => navigate('/searchedhotels')}>
-                        <CardMedia
-                            component="img"
-                            width="120"
-                            height="120"
-                            image={HotelBudget}
-                            alt="Hotel in Budget"
-                        />
-                    </StyledCard>
+            <Grid container spacing={5} justifyContent="center" flexWrap={'nowrap'} >
+                <Grid bgcolor={'#fff'} xs={12} sm={6} md={4} m={2} borderRadius={5} boxShadow={'10px 10px 10px 0px rgba(0,0,0,0.2)'} sx={{ display: "flex", flexDirection: "column", alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ clipPath: 'inset(10% 10% 10% 10%)', width: '40%', paddingLeft: "0 !important", display: "flex", flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                        <img src={HotelBudget} alt=".." />
+                    </div>
                     <StyledHeading variant="h6">Hotel in Budget</StyledHeading>
                 </Grid>
-                <Grid item xs={12} sm={6} md={4}>
-                    <StyledCard onClick={() => navigate('/searchedhotels')}>
-                        <CardMedia
-                            component="img"
-                            width="120"
-                            height="120"
-                            image={HomeStay}
-                            alt="Home Stay"
-                        />
-                    </StyledCard>
+                <Grid bgcolor={'#fff'} xs={12} sm={6} md={4} m={2} borderRadius={5} boxShadow={'10px 10px 10px 0px rgba(0,0,0,0.2)'} sx={{ display: "flex", flexDirection: "column", alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ clipPath: 'inset(10% 10% 10% 10%)', width: '40%', paddingLeft: "0 !important", display: "flex", flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                        <img src={HomeStay} alt=".." />
+                    </div>
                     <StyledHeading variant="h6">Home Stay</StyledHeading>
                 </Grid>
-                <Grid item xs={12} sm={6} md={4}>
-                    <StyledCard onClick={() => navigate('/searchedhotels')}>
-                        <CardMedia
-                            component="img"
-                            width="120"
-                            height="120"
-                            image={PrimeHotel}
-                            alt="Prime Hotels"
-                        />
-                    </StyledCard>
+                <Grid bgcolor={'#fff'} xs={12} sm={6} md={4} m={2} borderRadius={5} boxShadow={'10px 10px 10px 0px rgba(0,0,0,0.2)'} sx={{ display: "flex", flexDirection: "column", alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ clipPath: 'inset(10% 10% 10% 10%)', width: '40%', paddingLeft: "0 !important", display: "flex", flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                        <img src={PrimeHotel} alt=".." />
+                    </div>
                     <StyledHeading variant="h6">Prime Hotels</StyledHeading>
-                </Grid>
-                {/* <Grid item xs={12} sm={6} md={3}>
-                    <StyledCard onClick={() => navigate('/searchedhotels')}>
-                        <CardMedia
-                            component="img"
-                            width="120"
-                            height="120"
-                            image={LuxuryHotel}
-                            alt="Luxury Hotels"
-                        />
-                    </StyledCard>
-                    <StyledHeading variant="h6">Luxury Hotels</StyledHeading>
-                </Grid> */}
-            </Grid>
-        </Container>
+                </Grid >
+            </Grid >
+        </Container >
     );
 };
 
