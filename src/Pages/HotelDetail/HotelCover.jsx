@@ -43,7 +43,7 @@ const HotelCover = () => {
     let carousel = null;
 
     return (
-        <div>
+        <div className='py-2'>
             {/* Previous button */}
             <Button variant="text" className={` ${style.previousButton}`} onClick={slidePrev}><ArrowBackIosIcon /></Button>
 
@@ -51,7 +51,7 @@ const HotelCover = () => {
             <AliceCarousel
                 mouseTracking
                 // autoPlay
-                // infinite
+                infinite
                 items={items}
                 paddingLeft={50}
                 paddingRight={50}

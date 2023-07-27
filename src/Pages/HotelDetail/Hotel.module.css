@@ -11,3 +11,9 @@
     top: 30vh;
     right: 15px;
 }
+
+.mapBox {
+    box-shadow: 0px 0px 22px 8px rgba(213, 176, 176, 0.75);
+    -webkit-box-shadow: 0px 0px 22px 8px rgba(213, 176, 176, 0.75);
+    -moz-box-shadow: 0px 0px 22px 8px rgba(213, 176, 176, 0.75);
+}

@@ -62,14 +62,14 @@ const Home = (props) => {
         {/* <p>Promotions, deals and special offers for you</p> */}
         {/* <Offer /> */}
 
-        <h1
+        {/* <h1
           className={`${style.homeTitle} text-dark fw-bold ${isXtraSmallScreen ? "fs-4" : "fs-3"
             }`}
         >
           What will you get if you'll join us
-        </h1>
+        </h1> */}
 
-        <WhyChooseUs />
+        {/* <WhyChooseUs /> */}
 
         {/* <Featured /> */}
 
@@ -99,7 +99,7 @@ const Home = (props) => {
 
       <Testimonial />
 
-      <div className={` ${style.homeContainer} container text-center`}>
+      {/* <div className={` ${style.homeContainer} container text-center`}>
 
 
         <h1
@@ -108,9 +108,9 @@ const Home = (props) => {
         >
           Explore Premium Partner's Properties With Hotelio
         </h1>
-      </div>
+      </div> */}
 
-      <SliderCarousel />
+      {/* <SliderCarousel /> */}
       <Footer />
     </div>
   );
