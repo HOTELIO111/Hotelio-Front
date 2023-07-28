@@ -129,6 +129,8 @@
   .linkedin {
     padding: 5px;
   }  
-
+.mobremove {
+  display: none;
+}
 
 }

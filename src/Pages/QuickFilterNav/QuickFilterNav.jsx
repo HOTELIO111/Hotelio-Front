@@ -22,28 +22,47 @@ const QuickFilterNav = () => {
     const navigate = useNavigate();
 
     return (
-        <Container className='mt-5' maxWidth="md">
-            <Grid container spacing={5} justifyContent="center" flexWrap={'nowrap'} >
-                <Grid className={style.cardStyleCover} bgcolor={'#fff'} xs={12} sm={6} md={4} m={2} borderRadius={5} boxShadow={'10px 10px 10px 0px rgba(0,0,0,0.2)'} sx={{ display: "flex", flexDirection: "column", alignItems: 'center', justifyContent: 'center' }}>
-                    <div onClick={() => navigate('/searchedhotels')} className={style.cardStyle}>
-                        <img src={HotelBudget} alt="HotelBudget" />
-                    </div>
-                    <StyledHeading variant="h6">Hotel in Budget</StyledHeading>
-                </Grid>
-                <Grid className={style.cardStyleCover} bgcolor={'#fff'} xs={12} sm={6} md={4} m={2} borderRadius={5} boxShadow={'10px 10px 10px 0px rgba(0,0,0,0.2)'} sx={{ display: "flex", flexDirection: "column", alignItems: 'center', justifyContent: 'center' }}>
-                    <div onClick={() => navigate('/searchedhotels')} className={style.cardStyle}>
-                        <img src={HomeStay} alt="HomeStay" />
-                    </div>
-                    <StyledHeading variant="h6">Home Stay</StyledHeading>
-                </Grid>
-                <Grid className={style.cardStyleCover} bgcolor={'#fff'} xs={12} sm={6} md={4} m={2} borderRadius={5} boxShadow={'10px 10px 10px 0px rgba(0,0,0,0.2)'} sx={{ display: "flex", flexDirection: "column", alignItems: 'center', justifyContent: 'center' }}>
-                    <div onClick={() => navigate('/searchedhotels')} className={style.cardStyle}>
-                        <img src={PrimeHotel} alt="PrimeHotel" />
-                    </div>
-                    <StyledHeading variant="h6">Prime Hotels</StyledHeading>
-                </Grid >
-            </Grid >
-        </Container >
+
+        <>
+            <div style={{ width: "100%" }} className={style.mainDiv}>
+                <div style={{ objectFit: "cover", objectPosition: 'center' }} className={style.cardStyle}>
+                    <img src={HotelBudget} style={{ borderRadius: "1rem" }} alt="HotelBudget" />
+                    <h5>Hotel in Budget</h5>
+                </div>
+                <div style={{ objectFit: "cover", objectPosition: 'center' }} className={style.cardStyle}>
+                    <img src={HomeStay} style={{ borderRadius: "1rem" }} alt="HomeStay" />
+                    <h5>Home Stay</h5>
+                </div>
+                <div style={{ objectFit: "cover", objectPosition: 'center' }} className={style.cardStyle}>
+                    <img src={PrimeHotel} style={{ borderRadius: "1rem" }} alt="PrimeHotel" />
+                    <h5>Prime Hotels</h5>
+                </div>
+            </div>
+        </>
+
+        // <Container className='mt-5' maxWidth="md">
+
+        // <Grid container spacing={1} justifyContent="center" >
+        //     <Grid bgcolor={'#fff'} xs={12} sm={6} md={4} borderRadius={5} boxShadow={'10px 10px 10px 0px rgba(0,0,0,0.2)'} width={30} sx={{ display: "flex", flexDirection: "column", alignItems: 'center', justifyContent: 'center' }}>
+        //         <div onClick={() => navigate('/searchedhotels')} className={style.cardStyle}>
+        //             <img width={50} src={HotelBudget} alt="HotelBudget" />
+        //         </div>
+        //         <StyledHeading variant="h6">Hotel in Budget</StyledHeading>
+        //     </Grid>
+        //     <Grid bgcolor={'#fff'} xs={12} sm={6} md={4} borderRadius={5} boxShadow={'10px 10px 10px 0px rgba(0,0,0,0.2)'} width={30} sx={{ display: "flex", flexDirection: "column", alignItems: 'center', justifyContent: 'center' }}>
+        //         <div onClick={() => navigate('/searchedhotels')} className={style.cardStyle}>
+        //             <img width={50} src={HomeStay} alt="HomeStay" />
+        //         </div>
+        //         <StyledHeading variant="h6">Home Stay</StyledHeading>
+        //     </Grid>
+        //     <Grid bgcolor={'#fff'} xs={12} sm={6} md={4} borderRadius={5} boxShadow={'10px 10px 10px 0px rgba(0,0,0,0.2)'} width={30} sx={{ display: "flex", flexDirection: "column", alignItems: 'center', justifyContent: 'center' }}>
+        //         <div onClick={() => navigate('/searchedhotels')} className={style.cardStyle}>
+        //             <img width={50} src={PrimeHotel} alt="PrimeHotel" />
+        //         </div>
+        //         <StyledHeading variant="h6">Prime Hotels</StyledHeading>
+        //     </Grid >
+        // </Grid >
+        // </Container >
     );
 };
 

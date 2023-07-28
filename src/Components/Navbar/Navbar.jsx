@@ -450,7 +450,7 @@ const Navbar = ({ list }) => {
                         });
                       }}
                     >
-                      <HomeIcon /> Home
+                      {/* <HomeIcon /> Home */}
                       <hr
                         className={`mt-0 ${style.activeTab} ${
                           activePath === "hotel" ? "d-block" : "d-none"
@@ -470,7 +470,7 @@ const Navbar = ({ list }) => {
                         });
                       }}
                     >
-                      <BsFillBuildingsFill /> Become a Hotelio Partner
+                      {/* <BsFillBuildingsFill /> Become a Hotelio Partner */}
                       <hr
                         className={`mt-0 ${style.activeTab} ${
                           activePath === "parking" ? "d-block" : "d-none"
@@ -641,6 +641,25 @@ const Navbar = ({ list }) => {
                 >
                   <span>Menu</span>
                 </a>
+                <div className={`py-2 bg-danger text-white text-center ${style.navRemove}`}>
+                  <ul className="d-flex justify-content-center">
+                    <li  >
+                      <b onClick={() => navigate('/')} style={{ cursor: 'pointer' }} className="px-5">HOME</b>
+                    </li>
+                    <li style={{ borderLeft: '2px solid white' }} >
+                      <b onClick={() => navigate('/about')} style={{ cursor: 'pointer' }} className="px-5">ABOUT US</b>
+                    </li>
+                    <li style={{ borderLeft: '2px solid white' }} >
+                      <b onClick={() => navigate('/hoteliomember')} style={{ cursor: 'pointer' }} className="px-5">BECOME A HOTELIO PARTNER</b>
+                    </li>
+                    <li style={{ borderLeft: '2px solid white' }} >
+                      <b onClick={() => navigate('')} style={{ cursor: 'pointer' }} className="px-5">FAQ</b>
+                    </li>
+                    <li style={{ borderLeft: '2px solid white' }} >
+                      <b onClick={() => navigate('/contact')} style={{ cursor: 'pointer' }} className="px-5">CONTACT US</b>
+                    </li>
+                  </ul>
+                </div>
               </nav>
             </div>
           </div>
@@ -862,7 +881,7 @@ const Navbar = ({ list }) => {
                 </div>
               </div>
             </div>
-            <div className="container mt-5">
+            <div style={{ marginTop: '100px' }} className="container">
               <QuickFilterNav />
             </div>
           </div>

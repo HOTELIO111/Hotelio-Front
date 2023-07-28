@@ -778,6 +778,9 @@ div.search_form button i {
   .iconShow {
     display: none !important;
   }
+  .navRemove {
+    display: none;
+  }
 }
 
 @media (max-width: 592px) {

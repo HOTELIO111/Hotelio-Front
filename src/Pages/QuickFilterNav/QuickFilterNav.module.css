@@ -1,14 +1,45 @@
-
-.cardStyle {
-    width: 40%;
-    clip-path: inset(10% 10% 10% 10%);
+.mainDiv {
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    background: #fff;
+    gap: 2rem;
 }
 
-.cardStyleCover:hover {
-    transform: scale(1.5);
+
+.mainDiv>div {
+    flex: 1 1 160px;
+    max-width: calc(100% / 7);
+    aspect-ratio: 4/4;
+    border-radius: 1rem;
+
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+
 }
+
+@media (max-width:567px) {
+    .mainDiv {
+        flex-direction: column;
+    }
+
+    .mainDiv>div {
+        max-width: 100%;
+    }
+}
+
+.mainDiv>div>img {
+    box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
+.mainDiv>div>h5 {
+    color: white;
+    text-align: center;
+}
+
+.mainDiv>div:hover {
+    transform: rotateZ(5deg);
+}
+
+
+/* .cardStyleCover:hover {
+    transform: scale(1.5);
+} */

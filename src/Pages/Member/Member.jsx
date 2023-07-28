@@ -45,7 +45,7 @@ const Member = () => {
                     <ScheduleIcon sx={{ fontSize: 40 }} />
                     <h4 style={{ marginLeft: '10px' }}>Save Time</h4>
                   </div>
-                  <p>With OYO B’s effortless interface, have all your bookings at your fingertips anytime you need them.</p>
+                  <p>With Hotelio Business effortless interface, have all your bookings at your fingertips anytime you need them.</p>
                 </li>
                 <li style={{ padding: '20px 0px' }}>
                   <div className="d-flex text-dark align-items-center">
@@ -103,7 +103,7 @@ const Member = () => {
                     <TrendingUpOutlinedIcon sx={{ fontSize: 40 }} />
                     <h4 style={{ marginLeft: '10px' }}>Stand out from the competition</h4>
                   </div>
-                  <p>With OYO B’s effortless interface, have all your bookings at your fingertips anytime you need them.</p>
+                  <p>With Hotelio Business effortless interface, have all your bookings at your fingertips anytime you need them.</p>
                 </li>
                 <li style={{ padding: '10px 0px' }}>
                   <div className="d-flex text-dark align-items-center">
@@ -117,7 +117,7 @@ const Member = () => {
                     <LanguageOutlinedIcon sx={{ fontSize: 40 }} />
                     <h4 style={{ marginLeft: '10px' }}>Reach a global audience</h4>
                   </div>
-                  <p>With OYO B’s effortless interface, have all your bookings at your fingertips anytime you need them.</p>
+                  <p>With Hotelio Business effortless interface, have all your bookings at your fingertips anytime you need them.</p>
                 </li>
                 <li style={{ padding: '10px 0px' }}>
                   <div className="d-flex text-dark align-items-center">

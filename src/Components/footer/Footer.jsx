@@ -1,6 +1,6 @@
 import style from "./footer.module.css";
-import { Link } from "react-router-dom";
-import { Button, useMediaQuery } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
+import { Button, Grid, useMediaQuery } from "@mui/material";
 import CallIcon from "@mui/icons-material/Call";
 import EmailIcon from "@mui/icons-material/Email";
 import InstagramIcon from "@mui/icons-material/Instagram";
@@ -23,17 +23,79 @@ import NetworkWifiIcon from '@mui/icons-material/NetworkWifi';
 import SendIcon from '@mui/icons-material/Send';
 import Applestore from "../../images/apple.png";
 import Playstore from "../../images/playstored.png";
+import { AiFillCaretRight } from "react-icons/ai";
 
 const Footer = () => {
   const isXtraSmallScreen = useMediaQuery("(max-width:320px)");
+
+  const navigate = useNavigate()
+
+  const locations = [
+    'Hotelio near me',
+    'Hotelio in Manali',
+    'Hotelio in Nanital',
+    'Hotelio in Mount Abu',
+    'Hotelio in Agra',
+    'Hotelio in Agra',
+    'Hotelio in Agra',
+    'Hotelio in Agra',
+    'Hotelio in Agra',
+    'Hotelio in Agra',
+    // Add more locations here...
+  ];
+
+  const generateListItems = () => {
+    return locations.map((location, index) => (
+      <li key={index} >
+        <span style={{ cursor: 'pointer' }} onClick={() => navigate('/searchedhotels')}>
+          {location} <AiFillCaretRight />
+        </span>
+      </li>
+    ));
+  };
+
+
 
   return (
     <footer
       className={`pt-4 pb-4 text-white  container-fluid ${style.footerBanner}`}
       style={{ backgroundColor: "#ff0600" }}
     >
-      <div className="container-fluid">
-        xxxx
+      <div className={`container-fluid ${style.mobremove}`}>
+        <h4>Hotelio Rooms</h4>
+        <Grid container py={2} spacing={2}>
+          <Grid item xs={2}>
+            <ul>
+              {generateListItems()}
+            </ul>
+          </Grid>
+          <Grid item xs={2}>
+            <ul>
+              {generateListItems()}
+            </ul>
+          </Grid>
+          <Grid item xs={2}>
+            <ul>
+              {generateListItems()}
+            </ul>
+          </Grid>
+          <Grid item xs={2}>
+            <ul>
+              {generateListItems()}
+            </ul>
+          </Grid>
+          <Grid item xs={2}>
+            <ul>
+              {generateListItems()}
+            </ul>
+          </Grid>
+          <Grid item xs={2}>
+            <ul>
+              {generateListItems()}
+            </ul>
+          </Grid>
+        </Grid>
+        <hr />
       </div>
       <div className="container-fluid">
         <div

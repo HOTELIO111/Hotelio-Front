@@ -13,7 +13,7 @@ const NewOffer = () => {
             <div className='d-flex align-items-center justify-content-center text-center flex-column pt-4 fs-4 fw-bold' style={{ background: "linear-gradient(to right bottom , rgba(255,255,255,0.8),rgba(255,255,255,0.8)) , url('https://c4.wallpaperflare.com/wallpaper/964/41/278/interior-bed-hotel-wallpaper-preview.jpg')", backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
 
                 Promotions, deals and special offers for you
-                <div className='bg-transparent w-100 h-100 position-relative d-flex align-items-center justify-content-evenly px-3' style={{ minHeight: "80vh" }}>
+                <div className='bg-transparent w-100 h-100 position-relative d-flex align-items-center justify-content-evenly px-3' style={{ minHeight: "50vh" }}>
                     <div className={`position-absolute ${style.mobdisplaynone}`} style={{ left: "0.5rem", top: "-10%" }}>
                         <img style={{ height: "200px", width: '200px' }} src={OfferLeftImage} alt="" />
                     </div>
