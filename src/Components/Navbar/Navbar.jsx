@@ -662,22 +662,12 @@ const Navbar = ({ list }) => {
                           className="d-flex align-items-center"
                         >
                           <CalendarMonthIcon className="text-danger me-2" />
-                          {navSearch ? (
                             <Dates />
-                          ) : nav2 ? (
-                            <Dates />
-                          ) : (
-                            <ParkingDate />
-                          )}
+ 
                         </fieldset>
                       </div>
                       <div
-                        className={`${nav2
-                          ? "col-lg-5"
-                          : navSearch
-                            ? "col-lg-4"
-                            : "col-lg-3"
-                          } align-self-center position-relative`}
+                        className={"col-lg-4 align-self-center position-relative"}
                       >
                         <fieldset className="d-flex align-items-center">
                           <PersonIcon className="text-danger me-2" />
@@ -835,7 +825,9 @@ const Navbar = ({ list }) => {
                 </div>
               </div>
             </div>
-            <QuickFilterNav />
+            <div className="container mt-5">
+              <QuickFilterNav />
+            </div>
           </div>
         </>
       )}

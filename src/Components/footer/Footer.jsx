@@ -33,6 +33,9 @@ const Footer = () => {
       style={{ backgroundColor: "#ff0600" }}
     >
       <div className="container-fluid">
+        xxxx
+      </div>
+      <div className="container-fluid">
         <div
           className={`row  ${isXtraSmallScreen ? "text-start ms-2" : "text-start"
             } `}

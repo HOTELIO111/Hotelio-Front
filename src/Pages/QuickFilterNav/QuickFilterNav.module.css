@@ -1,0 +1,14 @@
+
+.cardStyle {
+    width: 40%;
+    clip-path: inset(10% 10% 10% 10%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+}
+
+.cardStyleCover:hover {
+    transform: scale(1.5);
+}
