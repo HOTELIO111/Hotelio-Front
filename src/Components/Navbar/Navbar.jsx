@@ -8,7 +8,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import $ from "jquery";
+import $, { param } from "jquery";
 import ParkingDate from "../DateForPaking/ParkingDate";
 import Dates from "../date/Date";
 import Dropdown from "../dropdown/Dropdown";
@@ -20,7 +20,7 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Avatar from "@mui/material/Avatar";
-import HomeIcon from '@mui/icons-material/Home';
+import HomeIcon from "@mui/icons-material/Home";
 import PersonIcon from "@mui/icons-material/Person";
 import HotelIcon from "@mui/icons-material/Hotel";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
@@ -50,6 +50,8 @@ import {
 import KeyIcon from "@mui/icons-material/Key";
 import Swal from "sweetalert2";
 import QuickFilterNav from "../../Pages/QuickFilterNav/QuickFilterNav";
+import axios from "axios";
+import { API_URL } from "../../config";
 
 const Navbar = ({ list }) => {
   // Get Logged In User
@@ -162,7 +164,6 @@ const Navbar = ({ list }) => {
   const isDesktop = useMediaQuery("(max-width: 992px)");
   const isTablet = useMediaQuery("(max-width: 768px)");
 
-
   // Hidding Alerts After Two Seconds
   if (
     resultPerson ||
@@ -194,7 +195,6 @@ const Navbar = ({ list }) => {
       });
     }, 2000);
   }
-
 
   useEffect(() => {
     if (path === "/" || path === "/listHotel" || path === "/singleHotel") {
@@ -300,33 +300,6 @@ const Navbar = ({ list }) => {
     });
   }, [option]);
 
-  const [color, setColor] = useState("#fff");
-  // Initial state for the selected language
-  const [selectedLanguage, setSelectedLanguage] = useState('');
-
-  // Event handler for language change
-  const handleChange = (event) => {
-    setSelectedLanguage(event.target.value);
-    // You can add additional code here to handle language change in your application.
-  };
-
-  // useEffect(() => {
-  //   $(window).scroll(() => {
-  //     let scroll = $(window).scrollTop();
-  //     let box = $(`.${style.header_text}`).height();
-  //     let header = $("header").height();
-  //     if (scroll > box - header) {
-  //       setColor("silver");
-  //       $("header").addClass(`${style.background_header}`);
-  //       $("li a").removeClass(`${style.text_shadow}`);
-  //     } else {
-  //       setColor("silver");
-  //       $("li a").addClass(`${style.text_shadow}`);
-  //       $("header").removeClass(`${style.background_header}`);
-  //     }
-  //   });
-  // }, []);
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
@@ -337,10 +310,20 @@ const Navbar = ({ list }) => {
   const HandleManageRoom = (work, index) => {
     const updatedRooms = [...manageRoom];
     if (work === "i") {
-      updatedRooms[index] = {
-        ...updatedRooms[index],
-        guest: updatedRooms[index].guest + 1,
-      };
+      if (updatedRooms[index].guest < 3) {
+        updatedRooms[index] = {
+          ...updatedRooms[index],
+          guest: updatedRooms[index].guest + 1,
+        };
+      } else {
+        // Suggest adding a new room when the current room is full (3 guests)
+        const wantToAddNewRoom = window.alert(
+          "This room already has 3 guests. Add a new room to add guest"
+        );
+        if (wantToAddNewRoom) {
+          ManageRoomAddandDelete("add");
+        }
+      }
     } else if (work === "d") {
       updatedRooms[index] = {
         ...updatedRooms[index],
@@ -354,7 +337,7 @@ const Navbar = ({ list }) => {
     const newRoom = { room: manageRoom.length + 1, guest: 1 };
     if (action === "add") {
       setManageRoom([...manageRoom, newRoom]);
-    } else if (action === "remove") {
+    } else if (action === "remove" && manageRoom.length > 1) {
       const updatedRoom = [...manageRoom];
       updatedRoom.pop();
       setManageRoom(updatedRoom);
@@ -393,14 +376,53 @@ const Navbar = ({ list }) => {
     }
   }, [currentUser]);
 
+  // Search Filter
+  // ----------------------------------------- get the all cities
+  const [citites, setCities] = useState(null);
+  const [selectedCity, setSlectedCity] = useState(null);
+  const GetAllCities = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/hotel/get/city`);
+      if (response.status === 200) {
+        setCities(response.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    GetAllCities();
+  }, []);
+  // ---------------------------------city get api
+
+  // ---------------------------------search the hotel
+  const searchData = {
+    location: selectedCity,
+    totalRooms: manageRoom.length,
+  };
+
+  const SearchTheField = () => {
+    if (selectedCity === null)
+      return window.alert("please Select the location");
+    if (manageRoom[0].guest === 0)
+      return window.alert("please select the room and guest ");
+    const queryString = new URLSearchParams(searchData).toString();
+    navigate(`/searchedhotels?${queryString}`);
+  };
+
+  const DummyArray = ["Your City", "Your City"];
+
   return (
     <div className="w-100">
       <header
-        className={`${style.header_area}  ${style.header_sticky} ${style.wow} ${style.slideInDown
-          } ${!list ? "bg-light position-static border-bottom" : ""}`}
+        className={`${style.header_area}  ${style.header_sticky} ${style.wow} ${
+          style.slideInDown
+        } ${!list ? "bg-light position-static border-bottom" : ""}`}
         data-wow-duration="0.75s"
         data-wow-delay="0s"
       >
+
         <div className={`${style.Container}`}>
           <div className="row">
             <div className="col-12 p-0">
@@ -417,7 +439,7 @@ const Navbar = ({ list }) => {
                   <img alt="logo" src={HotelioLogo} width={150} />
                 </Link>
                 <ul className={style.nav}>
-                  <li style={{ listStyle: 'none' }}>
+                  <li style={{ listStyle: "none" }}>
                     <NavLink
                       to="/"
                       className={`${!list ? "text-dark" : ""}`}
@@ -430,12 +452,13 @@ const Navbar = ({ list }) => {
                     >
                       <HomeIcon /> Home
                       <hr
-                        className={`mt-0 ${style.activeTab} ${activePath === "hotel" ? "d-block" : "d-none"
-                          }`}
+                        className={`mt-0 ${style.activeTab} ${
+                          activePath === "hotel" ? "d-block" : "d-none"
+                        }`}
                       />
                     </NavLink>
                   </li>
-                  <li style={{ listStyle: 'none' }}>
+                  <li style={{ listStyle: "none" }}>
                     <NavLink
                       // to="/parking"
                       to="/hoteliomember"
@@ -449,8 +472,9 @@ const Navbar = ({ list }) => {
                     >
                       <BsFillBuildingsFill /> Become a Hotelio Partner
                       <hr
-                        className={`mt-0 ${style.activeTab} ${activePath === "parking" ? "d-block" : "d-none"
-                          }`}
+                        className={`mt-0 ${style.activeTab} ${
+                          activePath === "parking" ? "d-block" : "d-none"
+                        }`}
                       />
                     </NavLink>
                   </li>
@@ -471,12 +495,13 @@ const Navbar = ({ list }) => {
                       </li> */}
                       <NavLink
                         to="/contact"
-                        className={`${!list ? "text-dark" : ""} ${style.iconHide
-                          }`}
+                        className={`${!list ? "text-dark" : ""} ${
+                          style.iconHide
+                        }`}
                       >
                         Contact us
                       </NavLink>
-                      <li style={{ listStyle: 'none' }}>
+                      <li style={{ listStyle: "none" }}>
                         <Button
                           id="demo-positioned-button"
                           aria-controls={
@@ -535,7 +560,7 @@ const Navbar = ({ list }) => {
                   ) : (
                     <>
                       {/* after login show this component */}{" "}
-                      <li style={{ listStyle: 'none' }}>
+                      <li style={{ listStyle: "none" }}>
                         <Button
                           id="demo-customized-button"
                           sx={{ color: "black" }}
@@ -601,13 +626,14 @@ const Navbar = ({ list }) => {
                     </>
                   )}
 
-                  <li style={{ listStyle: 'none' }}>
+                  <li style={{ listStyle: "none" }}>
                     <span className={style.main_white_button}></span>
                   </li>
                 </ul>
                 <a
-                  className={`${style.menu_trigger} ${menuOpen ? style.active : ""
-                    }`}
+                  className={`${style.menu_trigger} ${
+                    menuOpen ? style.active : ""
+                  }`}
                   onClick={() => {
                     setMenuOpen(!menuOpen);
                     $(`.${style.header_area} .${style.nav}`).slideToggle(200);
@@ -626,8 +652,9 @@ const Navbar = ({ list }) => {
           <div
             className={style.main_banner}
             style={{
-              backgroundImage: `linear-gradient(0deg, rgba(33, 33, 33,0.4), rgb(33, 33, 33,0.5)),url(${navSearch ? hotel : nav2 ? hotelparking : parking
-                })`,
+              backgroundImage: `linear-gradient(0deg, rgba(33, 33, 33,0.4), rgb(33, 33, 33,0.5)),url(${
+                navSearch ? hotel : nav2 ? hotelparking : parking
+              })`,
             }}
           >
             <div className="container">
@@ -638,36 +665,43 @@ const Navbar = ({ list }) => {
                       Welcome To Hotelio Rooms
                     </h2>
                     <h4 className={`py-3 text-white ${style.text_shadow}`}>
-                      Where comfort meets
-                      convenience and your journey begins with a
-                      click
+                      Where comfort meets convenience and your journey begins
+                      with a click
                     </h4>
                   </div>
                 </div>
+                {/* {console.log(citites)} */}
                 <div className="col-lg-12 px-0">
                   <div className={` ${style.search_form}`}>
                     <div className="row position-relative">
                       <div className={`col-lg-2 align-self-center`}>
                         <fieldset className={`d-flex align-items-center`}>
                           <HotelIcon className="text-danger me-2" />
-                          <Dropdown name="cityHotel" />
+                          {console.log(selectedCity)}
+                          <Dropdown
+                            citites={citites ? citites : DummyArray}
+                            name="cityHotel"
+                            setSlectedCity={setSlectedCity}
+                          />
                         </fieldset>
                       </div>
                       <div
-                        className={`${nav2 ? "col-lg-3" : "col-lg-4"
-                          } align-self-center`}
+                        className={`${
+                          nav2 ? "col-lg-3" : "col-lg-4"
+                        } align-self-center`}
                       >
                         <fieldset
                           style={{ borderRight: "2px solid red" }}
                           className="d-flex align-items-center"
                         >
                           <CalendarMonthIcon className="text-danger me-2" />
-                            <Dates />
- 
+                          <Dates />
                         </fieldset>
                       </div>
                       <div
-                        className={"col-lg-4 align-self-center position-relative"}
+                        className={
+                          "col-lg-4 align-self-center position-relative"
+                        }
                       >
                         <fieldset className="d-flex align-items-center">
                           <PersonIcon className="text-danger me-2" />
@@ -681,8 +715,9 @@ const Navbar = ({ list }) => {
                             }}
                             className={`d-flex ${style.headerSearchText}`}
                           >
-                            {`${getTotalGuests()} Guests · ${manageRoom.length
-                              } room`}
+                            {`${getTotalGuests()} Guests · ${
+                              manageRoom.length
+                            } room`}
                             <div className="ms-3 text-dark">
                               {openOptions ? (
                                 <ExpandLessIcon />
@@ -782,14 +817,16 @@ const Navbar = ({ list }) => {
                         </fieldset>
                       </div>
                       <div
-                        className={`${isDesktop ? "mt-3" : ""} ${nav2 || navSearch ? "col-lg-2" : "col-lg-3"
-                          }`}
+                        className={`${isDesktop ? "mt-3" : ""} ${
+                          nav2 || navSearch ? "col-lg-2" : "col-lg-3"
+                        }`}
                       >
                         <fieldset>
                           <button
                             className={style.main_button}
                             // onClick={handleOnSearch}
-                            onClick={() => navigate("/searchedhotels")}
+                            // onClick={() => navigate("/searchedhotels")}
+                            onClick={() => SearchTheField()}
                           >
                             <SearchIcon /> Search Now
                           </button>
