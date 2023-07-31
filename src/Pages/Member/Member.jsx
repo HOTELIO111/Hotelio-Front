@@ -204,7 +204,7 @@ const Member = () => {
                   </AccordionSummary>
                   <AccordionDetails>
                     <Typography>
-                      Every time you make a fresh booking, you have to go through the process of adding a new vendor to your system. Enter OYO. We only require one-time registration of vendors and allow one-time payments to be made against a particular corporate code, saving you hours of desk time and more than one headache
+                      Every time you make a fresh booking, you have to go through the process of adding a new vendor to your system. Enter Hotelio. We only require one-time registration of vendors and allow one-time payments to be made against a particular corporate code, saving you hours of desk time and more than one headache
                     </Typography>
                   </AccordionDetails>
                 </Accordion>
@@ -218,7 +218,7 @@ const Member = () => {
                   </AccordionSummary>
                   <AccordionDetails>
                     <Typography>
-                      Thanks to GST, every hotel booking now splits into multiple points of contact: the hotel and the travel agent. If there are any questions that need answering, you’ll have to reach out to multiple people. Unless you book through OYO. We give you a single invoice, a single booking ID, and a single person to get in touch for any queries: Your OYO Relationship Manager
+                      Thanks to GST, every hotel booking now splits into multiple points of contact: the hotel and the travel agent. If there are any questions that need answering, you’ll have to reach out to multiple people. Unless you book through Hotelio. We give you a single invoice, a single booking ID, and a single person to get in touch for any queries: Your Hotelio Relationship Manager
                     </Typography>
                   </AccordionDetails>
                 </Accordion>

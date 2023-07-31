@@ -24,7 +24,7 @@ const Home = (props) => {
   return (
     <div
       style={{
-        background: ` linear-gradient(0deg, rgba(186,221,231,0.8688725490196079) 0%, rgba(255,255,255,0) 100%), url(${FeaturedBanner})`,
+        // background: ` linear-gradient(0deg, rgba(186,221,231,0.8688725490196079) 0%, rgba(255,255,255,0) 100%), url(${FeaturedBanner})`,
         backgroundPosition: "bottom",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
@@ -32,7 +32,7 @@ const Home = (props) => {
     >
       <Navbar list={true} />
       {/* <QuickFilterNav /> */}
-      <NewOffer />
+      {/* <NewOffer /> */}
       <div className={`${style.homeContainer} container text-center`}>
         {/* <p>Promotions, deals and special offers for you</p> */}
         {/* <Offer /> */}
@@ -49,24 +49,24 @@ const Home = (props) => {
         {/* <Featured /> */}
       </div>
 
+      <WeServe />
       <Process />
 
-      <WeServe />
 
       <div className={`${style.homeContainer} container text-center`}>
         <AboutUs />
-        <h1
+        {/* <h1
           className={`${style.homeTitle} text-dark  fw-bold pb-4 ${
             isXtraSmallScreen ? "fs-4" : "fs-3"
           }`}
         >
           Our Testimonial
-        </h1>
+        </h1> */}
       </div>
 
-      <Testimonial />
+      {/* <Testimonial /> */}
 
-      {/* <div className={` ${style.homeContainer} container text-center`}>
+      <div className={` ${style.homeContainer} container text-center`}>
 
 
         <h1
@@ -75,9 +75,9 @@ const Home = (props) => {
         >
           Explore Premium Partner's Properties With Hotelio
         </h1>
-      </div> */}
+      </div>
 
-      {/* <SliderCarousel /> */}
+      <SliderCarousel />
       <Footer />
     </div>
   );

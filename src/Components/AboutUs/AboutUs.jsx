@@ -12,7 +12,7 @@ const AboutUs = () => {
                     <div className='col-xl-4'>
                         <img width={400} src={AboutUsImage} />
                     </div>
-                    <div className='col-xl-8' style={{ display: 'grid', placeItems: 'center' }}>
+                    <div className='col-xl-8 text-white' style={{ display: 'grid', placeItems: 'center' }}>
                         <div>
                             <h2>About Us</h2>
                             <div className='text-left'>

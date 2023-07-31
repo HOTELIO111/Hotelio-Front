@@ -52,6 +52,7 @@ import Swal from "sweetalert2";
 import QuickFilterNav from "../../Pages/QuickFilterNav/QuickFilterNav";
 import axios from "axios";
 import { API_URL } from "../../config";
+import CitywiseDropedown from "../CitywiseDropedown/CitywiseDropedown";
 
 const Navbar = ({ list }) => {
   // Get Logged In User
@@ -416,9 +417,8 @@ const Navbar = ({ list }) => {
   return (
     <div className="w-100">
       <header
-        className={`${style.header_area}  ${style.header_sticky} ${style.wow} ${
-          style.slideInDown
-        } ${!list ? "bg-light position-static border-bottom" : ""}`}
+        className={`${style.header_area}  ${style.header_sticky} ${style.wow} ${style.slideInDown
+          } ${!list ? "bg-light position-static border-bottom" : ""}`}
         data-wow-duration="0.75s"
         data-wow-delay="0s"
       >
@@ -428,7 +428,8 @@ const Navbar = ({ list }) => {
             <div className="col-12 p-0">
               <nav
                 style={{
-                  background: `linear-gradient(4deg, rgba(255,255,255,1) 17%, rgba(188,124,124,0.3394607843137255) 89%), url(${NavBanner})`,
+                  background: '#fff',
+                  // background: `linear-gradient(4deg, rgba(255,255,255,1) 17%, rgba(188,124,124,0.3394607843137255) 89%), url(${NavBanner})`,
                   backgroundPosition: "center",
                   backgroundSize: "cover",
                   backgroundRepeat: "no-repeat",
@@ -450,11 +451,10 @@ const Navbar = ({ list }) => {
                         });
                       }}
                     >
-                      {/* <HomeIcon /> Home */}
+                      <HomeIcon /> Home
                       <hr
-                        className={`mt-0 ${style.activeTab} ${
-                          activePath === "hotel" ? "d-block" : "d-none"
-                        }`}
+                        className={`mt-0 ${style.activeTab} ${activePath === "hotel" ? "d-block" : "d-none"
+                          }`}
                       />
                     </NavLink>
                   </li>
@@ -470,11 +470,10 @@ const Navbar = ({ list }) => {
                         });
                       }}
                     >
-                      {/* <BsFillBuildingsFill /> Become a Hotelio Partner */}
+                      <BsFillBuildingsFill /> Become a Hotelio Partner
                       <hr
-                        className={`mt-0 ${style.activeTab} ${
-                          activePath === "parking" ? "d-block" : "d-none"
-                        }`}
+                        className={`mt-0 ${style.activeTab} ${activePath === "parking" ? "d-block" : "d-none"
+                          }`}
                       />
                     </NavLink>
                   </li>
@@ -495,9 +494,8 @@ const Navbar = ({ list }) => {
                       </li> */}
                       <NavLink
                         to="/contact"
-                        className={`${!list ? "text-dark" : ""} ${
-                          style.iconHide
-                        }`}
+                        className={`${!list ? "text-dark" : ""} ${style.iconHide
+                          }`}
                       >
                         Contact us
                       </NavLink>
@@ -631,9 +629,8 @@ const Navbar = ({ list }) => {
                   </li>
                 </ul>
                 <a
-                  className={`${style.menu_trigger} ${
-                    menuOpen ? style.active : ""
-                  }`}
+                  className={`${style.menu_trigger} ${menuOpen ? style.active : ""
+                    }`}
                   onClick={() => {
                     setMenuOpen(!menuOpen);
                     $(`.${style.header_area} .${style.nav}`).slideToggle(200);
@@ -641,8 +638,8 @@ const Navbar = ({ list }) => {
                 >
                   <span>Menu</span>
                 </a>
-                <div className={`py-2 bg-danger text-white text-center ${style.navRemove}`}>
-                  <ul className="d-flex justify-content-center">
+                <div className={`py-2 text-white text-center ${style.navRemove}`}>
+                  {/* <ul className="d-flex justify-content-center">
                     <li  >
                       <b onClick={() => navigate('/')} style={{ cursor: 'pointer' }} className="px-5">HOME</b>
                     </li>
@@ -658,7 +655,8 @@ const Navbar = ({ list }) => {
                     <li style={{ borderLeft: '2px solid white' }} >
                       <b onClick={() => navigate('/contact')} style={{ cursor: 'pointer' }} className="px-5">CONTACT US</b>
                     </li>
-                  </ul>
+                  </ul> */}
+                  <CitywiseDropedown />
                 </div>
               </nav>
             </div>
@@ -671,9 +669,8 @@ const Navbar = ({ list }) => {
           <div
             className={style.main_banner}
             style={{
-              backgroundImage: `linear-gradient(0deg, rgba(33, 33, 33,0.4), rgb(33, 33, 33,0.5)),url(${
-                navSearch ? hotel : nav2 ? hotelparking : parking
-              })`,
+              backgroundImage: `linear-gradient(0deg, rgba(33, 33, 33,0.4), rgb(33, 33, 33,0.5)),url(${navSearch ? hotel : nav2 ? hotelparking : parking
+                })`,
             }}
           >
             <div className="container">
@@ -705,9 +702,8 @@ const Navbar = ({ list }) => {
                         </fieldset>
                       </div>
                       <div
-                        className={`${
-                          nav2 ? "col-lg-3" : "col-lg-4"
-                        } align-self-center`}
+                        className={`${nav2 ? "col-lg-3" : "col-lg-4"
+                          } align-self-center`}
                       >
                         <fieldset
                           style={{ borderRight: "2px solid red" }}
@@ -734,9 +730,8 @@ const Navbar = ({ list }) => {
                             }}
                             className={`d-flex ${style.headerSearchText}`}
                           >
-                            {`${getTotalGuests()} Guests · ${
-                              manageRoom.length
-                            } room`}
+                            {`${getTotalGuests()} Guests · ${manageRoom.length
+                              } room`}
                             <div className="ms-3 text-dark">
                               {openOptions ? (
                                 <ExpandLessIcon />
@@ -836,9 +831,8 @@ const Navbar = ({ list }) => {
                         </fieldset>
                       </div>
                       <div
-                        className={`${isDesktop ? "mt-3" : ""} ${
-                          nav2 || navSearch ? "col-lg-2" : "col-lg-3"
-                        }`}
+                        className={`${isDesktop ? "mt-3" : ""} ${nav2 || navSearch ? "col-lg-2" : "col-lg-3"
+                          }`}
                       >
                         <fieldset>
                           <button

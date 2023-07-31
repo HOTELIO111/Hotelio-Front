@@ -20,7 +20,7 @@ import { Hotel_Static_Data } from "./reducer/static_hotel_data";
 // import { Parking_Static_Data } from "./reducer/static_parking_data";
 import { Hotel_Parking_Static_Data } from "./reducer/static_hotel_parking";
 import { Selected_Hotel } from "./reducer/Set_Seleted_hotel";
-import { Room_Static_Data } from "./reducer/static_room_data";
+// import { Room_Static_Data } from "./reducer/static_room_data";
 import { setSearchLoaction } from "./reducer/searchLocation";
 import { alertPerson } from "./reducer/alertPerson";
 import { alertCity } from "./reducer/alertCity";
@@ -84,7 +84,7 @@ const reducer = combineReducers({
   searchHotelAndParkingCity: hotelAndParkingCity,
   getStaticHotels: Hotel_Static_Data,
   getSelectedHotel: Selected_Hotel,
-  getStaticroom: Room_Static_Data,
+  // getStaticroom: Room_Static_Data,
   personAlert: alertPerson,
   cityAlert: alertCity,
   vehicleAlert: alertVehicle,

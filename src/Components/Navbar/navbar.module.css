@@ -735,6 +735,10 @@ div.search_form button i {
   display: block !important;
 }
 
+.navRemove {
+  background-color: #6b0000;
+}
+
 @media (max-width: 992px) {
 
   div.search_form select,

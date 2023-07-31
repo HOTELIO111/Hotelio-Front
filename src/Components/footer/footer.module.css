@@ -3,11 +3,11 @@
 }
 
 .footerBanner {
-  /* background: linear-gradient(37deg, rgba(221, 97, 97, 0.9375) 0%, rgba(170, 42, 42, 0.6924019607843137) 100%), url(../../images/FooterMainBanner.jpg); */
-  background: linear-gradient(37deg, rgba(221, 97, 97, 0.9375) 0%, rgba(170, 42, 42, 0.6924019607843137) 100%);
-  background-size: contain;
+  /* background: url('https://dxdesignz.github.io/CHINES-NOODLE/IMG/back.jpg');
+  background-size: cover;
   background-position: center;
-  background-repeat: repeat;
+  background-repeat: repeat; */
+  background-color: #6b0000;
 }
 
 .fLists {
@@ -117,20 +117,21 @@
   .insta {
     padding: 5px;
   }
-  
+
   .tweeter {
     padding: 5px;
   }
-  
+
   .facebook {
     padding: 5px;
   }
-  
+
   .linkedin {
     padding: 5px;
-  }  
-.mobremove {
-  display: none;
-}
+  }
+
+  .mobremove {
+    display: none;
+  }
 
 }

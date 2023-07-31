@@ -1,6 +1,6 @@
 .AboutUsContainerFirst {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    background: radial-gradient(circle, rgba(25, 200, 255, 0.5551470588235294) 0%, rgba(255, 255, 255, 0.6924019607843137) 100%);
+    background: radial-gradient(circle, rgba(177,56,69,1) 0%, rgba(255,255,255,1) 100%);
     border-radius: 5px;
     overflow: hidden;
     clip-path: polygon(0 0, 100% 10%, 100% 85%, 0 100%);

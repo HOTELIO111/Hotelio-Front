@@ -59,7 +59,6 @@ const Footer = () => {
   return (
     <footer
       className={`pt-4 pb-4 text-white  container-fluid ${style.footerBanner}`}
-      style={{ backgroundColor: "#ff0600" }}
     >
       <div className={`container-fluid ${style.mobremove}`}>
         <h4>Hotelio Rooms</h4>
