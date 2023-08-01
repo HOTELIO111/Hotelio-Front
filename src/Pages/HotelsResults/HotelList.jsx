@@ -26,7 +26,6 @@ const HotelList = ({ hotels, location }) => {
     setSelectedRatingFilter(event.target.value);
   };
 
-  console.log(hotels)
 
   return hotels === null ? (
     <WaitLoader loading="true" />
