@@ -437,7 +437,7 @@ const Navbar = ({ list }) => {
                 className={style.main_nav}
               >
                 <Link to="/" className={`${style.logo} ms-4`}>
-                  <img alt="logo" src={HotelioLogo} width={150} />
+                  <img alt="logo" src={HotelioLogo} width={180} />
                 </Link>
                 <ul className={style.nav}>
                   <li style={{ listStyle: "none" }}>

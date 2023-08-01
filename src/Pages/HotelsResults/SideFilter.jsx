@@ -108,7 +108,7 @@ const SideFilter = () => {
     };
 
     return (
-        <Grid container spacing={1} className='border p-2 ml-1 m-1 rounded'>
+        <Grid container spacing={1} className='border p-2 ml-1 m-2 rounded'>
             <Grid item xs={12}>
                 <div className='d-flex align-items-center justify-content-between'>
                     <h4>Filter</h4>

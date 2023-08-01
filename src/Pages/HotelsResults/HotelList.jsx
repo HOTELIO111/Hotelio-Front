@@ -8,7 +8,8 @@ import {
   Pagination,
   Select,
   MenuItem,
-  Chip} from "@mui/material";
+  Chip
+} from "@mui/material";
 import style from "./HotelList.module.css";
 import { useNavigate } from "react-router-dom";
 import { WaitLoader } from "../../Components/Elements/WaitLoader";
@@ -31,12 +32,21 @@ const HotelList = ({ hotels, location }) => {
   return hotels === null ? (
     <WaitLoader loading="true" />
   ) : (
-    <Container>
+    <Container >
       {/* First hotel card */}
       <Grid sx={{ margin: "10px 0px" }} container>
-        <Grid item xs={12} lg={12} xl={12}>
-          <div className="d-flex justify-content-between align-items-center">
-            <h4>Here is your Searched Reasults of {location}</h4>
+        <Grid item xs={12} p={2} lg={12} xl={12}
+
+          style={{
+            background: 'url(https://img.freepik.com/free-vector/gradient-smooth-background_23-2148980957.jpg?w=1060&t=st=1690878485~exp=1690879085~hmac=b3abfffac566fe9d8124a79ea2af159f0bdd2307b65e7fa20d83e5acdbe454fa)',
+            backgroundPosition: 'bottom',
+            backgroundSize: 'cover',
+            color: '#000'
+          }}
+        >
+          <div
+            className="d-flex justify-content-between align-items-center">
+            <h4><b>Here is your Searched Reasults of {location}</b></h4>
             <Select
               value={selectedRatingFilter}
               onChange={handleRatingFilterChange}
@@ -71,13 +81,19 @@ const HotelList = ({ hotels, location }) => {
                   </div>
                   <p>{items.locality}, {items.city}, {items.country}</p>
                   <h6>{items.zipCode}</h6>
-                  {/* <div>
-                    <Chip
-                      color='error'
-                      label='4.5 Rating'
-                      startIcon={<NetworkWifi3BarRoundedIcon />}
-                    />
-                  </div> */}
+                  <div>
+                    {
+                      items.amenities.map((item, index) => (
+                        <Chip
+                          key={index}
+
+                          label={item}
+                          sx={{ mr: 1, mb: 1, background: '#6b0000', color: '#ffd700' }}
+                        />
+
+                      ))
+                    }
+                  </div>
                   <div className="d-flex align-items-center">
                     <Rating
                       name="read-only"
@@ -85,7 +101,7 @@ const HotelList = ({ hotels, location }) => {
                       readOnly
                     />
                     <h6>
-                      <b>{items?.hotelRatings || ''}</b>| <span className="pl-1">233 (reviews)</span>
+                      <b>{items?.hotelRatings || ''}</b>&nbsp; | <span className="px-2">233 (reviews)</span>
                     </h6>
                   </div>
                 </div>
@@ -98,17 +114,6 @@ const HotelList = ({ hotels, location }) => {
                 className={`${style.SecondGridView}`}
               >
                 <div>
-                  <div
-                    className={`align-items-center p-2 ${style.BookingCardColor} ${style.mobflex}`}
-                  >
-                    <h4>
-                      ₹1345{" "}
-                      <span>
-                        <del>1645</del>
-                      </span>
-                    </h4>{" "}
-                    <span className="text-danger">64% off</span>
-                  </div>
                   <div className={` ${style.mobflex}`}>
                     <div className={`p-2 ${style.BookingCardColor}`}>
                       <Button variant="contained" sx={{ borderRadius: 5 }} color="error">
@@ -124,6 +129,17 @@ const HotelList = ({ hotels, location }) => {
                         View Hotel
                       </Button>
                     </div>
+                  </div>
+                  <div
+                    className={`align-items-center p-2 ${style.BookingCardColor} ${style.mobflex}`}
+                  >
+                    <h4>
+                      ₹1345{" "}
+                      <span>
+                        <del>1645</del>
+                      </span>
+                    </h4>{" "}
+                    <span className="text-danger">64% off</span>
                   </div>
                 </div>
               </Grid>
