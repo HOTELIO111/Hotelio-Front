@@ -315,9 +315,9 @@ const About = () => {
               <div className="col-xl-5">
                 <img className="rounded-circle img-fluid" style={{ height: '500px' }}  src={Client} alt="" />
               </div>
-              <div className="col-xl-7" style={{ display: 'grid', placeItems: 'center' }}>
+              <div className="col-xl-7 text-white" style={{ display: 'grid', placeItems: 'center' }}>
                 <h1><b>Our Founder</b></h1>
-                <h5 className="text-white pb-5">
+                <h5 className="pb-5">
                   Aditya Jaiswal, the founder of Hotelio, is a visionary
                   entrepreneur with a strong background in the real estate
                   and hospitality sectors. With over 12 years of vast

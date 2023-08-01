@@ -22,7 +22,8 @@
 }
 .aboutus_page_sectionOne {
   padding-top: 0;
-  background: url(../../images/AboutUsBanner.jpg);
+  /* background: url(../../images/AboutUsBanner.jpg); */
+  background-color: #6B0000;
   background-position: center;
   background-size: cover;
 }

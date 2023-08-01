@@ -53,8 +53,8 @@ const Home = (props) => {
       <Process />
 
 
-      <div className={`${style.homeContainer} container text-center`}>
         <AboutUs />
+      <div className={`${style.homeContainer} container text-center`}>
         {/* <h1
           className={`${style.homeTitle} text-dark  fw-bold pb-4 ${
             isXtraSmallScreen ? "fs-4" : "fs-3"

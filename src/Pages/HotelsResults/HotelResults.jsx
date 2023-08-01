@@ -40,7 +40,7 @@ const HotelResults = () => {
       <Navbar />
       <Container maxWidth="xl">
         {console.log(searchParams)}
-        <Grid container spacing={1}>
+        <Grid container mt={5} spacing={1}>
           <Grid item xl={2} lg={2} xs={12}>
             <SideFilter hotels={hotels} />
           </Grid>

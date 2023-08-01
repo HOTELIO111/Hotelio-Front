@@ -12,10 +12,10 @@ const AboutUs = () => {
                     <div className='col-xl-4'>
                         <img width={400} src={AboutUsImage} />
                     </div>
-                    <div className='col-xl-8 text-white' style={{ display: 'grid', placeItems: 'center' }}>
+                    <div className='col-xl-8' style={{ display: 'grid', placeItems: 'center', color:'#FFD700' }}>
                         <div>
-                            <h2>About Us</h2>
-                            <div className='text-left'>
+                            <h2 className='mb-5'>ABOUT US</h2>
+                            <div className='text-left text-white'>
                                 Hotelio, India's leading online booking
                                 platform, revolutionizes the way travelers
                                 find and book accommodations. With our
@@ -24,7 +24,7 @@ const AboutUs = () => {
                                 fingertips. Explore our vast network of
                                 premium hotels, budget-friendly options,
                                 and authentic homestays.
-                                <span><NavLink to='/about'> Read more...</NavLink></span>
+                                <span><NavLink style={{color:'#FFD700'}} to='/about'> Read more...</NavLink></span>
                             </div>
                         </div>
                     </div>

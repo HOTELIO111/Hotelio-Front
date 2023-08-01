@@ -414,7 +414,7 @@ const Profile = () => {
           <h3>Welcome to Hotelio! Please Update YourProfile</h3>
           <p>Membership Offer Coming Soon</p>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} lg={4} xl={4}>
           <div className={`text-center ${style.box}`}>
             <div className={` ${style.content}`}>
               <div className={` ${style.image}`}>
@@ -467,7 +467,7 @@ const Profile = () => {
           <ProfileUpdateModal />
           <PasswordUpdateModal />
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={12} lg={8} xl={8}>
           <div
             style={{
               overflowY: "auto",
