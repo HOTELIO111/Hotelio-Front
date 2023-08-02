@@ -408,7 +408,7 @@ const Profile = () => {
 
   return (
     <div>
-      <Grid container className="min-vh-100" spacing={2}>
+      <Grid container className="min-vh-100 mt-5" spacing={2}>
         <WaitLoader loading={Loader} />
         <Grid xs={12} className="text-center" item>
           <h3>Welcome to Hotelio! Please Update YourProfile</h3>

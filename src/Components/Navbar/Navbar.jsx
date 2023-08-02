@@ -41,6 +41,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Logout from "@mui/icons-material/Logout";
 import NavBanner from "../../images/NavBanner.jpg";
 import HotelioLogo from "../../images/HotelioLogo.png";
+import DomainAddIcon from '@mui/icons-material/DomainAdd';
 import {
   BsFillBuildingFill,
   BsFillBuildingsFill,
@@ -52,6 +53,7 @@ import Swal from "sweetalert2";
 import QuickFilterNav from "../../Pages/QuickFilterNav/QuickFilterNav";
 import axios from "axios";
 import { API_URL } from "../../config";
+import InfoIcon from '@mui/icons-material/Info';
 import CitywiseDropedown from "../CitywiseDropedown/CitywiseDropedown";
 
 const Navbar = ({ list }) => {
@@ -460,6 +462,24 @@ const Navbar = ({ list }) => {
                   </li>
                   <li style={{ listStyle: "none" }}>
                     <NavLink
+                      to="/about"
+                      className={`${!list ? "text-dark" : ""}`}
+                      onClick={() => {
+                        dispatch({
+                          type: "activePath",
+                          payload: "about",
+                        });
+                      }}
+                    >
+                      <InfoIcon /> About Us
+                      <hr
+                        className={`mt-0 ${style.activeTab} ${activePath === "about" ? "d-block" : "d-none"
+                          }`}
+                      />
+                    </NavLink>
+                  </li>
+                  <li style={{ listStyle: "none" }}>
+                    <NavLink
                       // to="/parking"
                       to="/hoteliomember"
                       className={`${!list ? "text-dark" : ""}`}
@@ -473,6 +493,27 @@ const Navbar = ({ list }) => {
                       <BsFillBuildingsFill /> Become a Hotelio Partner
                       <hr
                         className={`mt-0 ${style.activeTab} ${activePath === "parking" ? "d-block" : "d-none"
+                          }`}
+                      />
+                    </NavLink>
+                  </li>
+                  <li style={{ listStyle: "none" }}>
+                    <NavLink
+                      // to="/parking"
+                      to={
+                        "https://hotelio-dashboard-trickle.netlify.app/register"
+                      }
+                      className={`${!list ? "text-dark" : ""}`}
+                      onClick={() => {
+                        dispatch({
+                          type: "activePath",
+                          payload: "register",
+                        });
+                      }}
+                    >
+                      <DomainAddIcon /> LIST YOUR PROPERTY
+                      <hr
+                        className={`mt-0 ${style.activeTab} ${activePath === "register" ? "d-block" : "d-none"
                           }`}
                       />
                     </NavLink>
@@ -531,9 +572,9 @@ const Navbar = ({ list }) => {
                           <MenuItem onClick={() => navigate("/signin")}>
                             Customer Login
                           </MenuItem>
-                          <MenuItem onClick={() => navigate("/signup")}>
+                          {/* <MenuItem onClick={() => navigate("/signup")}>
                             Customer Signup
-                          </MenuItem>
+                          </MenuItem> */}
                           <MenuItem>
                             <Link
                               to={
@@ -543,7 +584,7 @@ const Navbar = ({ list }) => {
                               Partner Login
                             </Link>
                           </MenuItem>
-                          <MenuItem>
+                          {/* <MenuItem>
                             <Link
                               to={
                                 "https://hotelio-dashboard-trickle.netlify.app/register"
@@ -551,7 +592,7 @@ const Navbar = ({ list }) => {
                             >
                               Partner Signup
                             </Link>
-                          </MenuItem>
+                          </MenuItem> */}
                         </Menu>
                       </li>
                     </>

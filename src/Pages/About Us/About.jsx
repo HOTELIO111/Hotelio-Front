@@ -34,7 +34,7 @@ const About = () => {
           </div>
         </section>
 
-        <section style={{ background: `url(${DecorImageS})`, backgroundSize: 'cover' }} className={`${style.aboutus_page_section} pt-4 `}>
+        <section  className={`${style.aboutus_page_section} pt-4 `}>
           <div className="container">
             <div className={style.about_page_text}>
               <div className="row d-flex flex-row justify-content-between">

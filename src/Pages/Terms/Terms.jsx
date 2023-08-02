@@ -30,7 +30,7 @@ const Terms = () => {
         <div>
             <Navbar />
             <div
-                className={` text-center p-5 rounded ${style.TermsContainer}`}
+                className={` text-center p-5 mt-5 rounded ${style.TermsContainer}`}
             >
                 <h1>Hotelio Terms & Services</h1>
             </div>

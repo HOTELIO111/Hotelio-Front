@@ -49,8 +49,8 @@ const Home = (props) => {
         {/* <Featured /> */}
       </div>
 
-      <WeServe />
       <Process />
+      <WeServe />
 
 
         <AboutUs />
@@ -64,7 +64,6 @@ const Home = (props) => {
         </h1> */}
       </div>
 
-      {/* <Testimonial /> */}
 
       <div className={` ${style.homeContainer} container text-center`}>
 
@@ -78,6 +77,9 @@ const Home = (props) => {
       </div>
 
       <SliderCarousel />
+
+      <Testimonial />
+
       <Footer />
     </div>
   );

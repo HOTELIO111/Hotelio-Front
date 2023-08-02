@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { WaitLoader } from "../../Components/Elements/WaitLoader";
 import { API_URL } from "../../config";
 import NetworkWifi3BarRoundedIcon from '@mui/icons-material/NetworkWifi3BarRounded';
+import HotelListBack from '../../images/HotelListBack.jpg'
 
 const HotelList = ({ hotels, location }) => {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ const HotelList = ({ hotels, location }) => {
         <Grid item xs={12} p={2} lg={12} xl={12}
 
           style={{
-            background: 'url(https://img.freepik.com/free-vector/gradient-smooth-background_23-2148980957.jpg?w=1060&t=st=1690878485~exp=1690879085~hmac=b3abfffac566fe9d8124a79ea2af159f0bdd2307b65e7fa20d83e5acdbe454fa)',
+            background: `url(${HotelListBack})`,
             backgroundPosition: 'bottom',
             backgroundSize: 'cover',
             color: '#000'
@@ -65,14 +66,14 @@ const HotelList = ({ hotels, location }) => {
           <Card fluid sx={{ p: 1, my: 1, borderRadius: 4 }}>
             <Grid container>
               <Grid item xs={12} lg={3} xl={3}>
-                <div className="w-100">
+                {/* <div className="w-100"> */}
                   <img
                     className="rounded"
                     style={{ height: "180px", width: '100%' }}
                     src={`${API_URL}/uploads/${items.hotelCoverImg}`}
                     alt="eyd"
                   />
-                </div>
+                {/* </div> */}
               </Grid>
               <Grid style={{ display: 'grid', alignItems: 'center' }} item xs={12} lg={5} xl={5} >
                 <div className="px-3 pt-2">
