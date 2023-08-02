@@ -26,16 +26,16 @@ const QuickFilterNav = () => {
         <>
             <div style={{ width: "100%" }} className={style.mainDiv}>
                 <div onClick={() => navigate('/searchedhotels')} style={{ objectFit: "cover", objectPosition: 'center' }} className={style.cardStyle}>
-                    <img src={HotelBudget} style={{ borderRadius: "1rem" }} alt="HotelBudget" />
-                    <h5>Hotel in Budget</h5>
+                    <img src={PrimeHotel} style={{ borderRadius: "1rem" }} alt="PrimeHotel" />
+                    <h5>Hotelio Premium</h5>
                 </div>
                 <div onClick={() => navigate('/searchedhotels')} style={{ objectFit: "cover", objectPosition: 'center' }} className={style.cardStyle}>
                     <img src={HomeStay} style={{ borderRadius: "1rem" }} alt="HomeStay" />
-                    <h5>Home Stay</h5>
+                    <h5>Hotelio Home Stay</h5>
                 </div>
                 <div onClick={() => navigate('/searchedhotels')} style={{ objectFit: "cover", objectPosition: 'center' }} className={style.cardStyle}>
-                    <img src={PrimeHotel} style={{ borderRadius: "1rem" }} alt="PrimeHotel" />
-                    <h5>Prime Hotels</h5>
+                    <img src={HotelBudget} style={{ borderRadius: "1rem" }} alt="HotelBudget" />
+                    <h5>Hotelio Budget</h5>
                 </div>
             </div>
         </>
