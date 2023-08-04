@@ -120,7 +120,7 @@ const SideFilter = () => {
                 <div>
                     <h5>Location</h5>
                     <Autocomplete
-                        multiple
+                        
                         options={locations}
                         value={selectedLocations}
                         onChange={handleLocationChange}
