@@ -216,12 +216,12 @@ const Footer = () => {
             </h4>
 
             <ul className={`${style.fList} mt-4`}>
-              {/* <li className={style.fListItem}>
+              <li className={style.fListItem}>
                 <Link to="/contact" className="d-flex justify-content-start">
                   <CallIcon className="me-2" />{" "}
                   <span className=" fs-6">+91 (811) 5510050</span>
                 </Link>
-              </li> */}
+              </li>
               <li className={style.fListItem}>
                 <Link to="/contact" className="d-flex justify-content-start">
                   <CallIcon className="me-2" />

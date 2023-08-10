@@ -82,7 +82,7 @@ const Contact = () => {
                     <LocalPhoneRoundedIcon color="primary" />
                     <span className="mx-2 fw-bold">Phone:</span>
                     <small className="fw-lighter text-muted">
-                      (12) 345 67890
+                    +91 (811) 5510050
                     </small>
                   </div>
                   <div className="my-2">
