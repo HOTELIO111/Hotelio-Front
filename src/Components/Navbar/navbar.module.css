@@ -745,7 +745,7 @@ div.search_form button i {
   div.search_form input {
     border: 1px solid #8d99af;
     border-radius: 7px;
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
   }
 
   div.search_form button {

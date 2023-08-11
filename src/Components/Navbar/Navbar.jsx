@@ -27,26 +27,16 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import LocalParkingIcon from "@mui/icons-material/LocalParking";
-import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { FormControl, InputLabel, Select, useMediaQuery } from "@mui/material";
-import Box from "@mui/material/Box";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Logout from "@mui/icons-material/Logout";
 import NavBanner from "../../images/NavBanner.jpg";
 import HotelioLogo from "../../images/HotelioLogo.png";
 import DomainAddIcon from '@mui/icons-material/DomainAdd';
 import {
-  BsFillBuildingFill,
   BsFillBuildingsFill,
-  BsTranslate,
-  BsFillPersonFill,
 } from "react-icons/bs";
 import KeyIcon from "@mui/icons-material/Key";
 import Swal from "sweetalert2";
@@ -771,8 +761,7 @@ const Navbar = ({ list }) => {
                             }}
                             className={`d-flex ${style.headerSearchText}`}
                           >
-                            {`${getTotalGuests()} Guests · ${manageRoom.length
-                              } room`}
+                            {`${getTotalGuests()} Guests · ${manageRoom.length} room`}
                             <div className="ms-3 text-dark">
                               {openOptions ? (
                                 <ExpandLessIcon />

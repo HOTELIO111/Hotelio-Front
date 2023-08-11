@@ -24,7 +24,9 @@ const Home = (props) => {
   const isXtraSmallScreen = useMediaQuery("(max-width: 450px)");
   return (
     <>
-      <MobileNav />
+      <div className="d-md-none d-lg-none d-xl-none">
+        <MobileNav />
+      </div>
       <div
         className="d-none d-sm-block"
         style={{
