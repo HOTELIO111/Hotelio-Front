@@ -4,9 +4,8 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import HomeIcon from '@mui/icons-material/Home';
 import InfoIcon from '@mui/icons-material/Info';
 import PersonIcon from '@mui/icons-material/Person';
-import { BsFillBuildingsFill } from 'react-icons/bs';
 import DomainAddIcon from '@mui/icons-material/DomainAdd';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 export default function MobileFooter() {
     const [value, setValue] = React.useState(0);

@@ -50,7 +50,6 @@ import HotelResults from "./Pages/HotelsResults/HotelResults";
 import HotelDetail from "./Pages/HotelDetail/HotelDetail";
 import Member from "./Pages/Member/Member";
 import JoinOurNetwork from "./Pages/JoinOurNetwork/JoinOurNetwork";
-import HomeX from "./Pages/HomeX/HomeX";
 // import ReactDataTable from "./Components/ReactDataTable/ReactDataTable";
 
 function App() {

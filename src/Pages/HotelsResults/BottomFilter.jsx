@@ -5,7 +5,6 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Autocomplete, Checkbox, FormControlLabel, Grid, Modal, Slider, TextField, Typography } from '@mui/material';
-import SideFilter from './SideFilter';
 
 export default function BottomFilter() {
     const [value, setValue] = React.useState(0);

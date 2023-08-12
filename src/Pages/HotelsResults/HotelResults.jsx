@@ -4,7 +4,6 @@ import HotelList from "./HotelList";
 import Footer from "../../Components/footer/Footer";
 import { Container, Grid } from "@mui/material";
 import SideFilter from "./SideFilter";
-import { useParams } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../../config";
 import { useEffect } from "react";
