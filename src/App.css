@@ -375,3 +375,21 @@ body {
 .row {
   --mdb-gutter-x: revert !important;
 }
+
+.css-58b16v {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 0.75rem;
+  opacity: 1 !important;
+  -webkit-transition: font-size 0.2s, opacity 0.2s;
+  transition: font-size 0.2s, opacity 0.2s;
+  transition-delay: 0s;
+}
+
+.css-1gh6k7f-MuiBottomNavigationAction-label {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 0.75rem;
+  opacity: 1 !important;
+  -webkit-transition: font-size 0.2s, opacity 0.2s;
+  transition: font-size 0.2s, opacity 0.2s;
+  transition-delay: 0s;
+}

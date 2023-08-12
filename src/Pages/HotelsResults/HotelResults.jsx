@@ -9,6 +9,7 @@ import axios from "axios";
 import { API_URL } from "../../config";
 import { useEffect } from "react";
 import { useState } from "react";
+import BottomFilter from "./BottomFilter";
 
 const HotelResults = () => {
   const searchParams = new URLSearchParams(document.location.search);
@@ -38,7 +39,7 @@ const HotelResults = () => {
   return (
     <div>
       <Navbar />
-      <Container  maxWidth="xl">
+      <Container maxWidth="xl">
         <Grid container mt={6} spacing={1}>
           <Grid item xl={2} lg={2} xs={12}>
             <SideFilter hotels={hotels} />
@@ -48,6 +49,9 @@ const HotelResults = () => {
               hotels={hotels}
               location={searchParams.get("location")}
             />
+          </Grid>
+          <Grid item xs={12}>
+            <BottomFilter />
           </Grid>
         </Grid>
       </Container>

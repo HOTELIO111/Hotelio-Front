@@ -17,27 +17,27 @@ const StyledCard = styled(Card)`
 const cardData = [
     {
         title: 'Card 1',
-        content: 'Lorem ipsum dolor sit amet.',
+        content: 'Hotel (4.1 rating)',
         image: 'https://passionbuz.com/wp-content/uploads/2019/09/luxurious-hotels-in-the-world-TITANIC-MARDAN-PALACE-1024x683.jpg',
     },
     {
         title: 'Card 2',
-        content: 'Lorem ipsum dolor sit amet.',
+        content: 'Hotel (4.2 rating)',
         image: 'https://cliffshotelandspa.com/wp-content/uploads/2021/08/pismo_beach_hotels_1024x630_pool_gallery-1024x683-1.jpeg',
     },
     {
         title: 'Card 2',
-        content: 'Lorem ipsum dolor sit amet.',
+        content: 'Hotel (4.1 rating)',
         image: 'https://cliffshotelandspa.com/wp-content/uploads/2021/08/pismo_beach_hotels_1024x630_pool_gallery-1024x683-1.jpeg',
     },
     {
         title: 'Card 2',
-        content: 'Lorem ipsum dolor sit amet.',
+        content: 'Hotel (4.4 rating)',
         image: 'https://cliffshotelandspa.com/wp-content/uploads/2021/08/pismo_beach_hotels_1024x630_pool_gallery-1024x683-1.jpeg',
     },
     {
         title: 'Card 2',
-        content: 'Lorem ipsum dolor sit amet.',
+        content: 'Hotel (3.8 rating)',
         image: 'https://cliffshotelandspa.com/wp-content/uploads/2021/08/pismo_beach_hotels_1024x630_pool_gallery-1024x683-1.jpeg',
     },
 ];
@@ -52,7 +52,7 @@ const ScrollableCardList = () => {
                         <CardContent>
                             {/* <Typography variant="h6">{card.title}</Typography> */}
                             <img src={card.image} alt={`Image ${index}`} />
-                            {/* <Typography>{card.content}</Typography> */}
+                            <Typography>{card.content}</Typography>
                         </CardContent>
                     </StyledCard>
                 ))}
