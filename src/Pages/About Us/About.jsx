@@ -5,11 +5,11 @@ import Footer from "../../Components/footer/Footer";
 import parking1 from "../../images/parking10.jpg";
 import Hotel1 from "../../images/hotelPic1.jpg";
 import Hotel21 from "../../images/hotelPic21.jpg";
-import Hotel2 from "../../images/hotelPic2.jpg";
 import Hotel23 from "../../images/hotelPic23.jpg";
-import Hotel3 from "../../images/hotelPic3.jpg";
 import Hotel4 from "../../images/hotelPic4.jpg";
 import Hotel12 from "../../images/hotelPic12.jpg";
+import Hotel3 from "../../images/hotelPic3.jpg";
+import Hotel2 from "../../images/hotelPic2.jpg";
 import Hotel25 from "../../images/hotelPic25.jpg";
 import Hotel6 from "../../images/hotelPic7.jpg";
 import DecorImage from '../../images/DecorImage.png'
@@ -17,24 +17,26 @@ import DecorImageS from '../../images/DecoreImageS.jpg'
 import AboutUsTopBanner from '../../images/AboutUsTopBanner.jpg'
 import Client from '../../images/Client.jpg'
 import LabelImportantRoundedIcon from "@mui/icons-material/LabelImportantRounded";
+import { Images } from "./images";
 
 const About = () => {
+
   return (
     <>
       <Navbar />
       <div className="conatiner-fluid">
-        <section style={{ background: `linear-gradient(37deg, rgba(255,255,255,0.8016456582633054) 0%, rgba(255,255,255,0.38147759103641454) 100%), url(${AboutUsTopBanner})`, backgroundSize: 'cover', backgroundPosition: 'bottom', backgroundAttachment: 'fixed' }}>
+        <section style={{ background: `linear-gradient(37deg, rgba(255,255,255,0.8016456582633054) 0%, rgba(255,255,255,0.38147759103641454) 100%), url(${AboutUsTopBanner})`, backgroundSize: 'cover', backgroundPosition: 'bottom', backgroundAttachment: 'fixed', height: '50vh', display: 'grid', placeItems: 'center' }}>
           <div className="row">
             <div style={{ display: 'grid', placeItems: 'center' }} className="col-12 p-5">
               <div className="border rounded p-2 text-center text-danger">
-                <h1>About Us</h1>
+                <h1><b>About Us</b></h1>
                 <h4>Home 	&#62; About Us</h4>
               </div>
             </div>
           </div>
         </section>
 
-        <section  className={`${style.aboutus_page_section} pt-4 `}>
+        <section className={`${style.aboutus_page_section} pt-4 `}>
           <div className="container">
             <div className={style.about_page_text}>
               <div className="row d-flex flex-row justify-content-between">
@@ -42,7 +44,7 @@ const About = () => {
                   <div className={style.ap_title}>
                     <h2>Welcome To Hotelio.</h2>
                     <p style={{ fontFamily: "Rubik" }}>
-                      Hotelio, India's leading online booking
+                      Hotelio is owned by Houda Carjour Tourism Pvt Ltd, India's leading online booking
                       platform, revolutionizes the way travelers
                       find and book accommodations. With our
                       user-friendly app and website, we bring
@@ -138,7 +140,7 @@ const About = () => {
             <div className="row">
               <div className="col-lg-12">
                 <div className={style.section_title}>
-                  <span>Our Rooms</span>
+                  <h1><u><b>Our Rooms</b></u></h1>
                   <h2>Discover Our Room Types</h2>
                 </div>
               </div>
@@ -254,7 +256,7 @@ const About = () => {
             <div className="row">
               <div className="col-lg-12">
                 <div className={style.section_title}>
-                  <span>Our Hotels</span>
+                  <h1><u><b>Our Hotels</b></u></h1>
                   <h2>Discover Our Luxury Hotels</h2>
                 </div>
               </div>
@@ -313,7 +315,7 @@ const About = () => {
           <div className="container">
             <div className="row">
               <div className="col-xl-5">
-                <img className="rounded-circle img-fluid" style={{ height: '500px' }}  src={Client} alt="" />
+                <img className="rounded-circle img-fluid" style={{ height: '500px' }} src={Client} alt="" />
               </div>
               <div className="col-xl-7 text-white" style={{ display: 'grid', placeItems: 'center' }}>
                 <h1><b>Our Founder</b></h1>

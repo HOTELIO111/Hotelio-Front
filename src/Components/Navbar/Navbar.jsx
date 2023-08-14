@@ -700,8 +700,7 @@ const Navbar = ({ list }) => {
           <div
             className={style.main_banner}
             style={{
-              backgroundImage: `linear-gradient(0deg, rgba(33, 33, 33,0.4), rgb(33, 33, 33,0.5)),url(${navSearch ? hotel : nav2 ? hotelparking : parking
-                })`,
+              backgroundImage: `linear-gradient(0deg, rgba(33, 33, 33,0.1), rgb(33, 33, 33,0.2)),url(${hotel})`,
             }}
           >
             <div className="container">
@@ -709,12 +708,12 @@ const Navbar = ({ list }) => {
                 <div className="col-lg-12">
                   <div className={`${style.top_text} ${style.header_text}`}>
                     <h2 className={` text-white ${style.text_shadow}`}>
-                      Welcome To Hotelio Rooms
+                      Welcome To Hotelio, Your Travel Partner
                     </h2>
-                    <h4 className={`py-3 text-white ${style.text_shadow}`}>
+                    {/* <h4 className={`py-3 text-white ${style.text_shadow}`}>
                       Where comfort meets convenience and your journey begins
                       with a click
-                    </h4>
+                    </h4> */}
                   </div>
                 </div>
                 {/* {console.log(citites)} */}

@@ -124,7 +124,7 @@ export default function CitywiseDropedown() {
     };
 
     return (
-        <div className='d-flex justify-content-between'>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             {
                 StateWiseCityList.map((item, index) => (
                     <div key={index}>

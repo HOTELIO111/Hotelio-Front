@@ -109,12 +109,7 @@ const Footer = () => {
               About Us
             </h5>
             <p className="mt-4 text-white">
-              Hotelio Is Online Booking Platform for Easy And Comfortable stay
-              For Travelers throug Hotelio app and Hotelio Web. It was founded
-              In 13th may 2023 , Hotelio is owning by Company 'Houda Carjour
-              Tourism pvt Ltd' Registered at Roc Kanpur Uttar pradesh. Hotelio
-              is India's trusted and fastest growing hotel chain network. It's
-              India's first AI Enabled app and website.
+              'Hotelio' is owned by 'Houda Carjour Tourism Pvt Ltd,' an online booking platform offering easy and comfortable stays for travelers through the Hotelio app and Hotelio Web. It was founded on May 13th, 2023. 'Hotelio' is owned by the company 'Houda Carjour Tourism Pvt Ltd,' registered at the Registrar of Companies in Kanpur, Uttar Pradesh. 'Hotelio' is India's trusted and fastest-growing hotel chain network. It is India's first AI-enabled app and website.
             </p>
             <div style={{ borderRadius: '8px', backgroundColor: 'rgba(255, 255, 255, 0.236)' }} className="border w-100 d-flex justify-content-end">
               <input className="w-100 bg-transparent border-0 p-1" type="text" />
@@ -252,7 +247,7 @@ const Footer = () => {
           <div className="row m-0">
             <div
               className={`${style.footersec5}  ${isXtraSmallScreen ? "text-center" : "text-start"
-                }  col-xl-4 col-md-12 col-12 `}
+                }  col-xl-3 col-md-12 col-12 `}
             >
               {/* <InstagramIcon className={`mx-1 fs-1  ${style.insta} `} />
               <FacebookIcon className={`mx-1 fs-1 ${style.facebook}`} />
@@ -273,13 +268,13 @@ const Footer = () => {
                 />
               </div>
             </div>
-            <div className="col-xl-4 col-md-12 col-12"
+            <div className="col-xl-6 col-md-12 col-12"
               style={{ fontSize: "20px", display: 'grid', placeItems: 'center' }}
             >
-              2023 © www.hoteliorooms.com
+              © 2023 Hotelio is owned by Houda Carjour Tourism Pvt Ltd
             </div>
             <div
-              className={`col-xl-4 col-md-12 col-12`}
+              className={`col-xl-3 col-md-12 col-12`}
               style={{ fontSize: "20px", display: 'grid', placeItems: 'center' }}
             >
               <div className={` ${style.acceptPaymentStyle}`}>
