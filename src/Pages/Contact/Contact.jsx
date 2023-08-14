@@ -74,7 +74,7 @@ const Contact = () => {
                     <HomeRoundedIcon color="primary" />
                     <span className="mx-2 fw-bold">Address:</span>
                     <small className="fw-lighter text-muted">
-                      856 Cordia Extension Apt.356,Lake,US
+                      Indira Nagar, Lucknow, UP
                     </small>
                   </div>
                   <div className="my-2">
