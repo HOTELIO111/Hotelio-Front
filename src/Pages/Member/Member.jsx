@@ -29,7 +29,7 @@ const Member = () => {
       >
         <CardMember />
         <Grid container padding={5} spacing={1} >
-          <Grid item xs={12} xl={7} sx={{ display: 'grid', placeItems: 'center' }} >
+          <Grid item xs={12} lg={7} xl={7} sx={{ display: 'grid', placeItems: 'center' }} >
             <h3>Hotelio Business Promises</h3>
             <div>
               <ul>
@@ -57,7 +57,7 @@ const Member = () => {
               </ul>
             </div>
           </Grid>
-          <Grid item xs={12} xl={5} >
+          <Grid item xs={12} lg={5} xl={5} >
             <div
               style={
                 {
@@ -74,7 +74,7 @@ const Member = () => {
         className={`${style.MemberBackgroundS}`}
       >
         <Grid container paddingX={5} paddingY={2} spacing={1} bgcolor={'#ffffff6b'} >
-          <Grid item xs={12} xl={5} sx={{ display: 'grid', placeItems: 'center' }} >
+          <Grid item xs={12} lg={5} xl={5} sx={{ display: 'grid', placeItems: 'center' }} >
             <div
               style={
                 {
@@ -85,7 +85,7 @@ const Member = () => {
               <img src="https://img.freepik.com/free-vector/hotel-services-set-icons_24877-52755.jpg?w=740&t=st=1690277494~exp=1690278094~hmac=b32c4b28daa5669533dbd655185a48cc7407dcd008dc56f1fcc26319ce9e8d2f" alt="Bunisesspromises" />
             </div>
           </Grid>
-          <Grid item xs={12} xl={7} sx={{ display: 'grid', placeItems: 'center' }} >
+          <Grid item xs={12} lg={7} xl={7} sx={{ display: 'grid', placeItems: 'center' }} >
             <div>
               <ul>
                 <li className="mb-5 text-center">
@@ -166,7 +166,7 @@ const Member = () => {
             <Grid item className="text-center" xs={12}>
               <h3>Partner FAQ's</h3>
             </Grid>
-            <Grid item xs={12} xl={5} sx={{ display: 'grid', placeItems: 'center' }} >
+            <Grid item xs={12} lg={5} xl={5} sx={{ display: 'grid', placeItems: 'center' }} >
               <div
                 style={
                   {
@@ -178,7 +178,7 @@ const Member = () => {
                 <img src={Deal} alt="Bunisesspromises" />
               </div>
             </Grid>
-            <Grid item xs={12} xl={7} sx={{ display: 'grid', placeItems: 'center' }}>
+            <Grid item xs={12} lg={7} xl={7} sx={{ display: 'grid', placeItems: 'center' }}>
               <div>
                 <Accordion>
                   <AccordionSummary

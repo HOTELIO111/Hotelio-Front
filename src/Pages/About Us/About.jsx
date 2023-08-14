@@ -44,7 +44,7 @@ const About = () => {
                   <div className={style.ap_title}>
                     <h2>Welcome To Hotelio.</h2>
                     <p style={{ fontFamily: "Rubik" }}>
-                      Hotelio is owned by Houda Carjour Tourism Pvt Ltd, India's leading online booking
+                      India's leading online booking
                       platform, revolutionizes the way travelers
                       find and book accommodations. With our
                       user-friendly app and website, we bring
@@ -57,7 +57,8 @@ const About = () => {
                       Join us on a journey where travel meets
                       convenience, and let Hotelio be your
                       trusted partner for unforgettable stays
-                      wherever your adventures take you.
+                      India's leading online booking
+                      wherever your adventures take you. Hotelio is owned by Houda Carjour Tourism Pvt Ltd, India's Number 1 Fastest Leading Hotel Chain.
                     </p>
                   </div>
                 </div>

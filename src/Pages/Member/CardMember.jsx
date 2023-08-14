@@ -28,7 +28,7 @@ const CardMember = () => {
   return (
     <Grid container spacing={2} padding={5}>
       <Grid item xs={12}>
-        <div className="text-center text-white">
+        <div className="text-center text-white mt-4">
           <h2>Hotelio Business is a corporate hotel booking solution by Hotelio.</h2>
         </div>
       </Grid>

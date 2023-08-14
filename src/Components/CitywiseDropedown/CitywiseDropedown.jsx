@@ -3,29 +3,14 @@ import { styled, alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-const StyledMenu = styled((props) => (
-    <Menu
-        elevation={0}
-        anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-        }}
-        transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-        }}
-        {...props}
-    />
-))(({ theme }) => ({
+const StyledMenu = styled(Menu)(({ theme }) => ({
     '& .MuiPaper-root': {
         borderRadius: 6,
         marginTop: theme.spacing(1),
-        minWidth: 180,
-        color:
-            theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
+        color: theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
         boxShadow:
             'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
         '& .MuiMenu-list': {
@@ -57,60 +42,60 @@ const StateWiseCityList = [
     },
     {
         id: 2,
-        State: 'Uttar Pradesh',
+        State: 'Madya Pradesh',
         city: [
             "Lucknow", "Lakhimpur", "Raibarely", "Sultanpur", "Mirzapur"
         ]
     },
     {
         id: 3,
-        State: 'Uttar Pradesh',
+        State: 'Rajasthan',
         city: [
             "Lucknow", "Lakhimpur", "Raibarely", "Sultanpur", "Mirzapur"
         ]
     },
     {
         id: 4,
-        State: 'Uttar Pradesh',
+        State: 'Kerala',
         city: [
             "Lucknow", "Lakhimpur", "Raibarely", "Sultanpur", "Mirzapur"
         ]
     },
     {
         id: 5,
-        State: 'Uttar Pradesh',
+        State: 'Tamil Nadu',
         city: [
             "Lucknow", "Lakhimpur", "Raibarely", "Sultanpur", "Mirzapur"
         ]
     },
     {
         id: 6,
-        State: 'Uttar Pradesh',
+        State: 'Karnataka',
         city: [
             "Lucknow", "Lakhimpur", "Raibarely", "Sultanpur", "Mirzapur"
         ]
     },
     {
         id: 7,
-        State: 'Uttar Pradesh',
+        State: 'Goa',
         city: [
             "Lucknow", "Lakhimpur", "Raibarely", "Sultanpur", "Mirzapur"
         ]
     },
     {
         id: 8,
-        State: 'Uttar Pradesh',
+        State: 'Gujarat',
         city: [
             "Lucknow", "Lakhimpur", "Raibarely", "Sultanpur", "Mirzapur"
         ]
     },
     {
         id: 9,
-        State: 'Uttar Pradesh',
+        State: 'West Bengal',
         city: [
             "Lucknow", "Lakhimpur", "Raibarely", "Sultanpur", "Mirzapur"
         ]
-    },
+    }
 ]
 
 export default function CitywiseDropedown() {
@@ -124,44 +109,38 @@ export default function CitywiseDropedown() {
     };
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            {
-                StateWiseCityList.map((item, index) => (
-                    <div key={index}>
-                        <Button
-                            id="demo-customized-button"
-                            aria-controls={open ? 'demo-customized-menu' : undefined}
-                            aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined}
-                            variant="text"
-                            sx={{ color: '#fff' }}
-                            disableElevation
-                            onClick={handleClick}
-                            endIcon={<KeyboardArrowDownIcon />}
-                        >
-                            {item.State}
-                        </Button>
-                        <StyledMenu
-                            id="demo-customized-menu"
-                            MenuListProps={{
-                                'aria-labelledby': 'demo-customized-button',
-                            }}
-                            anchorEl={anchorEl}
-                            open={open}
-                            onClose={handleClose}
-                        >
-                            {item.city.map((items, index) => (
-                                <MenuItem key={index} onClick={handleClose} disableRipple>
-                                    {items}
-                                </MenuItem>
-                            ))}
-
-                        </StyledMenu>
-                    </div>
-                ))
-            }
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', justifyContent: 'center' }}>
+            {StateWiseCityList.map((item, index) => (
+                <div key={index}>
+                    <Button
+                        aria-controls={open ? 'demo-customized-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                        variant="text"
+                        sx={{ color: '#fff' }}
+                        disableElevation
+                        onClick={handleClick}
+                        endIcon={<KeyboardArrowDownIcon />}
+                    >
+                        {item.State}
+                    </Button>
+                    <StyledMenu
+                        MenuListProps={{
+                            'aria-labelledby': 'demo-customized-button',
+                        }}
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                    >
+                        {item.city.map((items, index) => (
+                            <MenuItem key={index} onClick={handleClose} disableRipple>
+                                {items}
+                            </MenuItem>
+                        ))}
+                    </StyledMenu>
+                </div>
+            ))}
             <Button
-                id="demo-customized-button"
                 aria-controls={open ? 'demo-customized-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
@@ -175,3 +154,4 @@ export default function CitywiseDropedown() {
         </div>
     );
 }
+

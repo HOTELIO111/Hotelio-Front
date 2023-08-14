@@ -471,6 +471,7 @@ const Navbar = ({ list }) => {
                   <li style={{ listStyle: "none" }}>
                     <NavLink
                       // to="/parking"
+                      target="_blank" 
                       to="/hoteliomember"
                       className={`${!list ? "text-dark" : ""}`}
                       onClick={() => {

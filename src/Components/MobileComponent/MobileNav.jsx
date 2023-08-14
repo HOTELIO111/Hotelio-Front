@@ -22,6 +22,7 @@ import Premiumcard from './Premiumcard';
 import style from "../Navbar/navbar.module.css";
 import MobileSlider from './MobileSlider';
 import styled from 'styled-components';
+import MobileDestination from './MobileDestination';
 
 const MobileNav = ({ list }) => {
 
@@ -348,6 +349,10 @@ const MobileNav = ({ list }) => {
                     <Grid item xs={12} paddingBottom={6}>
                         <div>
                             <Premiumcard />
+                            
+                            <h5 className='p-2 pl-4'><b>Our collection</b></h5>
+
+                            <MobileDestination />
                             <h5 className='p-2 pl-4'><b>Our collection</b></h5>
 
                             <MobileSlider />
