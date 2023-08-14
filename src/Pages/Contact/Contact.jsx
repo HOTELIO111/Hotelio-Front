@@ -67,8 +67,7 @@ const Contact = () => {
               <div className={style.contact_text}>
                 <h2>Contact Info</h2>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Hotelio is owned by Houda Carjour Tourism Pvt Ltd, India's Number 1 Fastest Leading Hotel Chain.
                 </p>
                 <div className="py-2">
                   <div className="my-2">
