@@ -763,7 +763,7 @@ div.search_form button i {
   }
 
   .header_area .main_nav a.logo {
-    background-image: url(../../images/bgrmvblk.png);
+    /* background-image: url(../../images/bgrmvblk.png); */
     float: left;
   }
 

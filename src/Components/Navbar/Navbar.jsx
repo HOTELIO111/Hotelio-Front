@@ -5,21 +5,16 @@ import {
   NavLink,
   useNavigate,
   useLocation,
-  Navigate,
 } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import $, { param } from "jquery";
-import ParkingDate from "../DateForPaking/ParkingDate";
 import Dates from "../date/Date";
 import Dropdown from "../dropdown/Dropdown";
 import hotel from "../../images/hotel-bg.png";
-import hotelparking from "../../images/hotelparking-bg.jpg";
-import parking from "../../images/parking-bg.jpg";
 import { styled, alpha } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import Avatar from "@mui/material/Avatar";
 import HomeIcon from "@mui/icons-material/Home";
 import PersonIcon from "@mui/icons-material/Person";
 import HotelIcon from "@mui/icons-material/Hotel";
@@ -31,8 +26,6 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { FormControl, InputLabel, Select, useMediaQuery } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import Logout from "@mui/icons-material/Logout";
-import NavBanner from "../../images/NavBanner.jpg";
 import HotelioLogo from "../../images/HotelioLogo.png";
 import DomainAddIcon from '@mui/icons-material/DomainAdd';
 import {

@@ -18,6 +18,7 @@ import ApartmentTwoToneIcon from '@mui/icons-material/ApartmentTwoTone';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PermPhoneMsgSharpIcon from '@mui/icons-material/PermPhoneMsgSharp';
 import Deal from '../../images/MemberDeal.png'
+import ResonsImage from '../../images/reasonsImage.jpg'
 
 const Member = () => {
   return (
@@ -82,7 +83,7 @@ const Member = () => {
                 }
               }
             >
-              <img src="https://img.freepik.com/free-vector/hotel-services-set-icons_24877-52755.jpg?w=740&t=st=1690277494~exp=1690278094~hmac=b32c4b28daa5669533dbd655185a48cc7407dcd008dc56f1fcc26319ce9e8d2f" alt="Bunisesspromises" />
+              <img src={ResonsImage} alt="Bunisesspromises" />
             </div>
           </Grid>
           <Grid item xs={12} lg={7} xl={7} sx={{ display: 'grid', placeItems: 'center' }} >
