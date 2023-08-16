@@ -23,6 +23,7 @@ import style from "../Navbar/navbar.module.css";
 import MobileSlider from './MobileSlider';
 import styled from 'styled-components';
 import MobileDestination from './MobileDestination';
+import MobileHeader from './MobileHeader';
 
 const MobileNav = ({ list }) => {
 
@@ -132,36 +133,9 @@ const MobileNav = ({ list }) => {
     };
 
 
-    const redesigne = {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)'
-    }
-
-    const handlePhoneCall = () => {
-        const phoneNumber = '811-551-0050';
-
-        // Construct the phone call URL using the tel: scheme
-        const phoneCallUrl = `tel:${phoneNumber}`;
-
-        // Open the phone call URL
-        window.location.href = phoneCallUrl;
-    };
-
     return (
         <>
-            <Container>
-                <div style={redesigne}>
-                    <div></div>
-                    <div className="d-flex justify-content-end align-items-center">
-                        <Link to="/" >
-                            <img alt="logo" style={{ width: '100px' }} src={HotelioLogo} />
-                        </Link>
-                    </div>
-                    <div className="d-flex justify-content-end align-items-center">
-                        <FiPhoneCall onClick={handlePhoneCall} color='#ee2e24' size={20} />
-                    </div>
-                </div>
-            </Container>
+            <MobileHeader />
             <div className='bg-white p-1'>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
@@ -184,6 +158,7 @@ const MobileNav = ({ list }) => {
                                                     />
                                                 </fieldset>
                                             </div>
+
                                             <div
                                                 className={`align-self-center col-lg-4`}
                                             >
@@ -300,6 +275,8 @@ const MobileNav = ({ list }) => {
                                                     )}
                                                 </fieldset>
                                             </div>
+
+
                                             <div
                                                 className={`${isDesktop ? "mt-3" : ""} ${nav2 || navSearch ? "col-lg-2" : "col-lg-3"
                                                     }`}
@@ -349,8 +326,8 @@ const MobileNav = ({ list }) => {
                     <Grid item xs={12} paddingBottom={6}>
                         <div>
                             <Premiumcard />
-                            
-                            <h5 className='p-2 pl-4'><b>Our collection</b></h5>
+
+                            <h5 className='p-2 pl-4'><b>Explore these Locations</b></h5>
 
                             <MobileDestination />
                             <h5 className='p-2 pl-4'><b>Our collection</b></h5>

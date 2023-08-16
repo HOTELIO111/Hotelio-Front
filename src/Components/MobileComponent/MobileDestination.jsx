@@ -1,6 +1,11 @@
 import React from 'react';
 import { Card, CardContent, Typography, Paper, Button } from '@mui/material';
 import LocationIcon from '../../images/LocationIcon.png'
+import BangloreIcon from '../../images/BangloreIcon.jpeg'
+import DelhiIcons from '../../images/DelhiIcon.webp'
+import GurgaonIcon from '../../images/GurgaonIcon.jpg'
+import ChennaiIcon from '../../images/ChennaiIcon.jpg'
+import AllcitiesIcon from '../../images/AllcitiesIcon.jpg'
 import styled from 'styled-components';
 
 const CardContainer = styled(Paper)`
@@ -11,10 +16,10 @@ const CardContainer = styled(Paper)`
 `;
 
 const StyledCard = styled(Card)`
-  min-width: 100px;
-  max-width: 90px;
-  min-height: 100px;
-  max-height: 100px;
+  min-width: 80px;
+  max-width: 80px;
+  min-height: 80px;
+  max-height: 80px;
   margin: 4px;
   text-align: center;
 `;
@@ -27,23 +32,28 @@ const cardData = [
     },
     {
 
-        content: 'Near me',
-        image: 'https://cliffshotelandspa.com/wp-content/uploads/2021/08/pismo_beach_hotels_1024x630_pool_gallery-1024x683-1.jpeg',
+        content: 'Bangalore',
+        image: BangloreIcon,
     },
     {
 
-        content: 'Near me',
-        image: 'https://cliffshotelandspa.com/wp-content/uploads/2021/08/pismo_beach_hotels_1024x630_pool_gallery-1024x683-1.jpeg',
+        content: 'Chennai',
+        image: ChennaiIcon,
     },
     {
 
-        content: 'Near me',
-        image: 'https://cliffshotelandspa.com/wp-content/uploads/2021/08/pismo_beach_hotels_1024x630_pool_gallery-1024x683-1.jpeg',
+        content: 'Delhi',
+        image: DelhiIcons,
     },
     {
 
-        content: 'Near me',
-        image: 'https://cliffshotelandspa.com/wp-content/uploads/2021/08/pismo_beach_hotels_1024x630_pool_gallery-1024x683-1.jpeg',
+        content: 'Gurgaon',
+        image: GurgaonIcon,
+    },
+    {
+
+        content: 'All Cities',
+        image: AllcitiesIcon,
     },
 ];
 
@@ -56,7 +66,7 @@ const MobileDestination = () => {
 
                         <CardContent sx={{ padding: 0, textAlign: 'center' }}>
                             <Button>
-                                <img src={card.image} alt={`Image ${index}`} />
+                                <img src={card.image} className='rounded' alt={`Image ${index}`} />
                             </Button>
                         </CardContent>
                         <Typography>{card.content}</Typography>

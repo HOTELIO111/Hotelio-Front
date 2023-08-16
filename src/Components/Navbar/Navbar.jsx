@@ -38,6 +38,7 @@ import axios from "axios";
 import { API_URL } from "../../config";
 import InfoIcon from '@mui/icons-material/Info';
 import CitywiseDropedown from "../CitywiseDropedown/CitywiseDropedown";
+import { Col, Row } from "react-bootstrap";
 
 const Navbar = ({ list }) => {
   // Get Logged In User
@@ -398,6 +399,9 @@ const Navbar = ({ list }) => {
   };
 
   const DummyArray = ["Your City", "Your City"];
+  const MarginMobile = {
+    marginTop: '-112px'
+  }
 
   return (
     <div className="w-100">
@@ -421,273 +425,281 @@ const Navbar = ({ list }) => {
                 }}
                 className={style.main_nav}
               >
-                <Link to="/" className={`${style.logo} ms-4`}>
-                  <img alt="logo" src={HotelioLogo} />
-                </Link>
-                <ul className={style.nav}>
-                  <li style={{ listStyle: "none" }}>
-                    <NavLink
-                      to="/"
-                      className={`${!list ? "text-dark" : ""}`}
-                      onClick={() => {
-                        dispatch({
-                          type: "activePath",
-                          payload: "hotel",
-                        });
-                      }}
-                    >
-                      <HomeIcon /> Home
-                      <hr
-                        className={`mt-0 ${style.activeTab} ${activePath === "hotel" ? "d-block" : "d-none"
-                          }`}
-                      />
-                    </NavLink>
-                  </li>
-                  <li style={{ listStyle: "none" }}>
-                    <NavLink
-                      to="/about"
-                      className={`${!list ? "text-dark" : ""}`}
-                      onClick={() => {
-                        dispatch({
-                          type: "activePath",
-                          payload: "about",
-                        });
-                      }}
-                    >
-                      <InfoIcon /> About Us
-                      <hr
-                        className={`mt-0 ${style.activeTab} ${activePath === "about" ? "d-block" : "d-none"
-                          }`}
-                      />
-                    </NavLink>
-                  </li>
-                  <li style={{ listStyle: "none" }}>
-                    <NavLink
-                      // to="/parking"
-                      target="_blank" 
-                      to="/hoteliomember"
-                      className={`${!list ? "text-dark" : ""}`}
-                      onClick={() => {
-                        dispatch({
-                          type: "activePath",
-                          payload: "parking",
-                        });
-                      }}
-                    >
-                      <BsFillBuildingsFill /> Become a Hotelio Partner
-                      <hr
-                        className={`mt-0 ${style.activeTab} ${activePath === "parking" ? "d-block" : "d-none"
-                          }`}
-                      />
-                    </NavLink>
-                  </li>
-                  <li style={{ listStyle: "none" }}>
-                    <NavLink
-                      // to="/parking"
-                      to={
-                        "https://hotelio-dashboard-trickle.netlify.app/register"
-                      }
-                      className={`${!list ? "text-dark" : ""}`}
-                      onClick={() => {
-                        dispatch({
-                          type: "activePath",
-                          payload: "register",
-                        });
-                      }}
-                    >
-                      <DomainAddIcon /> LIST YOUR PROPERTY
-                      <hr
-                        className={`mt-0 ${style.activeTab} ${activePath === "register" ? "d-block" : "d-none"
-                          }`}
-                      />
-                    </NavLink>
-                  </li>
-                  {/* <li style={{ listStyle: 'none' }}>
-                    <NavLink to="/contact">+91 (811)55 10050</NavLink>
-                  </li> */}
-                  {!currentUser ? (
-                    <>
-                      {/* <li>
-                        <button
-                          onClick={() => {
-                            navigate("/contact");
-                          }}
-                          className={`${style.iconShow} btn btn-primary rounded`}
-                        >
-                          Contact us
-                        </button>
-                      </li> */}
-                      <NavLink
-                        to="/contact"
-                        className={`${!list ? "text-dark" : ""} ${style.iconHide
-                          }`}
-                      >
-                        Contact us
-                      </NavLink>
-                      <li style={{ listStyle: "none" }}>
-                        <Button
-                          id="demo-positioned-button"
-                          aria-controls={
-                            openBox ? "demo-positioned-menu" : undefined
-                          }
-                          aria-haspopup="true"
-                          aria-expanded={openBox ? "true" : undefined}
-                          onClick={handleClickLogin}
-                          endIcon={<KeyboardArrowDownIcon />}
-                          sx={{ color: "black", fontWeight: 700, my: 1, pt: 0 }}
-                        >
-                          <KeyIcon /> Log In / Sign Up
-                        </Button>
-                        <Menu
-                          id="demo-positioned-menu"
-                          aria-labelledby="demo-positioned-button"
-                          anchorEl={Login}
-                          open={openBox}
-                          onClose={handleCloseLogin}
-                          anchorOrigin={{
-                            vertical: "top",
-                            horizontal: "left",
-                          }}
-                          transformOrigin={{
-                            vertical: "top",
-                            horizontal: "left",
-                          }}
-                        >
-                          <MenuItem onClick={() => navigate("/signin")}>
-                            Customer Login
-                          </MenuItem>
-                          {/* <MenuItem onClick={() => navigate("/signup")}>
-                            Customer Signup
-                          </MenuItem> */}
-                          <MenuItem>
-                            <Link
-                              to={
-                                "https://hotelio-dashboard-trickle.netlify.app/"
-                              }
-                            >
-                              Partner Login
-                            </Link>
-                          </MenuItem>
-                          {/* <MenuItem>
-                            <Link
-                              to={
-                                "https://hotelio-dashboard-trickle.netlify.app/register"
-                              }
-                            >
-                              Partner Signup
-                            </Link>
-                          </MenuItem> */}
-                        </Menu>
-                      </li>
-                    </>
-                  ) : (
-                    <>
-                      {/* after login show this component */}{" "}
-                      <li style={{ listStyle: "none" }}>
-                        <Button
-                          id="demo-customized-button"
-                          sx={{ color: "black" }}
-                          aria-controls={
-                            open ? "demo-customized-menu" : undefined
-                          }
-                          aria-haspopup="true"
-                          aria-expanded={open ? "true" : undefined}
-                          disableElevation
-                          onClick={handleClick}
-                          endIcon={<KeyboardArrowDownIcon />}
-                        >
-                          {currentUser ? currentUser.name : ""}
-                        </Button>
-                        <StyledMenu
-                          id="demo-customized-menu"
-                          MenuListProps={{
-                            "aria-labelledby": "demo-customized-button",
-                          }}
-                          anchorEl={anchorEl}
-                          open={open}
-                          onClose={handleClose}
-                        >
-                          <MenuItem
-                            sx={{ paddingY: 0 }}
-                            onClick={handleClose}
-                            disableRipple
-                          >
-                            <NavLink to={"/CustomerNameProfile"}>
-                              My Profile
-                            </NavLink>
-                          </MenuItem>
-                          <MenuItem
-                            sx={{ paddingY: 0 }}
-                            onClick={handleClose}
-                            disableRipple
-                          >
-                            <NavLink to="/YourBooking">Your Booking</NavLink>
-                          </MenuItem>
-                          <MenuItem
-                            sx={{ paddingY: 0 }}
-                            onClick={handleClose}
-                            disableRipple
-                          >
-                            <NavLink to="/contact">+91 (811)55 10050</NavLink>
-                          </MenuItem>
-                          <MenuItem
-                            sx={{ paddingY: 0 }}
-                            onClick={handleClose}
-                            disableRipple
-                          >
-                            <NavLink to="/about">About Us</NavLink>
-                          </MenuItem>
-                          <MenuItem
-                            sx={{ paddingY: 0 }}
-                            onClick={handleClose}
-                            disableRipple
-                          >
-                            <div onClick={HandleLogOutCustomer}>Log Out</div>
-                          </MenuItem>
-                        </StyledMenu>
-                      </li>
-                    </>
-                  )}
+                <Row>
+                  <Col md={2} lg={12} xl={2}>
+                    <Link to="/" className={`${style.logo} ms-4`}>
+                      <img alt="logo" src={HotelioLogo} />
+                    </Link>
+                  </Col>
+                  <Col style={isMobile ? MarginMobile : {}} md={12} lg={12} xl={10}>
+                    <ul className={style.nav}>
 
-                  <li style={{ listStyle: "none" }}>
-                    <span className={style.main_white_button}></span>
-                  </li>
-                </ul>
-                <a
-                  className={`${style.menu_trigger} ${menuOpen ? style.active : ""
-                    }`}
-                  onClick={() => {
-                    setMenuOpen(!menuOpen);
-                    $(`.${style.header_area} .${style.nav}`).slideToggle(200);
-                  }}
-                >
-                  <span>Menu</span>
-                </a>
+                      <li style={{ listStyle: "none", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <NavLink
+                          to="/"
+                          className={`${!list ? "text-dark w-100" : ""}`}
+                          style={{ margin: '-5px 0px 0px 0px' }}
+                          onClick={() => {
+                            dispatch({
+                              type: "activePath",
+                              payload: "home",
+                            });
+                          }}
+                        >
+                          <HomeIcon /> Home
+                          <hr
+                            className={`mt-0 ${style.activeTab} ${activePath === "home" ? "d-block" : "d-none"
+                              }`}
+                          />
+                        </NavLink>
+                      </li>
+                      <li style={{ listStyle: "none" }}>
+                        <NavLink
+                          to="/about"
+                          className={`${!list ? "text-dark" : ""}`}
+                          onClick={() => {
+                            dispatch({
+                              type: "activePath",
+                              payload: "about",
+                            });
+                          }}
+                        >
+                          <InfoIcon /> About Us
+                          <hr
+                            className={`mt-0 ${style.activeTab} ${activePath === "about" ? "d-block" : "d-none"
+                              }`}
+                          />
+                        </NavLink>
+                      </li>
+                      <li style={{ listStyle: "none" }}>
+                        <NavLink
+                          // to="/parking"
+                          target="_blank"
+                          to="/hoteliomember"
+                          className={`${!list ? "text-dark" : ""}`}
+                          onClick={() => {
+                            dispatch({
+                              type: "activePath",
+                              payload: "parking",
+                            });
+                          }}
+                        >
+                          <BsFillBuildingsFill /> Become a Hotelio Partner
+                          <hr
+                            className={`mt-0 ${style.activeTab} ${activePath === "parking" ? "d-block" : "d-none"
+                              }`}
+                          />
+                        </NavLink>
+                      </li>
+                      <li style={{ listStyle: "none" }}>
+                        <NavLink
+                          // to="/parking"
+                          to={
+                            "https://hotelio-dashboard-trickle.netlify.app/register"
+                          }
+                          className={`${!list ? "text-dark" : ""}`}
+                          onClick={() => {
+                            dispatch({
+                              type: "activePath",
+                              payload: "register",
+                            });
+                          }}
+                        >
+                          <DomainAddIcon /> LIST YOUR PROPERTY
+                          <hr
+                            className={`mt-0 ${style.activeTab} ${activePath === "register" ? "d-block" : "d-none"
+                              }`}
+                          />
+                        </NavLink>
+                      </li>
+                      {/* <li style={{ listStyle: 'none' }}>
+  <NavLink to="/contact">+91 (811)55 10050</NavLink>
+  </li> */}
+                      {!currentUser ? (
+                        <>
+                          {/* <li>
+      <button
+        onClick={() => {
+          navigate("/contact");
+        }}
+        className={`${style.iconShow} btn btn-primary rounded`}
+      >
+        Contact us
+      </button>
+    </li> */}
+                          <NavLink
+                            to="/contact"
+                            className={`${!list ? "text-dark" : ""} ${style.iconHide
+                              }`}
+                          >
+                            Contact us
+                          </NavLink>
+                          <li style={{ listStyle: "none" }}>
+                            <Button
+                              id="demo-positioned-button"
+                              aria-controls={
+                                openBox ? "demo-positioned-menu" : undefined
+                              }
+                              aria-haspopup="true"
+                              aria-expanded={openBox ? "true" : undefined}
+                              onClick={handleClickLogin}
+                              endIcon={<KeyboardArrowDownIcon />}
+                              sx={{ color: "black", fontWeight: 700, my: 1, pt: 0 }}
+                            >
+                              <KeyIcon /> Log In / Sign Up
+                            </Button>
+                            <Menu
+                              id="demo-positioned-menu"
+                              aria-labelledby="demo-positioned-button"
+                              anchorEl={Login}
+                              open={openBox}
+                              onClose={handleCloseLogin}
+                              anchorOrigin={{
+                                vertical: "top",
+                                horizontal: "left",
+                              }}
+                              transformOrigin={{
+                                vertical: "top",
+                                horizontal: "left",
+                              }}
+                            >
+                              <MenuItem onClick={() => navigate("/signin")}>
+                                Customer Login
+                              </MenuItem>
+                              {/* <MenuItem onClick={() => navigate("/signup")}>
+          Customer Signup
+        </MenuItem> */}
+                              <MenuItem>
+                                <Link
+                                  to={
+                                    "https://hotelio-dashboard-trickle.netlify.app/"
+                                  }
+                                >
+                                  Partner Login
+                                </Link>
+                              </MenuItem>
+                              {/* <MenuItem>
+          <Link
+            to={
+              "https://hotelio-dashboard-trickle.netlify.app/register"
+            }
+          >
+            Partner Signup
+          </Link>
+        </MenuItem> */}
+                            </Menu>
+                          </li>
+                        </>
+                      ) : (
+                        <>
+                          {/* after login show this component */}{" "}
+                          <li style={{ listStyle: "none" }}>
+                            <Button
+                              id="demo-customized-button"
+                              sx={{ color: "black" }}
+                              aria-controls={
+                                open ? "demo-customized-menu" : undefined
+                              }
+                              aria-haspopup="true"
+                              aria-expanded={open ? "true" : undefined}
+                              disableElevation
+                              onClick={handleClick}
+                              endIcon={<KeyboardArrowDownIcon />}
+                            >
+                              {currentUser ? currentUser.name : ""}
+                            </Button>
+                            <StyledMenu
+                              id="demo-customized-menu"
+                              MenuListProps={{
+                                "aria-labelledby": "demo-customized-button",
+                              }}
+                              anchorEl={anchorEl}
+                              open={open}
+                              onClose={handleClose}
+                            >
+                              <MenuItem
+                                sx={{ paddingY: 0 }}
+                                onClick={handleClose}
+                                disableRipple
+                              >
+                                <NavLink to={"/CustomerNameProfile"}>
+                                  My Profile
+                                </NavLink>
+                              </MenuItem>
+                              <MenuItem
+                                sx={{ paddingY: 0 }}
+                                onClick={handleClose}
+                                disableRipple
+                              >
+                                <NavLink to="/YourBooking">Your Booking</NavLink>
+                              </MenuItem>
+                              <MenuItem
+                                sx={{ paddingY: 0 }}
+                                onClick={handleClose}
+                                disableRipple
+                              >
+                                <NavLink to="/contact">+91 (811)55 10050</NavLink>
+                              </MenuItem>
+                              <MenuItem
+                                sx={{ paddingY: 0 }}
+                                onClick={handleClose}
+                                disableRipple
+                              >
+                                <NavLink to="/about">About Us</NavLink>
+                              </MenuItem>
+                              <MenuItem
+                                sx={{ paddingY: 0 }}
+                                onClick={handleClose}
+                                disableRipple
+                              >
+                                <div onClick={HandleLogOutCustomer}>Log Out</div>
+                              </MenuItem>
+                            </StyledMenu>
+                          </li>
+                        </>
+                      )}
+
+                      <li style={{ listStyle: "none" }}>
+                        <span className={style.main_white_button}></span>
+                      </li>
+                    </ul>
+                    <a
+                      className={`${style.menu_trigger} ${menuOpen ? style.active : ""
+                        }`}
+                      onClick={() => {
+                        setMenuOpen(!menuOpen);
+                        $(`.${style.header_area} .${style.nav}`).slideToggle(200);
+                      }}
+                    >
+                      <span>Menu</span>
+                    </a>
+                  </Col>
+                </Row>
                 <div className={`py-2 text-white text-center ${style.navRemove}`}>
                   {/* <ul className="d-flex justify-content-center">
-                    <li  >
-                      <b onClick={() => navigate('/')} style={{ cursor: 'pointer' }} className="px-5">HOME</b>
-                    </li>
-                    <li style={{ borderLeft: '2px solid white' }} >
-                      <b onClick={() => navigate('/about')} style={{ cursor: 'pointer' }} className="px-5">ABOUT US</b>
-                    </li>
-                    <li style={{ borderLeft: '2px solid white' }} >
-                      <b onClick={() => navigate('/hoteliomember')} style={{ cursor: 'pointer' }} className="px-5">BECOME A HOTELIO PARTNER</b>
-                    </li>
-                    <li style={{ borderLeft: '2px solid white' }} >
-                      <b onClick={() => navigate('')} style={{ cursor: 'pointer' }} className="px-5">FAQ</b>
-                    </li>
-                    <li style={{ borderLeft: '2px solid white' }} >
-                      <b onClick={() => navigate('/contact')} style={{ cursor: 'pointer' }} className="px-5">CONTACT US</b>
-                    </li>
-                  </ul> */}
+                      <li  >
+                        <b onClick={() => navigate('/')} style={{ cursor: 'pointer' }} className="px-5">HOME</b>
+                      </li>
+                      <li style={{ borderLeft: '2px solid white' }} >
+                        <b onClick={() => navigate('/about')} style={{ cursor: 'pointer' }} className="px-5">ABOUT US</b>
+                      </li>
+                      <li style={{ borderLeft: '2px solid white' }} >
+                        <b onClick={() => navigate('/hoteliomember')} style={{ cursor: 'pointer' }} className="px-5">BECOME A HOTELIO PARTNER</b>
+                      </li>
+                      <li style={{ borderLeft: '2px solid white' }} >
+                        <b onClick={() => navigate('')} style={{ cursor: 'pointer' }} className="px-5">FAQ</b>
+                      </li>
+                      <li style={{ borderLeft: '2px solid white' }} >
+                        <b onClick={() => navigate('/contact')} style={{ cursor: 'pointer' }} className="px-5">CONTACT US</b>
+                      </li>
+                    </ul> */}
                   <CitywiseDropedown />
                 </div>
               </nav>
             </div>
           </div>
         </div>
-      </header>
+      </header >
 
       {list && (
         <>
@@ -705,9 +717,9 @@ const Navbar = ({ list }) => {
                       Welcome To Hotelio, Your Travel Partner
                     </h2>
                     {/* <h4 className={`py-3 text-white ${style.text_shadow}`}>
-                      Where comfort meets convenience and your journey begins
-                      with a click
-                    </h4> */}
+                        Where comfort meets convenience and your journey begins
+                        with a click
+                      </h4> */}
                   </div>
                 </div>
                 {/* {console.log(citites)} */}
@@ -904,11 +916,11 @@ const Navbar = ({ list }) => {
           </div>
         </>
       )}
-    </div>
+    </div >
   );
 };
 
 export default Navbar;
-//  onClick={() =>  handleOption("singleRoom", "d")}
-// onClick={() =>  handleOption("singleRoom", "i")  }
-// {options.singleRoom}
+  //  onClick={() =>  handleOption("singleRoom", "d")}
+  // onClick={() =>  handleOption("singleRoom", "i")  }
+  // {options.singleRoom}

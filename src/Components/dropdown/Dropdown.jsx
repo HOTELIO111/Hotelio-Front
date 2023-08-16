@@ -2,13 +2,14 @@ import React from "react";
 import { Select } from "antd";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const Dropdown = ({ name, citites, setSlectedCity }) => {
   const location = useLocation();
   const path = location.pathname.split("/")[1];
 
   if (!citites || citites.length === 0) {
-    // If cities is not available yet, you can render a loading state or return null
+    // If cities are not available yet, you can render a loading state or return null
     return <div>Select City</div>; // Replace this with your desired loading state
   }
 
@@ -27,6 +28,7 @@ const Dropdown = ({ name, citites, setSlectedCity }) => {
       filterSort={(optionA, optionB) =>
         optionA.label.toLowerCase().localeCompare(optionB.label.toLowerCase())
       }
+      suffixIcon={<ExpandMoreIcon />} // Set the custom icon here
       options={citites.map((city) => ({
         value: city,
         label: city,

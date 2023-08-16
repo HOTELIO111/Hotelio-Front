@@ -109,7 +109,7 @@ const Footer = () => {
               About Us
             </h5>
             <p className="mt-4 text-white">
-              'Hotelio' an online booking platform offering easy and comfortable stays for travelers through the Hotelio app and Hotelio Web. It was founded on May 13th, 2023. 'Hotelio' is owned by the company 'Houda Carjour Tourism Pvt Ltd,' registered at the Registrar of Companies in Kanpur, Uttar Pradesh. 'Hotelio' is India's trusted and fastest-growing hotel chain network. It is India's first AI-enabled app and website.
+              India's leading online booking platform, revolutionizes the way travelers find and book accommodations. With our user-friendly app and website, we bring easy and comfortable stays to your fingertips. Explore our vast network of premium hotels, budget-friendly options, and authentic homestays. As India's first AI-enabled platform, we prioritize your comfort and provide hassle-free check-ins. Join us on a journey where travel meets convenience, and let Hotelio be your trusted partner for unforgettable stays India's leading online booking wherever your adventures take you. Hotelio is owned by Houda Carjour Tourism Pvt Ltd, India's Number 1 Fastest Leading Hotel Chain.
             </p>
             <div style={{ borderRadius: '8px', backgroundColor: 'rgba(255, 255, 255, 0.236)' }} className="border w-100 d-flex justify-content-end">
               <input className="w-100 bg-transparent border-0 p-1" type="text" />

@@ -16,14 +16,18 @@ const AboutUs = () => {
                         <div>
                             <h2 className='mb-5'>ABOUT US</h2>
                             <div className='text-left text-white'>
-                                Hotelio, India's leading online booking
+                                {/* Hotelio, India's leading online booking
                                 platform, revolutionizes the way travelers
                                 find and book accommodations. With our
                                 user-friendly app and website, we bring
                                 easy and comfortable stays to your
                                 fingertips. Explore our vast network of
                                 premium hotels, budget-friendly options,
-                                and authentic homestays.
+                                and authentic homestays. */}
+
+
+                                India's leading online booking platform, revolutionizes the way travelers find and book accommodations. With our user-friendly app and website, we bring easy and comfortable stays to your fingertips. Explore our vast network of premium hotels, budget-friendly options, and authentic homestays. As India's first AI-enabled platform, we prioritize your comfort and provide hassle-free check-ins.
+
                                 <span><NavLink style={{ color: '#FFD700' }} to='/about'> Read more...</NavLink></span>
                             </div>
                         </div>

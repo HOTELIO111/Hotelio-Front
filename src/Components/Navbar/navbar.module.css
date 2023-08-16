@@ -739,6 +739,12 @@ div.search_form button i {
   background-color: #6b0000;
 }
 
+@media (max-width: 1024px) {
+  .navRemove {
+    display: none !important;
+  }
+}
+
 @media (max-width: 992px) {
 
   div.search_form select,
@@ -755,9 +761,12 @@ div.search_form button i {
   div.search_form {
     padding: 15px;
   }
+
+
 }
 
 @media (max-width: 767px) {
+
   .main_banner ul.categories li a {
     color: transparent;
   }
@@ -782,8 +791,16 @@ div.search_form button i {
   .iconShow {
     display: none !important;
   }
+
   .navRemove {
-    display: none;
+    display: none !important;
+  }
+
+}
+
+@media (max-width : 768px) {
+  .navRemove {
+    display: none !important;
   }
 }
 

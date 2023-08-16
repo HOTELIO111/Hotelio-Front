@@ -50,6 +50,7 @@ import HotelResults from "./Pages/HotelsResults/HotelResults";
 import HotelDetail from "./Pages/HotelDetail/HotelDetail";
 import Member from "./Pages/Member/Member";
 import JoinOurNetwork from "./Pages/JoinOurNetwork/JoinOurNetwork";
+import Favourite from "./Components/Favourite/Favourite";
 // import ReactDataTable from "./Components/ReactDataTable/ReactDataTable";
 
 function App() {
@@ -68,6 +69,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/listHotel" element={<List />} />
         <Route path="/singleHotel" element={<Hotel />} />
+        <Route path="/favourite" element={<Favourite />} />
+
+
         <Route
           path="/addHotel"
           element={<PrivateRoute Component={HotelForm} />}
