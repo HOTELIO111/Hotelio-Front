@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Container, Grid } from '@mui/material';
+import { Autocomplete, Button, Container, Grid, TextField } from '@mui/material';
 import { FiPhoneCall } from "react-icons/fi";
 import { API_URL } from '../../config';
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,6 +24,7 @@ import MobileSlider from './MobileSlider';
 import styled from 'styled-components';
 import MobileDestination from './MobileDestination';
 import MobileHeader from './MobileHeader';
+import MobileDate from './MobileDate';
 
 const MobileNav = ({ list }) => {
 
@@ -132,6 +133,11 @@ const MobileNav = ({ list }) => {
         navigate(`/searchedhotels?${queryString}`);
     };
 
+    const top100Films = [
+        { label: 'The Shawshank Redemption' },
+        { label: 'The Godfather' },
+        { label: 'The Godfather: Part II' },
+    ]
 
     return (
         <>
@@ -146,7 +152,7 @@ const MobileNav = ({ list }) => {
                                 <div className="col-lg-12 px-0">
                                     <div className={` ${style.search_form}`}>
                                         <h5 className='pb-4'><b>Welcome To Hotelio Rooms</b></h5>
-                                        <div className="row position-relative" style={{ border: '2px solid red', padding: '5px', borderRadius: '15px' }}>
+                                        {/* <div className="row position-relative" style={{ border: '2px solid red', padding: '5px', borderRadius: '15px' }}>
                                             <div className={`col-lg-2 align-self-center`}>
                                                 <fieldset className={`d-flex align-items-center`}>
                                                     <HotelIcon className="text-danger me-2" />
@@ -198,7 +204,6 @@ const MobileNav = ({ list }) => {
                                                     </div>
                                                     {openOptions && (
                                                         <div style={{ left: '-1px' }} className={`shadow-lg p-2 ${style.options}`}>
-                                                            {/* Mapped the rooms data */}
                                                             {manageRoom.map((item, index) => (
                                                                 <div>
                                                                     <div>
@@ -317,7 +322,29 @@ const MobileNav = ({ list }) => {
                                                         )}
                                                 </fieldset>
                                             </div>
-                                        </div>
+                                        </div> */}
+
+                                        <Grid container spacing={1}>
+                                            <Grid item xs={12}>
+                                                <Autocomplete
+                                                    options={top100Films}
+                                                    id="disable-close-on-select"
+                                                    renderInput={(params) => (
+                                                        <TextField fullWidth {...params} label="Destination" variant="standard" />
+                                                    )}
+                                                />
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <MobileDate />
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <TextField fullWidth id="standard-basic" label="Rooms and guests" value={'1 Guests 1 Room'} variant="standard" />
+                                            </Grid>
+
+                                            <Grid item xs={12}>
+                                                <button style={{ background: '#ee2e24', color: '#fff' }} >Search</button>
+                                            </Grid>
+                                        </Grid>
                                     </div>
                                 </div>
                             </div>

@@ -15,11 +15,11 @@ const Home = (props) => {
   const isXtraSmallScreen = useMediaQuery("(max-width: 450px)");
   return (
     <>
-      <div className="d-md-none d-lg-none d-xl-none">
+      <div className="d-lg-none d-xl-none">
         <MobileNav />
       </div>
       <div
-        className="d-none d-sm-block"
+        className="d-none d-md-none d-sm-none d-lg-block d-xl-block"
         style={{
           // background: ` linear-gradient(0deg, rgba(186,221,231,0.8688725490196079) 0%, rgba(255,255,255,0) 100%), url(${FeaturedBanner})`,
           backgroundPosition: "bottom",

@@ -802,6 +802,20 @@ div.search_form button i {
   .navRemove {
     display: none !important;
   }
+
+  div.search_form button {
+    /* width: 100%;
+    height: 100%; */
+    background-color: transparent;
+    border: none;
+    padding: 15px;
+    color: #ee2e24;
+    font-size: 15px;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+  }
+  
+
 }
 
 @media (max-width: 592px) {
