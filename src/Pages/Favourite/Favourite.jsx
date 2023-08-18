@@ -1,8 +1,11 @@
-import { Card, CardContent, Grid, Typography } from '@mui/material';
-import styled from 'styled-components';
 import React from 'react'
-import MobileFooter from '../MobileComponent/MobileFooter';
-import MobileHeader from '../MobileComponent/MobileHeader';
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { Card, CardContent, Grid, Typography } from '@mui/material';
+import MobileHeader from '../../Components/MobileComponent/MobileHeader';
+import MobileFooter from '../../Components/MobileComponent/MobileFooter';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+
 
 const Favourite = () => {
 
@@ -36,22 +39,46 @@ const Favourite = () => {
             content: '(4.1 rating)',
             image: 'https://passionbuz.com/wp-content/uploads/2019/09/luxurious-hotels-in-the-world-TITANIC-MARDAN-PALACE-1024x683.jpg',
         },
+        {
+            id: 5,
+            title: 'Hotel',
+            para: 'Lorem ipsum dolor sit amet.',
+            content: '(4.1 rating)',
+            image: 'https://passionbuz.com/wp-content/uploads/2019/09/luxurious-hotels-in-the-world-TITANIC-MARDAN-PALACE-1024x683.jpg',
+        },
+        {
+            id: 6,
+            title: 'Hotel',
+            para: 'Lorem ipsum dolor sit amet.',
+            content: '(4.1 rating)',
+            image: 'https://passionbuz.com/wp-content/uploads/2019/09/luxurious-hotels-in-the-world-TITANIC-MARDAN-PALACE-1024x683.jpg',
+        },
     ]
 
+    const navigate = useNavigate()
 
     const StyledCard = styled(Card)`
-  min-width: 150px;
-  margin: 2px;
+    min-width: 155px;
+    padding-bottom: 10%;
+    margin-bottom: 2%;
 `;
 
     return (
         <div>
             <MobileHeader />
+            <div className='d-flex'>
+                <KeyboardArrowLeftIcon onClick={() => navigate(-1)} />
+                <div className='d-flex justify-content-center w-100'>
+                    <Typography variant="body1" gutterBottom>
+                        Favourite
+                    </Typography>
+                </div>
+            </div>
             <Grid container spacing={1}>
                 {
                     FavouriteData.map((card, index) => (
 
-                        <Grid sx={{ padding: 1 }} item xs={6} md={6}>
+                        <Grid sx={{ padding: 0 }} item xs={6} md={6}>
                             <StyledCard key={index}>
 
                                 <CardContent>

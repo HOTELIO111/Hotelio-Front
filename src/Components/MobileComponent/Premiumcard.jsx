@@ -32,7 +32,7 @@ const Premiumcard = () => {
     ];
 
     return (
-        <div>
+        <div className='py-3'>
             <Grid container spacing={2}>
                 {cardData.map((card, index) => (
                     <Grid key={index} item xs={4} sm={4} md={3}>

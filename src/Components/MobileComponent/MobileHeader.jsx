@@ -25,9 +25,9 @@ const MobileHeader = () => {
         <Container>
             <div style={redesigne}>
                 <div></div>
-                <div className="d-flex justify-content-end align-items-center">
+                <div className="d-flex justify-content-center align-items-center">
                     <Link to="/" >
-                        <img alt="logo" style={{ width: '100px' }} src={HotelioLogo} />
+                        <img alt="logo" style={{ width: '120px' }} src={HotelioLogo} />
                     </Link>
                 </div>
                 <div className="d-flex justify-content-end align-items-center">

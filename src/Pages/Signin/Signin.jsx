@@ -31,6 +31,7 @@ import { Formik } from "formik";
 import Swal from "sweetalert2";
 import { API_URL } from "../../config";
 import { WaitLoader } from "../../Components/Elements/WaitLoader";
+import MobileFooter from "../../Components/MobileComponent/MobileFooter";
 
 const Signin = () => {
   // code for loader top
@@ -208,6 +209,9 @@ const Signin = () => {
           </Formik>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
+        <div className="d-md-block d-lg-none d-xl-none">
+            <MobileFooter />
+          </div>
       </Container>
     </>
   );

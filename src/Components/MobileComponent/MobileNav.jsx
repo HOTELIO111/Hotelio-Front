@@ -323,41 +323,44 @@ const MobileNav = ({ list }) => {
                                                 </fieldset>
                                             </div>
                                         </div> */}
+                                        <div>
+                                            <Grid container spacing={1}>
+                                                <Grid item xs={12}>
+                                                    <Autocomplete
+                                                        options={top100Films}
+                                                        id="disable-close-on-select"
+                                                        renderInput={(params) => (
+                                                            <TextField fullWidth {...params} label="Destination" variant="standard" />
+                                                        )}
+                                                    />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <MobileDate />
+                                                </Grid>
+                                                <Grid item xs={6} className='d-flex'>
+                                                    <hr style={{ height: '50px', width: '1px', position: 'relative', left: '-7px', top: '-13px' }} />
+                                                    {/* <div style={{ borderLeft: '1px solid grey', height: '50px', position: 'relative', left: '-5px' }}></div> */}
+                                                    <TextField fullWidth id="standard-basic" label="Rooms and guests" value={'1 Guests 1 Room'} variant="standard" />
+                                                </Grid>
 
-                                        <Grid container spacing={1}>
-                                            <Grid item xs={12}>
-                                                <Autocomplete
-                                                    options={top100Films}
-                                                    id="disable-close-on-select"
-                                                    renderInput={(params) => (
-                                                        <TextField fullWidth {...params} label="Destination" variant="standard" />
-                                                    )}
-                                                />
+                                                <Grid item xs={12}>
+                                                    <button style={{ background: '#ee2e24', color: '#fff' }} >Search</button>
+                                                </Grid>
                                             </Grid>
-                                            <Grid item xs={6}>
-                                                <MobileDate />
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                <TextField fullWidth id="standard-basic" label="Rooms and guests" value={'1 Guests 1 Room'} variant="standard" />
-                                            </Grid>
-
-                                            <Grid item xs={12}>
-                                                <button style={{ background: '#ee2e24', color: '#fff' }} >Search</button>
-                                            </Grid>
-                                        </Grid>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </Grid>
                     <Grid item xs={12} paddingBottom={6}>
-                        <div>
+                        <div className='text-center'>
                             <Premiumcard />
 
-                            <h5 className='p-2 pl-4'><b>Explore these Locations</b></h5>
+                            <h5 className='p-2 py-4 pl-4'><b>Explore these Locations</b></h5>
 
                             <MobileDestination />
-                            <h5 className='p-2 pl-4'><b>Our collection</b></h5>
+                            <h5 className='p-2 py-4 pl-4'><b>Our collection</b></h5>
 
                             <MobileSlider />
                         </div>

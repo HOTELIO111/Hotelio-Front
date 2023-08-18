@@ -5,7 +5,10 @@ import BangloreIcon from '../../images/BangloreIcon.jpeg'
 import DelhiIcons from '../../images/DelhiIcon.webp'
 import GurgaonIcon from '../../images/GurgaonIcon.jpg'
 import ChennaiIcon from '../../images/ChennaiIcon.jpg'
-import AllcitiesIcon from '../../images/AllcitiesIcon.jpg'
+import HyderabadIcon from '../../images/HyderabadIcon.jpg'
+import KolkataIcon from '../../images/KolkataIcon.jpg'
+import MumbaiIcon from '../../images/MumbaiIcon.jpg'
+import NoidaIcon from '../../images/NoidaIcon.jpg'
 import styled from 'styled-components';
 
 const CardContainer = styled(Paper)`
@@ -52,8 +55,23 @@ const cardData = [
     },
     {
 
-        content: 'All Cities',
-        image: AllcitiesIcon,
+        content: 'Hyderabad',
+        image: HyderabadIcon,
+    },
+    {
+
+        content: 'Kolkata',
+        image: KolkataIcon,
+    },
+    {
+
+        content: 'Mumbai',
+        image: MumbaiIcon,
+    },
+    {
+
+        content: 'Noida',
+        image: NoidaIcon,
     },
 ];
 

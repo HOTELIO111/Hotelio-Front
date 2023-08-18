@@ -37,6 +37,7 @@ import { ScaleLoader } from "react-spinners";
 import { WaitLoader } from "../../Components/Elements/WaitLoader";
 import { MuiOtpInput } from 'mui-one-time-password-input'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import MobileFooter from "../../Components/MobileComponent/MobileFooter";
 
 function Copyright(props) {
   return (
@@ -415,6 +416,9 @@ export default function SignUp() {
           </Formik>
         </Box>
         <Copyright sx={{ mt: 5 }} />
+          <div className="d-md-block d-lg-none d-xl-none">
+            <MobileFooter />
+          </div>
       </Container>
     </>
   );
