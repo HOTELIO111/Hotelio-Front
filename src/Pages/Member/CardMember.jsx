@@ -33,11 +33,11 @@ const CardMember = () => {
         </div>
       </Grid>
 
-      <Grid item xs={12} xl={7} style={{ display: 'grid', placeItems: 'center' }}>
+      <Grid item xs={12} lg={7} xl={7} xxl={7} style={{ display: 'grid', placeItems: 'center' }}>
         <img src={HoteliLogo} alt=".." />
       </Grid>
 
-      <Grid item xs={12} xl={5} style={{ display: 'grid', placeItems: 'center' }}>
+      <Grid item xs={12} lg={5} xl={5} xxl={5} style={{ display: 'grid', placeItems: 'center' }}>
         <form className="bg-white rounded p-4" onSubmit={handleSubmit}>
           <h3>Get Started</h3>
           {/* Name input */}
