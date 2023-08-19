@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import * as Yup from "yup";
-import { ScaleLoader } from "react-spinners";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
   Avatar,
   Button,
@@ -13,29 +13,21 @@ import {
   Typography,
   Container,
 } from "@mui/material";
-import GoogleIcon from "@mui/icons-material/Google";
 import { Link } from "react-router-dom";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useDispatch, useSelector } from "react-redux";
-import LinearProgress from "@mui/material/LinearProgress";
-import Googlelogo from "./googlelogo.png";
-import IconButton from "@mui/material/IconButton";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import InputAdornment from "@mui/material/InputAdornment";
-import FormControl from "@mui/material/FormControl";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Formik } from "formik";
 import Swal from "sweetalert2";
 import { API_URL } from "../../config";
 import { WaitLoader } from "../../Components/Elements/WaitLoader";
 import MobileFooter from "../../Components/MobileComponent/MobileFooter";
+import { MuiOtpInput } from "mui-one-time-password-input";
 
 const Signin = () => {
   // code for loader top
 
+  const [hideOtp, setShowOtp] = useState(false);
+  const [inputOtp, setInputOtp] = useState("");
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
@@ -65,29 +57,38 @@ const Signin = () => {
 
   // initial values
   const initialValues = {
-    email: "",
-    password: "",
+    mobileNo: "",
+    otp: "",
   };
 
   // validation schema
   const validationSchema = Yup.object().shape({
-    email: Yup.string().required("Email is required"),
-    password: Yup.string().required("Password is required"),
+    mobileNo: Yup.number().min(10).required("Mobile Number is required"),
   });
-  // Login Function
+
   const handleSubmit = async (values, { resetForm }) => {
+    const formd = values;
+    formd.otp = inputOtp;
+
     try {
       setLoader(true);
-      const response = await fetch(API_URL + "/api/login", {
-        method: "POST",
-        body: JSON.stringify(values),
+
+      // Construct the query string manually
+      const queryString = Object.keys(formd)
+        .map(
+          (key) =>
+            `${encodeURIComponent(key)}=${encodeURIComponent(formd[key])}`
+        )
+        .join("&");
+
+      const response = await axios.get(API_URL + "/api/login?" + queryString, {
         headers: {
           "Content-Type": "application/json",
         },
       });
 
-      if (response.ok) {
-        const data = await response.json();
+      if (response.status === 200) {
+        const data = response.data;
         Swal.fire({
           title: "Successfully Logged In",
           icon: "success",
@@ -110,6 +111,32 @@ const Signin = () => {
     }
 
     resetForm();
+  };
+
+  const sendOtp = async (number) => {
+    setLoader(true);
+    try {
+      const response = await axios.get(API_URL + "/verify/mobile/" + number);
+      if (response.status === 200) {
+        Swal.fire({
+          text: `We sended you a otp on mobile ${number}`,
+          icon: "info",
+        });
+        setLoader(false);
+        setShowOtp(true);
+      } else {
+        Swal.fire({
+          title: response.data.message,
+          icon: "error",
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "Otp Send Failed ! Try Again",
+        icon: "error",
+      });
+      setLoader(false);
+    }
   };
 
   return (
@@ -143,23 +170,65 @@ const Signin = () => {
                 noValidate
                 sx={{ mt: 1 }}
               >
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  onChange={handleChange}
-                  value={values.email}
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                />
-                {errors.email && touched.email && (
-                  <div className="error-message">{errors.email}</div>
-                )}
+                {hideOtp ? (
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <div className="text-center">
+                        <h4 className="py-4">Enter OTP</h4>
+                        <MuiOtpInput
+                          value={inputOtp}
+                          onChange={(value) => setInputOtp(value)}
+                        />
+                      </div>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Button
+                        fullWidth
+                        variant="outlined"
+                        onClick={() => setShowOtp(false)}
+                        sx={{ mt: 3, mb: 2 }}
+                      >
+                        <ArrowBackIcon /> Back
+                      </Button>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                      >
+                        Verify
+                      </Button>
+                    </Grid>
+                    <Grid
+                      item
+                      xs={12}
+                      display={"flex"}
+                      justifyContent={"flex-end"}
+                    >
+                      <Link to="/signin">Already have an account? Sign in</Link>
+                    </Grid>
+                  </Grid>
+                ) : (
+                  <>
+                    <TextField
+                      margin="normal"
+                      required
+                      fullWidth
+                      onChange={handleChange}
+                      value={values.mobileNo}
+                      id="mbileNo"
+                      label="Mobile Number"
+                      name="mobileNo"
+                      autoComplete="mobileNo"
+                      autoFocus
+                    />
+                    {errors.mobileNo && touched.mobileNo && (
+                      <div className="error-message">{errors.mobileNo}</div>
+                    )}
 
-                <FormControl sx={{ mt: 2, width: "100%" }} variant="outlined">
+                    {/* <FormControl sx={{ mt: 2, width: "100%" }} variant="outlined">
                   <InputLabel htmlFor="outlined-adornment-password">
                     Password
                   </InputLabel>
@@ -186,24 +255,27 @@ const Signin = () => {
                 </FormControl>
                 {errors.password && touched.password && (
                   <div className="error-message">{errors.password}</div>
-                )}
+                )} */}
 
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  Sign In
-                </Button>
-                <Grid container>
-                  <Grid item xs>
-                    <Link to="/forgetpassword">Forgot password?</Link>
-                  </Grid>
-                  <Grid item>
-                    <Link to="/signup">Don't have an account? Sign Up</Link>
-                  </Grid>
-                </Grid>
+                    <Button
+                      onClick={() => sendOtp(values.mobileNo)}
+                      fullWidth
+                      variant="contained"
+                      sx={{ mt: 3, mb: 2 }}
+                    >
+                      Sign In
+                    </Button>
+
+                    <Grid container>
+                      <Grid item xs>
+                        <Link to="/forgetpassword">Forgot password?</Link>
+                      </Grid>
+                      <Grid item>
+                        <Link to="/signup">Don't have an account? Sign Up</Link>
+                      </Grid>
+                    </Grid>
+                  </>
+                )}
               </Box>
             )}
           </Formik>
