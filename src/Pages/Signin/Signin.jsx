@@ -22,6 +22,8 @@ import { API_URL } from "../../config";
 import { WaitLoader } from "../../Components/Elements/WaitLoader";
 import MobileFooter from "../../Components/MobileComponent/MobileFooter";
 import { MuiOtpInput } from "mui-one-time-password-input";
+import HotelioLogo from '../../images/HotelioLogo.png'
+import LoginMoto from '../../images/LoginMoto.jpg'
 
 const Signin = () => {
   // code for loader top
@@ -140,152 +142,126 @@ const Signin = () => {
   };
 
   return (
-    <>
-      <Container component="main" maxWidth="xs">
-        <WaitLoader loading={Loader} />
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <Formik
-            onSubmit={handleSubmit}
-            initialValues={initialValues}
-            validationSchema={validationSchema}
+    <Container fixed style={{ height: "100vh", background: '#fffffc' }}>
+      <Grid container spacing={2} >
+        <Grid className="d-none d-sm-block" item xs={12} md={12} lg={7} xl={7}>
+          <img src={LoginMoto} alt="Main" style={{ padding: '15px', marginTop: '20px' }} />
+        </Grid>
+        <Grid item xs={12} md={12} lg={5} xl={5}>
+
+          <WaitLoader loading={Loader} />
+          <Box
+            sx={{
+              textAlign: 'center',
+              mt: 8
+              // display: "flex",
+              // flexDirection: "column",
+              // alignItems: "center",
+            }}
           >
-            {({ values, handleChange, handleSubmit, errors, touched }) => (
-              <Box
-                component="form"
-                onSubmit={handleSubmit}
-                noValidate
-                sx={{ mt: 1 }}
-              >
-                {hideOtp ? (
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <div className="text-center">
-                        <h4 className="py-4">Enter OTP</h4>
-                        <MuiOtpInput
-                          value={inputOtp}
-                          onChange={(value) => setInputOtp(value)}
-                        />
-                      </div>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Button
-                        fullWidth
-                        variant="outlined"
-                        onClick={() => setShowOtp(false)}
-                        sx={{ mt: 3, mb: 2 }}
+            <img src={HotelioLogo} style={{ width: '200px' }} alt="logo" />
+            <Typography component="h1" variant="h5">
+              Sign in
+            </Typography>
+            <Formik
+              onSubmit={handleSubmit}
+              initialValues={initialValues}
+              validationSchema={validationSchema}
+            >
+              {({ values, handleChange, handleSubmit, errors, touched }) => (
+                <Box
+                  component="form"
+                  onSubmit={handleSubmit}
+                  noValidate
+                  sx={{ mt: 1 }}
+                >
+                  {hideOtp ? (
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <div className="text-center">
+                          <h4 className="py-4">Enter OTP</h4>
+                          <MuiOtpInput
+                            value={inputOtp}
+                            onChange={(value) => setInputOtp(value)}
+                          />
+                        </div>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Button
+                          fullWidth
+                          variant="outlined"
+                          onClick={() => setShowOtp(false)}
+                          sx={{ mt: 3, mb: 2 }}
+                        >
+                          <ArrowBackIcon /> Back
+                        </Button>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Button
+                          type="submit"
+                          fullWidth
+                          variant="contained"
+                          sx={{ mt: 3, mb: 2 }}
+                        >
+                          Verify
+                        </Button>
+                      </Grid>
+                      <Grid
+                        item
+                        xs={12}
+                        display={"flex"}
+                        justifyContent={"flex-end"}
                       >
-                        <ArrowBackIcon /> Back
-                      </Button>
+                        <Link to="/signin">Already have an account? Sign in</Link>
+                      </Grid>
                     </Grid>
-                    <Grid item xs={6}>
+                  ) : (
+                    <>
+                      <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        onChange={handleChange}
+                        value={values.mobileNo}
+                        id="mbileNo"
+                        label="Mobile Number"
+                        name="mobileNo"
+                        autoComplete="mobileNo"
+                        autoFocus
+                      />
+                      {errors.mobileNo && touched.mobileNo && (
+                        <div className="error-message">{errors.mobileNo}</div>
+                      )}
+
                       <Button
-                        type="submit"
+                        onClick={() => sendOtp(values.mobileNo)}
                         fullWidth
                         variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
+                        color="primary"
+                        sx={{ mt: 3, mb: 2, background: '#ee2e24' }}
                       >
-                        Verify
+                        Sign In
                       </Button>
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      display={"flex"}
-                      justifyContent={"flex-end"}
-                    >
-                      <Link to="/signin">Already have an account? Sign in</Link>
-                    </Grid>
-                  </Grid>
-                ) : (
-                  <>
-                    <TextField
-                      margin="normal"
-                      required
-                      fullWidth
-                      onChange={handleChange}
-                      value={values.mobileNo}
-                      id="mbileNo"
-                      label="Mobile Number"
-                      name="mobileNo"
-                      autoComplete="mobileNo"
-                      autoFocus
-                    />
-                    {errors.mobileNo && touched.mobileNo && (
-                      <div className="error-message">{errors.mobileNo}</div>
-                    )}
 
-                    {/* <FormControl sx={{ mt: 2, width: "100%" }} variant="outlined">
-                  <InputLabel htmlFor="outlined-adornment-password">
-                    Password
-                  </InputLabel>
-                  <OutlinedInput
-                    id="outlined-adornment-password"
-                    type={showPassword ? "text" : "password"}
-                    name="password"
-                    onChange={handleChange}
-                    value={values.password}
-                    label="Password"
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          edge="end"
-                        >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                  />
-                </FormControl>
-                {errors.password && touched.password && (
-                  <div className="error-message">{errors.password}</div>
-                )} */}
-
-                    <Button
-                      onClick={() => sendOtp(values.mobileNo)}
-                      fullWidth
-                      variant="contained"
-                      sx={{ mt: 3, mb: 2 }}
-                    >
-                      Sign In
-                    </Button>
-
-                    <Grid container>
-                      <Grid item xs>
-                        <Link to="/forgetpassword">Forgot password?</Link>
+                      <Grid container>
+                        <Grid className="text-center" item xs={12} >
+                          <Link to="/">I will do later</Link>
+                        </Grid>
                       </Grid>
-                      <Grid item>
-                        <Link to="/signup">Don't have an account? Sign Up</Link>
-                      </Grid>
-                    </Grid>
-                  </>
-                )}
-              </Box>
-            )}
-          </Formik>
-        </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
-        <div className="d-md-block d-lg-none d-xl-none">
+                    </>
+                  )}
+                </Box>
+              )}
+            </Formik>
+          </Box>
+          <Copyright sx={{ mt: 8, mb: 4 }} />
+          <div className="d-md-block d-lg-none d-xl-none">
             <MobileFooter />
           </div>
-      </Container>
-    </>
+
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 
