@@ -17,7 +17,7 @@ import Stack from "@mui/material/Stack";
 import IconButton from "@mui/material/IconButton";
 import Collapse from "@mui/material/Collapse";
 import CloseIcon from "@mui/icons-material/Close";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { useState } from "react";
 import Googlelogo from "../Signin/googlelogo.png";
@@ -35,9 +35,10 @@ import { API_URL } from "../../config";
 import axios from "axios";
 import { ScaleLoader } from "react-spinners";
 import { WaitLoader } from "../../Components/Elements/WaitLoader";
-import { MuiOtpInput } from 'mui-one-time-password-input'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { MuiOtpInput } from "mui-one-time-password-input";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import MobileFooter from "../../Components/MobileComponent/MobileFooter";
+import { data } from "jquery";
 
 function Copyright(props) {
   return (
@@ -55,21 +56,6 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-const OtpVerfication = () => {
-  const [otp, setOtp] = React.useState('')
-
-  const handleChange = (newValue) => {
-    setOtp(newValue)
-  }
-  return (
-    <div className="text-center">
-      <h4 className="py-4">Enter OTP</h4>
-      <MuiOtpInput value={otp} onChange={handleChange} />
-    </div>
-
-  )
-}
-
 export default function SignUp() {
   const [alertmessage, setAlertMessage] = useState("");
   const [alertType, setAlertType] = useState("success");
@@ -84,16 +70,16 @@ export default function SignUp() {
     event.preventDefault();
   };
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [c_password, setCpassword] = useState("");
-  const [account_type, setAccountType] = useState("user");
-  const [mobileNumber, setMobileNumber] = useState(""); // New state variable
   const [alertOn, setAlertOn] = useState(false);
   const [open, setOpen] = useState(true);
-  const [hideOtp, setShowOtp] = useState(false)
+  const [hideOtp, setShowOtp] = useState(false);
+  const [inputOtp, setInputOtp] = useState("");
+
+  const OtpChangeHandle = (newValue) => {
+    setInputOtp(newValue);
+  };
+
+  const navigate = useNavigate();
 
   // loader state
   const [Loader, setLoader] = useState(false);
@@ -132,53 +118,40 @@ export default function SignUp() {
   };
 
   const initialValues = {
-    firstName: "",
-    lastName: "",
-    email: "",
+    name: "",
     mobileNo: "",
-    password: "",
-    cpassword: "",
+    otp: "",
   };
 
   const validationSchema = Yup.object().shape({
-    firstName: Yup.string().required("First Name is required"),
-    lastName: Yup.string().required("Last Name is required"),
-    email: Yup.string().email("Invalid email").required("Email is required"),
+    name: Yup.string().required("Name is required"),
     mobileNo: Yup.number().required("Mobile Number is required"),
-    password: Yup.string().required("Password is required"),
-    cpassword: Yup.string()
-      .oneOf([Yup.ref("password"), null], "Passwords must match")
-      .required("Confirm Password is required"),
   });
 
   // API TO GET THE SIGN UP
   const handleSubmit = async (values, { resetForm }) => {
     setLoader(true);
-    const { cpassword, firstName, lastName, ...rest } = values;
-    const combinedName = `${firstName} ${lastName}`;
 
-    const dataToSend = {
-      name: combinedName,
-      ...rest,
-    };
-
+    const data = values;
+    data.otp = inputOtp;
+    console.log(data);
     try {
-      const response = await fetch(API_URL + "/api/signup", {
-        method: "POST",
-        body: JSON.stringify(dataToSend),
+      const response = await axios.post(API_URL + "/api/signup", data, {
         headers: {
           "Content-Type": "application/json",
         },
       });
 
-      if (response.ok) {
-        const data = await response.json();
+      if (response.status === 200) {
+        const data = response.data;
+        sessionStorage.setItem("customer", JSON.stringify(data));
         Swal.fire({
           title: "Successfully Registered",
           icon: "success",
-          text: `Welcome to the Hotelio`,
+          text: "Welcome to the Hotelio",
         });
         setLoader(false);
+        navigate("/");
       } else {
         setLoader(false);
         throw new Error("Registration failed");
@@ -193,6 +166,32 @@ export default function SignUp() {
     }
 
     resetForm();
+  };
+
+  const sendOtp = async (number) => {
+    setLoader(true);
+    try {
+      const response = await axios.get(API_URL + "/verify/mobile/" + number);
+      if (response.status === 200) {
+        Swal.fire({
+          text: `We sended you a otp on mobile ${number}`,
+          icon: "info",
+        });
+        setLoader(false);
+        setShowOtp(true);
+      } else {
+        Swal.fire({
+          title: response.data.message,
+          icon: "error",
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "Otp Send Failed ! Try Again",
+        icon: "error",
+      });
+      setLoader(false);
+    }
   };
 
   return (
@@ -254,11 +253,17 @@ export default function SignUp() {
                 onSubmit={handleSubmit}
                 sx={{ mt: 3 }}
               >
-                {hideOtp ?
+                {hideOtp ? (
                   /* Display OTP verification component */
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
-                      <OtpVerfication />
+                      <div className="text-center">
+                        <h4 className="py-4">Enter OTP</h4>
+                        <MuiOtpInput
+                          value={inputOtp}
+                          onChange={(value) => setInputOtp(value)}
+                        />
+                      </div>
                     </Grid>
                     <Grid item xs={6}>
                       <Button
@@ -280,46 +285,28 @@ export default function SignUp() {
                         Sign Up
                       </Button>
                     </Grid>
-                    <Grid item xs={12} display={"flex"} justifyContent={"flex-end"}>
+                    <Grid
+                      item
+                      xs={12}
+                      display={"flex"}
+                      justifyContent={"flex-end"}
+                    >
                       <Link to="/signin">Already have an account? Sign in</Link>
                     </Grid>
-                  </Grid> : /* Display regular sign up form */
+                  </Grid> /* Display regular sign up form */
+                ) : (
                   <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={12}>
                       <TextField
                         autoComplete="given-name"
-                        name="firstName"
+                        name="name"
                         required
                         fullWidth
-                        id="firstName"
+                        id="name"
                         onChange={handleChange}
-                        value={values.firstName}
-                        label="First Name"
+                        value={values.name}
+                        label="Name"
                         autoFocus
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        required
-                        fullWidth
-                        id="lastName"
-                        onChange={handleChange}
-                        value={values.lastName}
-                        label="Last Name"
-                        name="lastName"
-                        autoComplete="family-name"
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <TextField
-                        required
-                        fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        onChange={handleChange}
-                        value={values.email}
-                        autoComplete="email"
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -335,69 +322,10 @@ export default function SignUp() {
                       />
                     </Grid>
                     <Grid item xs={12}>
-                      <FormControl sx={{ width: "100%" }} variant="outlined">
-                        <InputLabel htmlFor="outlined-adornment-password">
-                          Password
-                        </InputLabel>
-                        <OutlinedInput
-                          id="outlined-adornment-password"
-                          type={showPassword ? "text" : "password"}
-                          name="password"
-                          label="Password"
-                          onChange={handleChange}
-                          value={values.password}
-                          endAdornment={
-                            <InputAdornment position="end">
-                              <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={handleClickShowPassword}
-                                edge="end"
-                              >
-                                {showPassword ? (
-                                  <VisibilityOff />
-                                ) : (
-                                  <Visibility />
-                                )}
-                              </IconButton>
-                            </InputAdornment>
-                          }
-                        />
-                      </FormControl>
-                      <FormControl
-                        sx={{ mt: 2, width: "100%" }}
-                        variant="outlined"
-                      >
-                        <InputLabel htmlFor="outlined-adornment-password">
-                          Confirm Password
-                        </InputLabel>
-                        <OutlinedInput
-                          id="outlined-adornment-password"
-                          type={showConfirmPassword ? "text" : "password"}
-                          name="cpassword"
-                          label="Confirm Password"
-                          onChange={handleChange}
-                          value={values.cpassword}
-                          endAdornment={
-                            <InputAdornment position="end">
-                              <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={handleClickShowConfirmPassword}
-                                edge="end"
-                              >
-                                {showConfirmPassword ? (
-                                  <VisibilityOff />
-                                ) : (
-                                  <Visibility />
-                                )}
-                              </IconButton>
-                            </InputAdornment>
-                          }
-                        />
-                      </FormControl>
-                    </Grid>
-                    <Grid item xs={12}>
                       <Button
-                        onClick={() => setShowOtp(true)}
+                        onClick={() => {
+                          sendOtp(values.mobileNo);
+                        }}
                         fullWidth
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
@@ -406,19 +334,22 @@ export default function SignUp() {
                       </Button>
                       <Grid container justifyContent="flex-end">
                         <Grid item>
-                          <Link to="/signin">Already have an account? Sign in</Link>
+                          <Link to="/signin">
+                            Already have an account? Sign in
+                          </Link>
                         </Grid>
                       </Grid>
                     </Grid>
-                  </Grid>}
+                  </Grid>
+                )}
               </Box>
             )}
           </Formik>
         </Box>
         <Copyright sx={{ mt: 5 }} />
-          <div className="d-md-block d-lg-none d-xl-none">
-            <MobileFooter />
-          </div>
+        <div className="d-md-block d-lg-none d-xl-none">
+          <MobileFooter />
+        </div>
       </Container>
     </>
   );
