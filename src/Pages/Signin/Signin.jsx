@@ -161,7 +161,7 @@ const Signin = () => {
           >
             <img src={HotelioLogo} style={{ width: '200px' }} alt="logo" />
             <Typography component="h1" variant="h5">
-              Sign in
+              Customer Sign in
             </Typography>
             <Formik
               onSubmit={handleSubmit}
