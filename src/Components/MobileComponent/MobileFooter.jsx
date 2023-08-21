@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import HomeIcon from '@mui/icons-material/Home';
@@ -6,10 +6,17 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import PersonIcon from '@mui/icons-material/Person';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import { NavLink, useNavigate } from 'react-router-dom';
+import MobileAccountOptions from './MobileAccountOptions';
 
 export default function MobileFooter() {
     const [value, setValue] = React.useState(0);
     const navigate = useNavigate()
+    
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
 
     return (
         <div className='fixed-bottom'>
@@ -31,7 +38,7 @@ export default function MobileFooter() {
                 <BottomNavigationAction onClick={() => navigate('/')} sx={{ margin: '0px -8px !important' }} label="Home" icon={<HomeIcon />} />
                 <BottomNavigationAction onClick={() => navigate('/favourite')} sx={{ margin: '0px -8px !important' }} label="Favorites" icon={<FavoriteIcon />} />
                 <BottomNavigationAction onClick={() => navigate('/offer')} label="Offer" sx={{ margin: '0px -8px !important' }} icon={<LocalOfferIcon />} />
-                <BottomNavigationAction onClick={() => navigate('/signin')} sx={{ margin: '0px -8px !important' }} label="Account" icon={<PersonIcon />} />
+                <BottomNavigationAction sx={{ margin: '0px -8px !important' }} label="Account" icon={<PersonIcon handleShow={handleShow} show={show} handleClose={handleClose} />} />
             </BottomNavigation>
         </div>
     );

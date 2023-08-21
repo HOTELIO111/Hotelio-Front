@@ -418,6 +418,17 @@ body {
   color: #fff;
   background-color: #ee2e24 !important;
 }
+.css-nxzcop:hover {
+  color: #ee2e24 !important;
+  border: 1px solid #ee2e24 !important;
+  background-color: #fff !important;
+}
+
+.css-nxzcop {
+  font-family: "Roboto", sans-serif !important;
+  color: #fff;
+  background-color: #ee2e24 !important;
+}
 
 .css-1vhaqj4-MuiButtonBase-root-MuiButton-root:hover {
   color: #ee2e24 !important;

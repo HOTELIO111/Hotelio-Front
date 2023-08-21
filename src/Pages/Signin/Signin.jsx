@@ -24,6 +24,7 @@ import MobileFooter from "../../Components/MobileComponent/MobileFooter";
 import { MuiOtpInput } from "mui-one-time-password-input";
 import HotelioLogo from '../../images/HotelioLogo.png'
 import LoginMoto from '../../images/LoginMoto.jpg'
+import { FcGoogle } from "react-icons/fc";
 
 const Signin = () => {
   // code for loader top
@@ -61,6 +62,7 @@ const Signin = () => {
   const initialValues = {
     mobileNo: "",
     otp: "",
+    password: ""
   };
 
   // validation schema
@@ -160,7 +162,7 @@ const Signin = () => {
             }}
           >
             <img src={HotelioLogo} style={{ width: '200px' }} alt="logo" />
-            <Typography component="h1" variant="h5">
+            <Typography sx={{ mt: 2 }} component="h1" variant="h5">
               Customer Sign in
             </Typography>
             <Formik
@@ -183,6 +185,23 @@ const Signin = () => {
                           <MuiOtpInput
                             value={inputOtp}
                             onChange={(value) => setInputOtp(value)}
+                          />
+                        </div>
+                        <Typography variant="subtitle1" sx={{ my: 2 }} display="block">
+                          OR
+                        </Typography>
+                        <div>
+                          <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            onChange={handleChange}
+                            value={values.password}
+                            id="password"
+                            label="Enter Your Password"
+                            name="password"
+                            autoComplete="password"
+                            autoFocus
                           />
                         </div>
                       </Grid>
@@ -210,9 +229,10 @@ const Signin = () => {
                         item
                         xs={12}
                         display={"flex"}
-                        justifyContent={"flex-end"}
+                        justifyContent={"center"}
                       >
-                        <Link to="/signin">Already have an account? Sign in</Link>
+                        {/* <Link to="/signin">Already have an account? Sign in</Link> */}
+                        <Link style={{ color: '#ee2e24' }} to="/"><b>I will do later</b></Link>
                       </Grid>
                     </Grid>
                   ) : (
@@ -224,7 +244,8 @@ const Signin = () => {
                         onChange={handleChange}
                         value={values.mobileNo}
                         id="mbileNo"
-                        label="Mobile Number"
+                        sx={{ mt: 4 }}
+                        label="Mobile Number / Email Id"
                         name="mobileNo"
                         autoComplete="mobileNo"
                         autoFocus
@@ -232,6 +253,19 @@ const Signin = () => {
                       {errors.mobileNo && touched.mobileNo && (
                         <div className="error-message">{errors.mobileNo}</div>
                       )}
+                      <div className="d-flex justify-content-center align-items-center mt-4">
+                        <hr style={{ width: '120px' }} />
+                        <Typography className="px-3" variant="caption">Or Login/Signup With</Typography>
+                        <hr style={{ width: '120px' }} />
+                      </div>
+
+
+                      <div className="d-flex align-items-center justify-content-center mt-4">
+                        <div className="d-flex align-items-center justify-content-center" style={{ border: '1px solid black', borderRadius: '100%', width: '40px', height: '40px', cursor: 'pointer' }}>
+                          <FcGoogle size={30} />
+                        </div>
+                      </div>
+                      <p>Google</p>
 
                       <Button
                         onClick={() => sendOtp(values.mobileNo)}
@@ -245,7 +279,7 @@ const Signin = () => {
 
                       <Grid container>
                         <Grid className="text-center" item xs={12} >
-                          <Link to="/">I will do later</Link>
+                          <Link style={{ color: '#ee2e24' }} to="/"><b>I will do later</b></Link>
                         </Grid>
                       </Grid>
                     </>
