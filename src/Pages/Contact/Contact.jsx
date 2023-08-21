@@ -1,59 +1,57 @@
 import React, { useState } from "react";
 import style from "./contact.module.css";
-import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../../Components/Navbar/Navbar";
 import Footer from "../../Components/footer/Footer";
-import TextField from "@mui/material/TextField";
+import { TextField, Button, FormControl, InputLabel, Select, MenuItem, TextareaAutosize, Card, createTheme, ThemeProvider } from '@mui/material';
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import LocalPhoneRoundedIcon from "@mui/icons-material/LocalPhoneRounded";
 import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
-import axios from "axios";
-const api = process.env.REACT_APP_BACKEND_URL_LOCAL;
+import ContactImg from '../../images/ContactImage.png'
+import HotelioLogo from '../../images/HotelioLogo.png'
 
 const Contact = () => {
-  const dispatch = useDispatch();
-  const { contactData } = useSelector((state) => state.setData);
 
-  const [user, setUser] = useState({
-    fname: "",
-    lname: "",
-    email: "",
-    help: "",
-    phone: "",
+  const theme = createTheme({
+    components: {
+      MuiTextField: {
+        styleOverrides: {
+          root: {
+            borderRadius: '20px',
+            '& .MuiInputBase-input:focus': {
+              backgroundColor: '#fff',
+            },
+            '& .MuiInput-underline::before': {
+              borderBottom: '2px solid #ee2e24', // Change to your desired active color
+            },
+            '& .MuiInput-underline::after': {
+              borderBottom: '2px solid #ee2e24', // Change to your desired active color
+            },
+          },
+        },
+      },
+    },
   });
 
-  const handleChange = (e) => {
-    const value = e.target.value;
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    mobile: '',
+    serviceType: '',
+    description: '',
+  });
 
-    setUser({ ...user, [e.target.name]: value });
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
-  const handleClick = (e) => {
-    e.preventDefault();
-    dispatch({
-      type: "setData",
-      payload: user,
-    });
-    setTimeout(() => {
-      console.log(contactData);
-    }, 5000);
-  };
-  const HandleClick = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch(`${api}/contact/create`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: user.fname,
-          email: user.email,
-          message: user.help,
-        }),
-      });
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Handle form submission logic here
+    console.log(formData);
   };
 
   return (
@@ -63,78 +61,108 @@ const Contact = () => {
       <section className={`${style.contact_section} spad`}>
         <div className="container">
           <div className="row">
-            <div className="col-lg-4">
+            <div className="col-lg-5">
+              <div className="text-center">
+                <img src={HotelioLogo} style={{ height: '250px', width: '350px' }} alt="Logo" />
+              </div>
               <div className={style.contact_text}>
                 <h2>Contact Info</h2>
                 <p>
-                Hotelio is owned by Houda Carjour Tourism Pvt Ltd, India's Number 1 Fastest Leading Hotel Chain.
+                  Hotelio is owned by Houda Carjour Tourism Pvt Ltd, India's Number 1 Fastest Leading Hotel Chain.
                 </p>
                 <div className="py-2">
-                  <div className="my-2">
-                    <HomeRoundedIcon color="primary" />
-                    <span className="mx-2 fw-bold">Address:</span>
-                    <small className="fw-lighter text-muted">
+                  <div className="my-2 d-flex">
+                    <HomeRoundedIcon sx={{ color: '#ee2e24' }} />
+                    <h5 className="mx-2 fw-bold">Address:</h5>
+                    <h6 className="fw-lighter text-muted">
                       Indira Nagar, Lucknow, UP
-                    </small>
+                    </h6>
                   </div>
-                  <div className="my-2">
-                    <LocalPhoneRoundedIcon color="primary" />
-                    <span className="mx-2 fw-bold">Phone:</span>
-                    <small className="fw-lighter text-muted">
-                    +91 (811) 5510050
-                    </small>
+                  <div className="my-2 d-flex align-items-center">
+                    <LocalPhoneRoundedIcon sx={{ color: '#ee2e24' }} />
+                    <h5 className="mx-2 fw-bold">Phone:</h5>
+                    <h5 className="fw-lighter text-muted">
+                      +91 (811) 5510050
+                    </h5>
                   </div>
-                  <div className="my-2">
-                    <EmailRoundedIcon color="primary" />
-                    <span className="mx-2 fw-bold">Email:</span>
-                    <small className="fw-lighter text-muted">
+                  <div className="my-2 d-flex align-items-center">
+                    <EmailRoundedIcon sx={{ color: '#ee2e24' }} />
+                    <h5 className="mx-2 fw-bold">Email:</h5>
+                    <h5 className="fw-lighter text-muted">
                       info@hoteliorooms.com
-                    </small>
+                    </h5>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="col-lg-7 offset-lg-1">
-              <form action="#" className={style.contact_form}>
-                <div className="row">
-                  <div className="col-lg-6">
-                    <input
-                      type="text"
-                      name="fname"
-                      value={user.fname}
-                      onChange={handleChange}
+            <div className="col-lg-5 offset-lg-1">
+              <Card className="p-3 mt-3 rounded"
+                sx={{ boxShadow: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset' }}
+              >
+                <ThemeProvider theme={theme}>
+                  <form onSubmit={handleSubmit}>
+                    {/* <div>
+                  <img src={HotelioLogo} alt="Logo" />
+                </div> */}
+                    <TextField
+                      label="Name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      fullWidth
                       required
-                      placeholder="Your Name"
+                      margin="normal"
+                      sx={{
+                        '&:focus': {
+                          backgroundColor: '#fff !important',
+                        },
+                      }}
                     />
-                  </div>
-                  <div className="col-lg-6">
-                    <input
-                      type="text"
+                    <TextField
+                      label="Email"
                       name="email"
-                      value={user.email}
-                      onChange={handleChange}
+                      type="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      fullWidth
                       required
-                      placeholder="Your Email"
+                      margin="normal"
                     />
-                  </div>
-                  <div className="col-lg-12">
-                    <textarea
+                    <TextField
+                      label="Mobile No"
+                      name="mobile"
+                      value={formData.mobile}
+                      onChange={handleInputChange}
+                      fullWidth
                       required
-                      name="help"
-                      value={user.help}
-                      onChange={handleChange}
-                      placeholder="Your Message"
-                    ></textarea>
-                    <button
-                      className="btn btn-primary"
-                      onClick={HandleClick}
-                      type="submit"
-                    >
-                      Submit Now
-                    </button>
-                  </div>
-                </div>
-              </form>
+                      margin="normal"
+                    />
+                    <FormControl fullWidth required margin="normal">
+                      <InputLabel>Service Type</InputLabel>
+                      <Select
+                        name="serviceType"
+                        value={formData.serviceType}
+                        onChange={handleInputChange}
+                      >
+                        <MenuItem value="service1">Service 1</MenuItem>
+                        <MenuItem value="service2">Service 2</MenuItem>
+                        <MenuItem value="service3">Service 3</MenuItem>
+                      </Select>
+                    </FormControl>
+                    <TextareaAutosize
+                      name="description"
+                      value={formData.description}
+                      onChange={handleInputChange}
+                      minRows={5}
+                      placeholder="Description"
+                      style={{ width: '100%', margin: '16px 0px', borderRadius: '24px', padding: '10px', backgroundColor: '#ee2e243f' }}
+                    />
+                    <Button type="submit" variant="contained" color="primary">
+                      Submit
+                    </Button>
+                  </form>
+                </ThemeProvider>
+              </Card>
             </div>
           </div>
           <div className={style.map}>

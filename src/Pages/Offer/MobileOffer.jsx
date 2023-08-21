@@ -52,10 +52,10 @@ const MobileOffer = () => {
     return (
         <div>
             <MobileHeader />
-            <div className='d-flex'>
+            <div className='d-flex align-items-center'>
                 <KeyboardArrowLeftIcon onClick={() => navigate(-1)} />
                 <div className='d-flex justify-content-center w-100'>
-                    <Typography variant="body1" gutterBottom>
+                    <Typography variant="h6" gutterBottom>
                         Offers
                     </Typography>
                 </div>
@@ -73,13 +73,13 @@ const MobileOffer = () => {
                                         <Typography variant="caption" display="block" gutterBottom>
                                             {card.title}
                                         </Typography>
-                                        <Typography variant="caption" display="block" gutterBottom>
+                                        <Typography color={'#ee2e24'} variant="caption" display="block" gutterBottom>
                                             {card.content}
                                         </Typography>
                                     </div>
                                     {/* <Typography variant='small'></Typography> */}
                                     <Typography variant="caption" display="block" gutterBottom>
-                                        {card.para}
+                                        Grab up to <b style={{ color: '#ee2e24' }}>50%</b> OFF with Hotelio
                                     </Typography>
                                 </CardContent>
                             </StyledCard>

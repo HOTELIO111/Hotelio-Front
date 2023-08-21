@@ -910,7 +910,7 @@ const Navbar = ({ list }) => {
                 </div>
               </div>
             </div>
-            <div style={{ marginTop: '100px' }} className="container">
+            <div style={{ marginTop: '50px' }} className="container">
               <QuickFilterNav />
             </div>
           </div>

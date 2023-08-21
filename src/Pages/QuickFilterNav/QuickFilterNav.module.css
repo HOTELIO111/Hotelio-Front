@@ -1,19 +1,4 @@
-.mainDiv {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-}
 
-
-.mainDiv>div {
-    flex: 1 1 160px;
-    max-width: calc(100% / 7);
-    aspect-ratio: 4/4;
-    border-radius: 1rem;
-    transition: 0.2s ease-in-out;
-    cursor: pointer;
-
-}
 
 @media (max-width:567px) {
     .mainDiv {
@@ -35,7 +20,7 @@
 }
 
 .mainDiv>div:hover {
-    transform: rotateZ(5deg);
+    transform: scale(1.1);
 }
 
 

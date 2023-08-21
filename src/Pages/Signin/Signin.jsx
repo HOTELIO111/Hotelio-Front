@@ -238,7 +238,7 @@ const Signin = () => {
                         fullWidth
                         variant="contained"
                         color="primary"
-                        sx={{ mt: 3, mb: 2, background: '#ee2e24' }}
+                        sx={{ mt: 3, mb: 2 }}
                       >
                         Sign In
                       </Button>

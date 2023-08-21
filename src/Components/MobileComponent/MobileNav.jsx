@@ -363,6 +363,9 @@ const MobileNav = ({ list }) => {
                             <h5 className='p-2 py-4 pl-4'><b>Our collection</b></h5>
 
                             <MobileSlider />
+                            <h5 className='p-2 py-4 pl-4'><b>Our collection</b></h5>
+
+                            <MobileSlider />
                         </div>
                     </Grid>
                     <Grid item xs={12}>

@@ -66,10 +66,10 @@ const Favourite = () => {
     return (
         <div>
             <MobileHeader />
-            <div className='d-flex'>
+            <div className='d-flex align-items-center'>
                 <KeyboardArrowLeftIcon onClick={() => navigate(-1)} />
                 <div className='d-flex justify-content-center w-100'>
-                    <Typography variant="body1" gutterBottom>
+                    <Typography variant="h6" gutterBottom>
                         Favourite
                     </Typography>
                 </div>
