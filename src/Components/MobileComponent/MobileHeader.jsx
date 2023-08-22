@@ -22,7 +22,7 @@ const MobileHeader = () => {
     };
 
     return (
-        <Container>
+        <Container style={{ borderBottom: '2px solid #ee2e24' }}>
             <div style={redesigne}>
                 <div></div>
                 <div className="d-flex justify-content-center align-items-center">

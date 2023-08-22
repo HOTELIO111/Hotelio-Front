@@ -357,13 +357,13 @@ const MobileNav = ({ list }) => {
                         <div className='text-center'>
                             <Premiumcard />
 
-                            <h5 className='p-2 py-4 pl-4'><b>Explore these Locations</b></h5>
+                            <h5 className='p-2 py-4 pl-4'><b>Explore Locations</b></h5>
 
                             <MobileDestination />
                             <h5 className='p-2 py-4 pl-4'><b>Our collection</b></h5>
 
                             <MobileSlider />
-                            <h5 className='p-2 py-4 pl-4'><b>Our collection</b></h5>
+                            <h5 className='p-2 py-4 pl-4'><b>Recommendation</b></h5>
 
                             <MobileSlider />
                         </div>

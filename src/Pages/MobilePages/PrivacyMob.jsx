@@ -1,16 +1,12 @@
-import React from 'react';
-import Navbar from '../../Components/Navbar/Navbar';
-import style from './Privacy.module.css'
-import Footer from '../../Components/footer/Footer';
+import React from 'react'
+import style from '../Privacy/Privacy.module.css'
+import MobileFooter from '../../Components/MobileComponent/MobileFooter'
 
-const Privacy = () => {
-
-
+const PrivacyMob = () => {
     return (
-        <div>
-            <Navbar />
+        <>
             <div
-                className={` text-center p-5 rounded ${style.TermsContainer}`}
+                className={` text-center p-5 mt-0 rounded ${style.TermsContainer}`}
             >
                 <h1>Hotelio Privacy & Policy</h1>
             </div>
@@ -21,7 +17,7 @@ const Privacy = () => {
                 </p>
 
             </div>
-            <div className='container'>
+            <div className='container pb-5'>
                 <h5 className='py-3'><b>Information about Hotelio</b></h5>
                 <p className='py-2'>
                     In this privacy notice, references to “Hotelio”, “HotelioRooms”, "we" or "us" or “our” are to Oravel Stays Singapore Pte. Limited (a company incorporated under the laws of Singapore) and its parent company and its subsidiaries (the “Hotelio Group”).
@@ -30,9 +26,11 @@ const Privacy = () => {
                 </p>
 
             </div>
-            <Footer />
-        </div>
-    );
-};
+            <div className="d-md-block d-lg-none d-xl-none">
+                <MobileFooter />
+            </div>
+        </>
+    )
+}
 
-export default Privacy;
+export default PrivacyMob

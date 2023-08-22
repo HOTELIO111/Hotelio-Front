@@ -52,6 +52,10 @@ import Member from "./Pages/Member/Member";
 import JoinOurNetwork from "./Pages/JoinOurNetwork/JoinOurNetwork";
 import Favourite from "./Pages/Favourite/Favourite";
 import MobileOffer from "./Pages/Offer/MobileOffer";
+import PrivacyMob from "./Pages/MobilePages/PrivacyMob";
+import TermsMob from "./Pages/MobilePages/TermsMob";
+import AboutMob from "./Pages/MobilePages/AboutMob";
+import ContactUsMob from "./Pages/MobilePages/ContactUsMob";
 // import ReactDataTable from "./Components/ReactDataTable/ReactDataTable";
 
 function App() {
@@ -72,6 +76,11 @@ function App() {
         <Route path="/singleHotel" element={<Hotel />} />
         <Route path="/favourite" element={<Favourite />} />
         <Route path="/offer" element={<MobileOffer />} />
+        <Route path="/Privacy&policy" element={<PrivacyMob />} />
+        <Route path="/Terms&condition" element={<TermsMob />} />
+        <Route path="/About_Us" element={<AboutMob />} />
+        <Route path="/Contact_Us" element={<ContactUsMob />} />
+
 
 
         <Route
@@ -128,10 +137,7 @@ function App() {
           element={<PrivateRoute Component={Viewproperty} />}
         />
 
-        {/* <Route
-          path="/dashboard"
-          element={<PrivateRoute Component={Dashboard} />}
-        /> */}
+
         <Route path="/profile" element={<PrivateRoute Component={Profile} />} />
         <Route
           path="/hotels"

@@ -3,13 +3,14 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import HotelBudget from '../../images/HotelInBudget.png';
-import PrimeHotel from '../../images/PrimeHotel.png';
-import HomeStay from '../../images/HomeStay.png';
+import HotelBudgetTwo from '../../images/HotelInBudgetTwo.png';
+import PrimeHotelTwo from '../../images/PrimeHotelTwo.png';
+import HomeStayTwo from '../../images/HomeStayTwo.png';
 
 const cardStyles = {
     position: 'relative',
-    boxShadow: 'rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset'
+    boxShadow: 'rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset',
+    padding: '10px'
 };
 
 const titleStyles = {
@@ -26,9 +27,9 @@ const titleStyles = {
 
 const Premiumcard = () => {
     const cardData = [
-        { imageUrl: PrimeHotel, title: 'Premium' },
-        { imageUrl: HotelBudget, title: 'Homestay' },
-        { imageUrl: HomeStay, title: 'Budget' },
+        { imageUrl: PrimeHotelTwo, title: 'Premium' },
+        { imageUrl: HotelBudgetTwo, title: 'Homestay' },
+        { imageUrl: HomeStayTwo, title: 'Budget' },
     ];
 
     return (

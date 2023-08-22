@@ -346,7 +346,7 @@ const Signin = () => {
               )}
             </Formik>
           </Box>
-          <FirstTimeDetail />
+          {/* <FirstTimeDetail /> */}
           <Copyright sx={{ mt: 8, mb: 4 }} />
           <div className="d-md-block d-lg-none d-xl-none">
             <MobileFooter />
