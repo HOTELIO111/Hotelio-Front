@@ -29,6 +29,7 @@ import HotelioLogo from '../../images/HotelioLogo.png'
 import LoginMoto from '../../images/LoginMoto.jpg'
 import { FcGoogle } from "react-icons/fc";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import FirstTimeDetail from "./FirstTimeDetail";
 
 const Signin = () => {
   // code for loader top
@@ -261,89 +262,6 @@ const Signin = () => {
                             />
                           </div>
                         </Grid>
-                        <Grid item xs={12}>
-                          {dataFound ? <>
-                            <TextField
-                              margin="normal"
-                              required
-                              fullWidth
-                              onChange={handleChange}
-                              value={values.name}
-                              id="mbileNo"
-                              sx={{ mt: 4 }}
-                              label="Enter Your Full Name"
-                              name="name"
-                              autoComplete="name"
-                              autoFocus
-                            />
-                            <TextField
-                              margin="normal"
-                              required
-                              fullWidth
-                              onChange={handleChange}
-                              value={values.password}
-                              id="password"
-                              sx={{ mt: 4 }}
-                              label="Enter Your Password"
-                              name="password"
-                              type={showPassword ? "text" : "password"}
-                              autoComplete="password"
-                              autoFocus
-                              onFocus={() => setIsFocused(true)}
-                              onBlur={() => setIsFocused(false)}
-                              InputProps={{
-                                endAdornment: (
-                                  <InputAdornment position="end">
-                                    <IconButton
-                                      aria-label="toggle password visibility"
-                                      onClick={() => setShowPassword(!showPassword)}
-                                      edge="end"
-                                      sx={{
-                                        backgroundColor: isFocused ? "#fff" : "transparent",
-                                      }}
-                                    >
-                                      {showPassword ? <Visibility /> : <VisibilityOff />}
-                                    </IconButton>
-                                  </InputAdornment>
-                                ),
-                              }}
-                            />
-
-                            <TextField
-                              margin="normal"
-                              required
-                              fullWidth
-                              onChange={(e) => setReEnteredPassword(e.target.value)}
-                              value={reEnteredPassword}
-                              id="reEnteredPassword"
-                              sx={{ mt: 4 }}
-                              label="Re-Enter Password"
-                              name="reEnteredPassword"
-                              type={showPassword ? "text" : "password"}
-                              autoComplete="new-password"
-                              autoFocus
-                              onFocus={() => setIsFocused(true)}
-                              onBlur={() => setIsFocused(false)}
-                              InputProps={{
-                                endAdornment: (
-                                  <InputAdornment position="end">
-                                    <IconButton
-                                      aria-label="toggle password visibility"
-                                      onClick={() => setShowPassword(!showPassword)}
-                                      edge="end"
-                                      sx={{
-                                        backgroundColor: isFocused ? "#fff" : "transparent",
-                                      }}
-                                    >
-                                      {showPassword ? <Visibility /> : <VisibilityOff />}
-                                    </IconButton>
-                                  </InputAdornment>
-                                ),
-                              }}
-                            />
-
-                          </> : null}
-                        </Grid>
                         <Grid item xs={6}>
                           <Button
                             fullWidth
@@ -428,6 +346,7 @@ const Signin = () => {
               )}
             </Formik>
           </Box>
+          <FirstTimeDetail />
           <Copyright sx={{ mt: 8, mb: 4 }} />
           <div className="d-md-block d-lg-none d-xl-none">
             <MobileFooter />
