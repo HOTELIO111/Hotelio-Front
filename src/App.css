@@ -418,6 +418,7 @@ body {
   color: #fff;
   background-color: #ee2e24 !important;
 }
+
 .css-nxzcop:hover {
   color: #ee2e24 !important;
   border: 1px solid #ee2e24 !important;
@@ -470,6 +471,12 @@ body {
 }
 
 .css-fvipm8 {
+  border-radius: 24px !important;
+  background-color: #ee2e243f !important;
+}
+
+
+.css-154xyx0-MuiInputBase-root-MuiOutlinedInput-root {
   border-radius: 24px !important;
   background-color: #ee2e243f !important;
 }

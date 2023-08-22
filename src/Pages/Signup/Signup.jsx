@@ -20,7 +20,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { useState } from "react";
-import Googlelogo from "../Signin/googlelogo.png";
 import { useDispatch } from "react-redux";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
