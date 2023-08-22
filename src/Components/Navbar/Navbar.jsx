@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
 import style from "./navbar.module.css";
-import {
-  Link,
-  NavLink,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import $, { param } from "jquery";
 import Dates from "../date/Date";
@@ -27,16 +22,14 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { FormControl, InputLabel, Select, useMediaQuery } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import HotelioLogo from "../../images/HotelioLogo.png";
-import DomainAddIcon from '@mui/icons-material/DomainAdd';
-import {
-  BsFillBuildingsFill,
-} from "react-icons/bs";
+import DomainAddIcon from "@mui/icons-material/DomainAdd";
+import { BsFillBuildingsFill } from "react-icons/bs";
 import KeyIcon from "@mui/icons-material/Key";
 import Swal from "sweetalert2";
 import QuickFilterNav from "../../Pages/QuickFilterNav/QuickFilterNav";
 import axios from "axios";
 import { API_URL } from "../../config";
-import InfoIcon from '@mui/icons-material/Info';
+import InfoIcon from "@mui/icons-material/Info";
 import CitywiseDropedown from "../CitywiseDropedown/CitywiseDropedown";
 import { Col, Row } from "react-bootstrap";
 
@@ -400,24 +393,24 @@ const Navbar = ({ list }) => {
 
   const DummyArray = ["Your City", "Your City"];
   const MarginMobile = {
-    marginTop: '-112px'
-  }
+    marginTop: "-112px",
+  };
 
   return (
     <div className="w-100">
       <header
-        className={`${style.header_area}  ${style.header_sticky} ${style.wow} ${style.slideInDown
-          } ${!list ? "bg-light position-static border-bottom" : ""}`}
+        className={`${style.header_area}  ${style.header_sticky} ${style.wow} ${
+          style.slideInDown
+        } ${!list ? "bg-light position-static border-bottom" : ""}`}
         data-wow-duration="0.75s"
         data-wow-delay="0s"
       >
-
         <div className={`${style.Container}`}>
           <div className="row">
             <div className="col-12 p-0">
               <nav
                 style={{
-                  background: '#fff',
+                  background: "#fff",
                   // background: `linear-gradient(4deg, rgba(255,255,255,1) 17%, rgba(188,124,124,0.3394607843137255) 89%), url(${NavBanner})`,
                   backgroundPosition: "center",
                   backgroundSize: "cover",
@@ -431,14 +424,25 @@ const Navbar = ({ list }) => {
                       <img alt="logo" src={HotelioLogo} />
                     </Link>
                   </Col>
-                  <Col style={isMobile ? MarginMobile : {}} md={12} lg={12} xl={10}>
+                  <Col
+                    style={isMobile ? MarginMobile : {}}
+                    md={12}
+                    lg={12}
+                    xl={10}
+                  >
                     <ul className={style.nav}>
-
-                      <li style={{ listStyle: "none", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                      <li
+                        style={{
+                          listStyle: "none",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
                         <NavLink
                           to="/"
                           className={`${!list ? "text-dark w-100" : ""}`}
-                          style={{ margin: '-5px 0px 0px 0px' }}
+                          style={{ margin: "-5px 0px 0px 0px" }}
                           onClick={() => {
                             dispatch({
                               type: "activePath",
@@ -448,8 +452,9 @@ const Navbar = ({ list }) => {
                         >
                           <HomeIcon /> Home
                           <hr
-                            className={`mt-0 ${style.activeTab} ${activePath === "home" ? "d-block" : "d-none"
-                              }`}
+                            className={`mt-0 ${style.activeTab} ${
+                              activePath === "home" ? "d-block" : "d-none"
+                            }`}
                           />
                         </NavLink>
                       </li>
@@ -466,8 +471,9 @@ const Navbar = ({ list }) => {
                         >
                           <InfoIcon /> About Us
                           <hr
-                            className={`mt-0 ${style.activeTab} ${activePath === "about" ? "d-block" : "d-none"
-                              }`}
+                            className={`mt-0 ${style.activeTab} ${
+                              activePath === "about" ? "d-block" : "d-none"
+                            }`}
                           />
                         </NavLink>
                       </li>
@@ -486,8 +492,9 @@ const Navbar = ({ list }) => {
                         >
                           <BsFillBuildingsFill /> Become a Hotelio Partner
                           <hr
-                            className={`mt-0 ${style.activeTab} ${activePath === "parking" ? "d-block" : "d-none"
-                              }`}
+                            className={`mt-0 ${style.activeTab} ${
+                              activePath === "parking" ? "d-block" : "d-none"
+                            }`}
                           />
                         </NavLink>
                       </li>
@@ -507,8 +514,9 @@ const Navbar = ({ list }) => {
                         >
                           <DomainAddIcon /> LIST YOUR PROPERTY
                           <hr
-                            className={`mt-0 ${style.activeTab} ${activePath === "register" ? "d-block" : "d-none"
-                              }`}
+                            className={`mt-0 ${style.activeTab} ${
+                              activePath === "register" ? "d-block" : "d-none"
+                            }`}
                           />
                         </NavLink>
                       </li>
@@ -529,8 +537,9 @@ const Navbar = ({ list }) => {
     </li> */}
                           <NavLink
                             to="/contact"
-                            className={`${!list ? "text-dark" : ""} ${style.iconHide
-                              }`}
+                            className={`${!list ? "text-dark" : ""} ${
+                              style.iconHide
+                            }`}
                           >
                             Contact us
                           </NavLink>
@@ -544,7 +553,12 @@ const Navbar = ({ list }) => {
                               aria-expanded={openBox ? "true" : undefined}
                               onClick={handleClickLogin}
                               endIcon={<KeyboardArrowDownIcon />}
-                              sx={{ color: "black", fontWeight: 700, my: 1, pt: 0 }}
+                              sx={{
+                                color: "black",
+                                fontWeight: 700,
+                                my: 1,
+                                pt: 0,
+                              }}
                             >
                               <KeyIcon /> Log In / Sign Up
                             </Button>
@@ -606,7 +620,10 @@ const Navbar = ({ list }) => {
                               onClick={handleClick}
                               endIcon={<KeyboardArrowDownIcon />}
                             >
-                              {currentUser ? currentUser.name : ""}
+                              {currentUser &&
+                              currentUser.data.name !== undefined
+                                ? currentUser.data.name
+                                : currentUser.data.email}
                             </Button>
                             <StyledMenu
                               id="demo-customized-menu"
@@ -631,14 +648,18 @@ const Navbar = ({ list }) => {
                                 onClick={handleClose}
                                 disableRipple
                               >
-                                <NavLink to="/YourBooking">Your Booking</NavLink>
+                                <NavLink to="/YourBooking">
+                                  Your Booking
+                                </NavLink>
                               </MenuItem>
                               <MenuItem
                                 sx={{ paddingY: 0 }}
                                 onClick={handleClose}
                                 disableRipple
                               >
-                                <NavLink to="/contact">+91 (811)55 10050</NavLink>
+                                <NavLink to="/contact">
+                                  +91 (811)55 10050
+                                </NavLink>
                               </MenuItem>
                               <MenuItem
                                 sx={{ paddingY: 0 }}
@@ -652,7 +673,9 @@ const Navbar = ({ list }) => {
                                 onClick={handleClose}
                                 disableRipple
                               >
-                                <div onClick={HandleLogOutCustomer}>Log Out</div>
+                                <div onClick={HandleLogOutCustomer}>
+                                  Log Out
+                                </div>
                               </MenuItem>
                             </StyledMenu>
                           </li>
@@ -664,18 +687,23 @@ const Navbar = ({ list }) => {
                       </li>
                     </ul>
                     <a
-                      className={`${style.menu_trigger} ${menuOpen ? style.active : ""
-                        }`}
+                      className={`${style.menu_trigger} ${
+                        menuOpen ? style.active : ""
+                      }`}
                       onClick={() => {
                         setMenuOpen(!menuOpen);
-                        $(`.${style.header_area} .${style.nav}`).slideToggle(200);
+                        $(`.${style.header_area} .${style.nav}`).slideToggle(
+                          200
+                        );
                       }}
                     >
                       <span>Menu</span>
                     </a>
                   </Col>
                 </Row>
-                <div className={`py-2 text-white text-center ${style.navRemove}`}>
+                <div
+                  className={`py-2 text-white text-center ${style.navRemove}`}
+                >
                   {/* <ul className="d-flex justify-content-center">
                       <li  >
                         <b onClick={() => navigate('/')} style={{ cursor: 'pointer' }} className="px-5">HOME</b>
@@ -699,7 +727,7 @@ const Navbar = ({ list }) => {
             </div>
           </div>
         </div>
-      </header >
+      </header>
 
       {list && (
         <>
@@ -738,8 +766,9 @@ const Navbar = ({ list }) => {
                         </fieldset>
                       </div>
                       <div
-                        className={`${nav2 ? "col-lg-3" : "col-lg-4"
-                          } align-self-center`}
+                        className={`${
+                          nav2 ? "col-lg-3" : "col-lg-4"
+                        } align-self-center`}
                       >
                         <fieldset
                           style={{ borderRight: "2px solid red" }}
@@ -766,7 +795,9 @@ const Navbar = ({ list }) => {
                             }}
                             className={`d-flex ${style.headerSearchText}`}
                           >
-                            {`${getTotalGuests()} Guests · ${manageRoom.length} room`}
+                            {`${getTotalGuests()} Guests · ${
+                              manageRoom.length
+                            } room`}
                             <div className="ms-3 text-dark">
                               {openOptions ? (
                                 <ExpandLessIcon />
@@ -866,8 +897,9 @@ const Navbar = ({ list }) => {
                         </fieldset>
                       </div>
                       <div
-                        className={`${isDesktop ? "mt-3" : ""} ${nav2 || navSearch ? "col-lg-2" : "col-lg-3"
-                          }`}
+                        className={`${isDesktop ? "mt-3" : ""} ${
+                          nav2 || navSearch ? "col-lg-2" : "col-lg-3"
+                        }`}
                       >
                         <fieldset>
                           <button
@@ -910,17 +942,17 @@ const Navbar = ({ list }) => {
                 </div>
               </div>
             </div>
-            <div style={{ marginTop: '50px' }} className="container">
+            <div style={{ marginTop: "50px" }} className="container">
               <QuickFilterNav />
             </div>
           </div>
         </>
       )}
-    </div >
+    </div>
   );
 };
 
 export default Navbar;
-  //  onClick={() =>  handleOption("singleRoom", "d")}
-  // onClick={() =>  handleOption("singleRoom", "i")  }
-  // {options.singleRoom}
+//  onClick={() =>  handleOption("singleRoom", "d")}
+// onClick={() =>  handleOption("singleRoom", "i")  }
+// {options.singleRoom}
