@@ -62,8 +62,8 @@ const Contact = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-5">
-              <div className="text-center">
-                <img src={HotelioLogo} style={{ height: '250px', width: '350px' }} alt="Logo" />
+              <div style={{ display: 'grid', placeItems: 'center' }}>
+                <img src={HotelioLogo} style={{ height: '220px', width: '300px' }} alt="Logo" />
               </div>
               <div className={style.contact_text}>
                 <h2>Contact Info</h2>
