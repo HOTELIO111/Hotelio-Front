@@ -622,7 +622,9 @@ const Navbar = ({ list }) => {
                             >
                               {currentUser && currentUser.name
                                 ? currentUser.name
-                                : currentUser.email}
+                                : currentUser.email
+                                ? currentUser.email
+                                : currentUser.mobileNo}
                             </Button>
                             <StyledMenu
                               id="demo-customized-menu"
