@@ -7,6 +7,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Card, CardA
 
 export default function List() {
 
+    
 
     const HotelBookedData = [
         {
@@ -60,8 +61,8 @@ export default function List() {
 
 
     return (
-        <Container maxWidth="md">
-            <Typography component="div" variant="h4">
+        <Container maxWidth="lg">
+            <Typography py={3} component="div" variant="h4">
                 <b>Your Bookings</b>
             </Typography>
             {

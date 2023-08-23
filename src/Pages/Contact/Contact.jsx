@@ -112,11 +112,6 @@ const Contact = () => {
                       fullWidth
                       required
                       margin="normal"
-                      sx={{
-                        '&:focus': {
-                          backgroundColor: '#fff !important',
-                        },
-                      }}
                     />
                     <TextField
                       label="Email"

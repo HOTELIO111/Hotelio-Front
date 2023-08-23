@@ -7,7 +7,7 @@ import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import List from "../../Components/YourBookings/List";
-import { Grid, TextField } from "@mui/material";
+import { Grid, TextField, ThemeProvider, createTheme } from "@mui/material";
 import { MuiOtpInput } from "mui-one-time-password-input";
 import { useEffect } from "react";
 import { API_URL } from "../../config";
@@ -16,6 +16,29 @@ import Swal from "sweetalert2";
 import { WaitLoader } from "../../Components/Elements/WaitLoader";
 
 const Profile = () => {
+
+
+  const theme = createTheme({
+    components: {
+      MuiTextField: {
+        styleOverrides: {
+          root: {
+            borderRadius: '20px',
+            '& .MuiInputBase-input:focus': {
+              backgroundColor: '#fff',
+            },
+            '& .MuiInput-underline::before': {
+              borderBottom: '2px solid #ee2e24', // Change to your desired active color
+            },
+            '& .MuiInput-underline::after': {
+              borderBottom: '2px solid #ee2e24', // Change to your desired active color
+            },
+          },
+        },
+      },
+    },
+  });
+
   // Logged user data
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -145,32 +168,40 @@ const Profile = () => {
                 <Grid xs={12} className="text-center" item>
                   <h3> Edit Your Profile </h3>
                 </Grid>
-                <Grid xs={12} className="text-center" item>
-                  <TextField
-                    type="text"
-                    label="Enter Full Name"
-                    variant="outlined"
-                    onChange={(e) => setIsName(e.target.value)} // Update the name state when input value changes
-                    value={isName} // Set the input value to the name state
-                  />
-                </Grid>
-                <Grid xs={12} className="text-center" item>
-                  <TextField
-                    type="number"
-                    label="Enter Mobile No."
-                    variant="outlined"
-                    value={currentUser.mobileNo} // Display the current user's mobile number
-                  />
-                </Grid>
-                <Grid xs={12} className="text-center" item>
-                  <TextField
-                    type="email"
-                    label="Enter Email Id"
-                    variant="outlined"
-                    onChange={(e) => setIsEmail(e.target.value)} // Update the email state when input value changes
-                    value={isEmail} // Set the input value to the email state
-                  />
-                </Grid>
+                <ThemeProvider theme={theme}>
+                  <Grid xs={12} className="text-center" item>
+                    <TextField
+                      fullWidth
+                      name="name"
+                      type="text"
+                      label="Enter Full Name"
+                      variant="outlined"
+                      onChange={(e) => setIsName(e.target.value)} // Update the name state when input value changes
+                      value={isName} // Set the input value to the name state
+                    />
+                  </Grid>
+                  <Grid xs={12} className="text-center" item>
+                    <TextField
+                      fullWidth
+                      type="number"
+                      name="number"
+                      label="Enter Mobile No."
+                      variant="outlined"
+                      value={currentUser.mobileNo} // Display the current user's mobile number
+                    />
+                  </Grid>
+                  <Grid xs={12} className="text-center" item>
+                    <TextField
+                      fullWidth
+                      type="email"
+                      name="email"
+                      label="Enter Email Id"
+                      variant="outlined"
+                      onChange={(e) => setIsEmail(e.target.value)} // Update the email state when input value changes
+                      value={isEmail} // Set the input value to the email state
+                    />
+                  </Grid>
+                </ThemeProvider>
                 <Grid xs={6} className="text-center" item>
                   <Button
                     onClick={handleProfileUpdateClose}
@@ -411,10 +442,10 @@ const Profile = () => {
       <Grid container className="min-vh-100 mt-5" spacing={2}>
         <WaitLoader loading={Loader} />
         <Grid xs={12} className="text-center" item>
-          <h3>Welcome to Hotelio! Please Update YourProfile</h3>
+          <h3 className="py-3">Welcome to Hotelio! Please Update YourProfile</h3>
           <p>Membership Offer Coming Soon</p>
         </Grid>
-        <Grid item xs={12} lg={4} xl={4}>
+        <Grid item xs={12} md={12} lg={3} xl={3}>
           <div className={`text-center ${style.box}`}>
             <div className={` ${style.content}`}>
               <div className={` ${style.image}`}>
@@ -467,7 +498,7 @@ const Profile = () => {
           <ProfileUpdateModal />
           <PasswordUpdateModal />
         </Grid>
-        <Grid item xs={12} lg={8} xl={8}>
+        <Grid item xs={12} md={12} lg={9} xl={9}>
           <div
             style={{
               overflowY: "auto",
