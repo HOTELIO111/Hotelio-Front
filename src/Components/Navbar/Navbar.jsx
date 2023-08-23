@@ -620,10 +620,9 @@ const Navbar = ({ list }) => {
                               onClick={handleClick}
                               endIcon={<KeyboardArrowDownIcon />}
                             >
-                              {currentUser &&
-                              currentUser.data.name !== undefined
-                                ? currentUser.data.name
-                                : currentUser.data.email}
+                              {currentUser && currentUser.name
+                                ? currentUser.name
+                                : currentUser.email}
                             </Button>
                             <StyledMenu
                               id="demo-customized-menu"
