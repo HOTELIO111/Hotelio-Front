@@ -56,6 +56,7 @@ import PrivacyMob from "./Pages/MobilePages/PrivacyMob";
 import TermsMob from "./Pages/MobilePages/TermsMob";
 import AboutMob from "./Pages/MobilePages/AboutMob";
 import ContactUsMob from "./Pages/MobilePages/ContactUsMob";
+import Booking from "./Pages/Booking/Booking";
 // import ReactDataTable from "./Components/ReactDataTable/ReactDataTable";
 
 function App() {
@@ -74,6 +75,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/listHotel" element={<List />} />
         <Route path="/singleHotel" element={<Hotel />} />
+        <Route path="/booking" element={<Booking />} />
+
+        {/* Mobile pages */}
+
         <Route path="/favourite" element={<Favourite />} />
         <Route path="/offer" element={<MobileOffer />} />
         <Route path="/Privacy&policy" element={<PrivacyMob />} />
