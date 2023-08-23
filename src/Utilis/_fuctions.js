@@ -14,8 +14,9 @@ export function validateInput(number) {
 
 export function buildQueryString(data) {
     const queryString = Object.keys(data)
-      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
-      .join("&");
-  
+        .filter(key => data[key] !== undefined && data[key] !== null)
+        .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+        .join("&");
+
     return queryString;
-  }
+}
