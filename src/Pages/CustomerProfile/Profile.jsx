@@ -445,7 +445,7 @@ const Profile = () => {
           <h3 className="py-3">Welcome to Hotelio! Please Update YourProfile</h3>
           <p>Membership Offer Coming Soon</p>
         </Grid>
-        <Grid item xs={12} md={12} lg={3} xl={3}>
+        <Grid item xs={12} md={12} lg={4} xl={4}>
           <div className={`text-center ${style.box}`}>
             <div className={` ${style.content}`}>
               <div className={` ${style.image}`}>
@@ -498,7 +498,7 @@ const Profile = () => {
           <ProfileUpdateModal />
           <PasswordUpdateModal />
         </Grid>
-        <Grid item xs={12} md={12} lg={9} xl={9}>
+        <Grid item xs={12} md={12} lg={8} xl={8}>
           <div
             style={{
               overflowY: "auto",
@@ -509,6 +509,10 @@ const Profile = () => {
           >
             <List />
           </div>
+        </Grid>
+        <Grid xs={12} className="text-center d-lg-none" item>
+          <h3 className="py-3">Welcome to Hotelio! Please Update YourProfile</h3>
+          <p>Membership Offer Coming Soon</p>
         </Grid>
       </Grid>
     </div>

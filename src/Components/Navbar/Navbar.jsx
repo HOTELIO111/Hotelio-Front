@@ -55,7 +55,7 @@ const Navbar = ({ list }) => {
   const open = Boolean(anchorEl);
   const open1 = Boolean(anchorEl1);
 
-  const [Login, setLogin] = React.useState(null);
+  const [Login, setLogin] = useState(null);
   const openBox = Boolean(Login);
   const handleClickLogin = (event) => {
     setLogin(event.currentTarget);
@@ -645,16 +645,14 @@ const Navbar = ({ list }) => {
                                 </NavLink>
                               </MenuItem>
                               <MenuItem
-                                sx={{ paddingY: 0 }}
                                 onClick={handleClose}
                                 disableRipple
                               >
                                 <NavLink to="/YourBooking">
-                                  Your Booking
+                                  My Booking
                                 </NavLink>
                               </MenuItem>
                               <MenuItem
-                                sx={{ paddingY: 0 }}
                                 onClick={handleClose}
                                 disableRipple
                               >
@@ -663,14 +661,12 @@ const Navbar = ({ list }) => {
                                 </NavLink>
                               </MenuItem>
                               <MenuItem
-                                sx={{ paddingY: 0 }}
                                 onClick={handleClose}
                                 disableRipple
                               >
                                 <NavLink to="/about">About Us</NavLink>
                               </MenuItem>
                               <MenuItem
-                                sx={{ paddingY: 0 }}
                                 onClick={handleClose}
                                 disableRipple
                               >
