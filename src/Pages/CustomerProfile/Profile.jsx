@@ -13,6 +13,9 @@ import { useEffect } from "react";
 import { API_URL } from "../../config";
 import axios from "axios";
 import Swal from "sweetalert2";
+import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
+import MobileFriendlyIcon from '@mui/icons-material/MobileFriendly';
+import EmailIcon from '@mui/icons-material/Email';
 import { WaitLoader } from "../../Components/Elements/WaitLoader";
 
 const Profile = () => {
@@ -315,7 +318,7 @@ const Profile = () => {
       filter: "drop-shadow(10px 8px 6px red)",
       borderRadius: "5px",
       boxShadow: 24,
-      p: 3,
+      p: 2,
     };
 
     return (
@@ -378,7 +381,7 @@ const Profile = () => {
                 </Grid>
                 <Grid xs={6} className="text-center" item>
                   <Button
-                    onClick={() => setValidate(false)}
+                    onClick={handlePasswordUpdateClose}
                     variant="outlined"
                     color="error"
                   >
@@ -454,21 +457,28 @@ const Profile = () => {
                   alt="Profile Image"
                 />
               </div>
-              <div className={` ${style.level}`}>
-                <p>PRO</p>
-              </div>
               <div className={` ${style.text}`}>
                 <p className={` ${style.name}`}>
                   {currentUser ? currentUser.name : "Your Name"}
                 </p>
-                <h5 className={` ${style.job_title}`}>
-                  {currentUser ? currentUser.mobileNo : "XXXXXXXXXX"}
-                </h5>
-                <h5 className={` mt-0 ${style.job_discription}`}>
-                  {currentUser ? currentUser.email : "youremail@gmail.com"}
-                </h5>
+                <div className="d-flex justify-content-center align-items-center">
+                  <h5 className={` mt-0 ${style.job_discription}`}>
+                    <MobileFriendlyIcon /> {currentUser ? currentUser.mobileNo : "XXXXXXXXXX"}
+                  </h5>
+                  <div className={` ${style.level}`}>
+                    <VerifiedRoundedIcon />
+                  </div>
+                </div>
+                <div className="d-flex justify-content-center align-items-center">
+                  <h5 className={` mt-0 ${style.job_discription}`}>
+                    <EmailIcon /> {currentUser ? currentUser.email : "youremail@gmail.com"}
+                  </h5>
+                  <div className={` ${style.level}`}>
+                    <VerifiedRoundedIcon />
+                  </div>
+                </div>
               </div>
-              <div className={` ${style.button}`}>
+              {/* <div className={` ${style.button}`}>
                 <div>
                   <Button
                     variant="contained"
@@ -479,15 +489,19 @@ const Profile = () => {
                     Edit
                   </Button>
                 </div>
-              </div>
-              <div className={`mt-1 ${style.button}`}>
+              </div> */}
+              <div className={`mt-1 d-flex justify-content-evenly align-items-center ${style.button}`}>
+                {currentUser ?
+                  <TextField type="password" margin="normal" value={currentUser ? currentUser.password : null} id="standard-basic" label="Password" variant="outlined" />
+                  : null}
                 <div>
                   <Button
                     color="error"
-                    variant="contained"
+                    variant="text"
                     className={` ${style.connect}`}
                     type="button"
-                    onClick={() => sendOtpToNumber()}
+                    // onClick={() => sendOtpToNumber()}
+                    onClick={handlePasswordUpdateOpen}
                   >
                     Update Password
                   </Button>
@@ -509,10 +523,6 @@ const Profile = () => {
           >
             <List />
           </div>
-        </Grid>
-        <Grid xs={12} className="text-center d-lg-none" item>
-          <h3 className="py-3">Welcome to Hotelio! Please Update YourProfile</h3>
-          <p>Membership Offer Coming Soon</p>
         </Grid>
       </Grid>
     </div>

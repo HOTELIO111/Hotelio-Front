@@ -17,6 +17,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import CallIcon from '@mui/icons-material/Call';
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { FormControl, InputLabel, Select, useMediaQuery } from "@mui/material";
@@ -399,9 +400,8 @@ const Navbar = ({ list }) => {
   return (
     <div className="w-100">
       <header
-        className={`${style.header_area}  ${style.header_sticky} ${style.wow} ${
-          style.slideInDown
-        } ${!list ? "bg-light position-static border-bottom" : ""}`}
+        className={`${style.header_area}  ${style.header_sticky} ${style.wow} ${style.slideInDown
+          } ${!list ? "bg-light position-static border-bottom" : ""}`}
         data-wow-duration="0.75s"
         data-wow-delay="0s"
       >
@@ -452,9 +452,8 @@ const Navbar = ({ list }) => {
                         >
                           <HomeIcon /> Home
                           <hr
-                            className={`mt-0 ${style.activeTab} ${
-                              activePath === "home" ? "d-block" : "d-none"
-                            }`}
+                            className={`mt-0 ${style.activeTab} ${activePath === "home" ? "d-block" : "d-none"
+                              }`}
                           />
                         </NavLink>
                       </li>
@@ -471,9 +470,8 @@ const Navbar = ({ list }) => {
                         >
                           <InfoIcon /> About Us
                           <hr
-                            className={`mt-0 ${style.activeTab} ${
-                              activePath === "about" ? "d-block" : "d-none"
-                            }`}
+                            className={`mt-0 ${style.activeTab} ${activePath === "about" ? "d-block" : "d-none"
+                              }`}
                           />
                         </NavLink>
                       </li>
@@ -492,9 +490,8 @@ const Navbar = ({ list }) => {
                         >
                           <BsFillBuildingsFill /> Become a Hotelio Partner
                           <hr
-                            className={`mt-0 ${style.activeTab} ${
-                              activePath === "parking" ? "d-block" : "d-none"
-                            }`}
+                            className={`mt-0 ${style.activeTab} ${activePath === "parking" ? "d-block" : "d-none"
+                              }`}
                           />
                         </NavLink>
                       </li>
@@ -514,9 +511,8 @@ const Navbar = ({ list }) => {
                         >
                           <DomainAddIcon /> LIST YOUR PROPERTY
                           <hr
-                            className={`mt-0 ${style.activeTab} ${
-                              activePath === "register" ? "d-block" : "d-none"
-                            }`}
+                            className={`mt-0 ${style.activeTab} ${activePath === "register" ? "d-block" : "d-none"
+                              }`}
                           />
                         </NavLink>
                       </li>
@@ -537,9 +533,8 @@ const Navbar = ({ list }) => {
     </li> */}
                           <NavLink
                             to="/contact"
-                            className={`${!list ? "text-dark" : ""} ${
-                              style.iconHide
-                            }`}
+                            className={`${!list ? "text-dark" : ""} ${style.iconHide
+                              }`}
                           >
                             Contact us
                           </NavLink>
@@ -623,8 +618,8 @@ const Navbar = ({ list }) => {
                               {currentUser && currentUser.name
                                 ? currentUser.name
                                 : currentUser.email
-                                ? currentUser.email
-                                : currentUser.mobileNo}
+                                  ? currentUser.email
+                                  : currentUser.mobileNo}
                             </Button>
                             <StyledMenu
                               id="demo-customized-menu"
@@ -634,37 +629,41 @@ const Navbar = ({ list }) => {
                               anchorEl={anchorEl}
                               open={open}
                               onClose={handleClose}
+                              className='text-center'
                             >
                               <MenuItem
-                                sx={{ paddingY: 0 }}
                                 onClick={handleClose}
                                 disableRipple
+                                sx={{ textAlign: 'center' }}
                               >
-                                <NavLink to={"/CustomerNameProfile"}>
+                                <NavLink className='text-dark' to={"/CustomerNameProfile"}>
                                   My Profile
                                 </NavLink>
                               </MenuItem>
                               <MenuItem
                                 onClick={handleClose}
                                 disableRipple
+                                sx={{ textAlign: 'center' }}
                               >
-                                <NavLink to="/YourBooking">
+                                <NavLink className='text-dark' to="/YourBooking">
                                   My Booking
                                 </NavLink>
                               </MenuItem>
                               <MenuItem
                                 onClick={handleClose}
                                 disableRipple
+                                sx={{ textAlign: 'center' }}
                               >
-                                <NavLink to="/contact">
-                                  +91 (811)55 10050
+                                <NavLink className='text-dark' to="/contact">
+                                  <CallIcon /> +91 (811)55 10050
                                 </NavLink>
                               </MenuItem>
                               <MenuItem
                                 onClick={handleClose}
                                 disableRipple
+                                sx={{ textAlign: 'center' }}
                               >
-                                <NavLink to="/about">About Us</NavLink>
+                                <NavLink className='text-dark' to="/about">About Us</NavLink>
                               </MenuItem>
                               <MenuItem
                                 onClick={handleClose}
@@ -684,9 +683,8 @@ const Navbar = ({ list }) => {
                       </li>
                     </ul>
                     <a
-                      className={`${style.menu_trigger} ${
-                        menuOpen ? style.active : ""
-                      }`}
+                      className={`${style.menu_trigger} ${menuOpen ? style.active : ""
+                        }`}
                       onClick={() => {
                         setMenuOpen(!menuOpen);
                         $(`.${style.header_area} .${style.nav}`).slideToggle(
@@ -763,9 +761,8 @@ const Navbar = ({ list }) => {
                         </fieldset>
                       </div>
                       <div
-                        className={`${
-                          nav2 ? "col-lg-3" : "col-lg-4"
-                        } align-self-center`}
+                        className={`${nav2 ? "col-lg-3" : "col-lg-4"
+                          } align-self-center`}
                       >
                         <fieldset
                           style={{ borderRight: "2px solid red" }}
@@ -792,9 +789,8 @@ const Navbar = ({ list }) => {
                             }}
                             className={`d-flex ${style.headerSearchText}`}
                           >
-                            {`${getTotalGuests()} Guests · ${
-                              manageRoom.length
-                            } room`}
+                            {`${getTotalGuests()} Guests · ${manageRoom.length
+                              } room`}
                             <div className="ms-3 text-dark">
                               {openOptions ? (
                                 <ExpandLessIcon />
@@ -894,9 +890,8 @@ const Navbar = ({ list }) => {
                         </fieldset>
                       </div>
                       <div
-                        className={`${isDesktop ? "mt-3" : ""} ${
-                          nav2 || navSearch ? "col-lg-2" : "col-lg-3"
-                        }`}
+                        className={`${isDesktop ? "mt-3" : ""} ${nav2 || navSearch ? "col-lg-2" : "col-lg-3"
+                          }`}
                       >
                         <fieldset>
                           <button

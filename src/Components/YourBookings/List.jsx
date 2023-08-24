@@ -7,7 +7,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Card, CardA
 
 export default function List() {
 
-    
+
 
     const HotelBookedData = [
         {
@@ -91,7 +91,7 @@ export default function List() {
                                         <Box sx={{ pl: 1, pb: 1 }}>
                                             {item.hotelAddress}
                                             <CardActions>
-                                                <Button variant="contained" color="primary" size="medium">Detail</Button>
+                                                <Button variant="contained" color="primary" size="medium">View Hotel</Button>
                                                 <Button onClick={AlertBox} variant="outlined" color="error" size="medium">Cancel</Button>
                                             </CardActions>
                                         </Box>
@@ -105,13 +105,59 @@ export default function List() {
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                     >
-                                        <Typography>Accordion 1</Typography>
+                                        <Button variant="contained" color="primary" size="medium">Check Details</Button>
                                     </AccordionSummary>
                                     <AccordionDetails>
-                                        <Typography>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                            malesuada lacus ex, sit amet blandit leo lobortis eget.
-                                        </Typography>
+                                        <Grid container spacing={2}>
+                                            <Grid item xs={6} lg={2} xl={2}>
+                                                <Typography variant="button" display="block">
+                                                    Booking ID
+                                                </Typography>
+                                                <Typography variant="caption" display="block">
+                                                    #HT0123456
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={6} lg={2} xl={2}>
+                                                <Typography variant="button" display="block">
+                                                    Booking Date
+                                                </Typography>
+                                                <Typography variant="caption" display="block">
+                                                    24-08-2023
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={6} lg={2} xl={2}>
+                                                <Typography variant="button" display="block">
+                                                    Booking Time
+                                                </Typography>
+                                                <Typography variant="caption" display="block">
+                                                    03:34 PM
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={6} lg={2} xl={2}>
+                                                <Typography variant="button" display="block">
+                                                    No Of Guest
+                                                </Typography>
+                                                <Typography variant="caption" display="block">
+                                                    02 Adult
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={6} lg={2} xl={2}>
+                                                <Typography variant="button" display="block">
+                                                    Booking status
+                                                </Typography>
+                                                <Typography variant="caption" display="block">
+                                                    Completed
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={6} lg={2} xl={2}>
+                                                <Typography variant="button" display="block">
+                                                    Payment Method
+                                                </Typography>
+                                                <Typography variant="caption" display="block">
+                                                    Online
+                                                </Typography>
+                                            </Grid>
+                                        </Grid>
                                     </AccordionDetails>
                                 </Accordion>
                             </Grid>
