@@ -469,14 +469,14 @@ const Profile = () => {
                     <VerifiedRoundedIcon />
                   </div>
                 </div>
-                <div className="d-flex justify-content-center align-items-center">
+               {currentUser.email ? <div className="d-flex justify-content-center align-items-center">
                   <h5 className={` mt-0 ${style.job_discription}`}>
                     <EmailIcon /> {currentUser ? currentUser.email : "youremail@gmail.com"}
                   </h5>
                   <div className={` ${style.level}`}>
                     <VerifiedRoundedIcon />
                   </div>
-                </div>
+                </div> : null}
               </div>
               {/* <div className={` ${style.button}`}>
                 <div>
