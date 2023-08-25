@@ -2,9 +2,10 @@ import axios from "axios";
 import { useState } from "react";
 import { useContext } from "react";
 import { createContext } from "react";
-import { buildQueryString } from "../Utilis/_fuctions";
+import { buildQueryString, validateInput } from "../Utilis/_fuctions";
 import { API_URL } from "../config";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+import Swal from "sweetalert2";
 
 
 
@@ -19,6 +20,8 @@ const AuthProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(
         JSON.parse(sessionStorage.getItem("customer"))
     );
+    // otp response state
+    const [otpResp, setOtpResp] = useState({})
 
     // google login signup function 
     const login = useGoogleLogin({
@@ -69,7 +72,61 @@ const AuthProvider = ({ children }) => {
 
 
 
-    return <AuthContext.Provider value={{ setIsUser, isUser, Loader, setLoader, setCurrentUser, currentUser, login, logOut }}>
+
+    // send the otp 
+
+    const sendOtp = async (number) => {
+        setLoader(true);
+        // check the input type
+        const isInput = validateInput(number);
+        //  ====================================================
+        // email credentials
+        const formd = {
+            email: `${number}`,
+            format: "otp",
+        };
+        const queryString = buildQueryString(formd);
+        try {
+            let response;
+            if (isInput === "mobile") {
+                response = await axios.get(API_URL + "/verify/mobile/" + number);
+            } else if (isInput === "email") {
+                response = await axios.get(API_URL + "/verify/email?" + queryString);
+            } else {
+                Swal.fire({
+                    text: "Please enter a valid email or mobile number",
+                });
+            }
+
+            if (response.status === 200) {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'info',
+                    title: `We sended you a otp on ${isInput} ${number}`,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                setOtpResp(response.data)
+                // handleNext();
+                setLoader(false);
+            } else {
+                Swal.fire({
+                    title: response.data.message,
+                    icon: "error",
+                });
+            }
+        } catch (error) {
+            Swal.fire({
+                title: "Otp Send Failed ! Try Again",
+                icon: "error",
+            });
+            setLoader(false);
+        }
+    };
+
+
+
+    return <AuthContext.Provider value={{ setIsUser, isUser, Loader, setLoader, setCurrentUser, currentUser, login, logOut, sendOtp, otpResp }}>
         {children}
     </AuthContext.Provider>
 }

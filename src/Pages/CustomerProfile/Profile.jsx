@@ -17,6 +17,8 @@ import VerifiedRoundedIcon from "@mui/icons-material/VerifiedRounded";
 import MobileFriendlyIcon from "@mui/icons-material/MobileFriendly";
 import EmailIcon from "@mui/icons-material/Email";
 import { WaitLoader } from "../../Components/Elements/WaitLoader";
+import { useAuthContext } from "../../context/userAuthContext";
+import { current } from "@reduxjs/toolkit";
 
 const Profile = () => {
   const theme = createTheme({
@@ -42,9 +44,6 @@ const Profile = () => {
 
   // Logged user data
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  // Loader
-  const [Loader, setLoader] = useState(false);
 
   // Update the user details
   const [currentUser, setCurrentUser] = useState(
@@ -73,14 +72,16 @@ const Profile = () => {
     setValidate(false);
   };
 
+  const { sendOtp, otpResp, Loader, setLoader } = useAuthContext();
+
   // otp after sent recieved data
   const [otpData, setotpData] = useState(null);
 
   // Profile update modal component
   const ProfileUpdateModal = () => {
     // Loader
-    const [Loader, setLoader] = useState(false); // State to track the loading status
-
+    // State to track the loading status
+    const { Loader, setLoader } = useAuthContext();
     // onchange States
     const [isEmail, setIsEmail] = useState(currentUser.email); // State to track the email input value
     const [isName, setIsName] = useState(currentUser.name); // State to track the name input value
@@ -262,13 +263,14 @@ const Profile = () => {
     // Verify Otp and submit to update
     const HandleChangePassword = async () => {
       const formdata = {
+        id: otpResp.data._id,
         otp: otp,
-        key: otpData.response,
         password: updatedPassword,
       };
       // put the req to change the password
       try {
         setLoader(true);
+        console.log(formdata, otpResp.data._id);
         const isChanged = await axios.post(
           API_URL + "/api/update-pass/" + currentUser._id,
           formdata
@@ -404,42 +406,50 @@ const Profile = () => {
     );
   };
 
-  // sendOtpFunction
-  const sendOtpToNumber = async () => {
-    try {
-      setLoader(true);
-      const isSended = await axios.get(
-        API_URL + "/api/sendopt/" + currentUser.mobileNo
-      );
-      if (isSended.status === 200) {
-        setLoader(false);
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Otp Sent Successfully",
-          showConfirmButton: false,
-          timer: 1500,
-        });
+  const sendNewOtp = (number) => {
+    sendOtp(number).then(() => {
+      if (otpResp) {
         handlePasswordUpdateOpen();
-        setotpData(isSended.data);
-      } else {
-        setLoader(false);
-        Swal.fire({
-          position: "top-end",
-          icon: "error",
-          title: "Otp Failed To sent Try Again After Sometime",
-          showConfirmButton: false,
-          timer: 1500,
-        });
       }
-    } catch (error) {
-      setLoader(false);
-      console.log(error);
-    }
+    });
   };
+  // sendOtpFunction
+  // const sendOtpToNumber = async () => {
+  //   try {
+  //     setLoader(true);
+  //     const isSended = await axios.get(
+  //       API_URL + "/verify/mobile/" + currentUser.mobileNo
+  //     );
+  //     if (isSended.status === 200) {
+  //       setLoader(false);
+  //       Swal.fire({
+  //         position: "top-end",
+  //         icon: "success",
+  //         title: "Otp Sent Successfully",
+  //         showConfirmButton: false,
+  //         timer: 1500,
+  //       });
+
+  //       setotpData(isSended.data);
+  //     } else {
+  //       setLoader(false);
+  //       Swal.fire({
+  //         position: "top-end",
+  //         icon: "error",
+  //         title: "Otp Failed To sent Try Again After Sometime",
+  //         showConfirmButton: false,
+  //         timer: 1500,
+  //       });
+  //     }
+  //   } catch (error) {
+  //     setLoader(false);
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <div>
+      {console.log(otpResp)}
       <Grid container className="min-vh-100 mt-5" spacing={2}>
         <WaitLoader loading={Loader} />
         <Grid xs={12} className="text-center" item>
@@ -516,7 +526,13 @@ const Profile = () => {
                     className={` ${style.connect}`}
                     type="button"
                     // onClick={() => sendOtpToNumber()}
-                    onClick={handlePasswordUpdateOpen}
+                    onClick={() => {
+                      sendNewOtp(
+                        currentUser.mobileNo !== undefined
+                          ? currentUser.mobileNo
+                          : currentUser.email
+                      );
+                    }}
                   >
                     Update Password
                   </Button>
