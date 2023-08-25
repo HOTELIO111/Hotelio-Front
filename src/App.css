@@ -491,6 +491,6 @@ body {
   background-color: #ee2e243f !important;
 }
 
-.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
-  padding: 7.5px 14px !important;
+.custom-input .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+  padding: 10px 14px !important;
 }

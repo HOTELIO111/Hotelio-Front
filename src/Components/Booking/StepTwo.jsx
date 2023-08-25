@@ -1,11 +1,20 @@
 import { Alert, Button, Card, CardActions, CardContent, Chip, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, Rating, TextField, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import CoffeeIcon from '@mui/icons-material/Coffee';
+import DoDisturbIcon from '@mui/icons-material/DoDisturb';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import VapingRoomsIcon from '@mui/icons-material/VapingRooms';
+import Tooltip from '@mui/material/Tooltip/Tooltip';
+import PersonIcon from '@mui/icons-material/Person';
 
 const StepTwo = () => {
+  const [show, setHide] = useState(false)
   return (
     <div className='container p-2'>
       <Grid container spacing={2}>
-        <Grid item xs={8}>
+        <Grid item xs={12} sm={12} md={6} lg={8} xl={8}>
           <Card className='w-100'>
             <CardContent>
               <Typography sx={{ mb: 1.5 }} color="text-dark" fontWeight={700}>
@@ -14,11 +23,22 @@ const StepTwo = () => {
               <Alert severity="success" color="info">
                 Almost done! Just fill in the * required info
               </Alert>
-              <TextField id="outlined-basic" label="Full Name *" margin='normal' variant="outlined" />
+
+              <TextField
+                InputProps={{ className: 'custom-input' }}
+                id="outlined-basic"
+                label="Full Name *"
+                margin='normal'
+                variant="outlined" />
 
               <br />
 
-              <TextField id="outlined-basic" label="Email *" margin='normal' variant="outlined" />
+              <TextField
+                InputProps={{ className: 'custom-input' }}
+                id="outlined-basic"
+                label="Email *"
+                margin='normal'
+                variant="outlined" />
               <Typography variant="caption" display="block">
                 Confirmation email goes to this address
               </Typography>
@@ -39,9 +59,36 @@ const StepTwo = () => {
               </FormControl>
             </CardContent>
           </Card>
+          <Card className='w-100 my-2'>
+            <CardContent>
+              <Typography sx={{ mb: 1.5 }} color="text-dark" fontWeight={700}>
+                Deluxe Double Room
+              </Typography>
+
+              <Typography sx={{ pl: 1.5, color: '#ee2e24' }} variant="subtitle1" >
+                <CoffeeIcon /> Breakfast included in the price
+              </Typography>
+              <Typography sx={{ pl: 1.5, color: '#000' }} variant="subtitle1" >
+                <DoDisturbIcon /> Total cost to cancel
+                <Tooltip sx={{ pl: '1' }} title="Total cost for cancellation">
+                  <HelpOutlineIcon fontSize='small' />
+                </Tooltip>{' '}
+              </Typography>
+              <Typography sx={{ pl: 1.5 }} variant="overline" >
+                <VapingRoomsIcon /> Smoking permitted
+              </Typography>
+              <Typography sx={{ pl: 1.5 }} variant="overline" display='block' >
+                Swimming pool, Restaurant, WiFi, Parking
+              </Typography>
+              <Typography display={'flex'} alignItems={'center'} sx={{ fontSize: 14, fontWeight: 800, pl: 1.5 }} gutterBottom>
+                Guests: <PersonIcon /> <PersonIcon /> <PersonIcon />
+              </Typography>
+
+            </CardContent>
+          </Card>
         </Grid>
-        <Grid item xs={4}>
-          <Card className='w-100'>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
+          <Card className='w-100 mb-1'>
             <CardContent>
               <Typography display={'flex'} alignItems={'center'} sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                 Hotel <Rating
@@ -66,6 +113,77 @@ const StepTwo = () => {
               <Typography variant="body2">
                 Swimming pool, Restaurant, WiFi, Parking
               </Typography>
+            </CardContent>
+          </Card>
+          <Card className='w-100 mt-2 my-1'>
+            <CardContent>
+              <Typography color="text-dark" fontWeight={700}>
+                Your booking details
+              </Typography>
+              <Grid container spacing={1}>
+                <Grid item xs={6} >
+                  <Typography variant="overline" display="block">
+                    Check-in
+                  </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography sx={{ pl: 1.5 }} variant="overline" display="block" >
+                    Check-out
+                  </Typography>
+                </Grid>
+                <Grid item xs={6} sx={{ borderRight: '1px solid #808080' }}>
+                  <Typography variant="subtitle2">
+                    Sat 26 Aug 2003
+                  </Typography>
+                  <Typography variant="caption" >
+                    11:30 - 23:30
+                  </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography sx={{ pl: 1.5 }} variant="subtitle2" >
+                    Sun 27 Aug 2003
+                  </Typography>
+                  <Typography sx={{ pl: 1.5 }} variant="caption" >
+                    10:30 - 11:00
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="overline">
+                    Total length of stay:
+                  </Typography>
+                  <Typography variant="subtitle2">
+                    1 night
+                  </Typography>
+                  <hr />
+                </Grid>
+                <Grid sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} item xs={12}>
+                  <div>
+                    <Typography variant="overline">
+                      Your selected
+                    </Typography>
+                    <Typography variant="subtitle2">
+                      1 room for 1 adult
+                    </Typography>
+
+                  </div>
+                  <div className='p-2 border'>
+                    {show ? <ExpandLessIcon onClick={() => setHide(!show)} /> : <ExpandMoreIcon onClick={() => setHide(!show)} />}
+                  </div>
+                </Grid>
+                <Grid item xs={12}>
+                  {show ? <>
+                    <Typography variant="overline">
+                      1 x Deluxe Double Room
+                    </Typography>
+                    <Typography variant="caption" display="block">
+                      3 adults
+                    </Typography>
+                  </> : null}
+                  <Typography sx={{ color: '#ee2e24' }} variant="subtitle2">
+                    Change Your Selection
+                  </Typography>
+                </Grid>
+              </Grid>
             </CardContent>
           </Card>
         </Grid>

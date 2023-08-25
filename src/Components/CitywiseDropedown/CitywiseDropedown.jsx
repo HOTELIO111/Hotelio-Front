@@ -109,7 +109,7 @@ export default function CitywiseDropedown() {
     };
 
     return (
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
             {StateWiseCityList.map((item, index) => (
                 <div key={index}>
                     <Button

@@ -11,7 +11,7 @@ import {
 import React, { useState } from "react";
 import LoginMoto from "../../images/HotelioLogo.png";
 import { FcGoogle } from "react-icons/fc";
-import { Navigate, useNavigate } from "react-router-dom";
+import { NavLink, Navigate, useNavigate } from "react-router-dom";
 import { MuiOtpInput } from "mui-one-time-password-input";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import axios from "axios";
@@ -459,11 +459,13 @@ const StepsForm = () => {
     <>
       <div className="text-center">
         <WaitLoader loading={Loader} />
+        <NavLink to='/'>
         <img
           src={LoginMoto}
           alt="Main"
           style={{ width: "260px", height: "200px" }}
         />
+        </NavLink>
         <Typography variant="h5" gutterBottom>
           Customer Login / Signup
         </Typography>

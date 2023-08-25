@@ -5,7 +5,7 @@ const StepOne = () => {
     return (
         <div className='container p-2'>
             <Grid container spacing={2}>
-                <Grid xs={8}>
+                <Grid xs={12} sm={12} md={6} lg={8} xl={8}>
                     <Card sx={{ minWidth: 275 }}>
                         <CardContent>
                             <Typography sx={{ mb: 1.5 }} color="text-dark" fontWeight={700}>
@@ -33,7 +33,7 @@ const StepOne = () => {
                         </CardContent>
                     </Card>
                 </Grid>
-                <Grid xs={4}>
+                <Grid xs={12} sm={12} md={6} lg={4} xl={4}>
                     <Card className='w-100 mx-2'>
                         <CardContent>
                             <Typography display={'flex'} alignItems={'center'} sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>

@@ -411,14 +411,10 @@ const Navbar = ({ list }) => {
               <nav
                 style={{
                   background: "#fff",
-                  // background: `linear-gradient(4deg, rgba(255,255,255,1) 17%, rgba(188,124,124,0.3394607843137255) 89%), url(${NavBanner})`,
-                  backgroundPosition: "center",
-                  backgroundSize: "cover",
-                  backgroundRepeat: "no-repeat",
                 }}
                 className={style.main_nav}
               >
-                <Row>
+                <Row className="m-0 p-0">
                   <Col md={2} lg={12} xl={2}>
                     <Link to="/" className={`${style.logo} ms-4`}>
                       <img alt="logo" src={HotelioLogo} />
@@ -696,23 +692,6 @@ const Navbar = ({ list }) => {
                 <div
                   className={`py-2 text-white text-center ${style.navRemove}`}
                 >
-                  {/* <ul className="d-flex justify-content-center">
-                      <li  >
-                        <b onClick={() => navigate('/')} style={{ cursor: 'pointer' }} className="px-5">HOME</b>
-                      </li>
-                      <li style={{ borderLeft: '2px solid white' }} >
-                        <b onClick={() => navigate('/about')} style={{ cursor: 'pointer' }} className="px-5">ABOUT US</b>
-                      </li>
-                      <li style={{ borderLeft: '2px solid white' }} >
-                        <b onClick={() => navigate('/hoteliomember')} style={{ cursor: 'pointer' }} className="px-5">BECOME A HOTELIO PARTNER</b>
-                      </li>
-                      <li style={{ borderLeft: '2px solid white' }} >
-                        <b onClick={() => navigate('')} style={{ cursor: 'pointer' }} className="px-5">FAQ</b>
-                      </li>
-                      <li style={{ borderLeft: '2px solid white' }} >
-                        <b onClick={() => navigate('/contact')} style={{ cursor: 'pointer' }} className="px-5">CONTACT US</b>
-                      </li>
-                    </ul> */}
                   <CitywiseDropedown />
                 </div>
               </nav>
