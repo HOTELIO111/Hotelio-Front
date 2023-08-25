@@ -33,6 +33,7 @@ import { API_URL } from "../../config";
 import InfoIcon from "@mui/icons-material/Info";
 import CitywiseDropedown from "../CitywiseDropedown/CitywiseDropedown";
 import { Col, Row } from "react-bootstrap";
+import { useAuthContext } from "../../context/userAuthContext";
 
 const Navbar = ({ list }) => {
   // Get Logged In User
@@ -335,11 +336,10 @@ const Navbar = ({ list }) => {
 
   // after login fuctins
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState(
-    JSON.parse(sessionStorage.getItem("customer"))
-  );
+  const { setCurrentUser, currentUser, logOut } = useAuthContext();
 
   const HandleLogOutCustomer = () => {
+    logOut();
     sessionStorage.removeItem("customer");
     Swal.fire({
       position: "top-end",
@@ -665,10 +665,7 @@ const Navbar = ({ list }) => {
                               >
                                 <NavLink className='text-dark' to="/about">About Us</NavLink>
                               </MenuItem>
-                              <MenuItem
-                                onClick={handleClose}
-                                disableRipple
-                              >
+                              <MenuItem onClick={handleClose} disableRipple>
                                 <div onClick={HandleLogOutCustomer}>
                                   Log Out
                                 </div>
