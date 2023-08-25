@@ -13,28 +13,26 @@ import { useEffect } from "react";
 import { API_URL } from "../../config";
 import axios from "axios";
 import Swal from "sweetalert2";
-import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
-import MobileFriendlyIcon from '@mui/icons-material/MobileFriendly';
-import EmailIcon from '@mui/icons-material/Email';
+import VerifiedRoundedIcon from "@mui/icons-material/VerifiedRounded";
+import MobileFriendlyIcon from "@mui/icons-material/MobileFriendly";
+import EmailIcon from "@mui/icons-material/Email";
 import { WaitLoader } from "../../Components/Elements/WaitLoader";
 
 const Profile = () => {
-
-
   const theme = createTheme({
     components: {
       MuiTextField: {
         styleOverrides: {
           root: {
-            borderRadius: '20px',
-            '& .MuiInputBase-input:focus': {
-              backgroundColor: '#fff',
+            borderRadius: "20px",
+            "& .MuiInputBase-input:focus": {
+              backgroundColor: "#fff",
             },
-            '& .MuiInput-underline::before': {
-              borderBottom: '2px solid #ee2e24', // Change to your desired active color
+            "& .MuiInput-underline::before": {
+              borderBottom: "2px solid #ee2e24", // Change to your desired active color
             },
-            '& .MuiInput-underline::after': {
-              borderBottom: '2px solid #ee2e24', // Change to your desired active color
+            "& .MuiInput-underline::after": {
+              borderBottom: "2px solid #ee2e24", // Change to your desired active color
             },
           },
         },
@@ -445,7 +443,9 @@ const Profile = () => {
       <Grid container className="min-vh-100 mt-5" spacing={2}>
         <WaitLoader loading={Loader} />
         <Grid xs={12} className="text-center" item>
-          <h3 className="py-3">Welcome to Hotelio! Please Update YourProfile</h3>
+          <h3 className="py-3">
+            Welcome to Hotelio! Please Update YourProfile
+          </h3>
           <p>Membership Offer Coming Soon</p>
         </Grid>
         <Grid item xs={12} md={12} lg={4} xl={4}>
@@ -461,22 +461,28 @@ const Profile = () => {
                 <p className={` ${style.name}`}>
                   {currentUser ? currentUser.name : "Your Name"}
                 </p>
-                <div className="d-flex justify-content-center align-items-center">
-                  <h5 className={` mt-0 ${style.job_discription}`}>
-                    <MobileFriendlyIcon /> {currentUser ? currentUser.mobileNo : "XXXXXXXXXX"}
-                  </h5>
-                  <div className={` ${style.level}`}>
-                    <VerifiedRoundedIcon />
+                {currentUser && currentUser.mobileNo ? (
+                  <div className="d-flex justify-content-center align-items-center">
+                    <h5 className={` mt-0 ${style.job_discription}`}>
+                      <MobileFriendlyIcon />{" "}
+                      {currentUser ? currentUser.mobileNo : "XXXXXXXXXX"}
+                    </h5>
+                    <div className={` ${style.level}`}>
+                      <VerifiedRoundedIcon />
+                    </div>
                   </div>
-                </div>
-               {currentUser.email ? <div className="d-flex justify-content-center align-items-center">
-                  <h5 className={` mt-0 ${style.job_discription}`}>
-                    <EmailIcon /> {currentUser ? currentUser.email : "youremail@gmail.com"}
-                  </h5>
-                  <div className={` ${style.level}`}>
-                    <VerifiedRoundedIcon />
+                ) : null}
+                {currentUser.email ? (
+                  <div className="d-flex justify-content-center align-items-center">
+                    <h5 className={` mt-0 ${style.job_discription}`}>
+                      <EmailIcon />{" "}
+                      {currentUser ? currentUser.email : "youremail@gmail.com"}
+                    </h5>
+                    <div className={` ${style.level}`}>
+                      <VerifiedRoundedIcon />
+                    </div>
                   </div>
-                </div> : null}
+                ) : null}
               </div>
               {/* <div className={` ${style.button}`}>
                 <div>
@@ -490,10 +496,19 @@ const Profile = () => {
                   </Button>
                 </div>
               </div> */}
-              <div className={`mt-1 d-flex justify-content-evenly align-items-center ${style.button}`}>
-                {currentUser ?
-                  <TextField type="password" margin="normal" value={currentUser ? currentUser.password : null} id="standard-basic" label="Password" variant="outlined" />
-                  : null}
+              <div
+                className={`mt-1 d-flex justify-content-evenly align-items-center ${style.button}`}
+              >
+                {currentUser ? (
+                  <TextField
+                    type="password"
+                    margin="normal"
+                    value={currentUser ? currentUser.password : null}
+                    id="standard-basic"
+                    label="Password"
+                    variant="outlined"
+                  />
+                ) : null}
                 <div>
                   <Button
                     color="error"

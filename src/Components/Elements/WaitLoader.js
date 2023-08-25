@@ -5,6 +5,7 @@ export const WaitLoader = ({ loading }) => {
         <ScaleLoader
             color="#ff0000"
             loading={loading}
+            size={60}
             style={{
                 position: "absolute",
                 top: "50%",

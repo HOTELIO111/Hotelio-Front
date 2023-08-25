@@ -19,6 +19,7 @@ import { buildQueryString, validateInput } from "../../Utilis/_fuctions";
 import { API_URL } from "../../config";
 import Swal from "sweetalert2";
 import { WaitLoader } from "../../Components/Elements/WaitLoader";
+import { useAuthContext } from "../../context/userAuthContext";
 
 const StepsForm = () => {
   const theme = createTheme({
@@ -45,9 +46,8 @@ const StepsForm = () => {
   const navigate = useNavigate();
   const [isFocused, setIsFocused] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [Loader, setLoader] = useState(false);
   const [inputOtp, setInputOtp] = useState("");
-  const [isUser, setIsUser] = useState();
+
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     name: "",
@@ -55,6 +55,18 @@ const StepsForm = () => {
     password: "",
   });
   //  current user and set current user
+
+  // fuctions form the userAuthcontext =
+  const {
+    setIsUser,
+    isUser,
+    Loader,
+    setLoader,
+    login,
+    logOut,
+    currentUser,
+    setCurrentUser,
+  } = useAuthContext();
 
   const handleNext = () => {
     setStep(step + 1);
@@ -108,6 +120,7 @@ const StepsForm = () => {
         setLoader(false);
         const responseData = response.data.data;
         sessionStorage.setItem("customer", JSON.stringify(responseData));
+        setCurrentUser(responseData);
         Swal.fire({
           title: "Successfully Logged In",
           icon: "success",
@@ -200,12 +213,26 @@ const StepsForm = () => {
 
   //   check the user and update
   const CheckTheUser = async (number) => {
-    const newUser = await axios.get(
-      API_URL + "/api/get?" + buildQueryString({ field: number })
-    );
-    setIsUser(newUser.data.data);
+    try {
+      const newUser = await axios.get(
+        API_URL + "/api/get?" + buildQueryString({ field: number })
+      );
+      setIsUser(newUser.data.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
+  // before update Login
+
+  const LoginBeforeUpdate = (data) => {
+    sessionStorage.setItem("customer", JSON.stringify(data));
+    Swal.fire({
+      icon: "success",
+      text: "Login successfully",
+    });
+    navigate("/");
+  };
   const renderForm = () => {
     switch (step) {
       case 1:
@@ -248,6 +275,7 @@ const StepsForm = () => {
                       height: "40px",
                       cursor: "pointer",
                     }}
+                    onClick={() => login()}
                   >
                     <FcGoogle size={30} />
                   </div>
@@ -411,7 +439,7 @@ const StepsForm = () => {
               </Button>
             </Grid>
             <Button
-              onClick={() => navigate("/")}
+              onClick={() => LoginBeforeUpdate(isUser)}
               fullWidth
               type="button"
               variant="text"
