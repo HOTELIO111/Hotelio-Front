@@ -186,6 +186,67 @@ const StepTwo = () => {
               </Grid>
             </CardContent>
           </Card>
+          <Card>
+            <CardContent>
+              <Typography color="text-dark" fontWeight={700}>
+                Your price summary
+              </Typography>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Typography variant="body2" >
+                  Original price
+                </Typography>
+                <Typography variant="caption" >
+                  ₹ 2,800
+                </Typography>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Typography variant="body2" >
+                  Limited-time Deal
+                </Typography>
+                <Typography variant="caption" >
+                  - ₹ 1,120
+                </Typography>
+              </div>
+              <Typography variant="caption">
+                You're getting a discount because, for a limited time, this property is offering reduced rates on some rooms that match your search.
+              </Typography>
+            </CardContent>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#ebf3ff', padding: '20px' }}>
+              <Typography fontWeight={600} variant="h5">
+                Price
+              </Typography>
+              <div className='text-right'>
+                <Typography color='error' variant="h6" >
+                  <del>₹ 2800</del>
+                </Typography>
+                <Typography fontWeight={700} variant="h5">
+                  ₹ 1,680
+                </Typography>
+                <Typography variant="caption">
+                  + ₹ 202 taxes and charges
+                </Typography>
+              </div>
+            </div>
+            <CardContent>
+              <Typography color="text-dark" fontWeight={700}>
+                Price information
+              </Typography>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <Typography variant="caption" >
+                  Excludes ₹ 201.60 in taxes and charges
+                </Typography>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Typography variant="body2" >
+                  Goods & services tax
+                </Typography>
+                <Typography variant="caption" >
+                  ₹ 201.60
+                </Typography>
+              </div>
+            </CardContent>
+          </Card>
+
         </Grid>
       </Grid>
     </div>

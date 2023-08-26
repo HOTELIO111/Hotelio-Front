@@ -49,7 +49,7 @@ const HotelResults = () => {
               location={searchParams.get("location")}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} className="d-lg-none d-xl-none">
             <BottomFilter />
           </Grid>
         </Grid>

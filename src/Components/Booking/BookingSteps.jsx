@@ -6,7 +6,7 @@ import StepThree from './StepThree';
 import { Button } from '@mui/material';
 
 const BookingSteps = () => {
-  const [currentStep, setCurrentStep] = useState(2);
+  const [currentStep, setCurrentStep] = useState(3);
 
   const nextStep = () => {
     setCurrentStep(currentStep + 1);
@@ -20,7 +20,7 @@ const BookingSteps = () => {
     <div className="multi-step-form">
       <div className="stepper">
         <div className={`step ${currentStep === 1 ? 'active' : 'active'}`}>Your selection</div>
-        <div className={`step ${currentStep === 2 ? 'active' : ''}`}>Your details</div>
+        <div className={`step ${currentStep === 2 ? 'active' : 'active'}`}>Your details</div>
         <div className={`step ${currentStep === 3 ? 'active' : ''}`}>FInal Step</div>
       </div>
 

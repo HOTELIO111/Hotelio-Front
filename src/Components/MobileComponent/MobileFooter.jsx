@@ -130,10 +130,10 @@ export default function MobileFooter() {
                     },
                 }}
             >
-                <BottomNavigationAction onClick={() => navigate('/')} sx={{ margin: '0px -8px !important' }} label="Home" icon={<HomeIcon />} />
-                <BottomNavigationAction onClick={() => navigate('/favourite')} sx={{ margin: '0px -8px !important' }} label="favourite" icon={<FavoriteIcon />} />
-                <BottomNavigationAction onClick={() => navigate('/offer')} label="Offer" sx={{ margin: '0px -8px !important' }} icon={<LocalOfferIcon />} />
-                <BottomNavigationAction onClick={handleShow} sx={{ margin: '0px -8px !important' }} label="Account" icon={<PersonIcon />} />
+                <BottomNavigationAction onClick={() => navigate('/')} sx={{ margin: '0px -8px !important' }} label="Home" icon={<HomeIcon sx={{color:'#ee2e24'}} />} />
+                <BottomNavigationAction onClick={() => navigate('/favourite')} sx={{ margin: '0px -8px !important' }} label="favourite" icon={<FavoriteIcon sx={{color:'#ee2e24'}} />} />
+                <BottomNavigationAction onClick={() => navigate('/offer')} label="Offer" sx={{ margin: '0px -8px !important' }} icon={<LocalOfferIcon sx={{color:'#ee2e24'}} />} />
+                <BottomNavigationAction onClick={handleShow} sx={{ margin: '0px -8px !important' }} label="Account" icon={<PersonIcon sx={{color:'#ee2e24'}} />} />
             </BottomNavigation>
         </div>
     );

@@ -10,7 +10,8 @@ import HomeStayTwo from '../../images/HomeStayTwo.png';
 const cardStyles = {
     position: 'relative',
     boxShadow: 'rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset',
-    padding: '10px'
+    padding: '10px',
+    filter: 'invert(1)'
 };
 
 const titleStyles = {
@@ -19,7 +20,7 @@ const titleStyles = {
     left: '50%',
     transform: 'translateX(-50%)',
     background: 'rgba(0, 0, 0, 0.7)',
-    color: 'white',
+    color: '#11d1db',
     padding: '1px',
     textAlign: 'center',
     width: '100%',

@@ -37,7 +37,7 @@ const MobileDate = ({ datedate }) => {
                 <label style={Stylelabel} className="labelfordatepicker">Date</label>
                 <RangePicker
                     className="pb-3"
-                    style={{ paddingTop: '0.7rem', paddingRight: '16px' }}
+                    style={{ paddingTop: '0.1rem', paddingRight: '16px' }}
                     bordered={false}
                     format="DD-MM-YYYY"
                     disabledDate={disabledDate}
