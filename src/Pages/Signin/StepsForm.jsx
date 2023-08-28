@@ -119,6 +119,7 @@ const StepsForm = () => {
         navigate("/"); // Assuming 'navigate' is properly defined
         setLoader(false);
         const responseData = response.data.data;
+        localStorage.setItem("customer", response.data.token);
         sessionStorage.setItem("customer", JSON.stringify(responseData));
         setCurrentUser(responseData);
         Swal.fire({
@@ -128,7 +129,13 @@ const StepsForm = () => {
         });
       } else if (response.status === 201) {
         setIsUser(response.data.data);
+        localStorage.setItem("customer", response.data.token);
         handleNext(); // Assuming 'handleNext' is properly defined
+      } else {
+        Swal.fire({
+          text: `Invalid Otp And Password`,
+          icon: "error",
+        });
       }
     } catch (error) {
       console.error(error);
@@ -193,7 +200,13 @@ const StepsForm = () => {
     try {
       const response = await axios.patch(
         API_URL + "/api/update/" + createdUserid,
-        formdata
+        formdata,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "access-token": `Bearer ${localStorage.getItem("customer")}`,
+          },
+        }
       );
       if (response.status === 200) {
         setIsUser(response.data.data);
@@ -205,7 +218,7 @@ const StepsForm = () => {
     } catch (error) {
       setLoader(false);
       Swal.fire({
-        text: "login failed please try again",
+        text: "login failed please try agai",
         icon: "error",
       });
     }
@@ -215,7 +228,12 @@ const StepsForm = () => {
   const CheckTheUser = async (number) => {
     try {
       const newUser = await axios.get(
-        API_URL + "/api/get?" + buildQueryString({ field: number })
+        API_URL + "/api/get?" + buildQueryString({ field: number }),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
       setIsUser(newUser.data.data);
     } catch (error) {

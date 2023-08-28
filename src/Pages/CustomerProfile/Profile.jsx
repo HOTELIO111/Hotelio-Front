@@ -261,16 +261,15 @@ const Profile = () => {
     const [confirmUpdatedPassword, setConfirmUpdatedPassword] = useState(null);
 
     // Verify Otp and submit to update
-    const HandleChangePassword = async () => {
+    const HandleChangePassword = async (otpResp) => {
       const formdata = {
-        id: otpResp.data._id,
+        id: otpResp,
         otp: otp,
         password: updatedPassword,
       };
       // put the req to change the password
       try {
         setLoader(true);
-        console.log(formdata, otpResp.data._id);
         const isChanged = await axios.post(
           API_URL + "/api/update-pass/" + currentUser._id,
           formdata
@@ -338,7 +337,7 @@ const Profile = () => {
         >
           <Fade in={passwordUpdateOpen}>
             <Box component="form" sx={styleo}>
-              <h6 className="d-flex align-items-center justify-content-center gap-3">
+              {/* <h6 className="d-flex align-items-center justify-content-center gap-3">
                 {formatTime(seconds)}{" "}
                 <Button
                   style={{ cursor: "pointer", zIndex: "4", userSelect: "none" }}
@@ -349,7 +348,7 @@ const Profile = () => {
                 >
                   Resend otp
                 </Button>
-              </h6>
+              </h6> */}
               <Grid container spacing={2}>
                 <Grid xs={12} className="text-center" item>
                   <Typography id="modal-modal-description" sx={{ mt: 2 }}>
@@ -367,6 +366,7 @@ const Profile = () => {
                     value={updatedPassword}
                     onChange={(e) => setUpdatedPassword(e.target.value)}
                   />
+                  {console.log(otpResp.response)}
                 </Grid>
                 <Grid xs={12} className="text-center" item>
                   <TextField
@@ -390,7 +390,7 @@ const Profile = () => {
                 </Grid>
                 <Grid xs={6} className="text-center" item>
                   <Button
-                    onClick={HandleChangePassword}
+                    onClick={() => HandleChangePassword(otpResp.data)}
                     variant="contained"
                     color="error"
                     disabled={updatedPassword !== confirmUpdatedPassword}
