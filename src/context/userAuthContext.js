@@ -49,7 +49,11 @@ const AuthProvider = ({ children }) => {
                 if (response.status === 200) {
                     setLoader(true)
                     try {
-                        const isUser = await axios.post(`${API_URL}/api/google/auth`, response.data)
+                        const isUser = await axios.post(`${API_URL}/api/google/auth`, response.data, {
+                            method: 'POST', headers: {
+                                "Content-Type": 'application/json'
+                            }
+                        })
                         if (isUser.status === 200) {
                             sessionStorage.setItem('customer', JSON.stringify(isUser.data.data))
                             setCurrentUser(isUser.data.data)
@@ -89,9 +93,18 @@ const AuthProvider = ({ children }) => {
         try {
             let response;
             if (isInput === "mobile") {
-                response = await axios.get(API_URL + "/verify/mobile/" + number);
+                response = await axios.get(API_URL + "/verify/mobile/" + number, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
             } else if (isInput === "email") {
-                response = await axios.get(API_URL + "/verify/email?" + queryString);
+                response = await axios.get(API_URL + "/verify/email?" + queryString, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
             } else {
                 Swal.fire({
                     text: "Please enter a valid email or mobile number",
