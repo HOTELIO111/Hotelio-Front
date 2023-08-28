@@ -25,6 +25,7 @@ import styled from 'styled-components';
 import MobileDestination from './MobileDestination';
 import MobileHeader from './MobileHeader';
 import MobileDate from './MobileDate';
+import { Offcanvas } from 'react-bootstrap';
 
 const MobileNav = ({ list }) => {
 
@@ -138,6 +139,11 @@ const MobileNav = ({ list }) => {
         { label: 'The Godfather' },
         { label: 'The Godfather: Part II' },
     ]
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     return (
         <>
@@ -340,13 +346,22 @@ const MobileNav = ({ list }) => {
                                                 <Grid item xs={6} className='d-flex'>
                                                     <hr style={{ height: '50px', width: '1px', position: 'relative', left: '-7px', top: '-13px' }} />
                                                     {/* <div style={{ borderLeft: '1px solid grey', height: '50px', position: 'relative', left: '-5px' }}></div> */}
-                                                    <TextField fullWidth id="standard-basic" label="Rooms and guests" value={'1 Guests 1 Room'} variant="standard" />
+                                                    <TextField  onClick={handleShow} fullWidth id="standard-read-only-input" label="Rooms and guests" value={'1 Guests 1 Room'} variant="standard" />
                                                 </Grid>
 
                                                 <Grid item xs={12}>
                                                     <button style={{ background: '#ee2e24', color: '#fff' }} >Search</button>
                                                 </Grid>
                                             </Grid>
+                                            <Offcanvas show={show} placement='bottom' onHide={handleClose}>
+                                                <Offcanvas.Header closeButton>
+                                                    <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+                                                </Offcanvas.Header>
+                                                <Offcanvas.Body>
+                                                    Some text as placeholder. In real life you can have the elements you
+                                                    have chosen. Like, text, images, lists, etc.
+                                                </Offcanvas.Body>
+                                            </Offcanvas>
                                         </div>
                                     </div>
                                 </div>

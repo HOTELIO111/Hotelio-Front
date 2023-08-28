@@ -24,6 +24,11 @@ import SendIcon from '@mui/icons-material/Send';
 import Applestore from "../../images/apple.png";
 import Playstore from "../../images/playstored.png";
 import { AiFillCaretRight } from "react-icons/ai";
+import SavingsIcon from '@mui/icons-material/Savings';
+import FilterVintageIcon from '@mui/icons-material/FilterVintage';
+import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
+import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
+import VideoCameraFrontIcon from '@mui/icons-material/VideoCameraFront';
 
 const Footer = () => {
   const isXtraSmallScreen = useMediaQuery("(max-width:320px)");
@@ -60,7 +65,7 @@ const Footer = () => {
     <footer
       className={`pt-4 pb-4 text-white  container-fluid ${style.footerBanner}`}
     >
-      <div className={`container-fluid ${style.mobremove}`}>
+      {/* <div className={`container-fluid ${style.mobremove}`}>
         <h4>Hotelio Rooms</h4>
         <Grid container py={2} spacing={2}>
           <Grid item xs={2}>
@@ -95,7 +100,7 @@ const Footer = () => {
           </Grid>
         </Grid>
         <hr />
-      </div>
+      </div> */}
       <div className="container-fluid">
         <div
           className={`row  ${isXtraSmallScreen ? "text-start ms-2" : "text-start"
@@ -103,13 +108,13 @@ const Footer = () => {
         >
           <div
             className={`${isXtraSmallScreen ? "ps-4" : ""
-              } my-1 col-xl-5 col-sm-12`}
+              } my-1 col-lg-4 col-xl-4 col-sm-12`}
           >
             <h5 className="text-uppercase" style={{ fontSize: "20px" }}>
               About Us
             </h5>
             <p className="mt-4 text-white">
-              India's leading online booking platform, revolutionizes the way travelers find and book accommodations. With our user-friendly app and website, we bring easy and comfortable stays to your fingertips. Explore our vast network of premium hotels, budget-friendly options, and authentic homestays. As India's first AI-enabled platform, we prioritize your comfort and provide hassle-free check-ins. Join us on a journey where travel meets convenience, and let Hotelio be your trusted partner for unforgettable stays India's leading online booking wherever your adventures take you. Hotelio is owned by Houda Carjour Tourism Pvt Ltd, India's Number 1 Fastest Leading Hotel Chain.
+              India's leading online booking platform, revolutionizes the way travelers find and book accommodations. With our user-friendly app and website, we bring easy and comfortable stays to your fingertips. Explore our vast network of premium hotels, budget-friendly options, and authentic homestays. As India's first AI-enabled platform, we prioritize your comfort and provide hassle-free check-ins.
             </p>
             <div style={{ borderRadius: '8px', backgroundColor: 'rgba(255, 255, 255, 0.236)' }} className="border w-100 d-flex justify-content-end">
               <input className="w-100 bg-transparent border-0 p-1" type="text" />
@@ -122,7 +127,7 @@ const Footer = () => {
               } my-1 col-xl-5 col-sm-12`}
           >
             <div className="row">
-              <div className="col-xl-6 col-xs-12">
+              <div className=" col-lg-6 col-xl-6 col-xs-12">
                 <h4 className="text-uppercase" style={{ fontSize: "20px" }}>
                   Useful Links
                 </h4>
@@ -169,32 +174,26 @@ const Footer = () => {
                   </li>
                 </ul>
               </div>
-              <div className="col-xl-6 col-xs-12">
+              <div className="col-lg-6 col-xl-6 col-xs-12">
                 <h4 className="text-uppercase" style={{ fontSize: "20px" }}>
-                  Hotelio Facilities
+                  Room Categories
                 </h4>
                 <ul className={`${style.fList} mt-4`}>
                   <li className={` ${style.fListItem} ${isXtraSmallScreen ? "text-center" : "text-start"}`}>
                     <Link to="/" className="d-flex justify-content-start">
-                      <SpaIcon className="me-2" /> Spa
+                      <SavingsIcon className="me-2" /> Budget Hotel
                     </Link>
                     <Link to="/" className="d-flex justify-content-start">
-                      <FitnessCenterIcon className="me-2" /> Fitness Center
+                      <FilterVintageIcon className="me-2" /> Classic Room
                     </Link>
                     <Link to="/" className="d-flex justify-content-start">
-                      <PoolIcon className="me-2" /> Swimming Pool
+                      <WorkspacePremiumIcon className="me-2" /> Delux Room
                     </Link>
                     <Link to="/" className="d-flex justify-content-start">
-                      <HotTubIcon className="me-2" /> Jacuzzi bath
+                      <BusinessCenterIcon className="me-2" /> Executive Room
                     </Link>
                     <Link to="/" className="d-flex justify-content-start">
-                      <AcUnitIcon className="me-2" /> Air Conditioner
-                    </Link>
-                    <Link to="/" className="d-flex justify-content-start">
-                      <RoomServiceIcon className="me-2" /> Restaurant
-                    </Link>
-                    <Link to="/" className="d-flex justify-content-start">
-                      <NetworkWifiIcon className="me-2" /> Free WiFi
+                      <VideoCameraFrontIcon className="me-2" /> Suites
                     </Link>
                   </li>
                 </ul>
@@ -203,8 +202,8 @@ const Footer = () => {
           </div>
 
           <div
-            className={`col-lg-5 ${isXtraSmallScreen ? "ps-4" : ""
-              } my-1 col-xl-2 col-sm-12`}
+            className={`col-lg-3 ${isXtraSmallScreen ? "ps-4" : ""
+              } my-1 col-xl-3 col-sm-12`}
           >
             <h4 className="text-uppercase" style={{ fontSize: "20px" }}>
               Contact Us

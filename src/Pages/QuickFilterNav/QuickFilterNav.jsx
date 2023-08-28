@@ -33,39 +33,39 @@ const QuickFilterNav = () => {
             </div> */}
             <Grid container className={style.mainDiv} spacing={3} paddingY={0} justifyContent="center">
                 <Grid item >
-                    <Card className='planCard' sx={{ minHeight: 200, maxWidth: 200, maxHeight: 280, borderRadius: '8px' }}>
+                    <Card className='planCard' sx={{ minHeight: 200, maxWidth: 200, maxHeight: 280, borderRadius: '8px', filter: 'invert(1)' }}>
                         <div className="text-center p-1">
                             <img src={PrimeHotelTwo} style={{ borderRadius: "1rem" }} alt="PrimeHotel" />
                         </div>
                         <CardContent className='pb-0'>
                             <div className="text-center">
-                                <h5 style={{ color: '#6B0000', fontFamily: 'Roboto, sans-serif' }}>Hotelio Premium</h5>
+                                <h5 style={{ color: '#11d1db', fontFamily: 'Roboto, sans-serif' }}>Hotelio Premium</h5>
                                 <hr style={{ backgroundColor: '#f00', width: '120px', height: '2px', margin: '10px auto', color: '#f00' }} />
                             </div>
                         </CardContent>
                     </Card>
                 </Grid>
                 <Grid item>
-                    <Card className='planCard' sx={{ minHeight: 200, maxWidth: 200, maxHeight: 280, borderRadius: '8px' }}>
+                    <Card className='planCard' sx={{ minHeight: 200, maxWidth: 200, maxHeight: 280, borderRadius: '8px', filter: 'invert(1)' }}>
                         <div className="text-center p-1">
                             <img src={HomeStayTwo} style={{ borderRadius: "1rem" }} alt="HomeStay" />
                         </div>
                         <CardContent style={{ paddingBottom: '5px' }}>
                             <div className="text-center">
-                                <h5 style={{ color: '#6B0000', fontFamily: 'Roboto, sans-serif', }}>Hotelio Home Stay</h5>
+                                <h5 style={{ color: '#11d1db', fontFamily: 'Roboto, sans-serif', }}>Hotelio Home Stay</h5>
                                 <hr style={{ backgroundColor: '#f00', width: '120px', height: '2px', margin: '10px auto', color: '#f00' }} />
                             </div>
                         </CardContent>
                     </Card>
                 </Grid>
                 <Grid item>
-                    <Card className='planCard' sx={{ minHeight: 200, maxWidth: 200, maxHeight: 280, borderRadius: '8px' }}>
+                    <Card className='planCard' sx={{ minHeight: 200, maxWidth: 200, maxHeight: 280, borderRadius: '8px', filter: 'invert(1)' }}>
                         <div className="text-center p-1">
                             <img src={HotelBudgetTwo} style={{ borderRadius: "1rem" }} alt="HotelBudget" />
                         </div>
                         <CardContent style={{ paddingBottom: '5px' }}>
                             <div className="text-center">
-                                <h5 style={{ color: '#6B0000', fontFamily: 'Roboto, sans-serif' }}>Hotelio Budget</h5>
+                                <h5 style={{ color: '#11d1db', fontFamily: 'Roboto, sans-serif' }}>Hotelio Budget</h5>
                                 <hr style={{ backgroundColor: '#f00', width: '120px', height: '2px', margin: '10px auto', color: '#f00' }} />
                             </div>
                         </CardContent>

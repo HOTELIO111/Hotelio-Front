@@ -26,7 +26,7 @@ const AboutUs = () => {
                                 and authentic homestays. */}
 
 
-                                India's leading online booking platform, revolutionizes the way travelers find and book accommodations. With our user-friendly app and website, we bring easy and comfortable stays to your fingertips. Explore our vast network of premium hotels, budget-friendly options, and authentic homestays. As India's first AI-enabled platform, we prioritize your comfort and provide hassle-free check-ins.
+India's leading online booking platform, revolutionizes the way travelers find and book accommodations. With our user-friendly app and website, we bring easy and comfortable stays to your fingertips. Explore our vast network of premium hotels, budget-friendly options, and authentic homestays. As India's first AI-enabled platform, we prioritize your comfort and provide hassle-free check-ins. Join us on a journey where travel meets convenience, and let Hotelio be your trusted partner for unforgettable stays India's leading online booking wherever your adventures take you. Hotelio is owned by Houda Carjour Tourism Pvt Ltd, India's Number 1 Fastest Leading Hotel Chain.
 
                                 <span><NavLink style={{ color: '#FFD700' }} to='/about'> Read more...</NavLink></span>
                             </div>

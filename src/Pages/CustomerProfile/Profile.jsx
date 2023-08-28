@@ -7,7 +7,7 @@ import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import List from "../../Components/YourBookings/List";
-import { Grid, TextField, ThemeProvider, createTheme } from "@mui/material";
+import { Grid, MenuItem, TextField, ThemeProvider, createTheme } from "@mui/material";
 import { MuiOtpInput } from "mui-one-time-password-input";
 import { useEffect } from "react";
 import { API_URL } from "../../config";
@@ -18,7 +18,6 @@ import MobileFriendlyIcon from "@mui/icons-material/MobileFriendly";
 import EmailIcon from "@mui/icons-material/Email";
 import { WaitLoader } from "../../Components/Elements/WaitLoader";
 import { useAuthContext } from "../../context/userAuthContext";
-import { current } from "@reduxjs/toolkit";
 
 const Profile = () => {
   const theme = createTheme({
@@ -58,12 +57,16 @@ const Profile = () => {
 
   // State variables
   const [profileUpdateOpen, setProfileUpdateOpen] = useState(false);
+  const [profiledetailUpdate, setprofiledetailUpdate] = useState(false)
+  const [updateEmail, setUpdateEmail] = useState(false)
   const [passwordUpdateOpen, setPasswordUpdateOpen] = useState(false);
   const [validate, setValidate] = useState(false);
-
+  const [sentOtp, setsentOtp] = useState(false);
   // Profile update modal handlers
-  const handleProfileUpdateOpen = () => setProfileUpdateOpen(true);
   const handleProfileUpdateClose = () => setProfileUpdateOpen(false);
+  const handelDetailUpdate = () => setprofiledetailUpdate(false)
+  const handelUpdateEmailOpen = () => setUpdateEmail(true)
+  const handeleEmailUpdate = () => setUpdateEmail(false)
 
   // Password update modal handlers
   const handlePasswordUpdateOpen = () => setPasswordUpdateOpen(true);
@@ -92,7 +95,7 @@ const Profile = () => {
       top: "50%",
       left: "50%",
       transform: "translate(-50%, -50%)",
-      width: 400,
+      width: '90%',
       bgcolor: "background.paper",
       border: "2px solid #fff",
       filter: "drop-shadow(10px 8px 6px red)",
@@ -100,6 +103,10 @@ const Profile = () => {
       boxShadow: 24,
       p: 4,
     };
+
+    if (window.innerWidth >= 960) {
+      styleo.width = '50%';
+    }
 
     // Function to update user data
     const UpdateUserData = async () => {
@@ -230,6 +237,319 @@ const Profile = () => {
     );
   };
 
+  // Profile Detail update modal component
+  const ProfileDetailUpdateModal = ({ profiledetailUpdate, handelDetailUpdate, currentUser }) => {
+
+    const [formData, setFormData] = useState({});
+
+    const handleFieldChange = (event) => {
+      const { name, value } = event.target;
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    };
+
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      console.log('Form Data:', formData); // Log the form data
+      // You can add logic to handle form submission here
+    };
+
+    const styleo = {
+      // Styling for the modal
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      width: '90%',
+      bgcolor: "background.paper",
+      border: "2px solid #fff",
+      borderRadius: "5px",
+      boxShadow: 24,
+      p: 2,
+    };
+
+    if (window.innerWidth >= 960) {
+      styleo.width = '50%';
+    }
+
+    return (
+      <div>
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          open={profiledetailUpdate} // Indicates whether the profile update modal is open or not
+          onClose={handelDetailUpdate} // Function to handle the close event of the modal
+          closeAfterTransition
+          slots={{ backdrop: Backdrop }}
+          slotProps={{
+            backdrop: {
+              timeout: 500,
+            },
+          }}
+        >
+          <Fade in={profiledetailUpdate}>
+            <Box component="form" sx={styleo}>
+              {/* Loader */}
+              <form onSubmit={handleSubmit}>
+
+                <Grid container spacing={2}>
+                  <Grid xs={12} className="text-center" item>
+                    <h3> Edit Your Profile </h3>
+                  </Grid>
+                  <ThemeProvider theme={theme}>
+                    <Grid xs={12} lg={6} xl={6} className="text-center" item>
+                      <TextField
+                        name="name"
+                        fullWidth
+                        required
+                        id="outlined-required"
+                        label="Full Name"
+                        value={formData.name || currentUser.name}
+                        onChange={handleFieldChange}
+                      />
+                    </Grid>
+                    <Grid xs={12} lg={6} xl={6} className="text-center" item>
+                      <TextField
+                        fullWidth
+                        type="date"
+                        name="birthDate"
+                        label="Select a Date"
+                        variant="outlined"
+                        value={formData.birthDate}
+                        onChange={handleFieldChange}
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                      />
+                    </Grid>
+                    <Grid xs={12} lg={6} xl={6} className="text-center" item>
+                      <TextField
+                        fullWidth
+                        select
+                        name="gender"
+                        label="Gender"
+                        variant="outlined"
+                        value={formData.gender}
+                        onChange={handleFieldChange}
+                      >
+                        {/* Add your select options here */}
+                        <MenuItem value="male">Male</MenuItem>
+                        <MenuItem value="female">Female</MenuItem>
+                      </TextField>
+
+                    </Grid>
+                    <Grid xs={12} lg={6} xl={6} className="text-center" item>
+                      <TextField
+                        fullWidth
+                        select
+                        name="maritalStatus"
+                        label="Marital Status"
+                        variant="outlined"
+                        value={formData.maritalStatus}
+                        onChange={handleFieldChange}
+                      >
+                        {/* Add your select options here */}
+                        <MenuItem value="single">Single</MenuItem>
+                        <MenuItem value="married">Married</MenuItem>
+                      </TextField>
+                    </Grid>
+                    <Grid xs={12} lg={6} xl={6} className="text-center" item>
+                      <TextField
+                        fullWidth
+                        required
+                        name="address"
+                        id="outlined-required"
+                        label="Your Address"
+                        value={formData.address}
+                        onChange={handleFieldChange}
+                      />
+                    </Grid>
+                    <Grid xs={12} lg={6} xl={6} className="text-center" item>
+                      <TextField
+                        fullWidth
+                        required
+                        type="number"
+                        name="pincode"
+                        id="outlined-required"
+                        label="Pincode"
+                        value={formData.pincode}
+                        onChange={handleFieldChange}
+                      />
+                    </Grid>
+                    <Grid xs={12} lg={6} xl={6} className="text-center" item>
+                      <TextField
+                        fullWidth
+                        select
+                        name="state"
+                        label="State"
+                        variant="outlined"
+                        value={formData.state}
+                        onChange={handleFieldChange}
+                      >
+                        {/* Add your select options here */}
+                        <MenuItem value="option1">Uttar Pradesh</MenuItem>
+                        <MenuItem value="option2">Bihar</MenuItem>
+                      </TextField>
+                    </Grid>
+                  </ThemeProvider>
+
+                </Grid>
+                <div className="d-flex justify-content-evenly py-3">
+                  <Button
+                    onClick={handelDetailUpdate}
+                    variant="outlined"
+                    color="error"
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    onClick={handelDetailUpdate}
+                    color="error"
+                  >
+                    Save
+                  </Button>
+                </div>
+              </form>
+            </Box>
+          </Fade>
+        </Modal>
+      </div>
+    );
+  };
+
+  // Email and Mobile No add modal component
+  const AddEmailId = ({ updateEmail, handeleEmailUpdate, sentOtp, setsentOtp }) => {
+    // State variables
+
+    const [formData, setFormData] = useState({}); // Store form data
+
+    // Handle input field changes
+    const handleFieldChange = (event) => {
+      const { name, value } = event.target;
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    };
+
+    // State for OTP input
+    const [otp, setOtp] = useState('');
+
+    // Handle OTP input change
+    const handleChange = (newValue) => {
+      setOtp(newValue);
+    };
+
+    // Handle form submission
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      console.log('Form Data:', formData); // Log the form data
+      // You can add logic to handle form submission here
+    };
+
+    const styleo = {
+      // Styling for the modal
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      width: '90%',
+      bgcolor: "background.paper",
+      border: "2px solid #fff",
+      borderRadius: "5px",
+      boxShadow: 24,
+      p: 2,
+    };
+
+    if (window.innerWidth >= 960) {
+      styleo.width = '30%';
+    }
+
+    return (
+      <div>
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          open={updateEmail} // Indicates whether the modal is open or not
+          onClose={handeleEmailUpdate} // Function to handle the close event of the modal
+          closeAfterTransition
+          slots={{ backdrop: Backdrop }}
+          slotProps={{
+            backdrop: {
+              timeout: 500,
+            },
+          }}
+        >
+          <Fade in={updateEmail}>
+            <Box component="form" sx={styleo}>
+              <form onSubmit={handleSubmit}>
+                <Grid container spacing={2}>
+                  <Grid xs={12} className="text-center" item>
+                    <h3> Add your Email ID </h3>
+                  </Grid>
+                  <ThemeProvider theme={theme}>
+                    {sentOtp ? (
+                      <Grid xs={12} className="text-center" item>
+                        <MuiOtpInput value={otp} onChange={handleChange} />
+                      </Grid>
+                    ) : (
+                      <Grid xs={12} className="text-center" item>
+                        <TextField
+                          name="name"
+                          fullWidth
+                          required
+                          type="email"
+                          id="outlined-required"
+                          label="Enter your Email"
+                          onChange={handleFieldChange} // Update form data on input change
+                          value={formData.name || ''} // Set value based on form data
+                        />
+                      </Grid>
+                    )}
+                  </ThemeProvider>
+                </Grid>
+                <div className="d-flex justify-content-evenly py-3">
+                  <Button
+                    onClick={handeleEmailUpdate}
+                    variant="outlined"
+                    color="error"
+                  >
+                    Cancel
+                  </Button>
+                  {sentOtp ? (
+                    <Button
+                      variant="contained"
+                      type="submit"
+                      onClick={() => setsentOtp(true)}
+                      color="error"
+                    >
+                      Submit
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      onClick={() => setsentOtp(true)}
+                      color="error"
+                    >
+                      Verify
+                    </Button>
+                  )}
+                </div>
+              </form>
+            </Box>
+          </Fade>
+        </Modal>
+      </div>
+    );
+  };
+
+
+
+
   // Password update modal component
   const PasswordUpdateModal = () => {
     const [otp, setOtp] = useState("");
@@ -314,10 +634,10 @@ const Profile = () => {
       width: 400,
       bgcolor: "background.paper",
       border: "2px solid #fff",
-      filter: "drop-shadow(10px 8px 6px red)",
+      // filter: "drop-shadow(10px 8px 6px red)",
       borderRadius: "5px",
       boxShadow: 24,
-      p: 2,
+      p: 3,
     };
 
     return (
@@ -358,18 +678,19 @@ const Profile = () => {
                 <Grid xs={12} className="text-center" item>
                   <MuiOtpInput value={otp} onChange={handleChange} />
                 </Grid>
-                <Grid xs={12} className="text-center" item>
+                <Grid xs={12} className="text-center my-3" item>
                   <TextField
+                    fullWidth
                     type="password"
                     label="Enter Password"
                     variant="outlined"
                     value={updatedPassword}
                     onChange={(e) => setUpdatedPassword(e.target.value)}
                   />
-                  {console.log(otpResp.response)}
                 </Grid>
                 <Grid xs={12} className="text-center" item>
                   <TextField
+                    fullWidth
                     type="password"
                     label="Confirm Password"
                     variant="outlined"
@@ -379,7 +700,7 @@ const Profile = () => {
                     value={confirmUpdatedPassword}
                   />
                 </Grid>
-                <Grid xs={6} className="text-center" item>
+                <Grid xs={6} className="text-center my-3" item>
                   <Button
                     onClick={handlePasswordUpdateClose}
                     variant="outlined"
@@ -388,7 +709,7 @@ const Profile = () => {
                     Cancel
                   </Button>
                 </Grid>
-                <Grid xs={6} className="text-center" item>
+                <Grid xs={6} className="text-center my-3" item>
                   <Button
                     onClick={() => HandleChangePassword(otpResp.data)}
                     variant="contained"
@@ -447,10 +768,12 @@ const Profile = () => {
   //   }
   // };
 
+  const userMobileNo = currentUser.mobileNo || 'Add'
+  const userEmailId = currentUser.email || 'Add'
+
   return (
     <div>
-      {console.log(otpResp)}
-      <Grid container className="min-vh-100 mt-5" spacing={2}>
+      <Grid container className="min-vh-100 my-5" spacing={2}>
         <WaitLoader loading={Loader} />
         <Grid xs={12} className="text-center" item>
           <h3 className="py-3">
@@ -459,53 +782,93 @@ const Profile = () => {
           <p>Membership Offer Coming Soon</p>
         </Grid>
         <Grid item xs={12} md={12} lg={4} xl={4}>
-          <div className={`text-center ${style.box}`}>
+          <div className={`${style.box}`}>
+            <div className="d-flex justify-content-between">
+              <p><b>My Profile</b></p>
+              <div style={{ color: '#ee2e24', cursor: 'pointer' }} onClick={() => setprofiledetailUpdate(true)} ><u>Edit Details</u></div>
+            </div>
             <div className={` ${style.content}`}>
-              <div className={` ${style.image}`}>
+              {/* <div className={` ${style.image}`}>
                 <img
                   src="https://i.postimg.cc/bryMmCQB/profile-image.jpg"
                   alt="Profile Image"
                 />
-              </div>
-              <div className={` ${style.text}`}>
-                <p className={` ${style.name}`}>
-                  {currentUser ? currentUser.name : "Your Name"}
-                </p>
-                {currentUser && currentUser.mobileNo ? (
-                  <div className="d-flex justify-content-center align-items-center">
-                    <h5 className={` mt-0 ${style.job_discription}`}>
-                      <MobileFriendlyIcon />{" "}
-                      {currentUser ? currentUser.mobileNo : "XXXXXXXXXX"}
-                    </h5>
-                    <div className={` ${style.level}`}>
-                      <VerifiedRoundedIcon />
-                    </div>
-                  </div>
-                ) : null}
-                {currentUser.email ? (
-                  <div className="d-flex justify-content-center align-items-center">
-                    <h5 className={` mt-0 ${style.job_discription}`}>
-                      <EmailIcon />{" "}
-                      {currentUser ? currentUser.email : "youremail@gmail.com"}
-                    </h5>
-                    <div className={` ${style.level}`}>
-                      <VerifiedRoundedIcon />
-                    </div>
-                  </div>
-                ) : null}
-              </div>
-              {/* <div className={` ${style.button}`}>
-                <div>
-                  <Button
-                    variant="contained"
-                    color="error"
-                    className={` ${style.connect}`}
-                    onClick={handleProfileUpdateOpen}
-                  >
-                    Edit
-                  </Button>
-                </div>
               </div> */}
+              <div className="pb-2">
+                <div>
+                  <span style={{ color: '#ee2e24' }}>Full Name</span>
+                  <h4><b>{currentUser ? currentUser.name : "Your Name"}</b></h4>
+                </div>
+              </div>
+              <div className="d-flex justify-content-between pb-3">
+                <div>
+                  <span style={{ color: '#ee2e24' }}>Gender</span>
+                  <h5>NA</h5>
+                </div>
+                <div>
+                  <span style={{ color: '#ee2e24' }}>Marital Status</span>
+                  <h5>NA</h5>
+                </div>
+              </div>
+              <hr />
+              <div className="d-flex align-items-center pb-2">
+                <div>
+                  <span style={{ color: '#ee2e24' }}>Mobile No.</span>
+                  <div className="d-flex justify-content-center align-items-center">
+                    <h6 className={` mt-0 ${style.job_discription}`}>
+                      {userMobileNo === currentUser.mobileNo ? <MobileFriendlyIcon /> : null}{" "}
+                      {userMobileNo === currentUser.mobileNo ? userMobileNo :
+                        <Button variant="text" onClick={handelUpdateEmailOpen} >ADD</Button>}
+                    </h6>
+                    {userMobileNo === currentUser.mobileNo ? <div className={` ${style.level}`}>
+                      <VerifiedRoundedIcon />
+                    </div> : null}
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <div className="d-flex align-items-center pb-2">
+                <div>
+                  <span style={{ color: '#ee2e24' }}>Email Id</span>
+                  <div className="d-flex justify-content-center align-items-center">
+                    <h6 className={` mt-0 ${style.job_discription}`}>
+                      {userEmailId === currentUser.email ? <EmailIcon /> : null}{" "}
+                      {userEmailId === currentUser.email ? userEmailId :
+
+                        <Button variant="text" onClick={handelUpdateEmailOpen} >ADD</Button>}
+                    </h6>
+                    {userEmailId === currentUser.email ? <div className={` ${style.level}`}>
+                      <VerifiedRoundedIcon />
+                    </div> : null}
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <div className="d-flex pb-2">
+                <div>
+                  <span style={{ color: '#ee2e24' }}>Birthday</span>
+                  <h5>NA</h5>
+                </div>
+              </div>
+              <hr />
+              <div className="d-flex pb-2">
+                <div>
+                  <span style={{ color: '#ee2e24' }}>Your Adress</span>
+                  <h5>NA</h5>
+                </div>
+              </div>
+              <hr />
+              <div className="d-flex justify-content-between pb-2">
+                <div>
+                  <span style={{ color: '#ee2e24' }}>State</span>
+                  <h5>NA</h5>
+                </div>
+                <div>
+                  <span style={{ color: '#ee2e24' }}>Pincode</span>
+                  <h5>NA</h5>
+                </div>
+              </div>
+              <hr />
               <div
                 className={`mt-1 d-flex justify-content-evenly align-items-center ${style.button}`}
               >
@@ -542,12 +905,14 @@ const Profile = () => {
           </div>
           <ProfileUpdateModal />
           <PasswordUpdateModal />
+          <ProfileDetailUpdateModal profiledetailUpdate={profiledetailUpdate} handelDetailUpdate={handelDetailUpdate} currentUser={currentUser} />
+          <AddEmailId handeleEmailUpdate={handeleEmailUpdate} updateEmail={updateEmail} sentOtp={sentOtp} setsentOtp={setsentOtp} />
         </Grid>
-        <Grid item xs={12} md={12} lg={8} xl={8}>
+        <Grid item xs={12} md={12} lg={8} xl={8} className="d-none d-sm-block" >
           <div
             style={{
               overflowY: "auto",
-              maxHeight: "90vh",
+              maxHeight: "100vh",
               paddingBottom: "10rem",
             }}
             className={` ${style.box}`}
