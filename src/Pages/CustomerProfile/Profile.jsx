@@ -18,6 +18,8 @@ import MobileFriendlyIcon from "@mui/icons-material/MobileFriendly";
 import EmailIcon from "@mui/icons-material/Email";
 import { WaitLoader } from "../../Components/Elements/WaitLoader";
 import { useAuthContext } from "../../context/userAuthContext";
+import { useNavigate } from "react-router-dom";
+import { color } from "framer-motion";
 
 const Profile = () => {
   const theme = createTheme({
@@ -59,6 +61,7 @@ const Profile = () => {
   const [profileUpdateOpen, setProfileUpdateOpen] = useState(false);
   const [profiledetailUpdate, setprofiledetailUpdate] = useState(false)
   const [updateEmail, setUpdateEmail] = useState(false)
+  const [updateField, setUpdateField] = useState('Mobile')
   const [passwordUpdateOpen, setPasswordUpdateOpen] = useState(false);
   const [validate, setValidate] = useState(false);
   const [sentOtp, setsentOtp] = useState(false);
@@ -422,7 +425,7 @@ const Profile = () => {
   };
 
   // Email and Mobile No add modal component
-  const AddEmailId = ({ updateEmail, handeleEmailUpdate, sentOtp, setsentOtp }) => {
+  const AddEmailId = ({ updateEmail, updateField, handeleEmailUpdate, sentOtp, setsentOtp }) => {
     // State variables
 
     const [formData, setFormData] = useState({}); // Store form data
@@ -489,7 +492,7 @@ const Profile = () => {
               <form onSubmit={handleSubmit}>
                 <Grid container spacing={2}>
                   <Grid xs={12} className="text-center" item>
-                    <h3> Add your Email ID </h3>
+                    <h3> Add your {updateField} </h3>
                   </Grid>
                   <ThemeProvider theme={theme}>
                     {sentOtp ? (
@@ -502,9 +505,9 @@ const Profile = () => {
                           name="name"
                           fullWidth
                           required
-                          type="email"
+                          type="text"
                           id="outlined-required"
-                          label="Enter your Email"
+                          label={`Enter your ${updateField}`}
                           onChange={handleFieldChange} // Update form data on input change
                           value={formData.name || ''} // Set value based on form data
                         />
@@ -768,8 +771,27 @@ const Profile = () => {
   //   }
   // };
 
+  const navigate = useNavigate()
   const userMobileNo = currentUser.mobileNo || 'Add'
   const userEmailId = currentUser.email || 'Add'
+
+  const HandleLogOutCustomer = () => {
+    sessionStorage.removeItem("customer");
+    Swal.fire({
+      position: "top-center",
+      icon: "success",
+      title: "Log Out Successfully",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    setCurrentUser(sessionStorage.getItem("customer"));
+    navigate("/");
+  };
+  // useEffect(() => {
+  //   if (currentUser !== {}) {
+  //     setIsLoggedIn(true);
+  //   }
+  // }, [currentUser]);
 
   return (
     <div>
@@ -818,7 +840,7 @@ const Profile = () => {
                     <h6 className={` mt-0 ${style.job_discription}`}>
                       {userMobileNo === currentUser.mobileNo ? <MobileFriendlyIcon /> : null}{" "}
                       {userMobileNo === currentUser.mobileNo ? userMobileNo :
-                        <Button variant="text" onClick={handelUpdateEmailOpen} >ADD</Button>}
+                        <Button variant="text" onClick={() => { handelUpdateEmailOpen(); setUpdateField('Mobile No') }} >ADD</Button>}
                     </h6>
                     {userMobileNo === currentUser.mobileNo ? <div className={` ${style.level}`}>
                       <VerifiedRoundedIcon />
@@ -835,7 +857,7 @@ const Profile = () => {
                       {userEmailId === currentUser.email ? <EmailIcon /> : null}{" "}
                       {userEmailId === currentUser.email ? userEmailId :
 
-                        <Button variant="text" onClick={handelUpdateEmailOpen} >ADD</Button>}
+                        <Button variant="text" onClick={() => { handelUpdateEmailOpen(); setUpdateField('Email Id') }} >ADD</Button>}
                     </h6>
                     {userEmailId === currentUser.email ? <div className={` ${style.level}`}>
                       <VerifiedRoundedIcon />
@@ -901,12 +923,15 @@ const Profile = () => {
                   </Button>
                 </div>
               </div>
+              <div className="p-2 ">
+                <Button sx={{ color: '#ee2e24', border: ' 1px solid #ee2e24' }} onClick={HandleLogOutCustomer} fullWidth variant="outlined">LogOut</Button>
+              </div>
             </div>
           </div>
           <ProfileUpdateModal />
           <PasswordUpdateModal />
           <ProfileDetailUpdateModal profiledetailUpdate={profiledetailUpdate} handelDetailUpdate={handelDetailUpdate} currentUser={currentUser} />
-          <AddEmailId handeleEmailUpdate={handeleEmailUpdate} updateEmail={updateEmail} sentOtp={sentOtp} setsentOtp={setsentOtp} />
+          <AddEmailId handeleEmailUpdate={handeleEmailUpdate} updateField={updateField} updateEmail={updateEmail} sentOtp={sentOtp} setsentOtp={setsentOtp} />
         </Grid>
         <Grid item xs={12} md={12} lg={8} xl={8} className="d-none d-sm-block" >
           <div
@@ -921,7 +946,7 @@ const Profile = () => {
           </div>
         </Grid>
       </Grid>
-    </div>
+    </div >
   );
 };
 

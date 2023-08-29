@@ -136,9 +136,9 @@ const Testimonial = () => {
                 <Grid item xs={12} lg={4} xl={4} sx={{ display: 'grid', placeItems: 'center' }}>
                     <div style={{ padding: '0px 10px', textAlign: 'center' }}>
                         <h3 className='mb-4'>
-                            <b>Our Testimonials</b>
+                            <b>Our Testimonial</b>
                         </h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, aut labore obcaecati ad vero illum ea et hic voluptas fuga at doloribus perspiciatis animi.</p>
+                        <p>Our Best Vendor and Customer Reviews.</p>
                     </div>
                 </Grid>
                 <Grid item xs={12} lg={8} xl={8}>
