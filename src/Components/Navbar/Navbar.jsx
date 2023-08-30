@@ -753,7 +753,7 @@ const Navbar = ({ list }) => {
                           "col-lg-4 align-self-center position-relative"
                         }
                       >
-                        <fieldset className="d-flex align-items-center">
+                        <fieldset className="d-flex align-items-center justify-content-center">
                           <PersonIcon className="text-danger me-2" />
                           <span
                             onClick={() => {
@@ -777,7 +777,7 @@ const Navbar = ({ list }) => {
                           </span>
                           {openOptions && (
                             <div className={`shadow-lg p-2 ${style.options}`}>
-                              <div className="row">
+                              <div className="row m-0 p-0">
                                 <div className="col">
                                   <div className="d-flex justify-content-evenly">
                                     <h5>Rooms</h5>
@@ -787,22 +787,20 @@ const Navbar = ({ list }) => {
                               </div>
                               {/* Mapped the rooms data */}
                               {manageRoom.map((item, index) => (
-                                <div className="row">
-                                  <div className="col-6">
+                                <div className="row m-0 p-0">
+                                  <div className="col-5">
                                     <div className={style.optionItem}>
                                       <div
-                                        className={`d-flex justify-content-between`}
                                       >
                                         Rooms
                                       </div>
                                       <div
-                                        className={`d-flex justify-content-between`}
                                       >
                                         {item.room}
                                       </div>
                                     </div>
                                   </div>
-                                  <div className="col-6">
+                                  <div className="col-7">
                                     <div className={style.optionItem}>
                                       <span className={`${style.optionText} `}>
                                         Guests
@@ -838,7 +836,7 @@ const Navbar = ({ list }) => {
                                 </div>
                               ))}
 
-                              <div className="row">
+                              <div className="row m-0 p-0">
                                 <div className="col">
                                   <div className="d-flex justify-content-evenly align-items-center">
                                     <div
@@ -863,6 +861,7 @@ const Navbar = ({ list }) => {
                               </div>
                             </div>
                           )}
+                          
                         </fieldset>
                       </div>
                       <div
