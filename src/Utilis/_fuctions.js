@@ -5,7 +5,7 @@ export function validateInput(number) {
     if (isEmail) {
         return "email";
     } else if (isMobileNumber) {
-        return "mobile";
+        return "mobileNo";
     } else {
         return "Invalid Input";
     }

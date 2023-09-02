@@ -14,31 +14,28 @@ import ProfileUpdateModal from "./ProfileUpdateModal";
 import ProfileDetailUpdateModal from "./ProfileDetailUpdateModal";
 import AddEmailId from "./AddEmailId";
 import PasswordUpdateModal from "./PasswordUpdateModal";
+import moment from "moment/moment";
 
 const Profile = () => {
-
   // Update the user details
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("customer"))
   );
 
-
   // State variables
-  const [profiledetailUpdate, setprofiledetailUpdate] = useState(false)
-  const [updateEmail, setUpdateEmail] = useState(false)
-  const [updateField, setUpdateField] = useState('Mobile')
+  const [profiledetailUpdate, setprofiledetailUpdate] = useState(false);
+  const [updateEmail, setUpdateEmail] = useState(false);
+  const [updateField, setUpdateField] = useState("Mobile");
   const [passwordUpdateOpen, setPasswordUpdateOpen] = useState(false);
-  const [sentOtp, setsentOtp] = useState(false);
   // Profile update modal handlers
-  const handelDetailUpdate = () => setprofiledetailUpdate(false)
-  const handelUpdateEmailOpen = () => setUpdateEmail(true)
-  const handeleEmailUpdate = () => setUpdateEmail(false)
+  const handelDetailUpdate = () => setprofiledetailUpdate(false);
+  const handelUpdateEmailOpen = () => setUpdateEmail(true);
+  const handeleEmailUpdate = () => setUpdateEmail(false);
 
   // Password update modal handlers
   const handlePasswordUpdateOpen = () => setPasswordUpdateOpen(true);
 
   const { sendOtp, otpResp, Loader, setLoader } = useAuthContext();
-
 
   const sendNewOtp = (number) => {
     sendOtp(number).then(() => {
@@ -81,9 +78,9 @@ const Profile = () => {
   //   }
   // };
 
-  const navigate = useNavigate()
-  const userMobileNo = currentUser.mobileNo || 'Add'
-  const userEmailId = currentUser.email || 'Add'
+  const navigate = useNavigate();
+  const userMobileNo = currentUser?.mobileNo || "Add";
+  const userEmailId = currentUser?.email || "Add";
 
   const HandleLogOutCustomer = () => {
     sessionStorage.removeItem("customer");
@@ -116,8 +113,15 @@ const Profile = () => {
         <Grid item xs={12} md={12} lg={4} xl={4}>
           <div className={`${style.box}`}>
             <div className="d-flex justify-content-between">
-              <p><b>My Profile</b></p>
-              <div style={{ color: '#ee2e24', cursor: 'pointer' }} onClick={() => setprofiledetailUpdate(true)} ><u>Edit Details</u></div>
+              <p>
+                <b>My Profile</b>
+              </p>
+              <div
+                style={{ color: "#ee2e24", cursor: "pointer" }}
+                onClick={() => setprofiledetailUpdate(true)}
+              >
+                <u>Edit Details</u>
+              </div>
             </div>
             <div className={` ${style.content}`}>
               {/* <div className={` ${style.image}`}>
@@ -128,76 +132,105 @@ const Profile = () => {
               </div> */}
               <div className="pb-2">
                 <div>
-                  <span style={{ color: '#ee2e24' }}>Full Name</span>
-                  <h4><b>{currentUser ? currentUser.name : "Your Name"}</b></h4>
+                  <span style={{ color: "#ee2e24" }}>Full Name</span>
+                  <h4>
+                    <b>{currentUser ? currentUser.name : "Your Name"}</b>
+                  </h4>
                 </div>
               </div>
               <div className="d-flex justify-content-between pb-1">
                 <div>
-                  <span style={{ color: '#ee2e24' }}>Gender</span>
-                  <h5>NA</h5>
+                  <span style={{ color: "#ee2e24" }}>Gender</span>
+                  <h5>{currentUser?.gender}</h5>
                 </div>
                 <div>
-                  <span style={{ color: '#ee2e24' }}>Marital Status</span>
-                  <h5>NA</h5>
+                  <span style={{ color: "#ee2e24" }}>Marital Status</span>
+                  <h5>{currentUser?.maritialStatus}</h5>
                 </div>
               </div>
               <hr />
               <div className="d-flex align-items-center pb-1">
                 <div>
-                  <span style={{ color: '#ee2e24' }}>Mobile No.</span>
+                  <span style={{ color: "#ee2e24" }}>Mobile No.</span>
                   <div className="d-flex justify-content-center align-items-center">
                     <h6 className={` mt-0 ${style.job_discription}`}>
-                      {userMobileNo === currentUser.mobileNo ? <MobileFriendlyIcon /> : null}{" "}
-                      {userMobileNo === currentUser.mobileNo ? userMobileNo :
-                        <Button variant="text" onClick={() => { handelUpdateEmailOpen(); setUpdateField('Mobile No') }} >ADD</Button>}
+                      {userMobileNo === currentUser.mobileNo ? (
+                        <MobileFriendlyIcon />
+                      ) : null}{" "}
+                      {userMobileNo === currentUser.mobileNo ? (
+                        userMobileNo
+                      ) : (
+                        <Button
+                          variant="text"
+                          onClick={() => {
+                            handelUpdateEmailOpen();
+                            setUpdateField("Mobile No");
+                          }}
+                        >
+                          ADD
+                        </Button>
+                      )}
                     </h6>
-                    {userMobileNo === currentUser.mobileNo ? <div className={` ${style.level}`}>
-                      <VerifiedRoundedIcon />
-                    </div> : null}
+                    {userMobileNo === currentUser.mobileNo ? (
+                      <div className={` ${style.level}`}>
+                        <VerifiedRoundedIcon />
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               </div>
               <hr />
               <div className="d-flex align-items-center pb-1">
                 <div>
-                  <span style={{ color: '#ee2e24' }}>Email Id</span>
+                  <span style={{ color: "#ee2e24" }}>Email Id</span>
                   <div className="d-flex justify-content-center align-items-center">
                     <h6 className={` mt-0 ${style.job_discription}`}>
                       {userEmailId === currentUser.email ? <EmailIcon /> : null}{" "}
-                      {userEmailId === currentUser.email ? userEmailId :
-
-                        <Button variant="text" onClick={() => { handelUpdateEmailOpen(); setUpdateField('Email Id') }} >ADD</Button>}
+                      {userEmailId === currentUser.email ? (
+                        userEmailId
+                      ) : (
+                        <Button
+                          variant="text"
+                          onClick={() => {
+                            handelUpdateEmailOpen();
+                            setUpdateField("Email Id");
+                          }}
+                        >
+                          ADD
+                        </Button>
+                      )}
                     </h6>
-                    {userEmailId === currentUser.email ? <div className={` ${style.level}`}>
-                      <VerifiedRoundedIcon />
-                    </div> : null}
+                    {userEmailId === currentUser.email ? (
+                      <div className={` ${style.level}`}>
+                        <VerifiedRoundedIcon />
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               </div>
-              <hr style={{ marginTop: '0px' }} />
+              <hr style={{ marginTop: "0px" }} />
               <div className="d-flex pb-1">
                 <div>
-                  <span style={{ color: '#ee2e24' }}>Birthday</span>
-                  <h5>NA</h5>
+                  <span style={{ color: "#ee2e24" }}>Birthday</span>
+                  <h5>{moment(currentUser?.birthday).format("DD-MMMM-YYYY")}</h5>
                 </div>
               </div>
               <hr />
               <div className="d-flex pb-2">
                 <div>
-                  <span style={{ color: '#ee2e24' }}>Your Adress</span>
-                  <h5>NA</h5>
+                  <span style={{ color: "#ee2e24" }}>Your Adress</span>
+                  <h5>{currentUser?.address}</h5>
                 </div>
               </div>
               <hr />
               <div className="d-flex justify-content-between pb-2">
                 <div>
-                  <span style={{ color: '#ee2e24' }}>State</span>
-                  <h5>NA</h5>
+                  <span style={{ color: "#ee2e24" }}>State</span>
+                  <h5>{currentUser?.state}</h5>
                 </div>
                 <div>
-                  <span style={{ color: '#ee2e24' }}>Pincode</span>
-                  <h5>NA</h5>
+                  <span style={{ color: "#ee2e24" }}>Pincode</span>
+                  <h5>{currentUser?.pinCode}</h5>
                 </div>
               </div>
               <hr />
@@ -234,16 +267,34 @@ const Profile = () => {
                 </div>
               </div>
               <div className="p-2 ">
-                <Button sx={{ color: '#ee2e24', border: ' 1px solid #ee2e24' }} onClick={HandleLogOutCustomer} fullWidth variant="outlined">LogOut</Button>
+                <Button
+                  sx={{ color: "#ee2e24", border: " 1px solid #ee2e24" }}
+                  onClick={HandleLogOutCustomer}
+                  fullWidth
+                  variant="outlined"
+                >
+                  LogOut
+                </Button>
               </div>
             </div>
           </div>
           <ProfileUpdateModal />
-          <PasswordUpdateModal passwordUpdateOpen={passwordUpdateOpen} setPasswordUpdateOpen={setPasswordUpdateOpen} />
-          <ProfileDetailUpdateModal profiledetailUpdate={profiledetailUpdate} handelDetailUpdate={handelDetailUpdate} currentUser={currentUser} />
-          <AddEmailId handeleEmailUpdate={handeleEmailUpdate} updateField={updateField} updateEmail={updateEmail} sentOtp={sentOtp} setsentOtp={setsentOtp} />
+          <PasswordUpdateModal
+            passwordUpdateOpen={passwordUpdateOpen}
+            setPasswordUpdateOpen={setPasswordUpdateOpen}
+          />
+          <ProfileDetailUpdateModal
+            profiledetailUpdate={profiledetailUpdate}
+            handelDetailUpdate={handelDetailUpdate}
+            currentUser={currentUser}
+          />
+          <AddEmailId
+            handeleEmailUpdate={handeleEmailUpdate}
+            updateField={updateField}
+            updateEmail={updateEmail}
+          />
         </Grid>
-        <Grid item xs={12} md={12} lg={8} xl={8} className="d-none d-sm-block" >
+        <Grid item xs={12} md={12} lg={8} xl={8} className="d-none d-sm-block">
           <div
             style={{
               // overflowY: "auto",
@@ -256,20 +307,32 @@ const Profile = () => {
               <Typography variant="h5">My Hotelio Wallet</Typography>
               <hr />
               <div className="text-center">
-                <Typography fontWeight={700} variant="p">My Hotelio Wallet :</Typography>
-                <Typography sx={{ pl: 2.5 }} display='block' variant="h6">₹ 999</Typography>
+                <Typography fontWeight={700} variant="p">
+                  My Hotelio Wallet :
+                </Typography>
+                <Typography sx={{ pl: 2.5 }} display="block" variant="h6">
+                  ₹ 999
+                </Typography>
               </div>
               <hr />
               <div className="text-center">
-                <Typography fontWeight={700} variant="p">Expires :</Typography>
-                <Typography sx={{ pl: 2.5 }} display='block' variant="h6"> 31 Sep, 2023</Typography>
+                <Typography fontWeight={700} variant="p">
+                  Expires :
+                </Typography>
+                <Typography sx={{ pl: 2.5 }} display="block" variant="h6">
+                  {" "}
+                  31 Sep, 2023
+                </Typography>
               </div>
               <hr />
               <div className="text-center">
-                <Typography fontWeight={700} variant="p">Usable :</Typography>
-                <Typography sx={{ pl: 2.5 }} display='block' variant="h6">₹ 200 each spent on booking</Typography>
+                <Typography fontWeight={700} variant="p">
+                  Usable :
+                </Typography>
+                <Typography sx={{ pl: 2.5 }} display="block" variant="h6">
+                  ₹ 200 each spent on booking
+                </Typography>
               </div>
-
             </Card>
           </div>
           <div
@@ -296,7 +359,7 @@ const Profile = () => {
           </div>
         </Grid> */}
       </Grid>
-    </div >
+    </div>
   );
 };
 

@@ -76,11 +76,38 @@ const AuthProvider = ({ children }) => {
 
 
 
+    // update mobile or email
+
+    const AddEmailAndMobile = async (data, otp, otpid, cid) => {
+        const inputValue = validateInput(data)
+        try {
+            const queryString = new URLSearchParams({ otp, otpid, id: cid, key: inputValue, value: data }).toString();
+            const response = await axios.patch(API_URL + "/api/update?" + queryString);
+            console.log(API_URL + "/api/update?" + queryString)
+
+            if (response.status === 200) {
+                Swal.fire({
+                    text: "Successfully updated",
+                    icon: 'success'
+                });
+                sessionStorage.setItem('customer', JSON.stringify(response.data.data));
+            } else {
+                throw new Error('Unexpected response status: ' + response.status);
+            }
+        } catch (error) {
+            Swal.fire({
+                text: "An error occurred while updating: " + error.message,
+                icon: 'error'
+            });
+        }
+    };
+
+
+
 
     // send the otp 
 
     const sendOtp = async (number) => {
-        setLoader(true);
         // check the input type
         const isInput = validateInput(number);
         //  ====================================================
@@ -121,7 +148,6 @@ const AuthProvider = ({ children }) => {
                 })
                 setOtpResp(response.data)
                 // handleNext();
-                setLoader(false);
             } else {
                 Swal.fire({
                     title: response.data.message,
@@ -133,13 +159,15 @@ const AuthProvider = ({ children }) => {
                 title: "Otp Send Failed ! Try Again",
                 icon: "error",
             });
-            setLoader(false);
         }
     };
 
 
 
-    return <AuthContext.Provider value={{ setIsUser, isUser, Loader, setLoader, setCurrentUser, currentUser, login, logOut, sendOtp, otpResp }}>
+
+
+
+    return <AuthContext.Provider value={{ setIsUser, isUser, Loader, setLoader, setCurrentUser, currentUser, login, logOut, sendOtp, otpResp, AddEmailAndMobile }}>
         {children}
     </AuthContext.Provider>
 }

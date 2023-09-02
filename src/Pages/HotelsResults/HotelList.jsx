@@ -8,14 +8,14 @@ import {
   Pagination,
   Select,
   MenuItem,
-  Chip
+  Chip,
 } from "@mui/material";
 import style from "./HotelList.module.css";
 import { useNavigate } from "react-router-dom";
 import { WaitLoader } from "../../Components/Elements/WaitLoader";
 import { API_URL } from "../../config";
-import NetworkWifi3BarRoundedIcon from '@mui/icons-material/NetworkWifi3BarRounded';
-import HotelListBack from '../../images/HotelListBack.jpg'
+import NetworkWifi3BarRoundedIcon from "@mui/icons-material/NetworkWifi3BarRounded";
+import HotelListBack from "../../images/HotelListBack.jpg";
 
 const HotelList = ({ hotels, location }) => {
   const navigate = useNavigate();
@@ -23,30 +23,39 @@ const HotelList = ({ hotels, location }) => {
   // State to keep track of the selected rating filter
   const [selectedRatingFilter, setSelectedRatingFilter] = React.useState("4");
 
+  const awsUrl = (key) => {
+    const url = `https://hotelio-images.s3.ap-south-1.amazonaws.com/${key}`;
+    return url;
+  };
+
   // Function to handle the change of the rating filter
   const handleRatingFilterChange = (event) => {
     setSelectedRatingFilter(event.target.value);
   };
 
-
   return hotels === null ? (
     <WaitLoader loading="true" />
   ) : (
-    <Container >
+    <Container>
       {/* First hotel card */}
       <Grid sx={{ margin: "10px 0px" }} container>
-        <Grid item xs={12} p={2} lg={12} xl={12}
-
+        <Grid
+          item
+          xs={12}
+          p={2}
+          lg={12}
+          xl={12}
           style={{
             background: `url(${HotelListBack})`,
-            backgroundPosition: 'bottom',
-            backgroundSize: 'cover',
-            color: '#000'
+            backgroundPosition: "bottom",
+            backgroundSize: "cover",
+            color: "#000",
           }}
         >
-          <div
-            className="d-flex justify-content-between align-items-center">
-            <h4><b>Here is your Searched Reasults of {location}</b></h4>
+          <div className="d-flex justify-content-between align-items-center">
+            <h4>
+              <b>Here is your Searched Reasults of {location}</b>
+            </h4>
             <Select
               value={selectedRatingFilter}
               onChange={handleRatingFilterChange}
@@ -60,39 +69,51 @@ const HotelList = ({ hotels, location }) => {
           </div>
         </Grid>
       </Grid>
+      {console.log(hotels)}
       {hotels.map((items, index) => (
         <>
           <Card fluid sx={{ p: 1, my: 1, borderRadius: 4 }}>
             <Grid container>
               <Grid item xs={12} lg={3} xl={3}>
                 {/* <div className="w-100"> */}
-                  <img
-                    className="rounded"
-                    style={{ height: "180px", width: '100%' }}
-                    src={`${API_URL}/uploads/${items.hotelCoverImg}`}
-                    alt="eyd"
-                  />
+                <img
+                  className="rounded"
+                  style={{ height: "180px", width: "100%" }}
+                  src={awsUrl(items.hotelCoverImg)}
+                  alt="eyd"
+                />
                 {/* </div> */}
               </Grid>
-              <Grid style={{ display: 'grid', alignItems: 'center' }} item xs={12} lg={5} xl={5} >
+              <Grid
+                style={{ display: "grid", alignItems: "center" }}
+                item
+                xs={12}
+                lg={5}
+                xl={5}
+              >
                 <div className="px-3 pt-2">
                   <div className="d-flex align-items-center">
-                    <h4>{items.hotelName} ({items.hotelType})</h4>
+                    <h4>
+                      {items.hotelName} ({items.hotelType})
+                    </h4>
                   </div>
-                  <p>{items.locality}, {items.city}, {items.country}</p>
+                  <p>
+                    {items.locality}, {items.city}, {items.country}
+                  </p>
                   <h6>{items.zipCode}</h6>
                   <div>
-                    {
-                      items.amenities.map((item, index) => (
-                        <Chip
-                          key={index}
-
-                          label={item}
-                          sx={{ mr: 1, mb: 1, background: '#6b0000', color: '#ffd700' }}
-                        />
-
-                      ))
-                    }
+                    {items.amenities.map((item, index) => (
+                      <Chip
+                        key={index}
+                        label={item}
+                        sx={{
+                          mr: 1,
+                          mb: 1,
+                          background: "#6b0000",
+                          color: "#ffd700",
+                        }}
+                      />
+                    ))}
                   </div>
                   <div className="d-flex align-items-center">
                     <Rating
@@ -101,7 +122,8 @@ const HotelList = ({ hotels, location }) => {
                       readOnly
                     />
                     <h6>
-                      <b>{items?.hotelRatings || ''}</b>&nbsp; | <span className="px-2">233 (reviews)</span>
+                      <b>{items?.hotelRatings || ""}</b>&nbsp; |{" "}
+                      <span className="px-2">233 (reviews)</span>
                     </h6>
                   </div>
                 </div>
@@ -116,13 +138,19 @@ const HotelList = ({ hotels, location }) => {
                 <div>
                   <div className={` ${style.mobflex}`}>
                     <div className={`p-2 ${style.BookingCardColor}`}>
-                      <Button onClick={() => navigate('/booking')} variant="contained" sx={{ borderRadius: 5 }} color="error">
+                      <Button
+                        onClick={() => navigate("/booking")}
+                        variant="contained"
+                        sx={{ borderRadius: 5 }}
+                        color="error"
+                      >
                         Book Now
                       </Button>
                     </div>
                     <div className={`p-2 ${style.BookingCardColor}`}>
                       <Button
-                        variant="outlined" sx={{ borderRadius: 5 }}
+                        variant="outlined"
+                        sx={{ borderRadius: 5 }}
                         color="error"
                         onClick={() => navigate("/searchedhotelname")}
                       >
@@ -145,7 +173,7 @@ const HotelList = ({ hotels, location }) => {
               </Grid>
             </Grid>
           </Card>
-          <hr style={{ color: '#6b0000', borderTop: '2px solid #6b0000' }} />
+          <hr style={{ color: "#6b0000", borderTop: "2px solid #6b0000" }} />
         </>
       ))}
       <div className="d-flex justify-content-center py-2">
