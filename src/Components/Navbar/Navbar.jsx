@@ -688,6 +688,7 @@ const Navbar = ({ list }) => {
                       <span>Menu</span>
                     </a>
                   </Col>
+                  <marquee style={{ color: '#ee2e24', fontWeight: '800' }} behavior="alternate" direction="left">Get 999 INR instantly Credit in your account. Also become eligible for refer and earn.</marquee>
                 </Row>
                 <div
                   className={`py-2 text-white text-center ${style.navRemove}`}
@@ -861,7 +862,7 @@ const Navbar = ({ list }) => {
                               </div>
                             </div>
                           )}
-                          
+
                         </fieldset>
                       </div>
                       <div

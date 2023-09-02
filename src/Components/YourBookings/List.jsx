@@ -61,7 +61,7 @@ export default function List() {
 
 
     return (
-        <Container sx={{ mt: 6 }} maxWidth="lg">
+        <Container maxWidth="lg">
             <Typography py={3} component="div" variant="h4">
                 <b>Your Bookings</b>
             </Typography>

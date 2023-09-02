@@ -94,6 +94,18 @@ const Profile = () => {
     setCurrentUser(sessionStorage.getItem("customer"));
     navigate("/");
   };
+
+  const [link, setLink] = useState('https://www.hoteliorooms.com/');
+  const [isCopied, setIsCopied] = useState(false);
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(link).then(() => {
+      setIsCopied(true);
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 2000);
+    });
+  };
   // useEffect(() => {
   //   if (currentUser !== {}) {
   //     setIsLoggedIn(true);
@@ -105,7 +117,7 @@ const Profile = () => {
       <Grid container className="min-vh-100 my-5" spacing={2}>
         <WaitLoader loading={Loader} />
         <Grid xs={12} className="text-center" item>
-          <h3 className="py-3">
+          <h3 className="pt-4">
             Welcome to Hotelio! Please Update YourProfile
           </h3>
           <p>Membership Offer Coming Soon</p>
@@ -294,44 +306,37 @@ const Profile = () => {
             updateEmail={updateEmail}
           />
         </Grid>
-        <Grid item xs={12} md={12} lg={8} xl={8} className="d-none d-sm-block">
-          <div
-            style={{
-              // overflowY: "auto",
-              // maxHeight: "100vh",
-              marginBottom: "1rem",
-            }}
+        <Grid item xs={12} md={12} lg={8} xl={8} className="d-none d-sm-block" >
+          <div style={{ marginBottom: "0.5rem", display: 'flex' }}
             className={` ${style.box}`}
           >
-            <Card className="p-2">
+            <Card className="p-2" style={{ maxWidth: '400px' }} >
+              <Typography variant="h5">Get 999 INR instantly Credit in your account. Also become eligible  for refer and earn.</Typography>
+              {/* <input
+                type="text"
+                value={link}
+                onChange={(e) => setLink(e.target.value)}
+              /> */}
+              <Button onClick={copyToClipboard} className="mt-2">
+                {isCopied ? 'Copied!' : 'Refer Copy Link'}
+              </Button>
+            </Card>
+            <Card sx={{ ml: 2 }} className="p-2">
               <Typography variant="h5">My Hotelio Wallet</Typography>
-              <hr />
-              <div className="text-center">
-                <Typography fontWeight={700} variant="p">
-                  My Hotelio Wallet :
-                </Typography>
-                <Typography sx={{ pl: 2.5 }} display="block" variant="h6">
-                  ₹ 999
-                </Typography>
+              <hr style={{ marginTop: '0px' }} />
+              <div className="d-flex align-items-center">
+                <Typography fontWeight={700} variant="p">My Hotelio Wallet :</Typography>
+                <Typography sx={{ pl: 2.5 }} variant="h6">₹ 999</Typography>
               </div>
-              <hr />
-              <div className="text-center">
-                <Typography fontWeight={700} variant="p">
-                  Expires :
-                </Typography>
-                <Typography sx={{ pl: 2.5 }} display="block" variant="h6">
-                  {" "}
-                  31 Sep, 2023
-                </Typography>
+              <hr style={{ marginTop: '0px' }} />
+              <div className="d-flex align-items-center">
+                <Typography fontWeight={700} variant="p">Expires :</Typography>
+                <Typography sx={{ pl: 2.5 }} variant="h6"> 31 Sep, 2023</Typography>
               </div>
-              <hr />
-              <div className="text-center">
-                <Typography fontWeight={700} variant="p">
-                  Usable :
-                </Typography>
-                <Typography sx={{ pl: 2.5 }} display="block" variant="h6">
-                  ₹ 200 each spent on booking
-                </Typography>
+              <hr style={{ marginTop: '0px' }} />
+              <div className="d-flex align-items-center">
+                <Typography fontWeight={700} variant="p">Usable :</Typography>
+                <Typography sx={{ pl: 2.5 }} variant="h6">₹ 200 each spent on every booking</Typography>
               </div>
             </Card>
           </div>

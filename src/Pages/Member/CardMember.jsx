@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Container, Grid, TextField } from "@mui/material";
+import { Container, Grid, TextField, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import HoteliLogo from '../../images/HotelioLogo.png'
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 
 const CardMember = () => {
   const [formData, setFormData] = useState({
@@ -26,15 +28,16 @@ const CardMember = () => {
   };
 
   return (
-    <Grid container spacing={2} padding={5}>
-      <Grid item xs={12}>
-        <div className="text-center text-white mt-4">
-          <h2>Hotelio Business is a corporate hotel booking solution by Hotelio.</h2>
+    <Grid container spacing={2} padding={2}>
+      <Grid paddingTop={0} item xs={12}>
+        <div className="text-center text-white">
+          <h2><span style={{ color: '#ee2e24' }} ><b>Hotelio Business</b></span> is a corporate hotel booking solution by <span style={{ color: '#ee2e24' }} ><b>Hotelio</b></span>.</h2>
         </div>
       </Grid>
 
       <Grid item xs={12} lg={7} xl={7} xxl={7} style={{ display: 'grid', placeItems: 'center' }}>
-        <img src={HoteliLogo} alt=".." />
+        <img src={HoteliLogo} style={{ height: '250px', width: '450px' }} alt="logo" />
+        <Typography color={"white"} variant="h4"> "Grow your <span style={{ color: '#ee2e24' }}><i>Business</i> <TrendingUpIcon fontSize="large" /></span> and make your <span style={{ color: '#ee2e24' }}><b>profit double</b> <KeyboardDoubleArrowUpIcon fontSize="large" /> </span>"</Typography>
       </Grid>
 
       <Grid item xs={12} lg={5} xl={5} xxl={5} style={{ display: 'grid', placeItems: 'center' }}>

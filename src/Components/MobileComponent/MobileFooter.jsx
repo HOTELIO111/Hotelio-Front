@@ -17,6 +17,7 @@ import PermPhoneMsgRoundedIcon from '@mui/icons-material/PermPhoneMsgRounded';
 import PhoneRoundedIcon from '@mui/icons-material/PhoneRounded';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import HotelioLogo from '../../images/HotelioLogo.png'
+import FeaturedPlayListIcon from '@mui/icons-material/FeaturedPlayList';
 import Swal from 'sweetalert2';
 
 export default function MobileFooter() {
@@ -85,6 +86,10 @@ export default function MobileFooter() {
                         {
                             currentUser ?
                             <li style={{ color: '#ee2e24', borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate('/CustomerNameProfile')} ><PersonIcon sx={{ mr: 2 }} /> Profile</Typography></li> : null
+                        }
+                        {
+                            currentUser ?
+                            <li style={{ color: '#ee2e24', borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate('/YourBooking')} ><FeaturedPlayListIcon sx={{ mr: 2 }} /> My Booking</Typography></li> : null
                         }
                         <li style={{ color: '#ee2e24', borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate('/About_Us')} ><InfoRoundedIcon sx={{ mr: 2 }} /> About Us</Typography></li>
                         <li style={{ color: '#ee2e24', borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate('/Contact_Us')} ><PermPhoneMsgRoundedIcon sx={{ mr: 2 }} /> Contact Us</Typography></li>

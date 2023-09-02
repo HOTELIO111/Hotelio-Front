@@ -38,7 +38,7 @@ const HotelResults = () => {
   return (
     <div>
       <Navbar />
-      <Container maxWidth="xl">
+      <Container sx={{ marginTop: 11 }} maxWidth="xl">
         <Grid container mt={6} spacing={1}>
           <Grid item xl={2} lg={2} xs={12}>
             <SideFilter hotels={hotels} />

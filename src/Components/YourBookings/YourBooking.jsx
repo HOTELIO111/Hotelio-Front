@@ -5,8 +5,10 @@ import Navbar from '../Navbar/Navbar'
 const YourBooking = () => {
   return (
     <div>
-      <Navbar/>
-      <List />
+      <Navbar />
+      <div style={{ marginTop: '70px' }}>
+        <List />
+      </div>
     </div>
   )
 }

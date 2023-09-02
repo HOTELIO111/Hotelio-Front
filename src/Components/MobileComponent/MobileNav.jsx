@@ -133,7 +133,7 @@ const MobileNav = () => {
                                                                 </Select>
                                                             </FormControl>
                                                         </div>
-                                                        <Button onClick={handleClose} fullWidth variant='contained'>Done</Button>
+                                                        <Button color='error' onClick={handleClose} fullWidth variant='contained'>Done</Button>
                                                     </div>
                                                 </Offcanvas.Body>
                                             </Offcanvas>

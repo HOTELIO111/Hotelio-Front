@@ -10,6 +10,7 @@ const Privacy = () => {
         <div>
             <Navbar />
             <div
+                style={{ marginTop: '100px' }}
                 className={` text-center p-5 rounded ${style.TermsContainer}`}
             >
                 <h1>Hotelio Privacy & Policy</h1>

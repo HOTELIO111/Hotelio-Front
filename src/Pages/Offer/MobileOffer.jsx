@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, Grid, Typography } from '@mui/material';
+import { Button, Card, CardContent, Grid, Typography } from '@mui/material';
 import MobileHeader from '../../Components/MobileComponent/MobileHeader';
 import MobileFooter from '../../Components/MobileComponent/MobileFooter';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
@@ -48,6 +48,18 @@ const MobileOffer = () => {
     padding-bottom: 10%;
      margin-bottom: 2%;
 `;
+    const [link, setLink] = useState('https://www.hoteliorooms.com/');
+    const [isCopied, setIsCopied] = useState(false);
+
+
+    const copyToClipboard = () => {
+        navigator.clipboard.writeText(link).then(() => {
+            setIsCopied(true);
+            setTimeout(() => {
+                setIsCopied(false);
+            }, 2000);
+        });
+    };
 
     return (
         <div>
@@ -60,7 +72,15 @@ const MobileOffer = () => {
                     </Typography>
                 </div>
             </div>
-            <Grid container spacing={1}>
+            <Card className="p-2 my-2" style={{ maxWidth: '400px' }} >
+                <Typography variant="p"><b>Get 999 INR</b> instantly Credit in your account. Also become eligible  for refer and earn.</Typography>
+
+                <Button onClick={copyToClipboard} color='error' className="mt-2">
+                    {isCopied ? 'Copied!' : 'Refer Copy Link'}
+                </Button>
+            </Card>
+            <Grid container paddingBottom={10} spacing={1}>
+
                 {
                     FavouriteData.map((card, index) => (
 

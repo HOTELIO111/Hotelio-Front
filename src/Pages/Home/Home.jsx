@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "../../Components/Navbar/Navbar";
 import Footer from "../../Components/footer/Footer";
 // import PropertyList from "../../Components/propertyList/PropertyList";
@@ -10,11 +10,21 @@ import SliderCarousel from "../../Components/Slider/SliderCarousel";
 import AboutUs from "../../Components/AboutUs/AboutUs";
 import Testimonial from "../../Components/Testimonial/Testimonial";
 import MobileNav from "../../Components/MobileComponent/MobileNav";
+import FirstTimePopup from "../FirstTimePopup/FirstTimePopup";
 
 const Home = (props) => {
   const isXtraSmallScreen = useMediaQuery("(max-width: 450px)");
+  
+  useEffect(() => {
+    const hasSeenPopup = localStorage.getItem('hasSeenPopup');
+    if (!hasSeenPopup) {
+      // Show the popup
+      localStorage.setItem('hasSeenPopup', 'true');
+    }
+  }, []);
   return (
     <>
+      {localStorage.getItem('hasSeenPopup') !== 'true' && <FirstTimePopup />}
       <div className="d-lg-none d-xl-none">
         <MobileNav />
       </div>
