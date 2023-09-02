@@ -163,7 +163,7 @@ const StepsForm = () => {
     const queryString = buildQueryString(formd);
     try {
       let response;
-      if (isInput === "mobile") {
+      if (isInput === "mobileNo") {
         response = await axios.get(API_URL + "/verify/mobile/" + number);
       } else if (isInput === "email") {
         response = await axios.get(API_URL + "/verify/email?" + queryString);
@@ -477,12 +477,12 @@ const StepsForm = () => {
     <>
       <div className="text-center">
         <WaitLoader loading={Loader} />
-        <NavLink to='/'>
-        <img
-          src={LoginMoto}
-          alt="Main"
-          style={{ width: "260px", height: "200px" }}
-        />
+        <NavLink to="/">
+          <img
+            src={LoginMoto}
+            alt="Main"
+            style={{ width: "260px", height: "200px" }}
+          />
         </NavLink>
         <Typography variant="h5" gutterBottom>
           Customer Login / Signup
