@@ -248,7 +248,7 @@ const Member = () => {
         </Grid>
         {/* </Card> */}
         <div className="text-center fixed-bottom bg-light p-3">
-          <Button href="https://hotelio-dashboard-trickle.netlify.app/" variant="contained" color="error" sx={{ width: '50%' }} >Join Us</Button>
+          <Button href="https://admin.hoteliorooms.com/" variant="contained" color="error" sx={{ width: '50%' }} >Join Us</Button>
           <Button variant="contained" color="error" size="md" sx={{ marginLeft: '5%' }}><PermPhoneMsgSharpIcon /></Button>
         </div>
       </section>

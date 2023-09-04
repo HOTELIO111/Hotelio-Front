@@ -577,7 +577,7 @@ const Navbar = ({ list }) => {
                               <MenuItem>
                                 <Link
                                   to={
-                                    "https://hotelio-dashboard-trickle.netlify.app/"
+                                    "https://admin.hoteliorooms.com/"
                                   }
                                 >
                                   Partner Login
