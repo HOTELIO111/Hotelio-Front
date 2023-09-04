@@ -23,10 +23,10 @@ const HotelList = ({ hotels, location }) => {
   // State to keep track of the selected rating filter
   const [selectedRatingFilter, setSelectedRatingFilter] = React.useState("4");
 
-  const awsUrl = (key) => {
-    const url = `https://hotelio-images.s3.ap-south-1.amazonaws.com/${key}`;
-    return url;
-  };
+  // const awsUrl = (key) => {
+  //   const url = `https://hotelio-images.s3.ap-south-1.amazonaws.com/${key}`;
+  //   return url;
+  // };
 
   // Function to handle the change of the rating filter
   const handleRatingFilterChange = (event) => {
@@ -79,7 +79,7 @@ const HotelList = ({ hotels, location }) => {
                 <img
                   className="rounded"
                   style={{ height: "180px", width: "100%" }}
-                  src={awsUrl(items.hotelCoverImg)}
+                  src={items.hotelCoverImg}
                   alt="eyd"
                 />
                 {/* </div> */}
