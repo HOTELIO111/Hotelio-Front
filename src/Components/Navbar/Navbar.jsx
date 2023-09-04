@@ -495,7 +495,7 @@ const Navbar = ({ list }) => {
                         <NavLink
                           // to="/parking"
                           to={
-                            "https://hotelio-dashboard-trickle.netlify.app/register"
+                            "https://admin.hoteliorooms.com/"
                           }
                           className={`${!list ? "text-dark" : ""}`}
                           onClick={() => {
@@ -586,7 +586,7 @@ const Navbar = ({ list }) => {
                               {/* <MenuItem>
           <Link
             to={
-              "https://hotelio-dashboard-trickle.netlify.app/register"
+              "https://admin.hoteliorooms.com/"
             }
           >
             Partner Signup

@@ -117,7 +117,7 @@ const JoinNetwork = () => {
             <h2>Build strong relationships with customers and stakeholders</h2>
             <h2>Focus on delivering exceptional value to your customers.</h2>
           </div>
-          <Link to={"https://hotelio-dashboard-trickle.netlify.app/register"}>
+          <Link to={"https://admin.hoteliorooms.com/"}>
             <div className="mt-5">
               <Button variant="contained" color="error" size="large" fullWidth>
                 Join Us
