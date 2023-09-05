@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import style from "./navbar.module.css";
 import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import $, { param } from "jquery";
+import $ from "jquery";
 import Dates from "../date/Date";
 import Dropdown from "../dropdown/Dropdown";
 import hotel from "../../images/hotel-bg.png";
@@ -20,7 +20,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import CallIcon from '@mui/icons-material/Call';
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import { FormControl, InputLabel, Select, useMediaQuery } from "@mui/material";
+import { useMediaQuery } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import HotelioLogo from "../../images/HotelioLogo.png";
 import DomainAddIcon from "@mui/icons-material/DomainAdd";
@@ -37,25 +37,11 @@ import { useAuthContext } from "../../context/userAuthContext";
 
 const Navbar = ({ list }) => {
   // Get Logged In User
-  const { login } = useSelector((state) => state.setLogin);
-  const { loggedinUser } = useSelector((state) => state.getLoggedInUser);
-
-  // Dashboard Access And Logout
-  const [sidetooltip, setTooltip] = useState(null);
-  const openTooltip = Boolean(sidetooltip);
-  const handleonClick = (event) => {
-    setTooltip(event.currentTarget);
-  };
-  const handleonClose = () => {
-    setTooltip(null);
-  };
 
   // Popover Material UI Code
   const [anchorEl, setAnchorEl] = useState(null);
-  const [anchorEl1, setAnchorEl1] = useState(null);
 
   const open = Boolean(anchorEl);
-  const open1 = Boolean(anchorEl1);
 
   const [Login, setLogin] = useState(null);
   const openBox = Boolean(Login);
@@ -69,26 +55,10 @@ const Navbar = ({ list }) => {
   // Popover Material UI Code
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const { dates } = useSelector((state) => state.searchDate);
-  const datesParking = useSelector((state) => state.searchParkingDate.dates);
-  const { resultPerson } = useSelector((state) => state.personAlert);
-  const { resultCity } = useSelector((state) => state.cityAlert);
-  const { resultVehicle } = useSelector((state) => state.vehicleAlert);
-  const { resultDate } = useSelector((state) => state.dateAlert);
-  const { resultDateTime } = useSelector((state) => state.dateTimeAlert);
-  const { c } = useSelector((state) => state.searchVehicle);
   const { activePath } = useSelector((state) => state.activePath);
-  const { options } = useSelector((state) => state.searchOption);
   const location = useLocation();
-  const path = location.pathname;
-  const [navSearch, setNavSearch] = useState(false);
-  const [nav2, setNav2] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [openOptions, setOpenOptions] = useState(false);
-  const [alertShow, setAlertShow] = useState(false);
-  const [option, setOption] = useState(options);
-  const api = process.env.REACT_APP_BACKEND_URL_LOCAL;
 
   const StyledMenu = styled((props) => (
     <Menu
@@ -143,144 +113,7 @@ const Navbar = ({ list }) => {
 
   //For Mobile Rsponsive of Navbar Search Bar
   const isMobile = useMediaQuery("(max-width: 400px)");
-  const isDesktop = useMediaQuery("(max-width: 992px)");
-  const isTablet = useMediaQuery("(max-width: 768px)");
 
-  // Hidding Alerts After Two Seconds
-  if (
-    resultPerson ||
-    resultCity ||
-    resultVehicle ||
-    resultDate ||
-    resultDateTime
-  ) {
-    setTimeout(() => {
-      dispatch({
-        type: "ALERTPERSON",
-        payload: false,
-      });
-      dispatch({
-        type: "ALERTCITY",
-        payload: false,
-      });
-      dispatch({
-        type: "ALERTVEHICLE",
-        payload: false,
-      });
-      dispatch({
-        type: "ALERTDATE",
-        payload: false,
-      });
-      dispatch({
-        type: "ALERTDATETIME",
-        payload: false,
-      });
-    }, 2000);
-  }
-
-  useEffect(() => {
-    if (path === "/" || path === "/listHotel" || path === "/singleHotel") {
-      dispatch({
-        type: "activePath",
-        payload: "hotel",
-      });
-    } else if (path === "/parking" || path === "/ParkingList") {
-      dispatch({
-        type: "activePath",
-        payload: "parking",
-      });
-    } else if (
-      path === "/HotelAndParking" ||
-      path === "/HotelAndParkingList" ||
-      path === "/singleHotelAndParking"
-    ) {
-      dispatch({
-        type: "activePath",
-        payload: "hotelAndParking",
-      });
-    } else {
-      dispatch({
-        type: "activePath",
-        payload: "",
-      });
-    }
-
-    if (path === "/") {
-      setNavSearch(true);
-    } else if (path === "/HotelAndParking") {
-      setNav2(true);
-    } else if (path === "/parking") {
-      setNav2(false);
-      setNavSearch(false);
-    }
-
-    if (path === "/" || path === "/HotelAndParking" || path === "/parking") {
-      setOption({
-        adult: 1,
-        children: 0,
-        singleRoom: 1,
-        twinRoom: 0,
-        familyRoom: 0,
-      });
-
-      dispatch({
-        type: "SET_DATE",
-        payload: [],
-      });
-
-      dispatch({
-        type: "SET_CITY",
-        payload: "",
-      });
-
-      dispatch({
-        type: "SET_HOTELANDPARKINGCITY",
-        payload: "",
-      });
-
-      dispatch({
-        type: "SET_PARKINGCITY",
-        payload: "",
-      });
-
-      dispatch({
-        type: "INCREMENT",
-        payload: "",
-      });
-    }
-
-    dispatch({
-      type: "ALERTPERSON",
-      payload: false,
-    });
-
-    dispatch({
-      type: "ALERTCITY",
-      payload: false,
-    });
-
-    dispatch({
-      type: "ALERTVEHICLE",
-      payload: false,
-    });
-
-    dispatch({
-      type: "ALERTDATE",
-      payload: false,
-    });
-
-    dispatch({
-      type: "ALERTDATETIME",
-      payload: false,
-    });
-  }, [path]);
-
-  useEffect(() => {
-    dispatch({
-      type: "SET_OPTION",
-      payload: option,
-    });
-  }, [option]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -316,8 +149,9 @@ const Navbar = ({ list }) => {
   };
 
   const ManageRoomAddandDelete = (action) => {
-    const newRoom = { room: manageRoom.length + 1, guest: 1 };
-    if (action === "add") {
+    if (action === "add" && manageRoom.length < 7) {
+      // Only allow adding a new room if the current room count is less than 7.
+      const newRoom = { room: manageRoom.length + 1, guest: 1 };
       setManageRoom([...manageRoom, newRoom]);
     } else if (action === "remove" && manageRoom.length > 1) {
       const updatedRoom = [...manageRoom];
@@ -415,6 +249,7 @@ const Navbar = ({ list }) => {
                 className={style.main_nav}
               >
                 <Row className="m-0 p-0">
+                <marquee style={{ color: '#fff', fontWeight: '900', background:'#ff0000' }} behavior="alternate" direction="left"><b>Get 999 INR instantly Credit in your account. Also become eligible for refer and earn.</b></marquee>
                   <Col md={2} lg={12} xl={2}>
                     <Link to="/" className={`${style.logo} ms-4`}>
                       <img alt="logo" src={HotelioLogo} />
@@ -438,7 +273,6 @@ const Navbar = ({ list }) => {
                         <NavLink
                           to="/"
                           className={`${!list ? "text-dark w-100" : ""}`}
-                          style={{ margin: "-5px 0px 0px 0px" }}
                           onClick={() => {
                             dispatch({
                               type: "activePath",
@@ -473,7 +307,6 @@ const Navbar = ({ list }) => {
                       </li>
                       <li style={{ listStyle: "none" }}>
                         <NavLink
-                          // to="/parking"
                           target="_blank"
                           to="/hoteliomember"
                           className={`${!list ? "text-dark" : ""}`}
@@ -493,7 +326,6 @@ const Navbar = ({ list }) => {
                       </li>
                       <li style={{ listStyle: "none" }}>
                         <NavLink
-                          // to="/parking"
                           to={
                             "https://admin.hoteliorooms.com/"
                           }
@@ -517,16 +349,6 @@ const Navbar = ({ list }) => {
   </li> */}
                       {!currentUser ? (
                         <>
-                          {/* <li>
-      <button
-        onClick={() => {
-          navigate("/contact");
-        }}
-        className={`${style.iconShow} btn btn-primary rounded`}
-      >
-        Contact us
-      </button>
-    </li> */}
                           <NavLink
                             to="/contact"
                             className={`${!list ? "text-dark" : ""} ${style.iconHide
@@ -571,9 +393,6 @@ const Navbar = ({ list }) => {
                               <MenuItem onClick={() => navigate("/signin")}>
                                 Customer Login
                               </MenuItem>
-                              {/* <MenuItem onClick={() => navigate("/signup")}>
-          Customer Signup
-        </MenuItem> */}
                               <MenuItem>
                                 <Link
                                   to={
@@ -583,15 +402,6 @@ const Navbar = ({ list }) => {
                                   Partner Login
                                 </Link>
                               </MenuItem>
-                              {/* <MenuItem>
-          <Link
-            to={
-              "https://admin.hoteliorooms.com/"
-            }
-          >
-            Partner Signup
-          </Link>
-        </MenuItem> */}
                             </Menu>
                           </li>
                         </>
@@ -688,7 +498,7 @@ const Navbar = ({ list }) => {
                       <span>Menu</span>
                     </a>
                   </Col>
-                  <marquee style={{ color: '#ee2e24', fontWeight: '800' }} behavior="alternate" direction="left">Get 999 INR instantly Credit in your account. Also become eligible for refer and earn.</marquee>
+                 
                 </Row>
                 <div
                   className={`py-2 text-white text-center ${style.navRemove}`}
@@ -726,34 +536,32 @@ const Navbar = ({ list }) => {
                 <div className="col-lg-12 px-0">
                   <div className={` ${style.search_form}`}>
                     <div className="row position-relative">
-                      <div className={`col-lg-2 align-self-center`}>
+
+                      <div className={`col-lg-3 align-self-center`}>
                         <fieldset className={`d-flex align-items-center`}>
                           <HotelIcon className="text-danger me-2" />
-                          {console.log(selectedCity)}
                           <Dropdown
                             citites={citites ? citites : DummyArray}
                             name="cityHotel"
                             setSlectedCity={setSlectedCity}
                           />
+
                         </fieldset>
                       </div>
-                      <div
-                        className={`${nav2 ? "col-lg-3" : "col-lg-4"
-                          } align-self-center`}
-                      >
+
+                      <div className={`col-lg-4 align-self-center`}>
                         <fieldset
                           style={{ borderRight: "2px solid red" }}
-                          className="d-flex align-items-center"
+                          className="d-flex align-items-center justify-content-center"
                         >
-                          <CalendarMonthIcon className="text-danger me-2" />
-                          <Dates />
+                          <div>
+                            <CalendarMonthIcon className="text-danger" />
+                            <Dates />
+                          </div>
                         </fieldset>
                       </div>
-                      <div
-                        className={
-                          "col-lg-4 align-self-center position-relative"
-                        }
-                      >
+
+                      <div className={"col-lg-3 align-self-center position-relative"}>
                         <fieldset className="d-flex align-items-center justify-content-center">
                           <PersonIcon className="text-danger me-2" />
                           <span
@@ -789,7 +597,7 @@ const Navbar = ({ list }) => {
                               {/* Mapped the rooms data */}
                               {manageRoom.map((item, index) => (
                                 <div className="row m-0 p-0">
-                                  <div className="col-5">
+                                  <div className="col-4">
                                     <div className={style.optionItem}>
                                       <div
                                       >
@@ -801,7 +609,7 @@ const Navbar = ({ list }) => {
                                       </div>
                                     </div>
                                   </div>
-                                  <div className="col-7">
+                                  <div className="col-8">
                                     <div className={style.optionItem}>
                                       <span className={`${style.optionText} `}>
                                         Guests
@@ -850,7 +658,7 @@ const Navbar = ({ list }) => {
                                       Delete Room
                                     </div>
                                     <div
-                                      className={`${style.optionText} `}
+                                      className={`${manageRoom.length === 7 ? style.optionTextDisable : style.optionText}`}
                                       onClick={() =>
                                         ManageRoomAddandDelete("add")
                                       }
@@ -865,44 +673,15 @@ const Navbar = ({ list }) => {
 
                         </fieldset>
                       </div>
-                      <div
-                        className={`${isDesktop ? "mt-3" : ""} ${nav2 || navSearch ? "col-lg-2" : "col-lg-3"
-                          }`}
-                      >
+
+                      <div className={"col-lg-2"}>
                         <fieldset>
                           <button
                             className={style.main_button}
-                            // onClick={handleOnSearch}
-                            // onClick={() => navigate("/searchedhotels")}
                             onClick={() => SearchTheField()}
                           >
                             <SearchIcon /> Search Now
                           </button>
-
-                          {list &&
-                            (resultPerson ||
-                              resultCity ||
-                              resultVehicle ||
-                              resultDate ||
-                              resultDateTime) && (
-                              <div className="mt-2 start-0 bg-danger bg-opacity-75 text-light rounded-3 p-3 position-absolute d-flex flex-column align-items-start">
-                                <strong>Error! </strong>
-                                {resultPerson && (
-                                  <div>
-                                    Total number of persons is more than
-                                    capacity of rooms
-                                  </div>
-                                )}
-                                {resultCity && <div>Enter city</div>}
-                                {resultVehicle && (
-                                  <div>Enter number of vehicles</div>
-                                )}
-                                {resultDate && <div>Enter Date</div>}
-                                {resultDateTime && (
-                                  <div>Enter Date and time</div>
-                                )}
-                              </div>
-                            )}
                         </fieldset>
                       </div>
                     </div>

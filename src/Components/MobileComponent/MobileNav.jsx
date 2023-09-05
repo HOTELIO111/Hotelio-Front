@@ -8,6 +8,7 @@ import MobileDestination from './MobileDestination';
 import MobileHeader from './MobileHeader';
 import MobileDate from './MobileDate';
 import { Offcanvas } from 'react-bootstrap';
+import MainBannerMob from '../../images/MainBannerMob.jpg'
 
 const MobileNav = () => {
 
@@ -53,7 +54,7 @@ const MobileNav = () => {
             <div className='bg-white'>
                 <div
                     style={{
-                        background: 'url(https://larissadening.com/wp-content/uploads/2017/05/VNSW9.jpg)',
+                        background: `url(${MainBannerMob})`,
                         backgroundPosition: 'center',
                         height: '30vh',
                         width: '100%',
@@ -95,8 +96,8 @@ const MobileNav = () => {
                                                     /> */}
                                                     <div onClick={handleShow} className='w-100'>
                                                         <label style={Stylelabel} className="labelfordatepicker">Rooms and guests</label>
-                                                        <p style={{ marginTop: '18px' }}>{selectedGuest} Guests, {selectedRoom} Room</p>
-                                                        <hr style={{ marginTop: '12px', color: 'black' }} />
+                                                        <p style={{ marginTop: '14px' }}>{selectedGuest} Guests, {selectedRoom} Room</p>
+                                                        <hr style={{ marginTop: '11px', color: 'black' }} />
                                                     </div>
                                                 </Grid>
 
@@ -130,6 +131,10 @@ const MobileNav = () => {
                                                                     <MenuItem value="1">1</MenuItem>
                                                                     <MenuItem value="2">2</MenuItem>
                                                                     <MenuItem value="3">3</MenuItem>
+                                                                    <MenuItem value="4">4</MenuItem>
+                                                                    <MenuItem value="5">5</MenuItem>
+                                                                    <MenuItem value="6">6</MenuItem>
+                                                                    <MenuItem value="7">7</MenuItem>
                                                                 </Select>
                                                             </FormControl>
                                                         </div>
@@ -145,15 +150,18 @@ const MobileNav = () => {
                     </Grid>
                     <Grid item xs={12} paddingBottom={6}>
                         <div className='text-center'>
+
                             <Premiumcard />
 
-                            <h5 className='p-2 py-4 pl-4'><b>Explore Locations</b></h5>
+                            <h5 style={{borderRadius:'50px 0px 50px 0px'}} className='p-2 py-2 pl-4 text-white bg-danger'><b>Explore Locations</b></h5>
 
                             <MobileDestination />
-                            <h5 className='p-2 py-4 pl-4'><b>Our collection</b></h5>
+
+                            <h5 style={{borderRadius:'50px 0px 50px 0px'}} className='p-2 py-2 pl-4 text-white bg-danger'><b>Our collection</b></h5>
 
                             <MobileSlider />
-                            <h5 className='p-2 py-4 pl-4'><b>Recommendation</b></h5>
+
+                            <h5 style={{borderRadius:'50px 0px 50px 0px'}} className='p-2 py-2 pl-4 text-white bg-danger'><b>Recommendation</b></h5>
 
                             <MobileSlider />
                         </div>

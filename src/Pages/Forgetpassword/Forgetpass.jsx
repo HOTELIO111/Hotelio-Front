@@ -19,6 +19,7 @@ import IconButton from "@mui/material/IconButton";
 import Collapse from "@mui/material/Collapse";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
+import ForgotImg from '../../images/ForgotImg.jpg'
 
 const Forgetpass = () => {
   const Navigate = useNavigate();
@@ -38,7 +39,7 @@ const Forgetpass = () => {
         {...props}
       >
         {"Copyright © "}
-        <Link to="/">Client website.com</Link> {new Date().getFullYear()}
+        <Link to="/">www.hoteliorooms.com</Link> {new Date().getFullYear()}
         {"."}
       </Typography>
     );
@@ -128,61 +129,75 @@ const Forgetpass = () => {
           </Stack>
         </Collapse>
       )}
-      <ThemeProvider theme={theme}>
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <Box
-            sx={{
-              marginTop: 8,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Reset Password
-            </Typography>
-            <small className="text-center my-5 text-muted">
-              To reset your password, enter your email below and submit. An
-              email will be sent to you with instructions about how to complete
-              the process.
-            </small>
-            <Box
-              component="form"
-              onSubmit={handleSubmit}
-              noValidate
-              sx={{ mt: 1 }}
-            >
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                value={email}
-                onChange={handleEmailChange}
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                onSubmit={handleSubmit}
-                // disabled={}
-              >
-                Verify Email
-              </Button>
-            </Box>
+
+      <Grid container spacing={1} >
+        <Grid className="d-none d-sm-block"
+          sx={{
+            height: '100vh',
+          }} item xs={12} lg={6} xl={6}>
+          <Box sx={{
+            display: 'grid',
+            placeItems: 'center'
+          }}>
+            <img style={{ width: '90vh' }} src={ForgotImg} alt="forgotIcon" />
           </Box>
-          <Copyright sx={{ mt: 8, mb: 4 }} />
-        </Container>
-      </ThemeProvider>
+
+        </Grid>
+        <Grid item sx={{ height: '100vh' }} xs={12} lg={6} xl={6}>
+          <ThemeProvider theme={theme}>
+            <Container component="main" maxWidth="sm">
+              <CssBaseline />
+              <Box
+                sx={{
+                  marginTop: 20,
+                  display: 'grid',
+                  placeItems: 'center'
+                }}
+              >
+                <Typography component="h1" variant="h5">
+                  Forgot Password?
+                </Typography>
+                <small className="text-center my-5 text-muted">
+                  To reset your password, enter your email below and submit. An
+                  email will be sent to you with instructions about how to complete
+                  the process.
+                </small>
+                <Box
+                  component="form"
+                  onSubmit={handleSubmit}
+                  noValidate
+                  sx={{ mt: 1 }}
+                >
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="email"
+                    value={email}
+                    onChange={handleEmailChange}
+                    label="Email Address / Mobile No."
+                    name="email"
+                    autoComplete="email"
+                    autoFocus
+                  />
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                    onSubmit={handleSubmit}
+                  // disabled={}
+                  >
+                    Continue
+                  </Button>
+                </Box>
+              </Box>
+              <Copyright sx={{ mt: 8, mb: 4 }} />
+            </Container>
+          </ThemeProvider>
+        </Grid>
+      </Grid>
+
     </>
   );
 };

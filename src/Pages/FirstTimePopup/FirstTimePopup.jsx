@@ -36,7 +36,7 @@ function FirstTimePopup() {
                 <DialogContentText>
                     <h3><b>Get 999 INR instantly Credit in your account. Also become eligible for refer and earn.</b></h3>
                 </DialogContentText>
-                <div className='d-flex justify-content-center align-items-center'>
+                <div className='d-flex justify-content-center align-items-center mt-3'>
                     <Button size='sm' variant='contained' onClick={copyTextToClipboard} color="primary">
                         COPY CODE
                     </Button>

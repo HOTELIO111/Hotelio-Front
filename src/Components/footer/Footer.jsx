@@ -146,7 +146,7 @@ const Footer = () => {
                     </Link>
                   </li>
                   <li className={style.fListItem}>
-                    <Link to="/about" className="d-flex justify-content-start">
+                    <Link to="/Refund" className="d-flex justify-content-start">
                       <PaymentsIcon className="me-2" />
                       <span className="fs-6">Refund Policy</span>
                     </Link>

@@ -78,7 +78,7 @@ const cardData = [
 const MobileDestination = () => {
     return (
         <>
-            <CardContainer>
+            <CardContainer className='my-4'>
                 {cardData.map((card, index) => (
                     <StyledCard key={index}>
 

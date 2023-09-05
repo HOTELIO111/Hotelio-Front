@@ -59,7 +59,7 @@ const Favourite = () => {
 
     const StyledCard = styled(Card)`
     min-width: 155px;
-    padding-bottom: 10%;
+    padding-bottom: 2%;
     margin-bottom: 2%;
 `;
 
@@ -74,7 +74,7 @@ const Favourite = () => {
                     </Typography>
                 </div>
             </div>
-            <Grid container spacing={1}>
+            <Grid container sx={{ mb: 10 }} spacing={1}>
                 {
                     FavouriteData.map((card, index) => (
 

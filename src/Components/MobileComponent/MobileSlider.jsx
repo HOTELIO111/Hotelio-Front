@@ -51,13 +51,13 @@ const cardData = [
 const ScrollableCardList = () => {
     return (
         <>
-            <CardContainer>
+            <CardContainer className='my-4'>
                 {cardData.map((card, index) => (
                     <StyledCard key={index}>
 
                         <CardContent>
                             <img src={card.image} className='rounded' alt={`Image ${index}`} />
-                            <div className="d-flex justify-content-between">
+                            <div className="d-flex justify-content-between py-2">
                                 <Typography variant="caption" display="block" gutterBottom>
                                     {card.title}
                                 </Typography>

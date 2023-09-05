@@ -470,6 +470,15 @@ input[type="number"]::-webkit-inner-spin-button {
   color: #8d99af;
 }
 
+.optionText {
+  cursor: pointer;
+  color: #000000;
+}
+.optionTextDisable {
+  cursor: not-allowed;
+  color: gray;
+}
+
 @media (max-width: 1200px) {
   .header_area .main_nav .nav li {
     padding-left: 10px;
