@@ -6,7 +6,7 @@ import StepThree from './StepThree';
 import { Button } from '@mui/material';
 
 const BookingSteps = () => {
-  const [currentStep, setCurrentStep] = useState(3);
+  const [currentStep, setCurrentStep] = useState(2);
 
   const nextStep = () => {
     setCurrentStep(currentStep + 1);

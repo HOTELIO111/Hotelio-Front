@@ -336,7 +336,7 @@ const Profile = () => {
               <hr style={{ marginTop: '0px' }} />
               <div className="d-flex align-items-center">
                 <Typography fontWeight={700} variant="p">Usable :</Typography>
-                <Typography sx={{ pl: 2.5 }} variant="h6">₹ 200 each spent on every booking</Typography>
+                <Typography sx={{ pl: 2.5 }} variant="h6">₹ 100 each spent on every booking</Typography>
               </div>
             </Card>
           </div>
@@ -344,7 +344,7 @@ const Profile = () => {
             style={{
               overflowY: "auto",
               maxHeight: "100vh",
-              paddingBottom: "10rem",
+              paddingBottom: "2rem",
             }}
             className={` ${style.box}`}
           >

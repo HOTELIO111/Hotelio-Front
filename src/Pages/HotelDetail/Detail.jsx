@@ -12,7 +12,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PropTypes from 'prop-types';
 import RatingC from './RatingC';
 
-const Detail = () => {
+const Detail = ({ data }) => {
 
 
     CircularProgressWithLabel.propTypes = {
@@ -24,6 +24,7 @@ const Detail = () => {
         value: PropTypes.number.isRequired,
     };
 
+    console.log(data)
     function CircularProgressWithLabel(props) {
         return (
             <Box sx={{ position: 'relative', display: 'inline-flex' }}>
@@ -58,13 +59,13 @@ const Detail = () => {
                 <Grid item xs={12} lg={8} xl={8} >
                     <div className="p-2 ">
                         <div className='d-flex align-items-center justify-content-around'>
-                            <h2><b>Casa del Trigo</b></h2>
-                            <Chip color='success' label='4.5 Rating' />
+                            <h2><b>{data?.hotelName}</b></h2>
+                            <Chip color='success' label={` ${data?.hotelRatings} Rating`} />
                         </div>
                         <div>
                             <hr />
                             <h4 className='py-3 text-dark'>Description</h4>
-                            <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis ad aliquid nisi voluptatem necessitatibus, repellendus minus quibusdam hic assumenda asperiores id eos dolore distinctio nam veritatis dolorum ratione doloremque dolores</h5>
+                            <Typography variant='p'>{data?.discription || 'NA'}</Typography>
                         </div>
                     </div>
                     <hr />

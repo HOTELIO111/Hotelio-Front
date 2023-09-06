@@ -2,12 +2,14 @@ import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import Swal from 'sweetalert2';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Card, CardActions, CardContent, Container, IconButton, Rating, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Card, CardActions, CardContent, Container, IconButton, Modal, Rating, TextareaAutosize, Typography } from '@mui/material';
 
 
 export default function List() {
 
-
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     const HotelBookedData = [
         {
@@ -42,7 +44,7 @@ export default function List() {
     const AlertBox = () => {
         Swal.fire({
             title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            text: "Do you really want to cancel your Booking ?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -52,11 +54,101 @@ export default function List() {
             if (result.isConfirmed) {
                 Swal.fire(
                     'Cancelled!',
-                    'Your file has been deleted.',
+                    'Your Booking will be cancelled.',
                     'success'
                 )
             }
         })
+    }
+
+
+    const ReviewModal = () => {
+
+        const style = {
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 500,
+            bgcolor: 'background.paper',
+            // border: '2px solid #000',
+            borderRadius: '20px',
+            boxShadow: 24,
+            p: 4,
+            textAlign: 'center'
+        }
+
+        const [valueOfMoney, setvalueOfMoney] = React.useState(1);
+        const [cleanliness, setcleanliness] = React.useState(1);
+        const [comfort, setcomfort] = React.useState(1);
+        const [overallReview, setoverallReview] = React.useState(1);
+
+        return (
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <Typography id="modal-modal-title" variant="h6">
+                        Please share your review
+                    </Typography>
+                    <hr />
+                    <div className='py-2'>
+                        <Typography component="legend">Value of Money</Typography>
+                        <Rating
+                            name="simple-controlled"
+                            size="large"
+                            value={valueOfMoney}
+                            onChange={(event, newValue) => {
+                                setvalueOfMoney(newValue);
+                            }}
+                        />
+
+                        {console.log(valueOfMoney)}
+                    </div>
+                    <div className='py-2'>
+                        <Typography component="legend">Cleanliness</Typography>
+                        <Rating
+                            name="simple-controlled"
+                            size="large"
+                            value={cleanliness}
+                            onChange={(event, newValue) => {
+                                setcleanliness(newValue);
+                            }}
+                        />
+                    </div>
+                    <div className='py-2'>
+                        <Typography component="legend">Comfort</Typography>
+                        <Rating
+                            name="simple-controlled"
+                            size="large"
+                            value={comfort}
+                            onChange={(event, newValue) => {
+                                setcomfort(newValue);
+                            }}
+                        />
+                    </div>
+                    <div className='py-2'>
+                        <Typography component="legend">Overall Review</Typography>
+                        <Rating
+                            name="simple-controlled"
+                            size="large"
+                            value={overallReview}
+                            onChange={(event, newValue) => {
+                                setoverallReview(newValue);
+                            }}
+                        />
+                    </div>
+                    <div className='py-2'>
+                        <Typography component="legend"> Write your Review </Typography>
+                        <textarea className='border p-1' cols={50} rows={5} />
+                    </div>
+                    <Button variant="contained" onClick={handleClose} color="primary" size="medium">Share</Button>
+                </Box>
+            </Modal>
+        )
     }
 
 
@@ -73,7 +165,7 @@ export default function List() {
                                 <img
                                     style={{ borderRadius: '5px 0px 0px 0px', width: '100%', height: '100%', objectFit: 'cover' }}
                                     src={item.imageURL}
-                                    alt=""
+                                    alt="hotel"
                                 />
                             </Grid>
                             <Grid item xs={12} sm={8}>
@@ -91,8 +183,19 @@ export default function List() {
                                         <Box sx={{ pl: 1, pb: 1 }}>
                                             {item.hotelAddress}
                                             <CardActions>
-                                                <Button variant="contained" color="primary" size="medium">View Hotel</Button>
-                                                <Button onClick={AlertBox} variant="outlined" color="error" size="medium">Cancel</Button>
+                                                <Grid spacing={1} container>
+                                                    <Grid item xs={12} lg={6} xl={6}>
+                                                        <div>
+                                                            <Button variant="contained" size="medium">View Hotel</Button>
+                                                            <Button onClick={AlertBox} sx={{ ml: 1 }} variant="outlined" color="error" size="medium">Cancel</Button>
+                                                        </div>
+                                                    </Grid>
+                                                    <Grid item xs={12} lg={6} xl={6} sx={{ display: 'flex', justifyContent: 'end' }}>
+                                                        <ReviewModal />
+                                                        <Button variant="contained" onClick={handleOpen} color="primary" size="medium">Share review</Button>
+                                                    </Grid>
+                                                </Grid>
+
                                             </CardActions>
                                         </Box>
                                     </Box>

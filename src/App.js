@@ -55,7 +55,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path='/CustomerNameProfile' element={<CustomerPro />} />
         <Route path='/searchedhotels' element={<HotelResults />} />
-        <Route path='/searchedhotelname' element={<HotelDetail />} />
+        <Route path='/searchedhotel/:id' element={<HotelDetail />} />
         <Route path='/hoteliomember' element={<Member />} />
         <Route path='/JoinOurNetwork' element={<JoinOurNetwork />} />
         <Route path='/Refund' element={<Refund />} />

@@ -8,9 +8,13 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import VapingRoomsIcon from '@mui/icons-material/VapingRooms';
 import Tooltip from '@mui/material/Tooltip/Tooltip';
 import PersonIcon from '@mui/icons-material/Person';
+import { useNavigate } from 'react-router-dom';
 
 const StepTwo = () => {
+
+  const navigate = useNavigate()
   const [show, setHide] = useState(false)
+
   return (
     <div className='container p-2'>
       <Grid container spacing={2}>
@@ -166,7 +170,7 @@ const StepTwo = () => {
                     </Typography>
 
                   </div>
-                  <div className='p-2 border'>
+                  <div style={{ cursor: 'pointer' }} className='p-2 border'>
                     {show ? <ExpandLessIcon onClick={() => setHide(!show)} /> : <ExpandMoreIcon onClick={() => setHide(!show)} />}
                   </div>
                 </Grid>
@@ -179,7 +183,7 @@ const StepTwo = () => {
                       3 adults
                     </Typography>
                   </> : null}
-                  <Typography sx={{ color: '#ee2e24' }} variant="subtitle2">
+                  <Typography onClick={() => navigate(-1)} sx={{ color: '#ee2e24' }} variant="subtitle2">
                     Change Your Selection
                   </Typography>
                 </Grid>

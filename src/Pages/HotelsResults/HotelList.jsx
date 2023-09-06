@@ -152,7 +152,7 @@ const HotelList = ({ hotels, location }) => {
                         variant="outlined"
                         sx={{ borderRadius: 5 }}
                         color="error"
-                        onClick={() => navigate("/searchedhotelname")}
+                        onClick={() => navigate(`/searchedhotel/${items._id}`)}
                       >
                         View Hotel
                       </Button>

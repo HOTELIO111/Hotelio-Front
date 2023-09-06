@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Alert, Button, Card, CardActions, CardContent, Chip, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, Rating, TextField, Typography } from '@mui/material'
-import axios from 'axios'
+import OrderSucessfully from '../../images/OrderSucessfully.gif'
 import './BookingSteps.css'
 
 
@@ -94,7 +94,12 @@ const StepThree = () => {
             <Grid item xs='12'>
 
               {activeTab === 'payAtHotel' ? <>
-                <b>NA</b>
+                <div style={{ background: '#eeeeeb' }} className='text-center'>
+                  <img style={{ width: '200px' }} src={OrderSucessfully} alt="OrderSucessfully" />
+                  <Typography variant="h5" py={2} gutterBottom>
+                    Your hotel room booking has been successfully confirmed. Please check your registered email or mobile number for further details. If you require assistance, please contact our customer care.
+                  </Typography>
+                </div>
               </> : null}
               {activeTab === 'partPayment' ? <>
                 <b>NA</b>

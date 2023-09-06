@@ -12,25 +12,7 @@ const responsive = {
     1024: { items: 3 },
 };
 
-const HotelCover = () => {
-    const items = [
-        // Slide 1
-        <div style={{ maxHeight: '60vh' }} className="item mx-1" data-value="1">
-            <img className='img-fluid rounded' src="https://images.oyoroomscdn.com/uploads/hotel_image/109466/large/8f8433f482cb77d1.jpg" alt="" />
-        </div>,
-        // Slide 2
-        <div style={{ maxHeight: '60vh' }} className="item mx-1" data-value="2">
-            <img className='img-fluid rounded' src="https://images.oyoroomscdn.com/uploads/hotel_image/109466/large/13970a427de2a9a9.jpg" alt="" />
-        </div>,
-        // Slide 3
-        <div style={{ maxHeight: '60vh' }} className="item mx-1" data-value="3">
-            <img className='img-fluid rounded' src="https://images.oyoroomscdn.com/uploads/hotel_image/109466/large/2fef05273913f88f.jpg" alt="" />
-        </div>,
-        // Slide 4
-        <div style={{ maxHeight: '60vh' }} className="item mx-1" data-value="4">
-            <img className='img-fluid rounded' src="https://images.oyoroomscdn.com/uploads/hotel_image/109466/large/33e13e1afcc1070b.jpg" alt="" />
-        </div>
-    ];
+const HotelCover = ({ data }) => {
 
     const slidePrev = () => {
         carousel.slidePrev();
@@ -52,7 +34,13 @@ const HotelCover = () => {
                 mouseTracking
                 // autoPlay
                 infinite
-                items={items}
+                items={data?.hotelImages.map((item, index) => {
+                    return (
+                        <div style={{ marginTop: '80px' }} className="item mx-1" data-value={index}>
+                            <img style={{ height: '250px' }} className='img-fluid rounded' src={item} alt="hotelimg" />
+                        </div>
+                    )
+                })}
                 paddingLeft={50}
                 paddingRight={50}
                 responsive={responsive}
