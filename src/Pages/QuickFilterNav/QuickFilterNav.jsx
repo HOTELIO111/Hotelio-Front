@@ -33,7 +33,7 @@ const QuickFilterNav = () => {
             </div> */}
             <Grid container className={style.mainDiv} spacing={3} paddingY={0} justifyContent="center">
                 <Grid item >
-                    <Card className='planCard' sx={{ minHeight: 200, maxWidth: 200, maxHeight: 280, borderRadius: '8px', filter: 'invert(1)' }}>
+                    <Card className='planCard'onClick={() => navigate('/searchedhotels')} sx={{ minHeight: 200, maxWidth: 200, maxHeight: 280, borderRadius: '8px', filter: 'invert(1)' }}>
                         <div className="text-center p-1">
                             <img src={PrimeHotelTwo} style={{ borderRadius: "1rem" }} alt="PrimeHotel" />
                         </div>
@@ -46,7 +46,7 @@ const QuickFilterNav = () => {
                     </Card>
                 </Grid>
                 <Grid item>
-                    <Card className='planCard' sx={{ minHeight: 200, maxWidth: 200, maxHeight: 280, borderRadius: '8px', filter: 'invert(1)' }}>
+                    <Card className='planCard'onClick={() => navigate('/searchedhotels')} sx={{ minHeight: 200, maxWidth: 200, maxHeight: 280, borderRadius: '8px', filter: 'invert(1)' }}>
                         <div className="text-center p-1">
                             <img src={HomeStayTwo} style={{ borderRadius: "1rem" }} alt="HomeStay" />
                         </div>
@@ -59,7 +59,7 @@ const QuickFilterNav = () => {
                     </Card>
                 </Grid>
                 <Grid item>
-                    <Card className='planCard' sx={{ minHeight: 200, maxWidth: 200, maxHeight: 280, borderRadius: '8px', filter: 'invert(1)' }}>
+                    <Card className='planCard'onClick={() => navigate('/searchedhotels')} sx={{ minHeight: 200, maxWidth: 200, maxHeight: 280, borderRadius: '8px', filter: 'invert(1)' }}>
                         <div className="text-center p-1">
                             <img src={HotelBudgetTwo} style={{ borderRadius: "1rem" }} alt="HotelBudget" />
                         </div>

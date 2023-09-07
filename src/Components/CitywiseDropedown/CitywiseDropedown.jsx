@@ -98,7 +98,7 @@ const StateWiseCityList = [
     }
 ]
 
-export default function CitywiseDropedown() {
+export default function CitywiseDropedown({ CityWiseCityList }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -108,9 +108,11 @@ export default function CitywiseDropedown() {
         setAnchorEl(null);
     };
 
+    console.log(CityWiseCityList)
+
     return (
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-            {StateWiseCityList.map((item, index) => (
+            {CityWiseCityList?.map((item, index) => (
                 <div key={index}>
                     <Button
                         aria-controls={open ? 'demo-customized-menu' : undefined}
@@ -122,25 +124,22 @@ export default function CitywiseDropedown() {
                         onClick={handleClick}
                         endIcon={<KeyboardArrowDownIcon />}
                     >
-                        {item.State}
+                        {item}
                     </Button>
-                    <StyledMenu
-                        MenuListProps={{
-                            'aria-labelledby': 'demo-customized-button',
-                        }}
+                    {/* <StyledMenu
                         anchorEl={anchorEl}
-                        open={open}
+                        open={Boolean(anchorEl)}
                         onClose={handleClose}
                     >
-                        {item.city.map((items, index) => (
-                            <MenuItem key={index} onClick={handleClose} disableRipple>
-                                {items}
+                        {item.city.map((city, cityIndex) => (
+                            <MenuItem key={cityIndex} onClick={handleClose} disableRipple>
+                                {city}
                             </MenuItem>
                         ))}
-                    </StyledMenu>
+                    </StyledMenu> */}
                 </div>
             ))}
-            <Button
+            {/* <Button
                 aria-controls={open ? 'demo-customized-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
@@ -150,7 +149,7 @@ export default function CitywiseDropedown() {
                 endIcon={<ArrowForwardIosIcon fontSize='small' />}
             >
                 All Cities
-            </Button>
+            </Button> */}
         </div>
     );
 }

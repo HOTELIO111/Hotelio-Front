@@ -1,20 +1,16 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Card, CardContent, Chip, Grid, Typography, styled } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Card, CardContent, Grid, Typography } from '@mui/material';
 import React from 'react';
-import AcUnitIcon from '@mui/icons-material/AcUnit';
-import ConnectedTvIcon from '@mui/icons-material/ConnectedTv';
-import NetworkWifiIcon from '@mui/icons-material/NetworkWifi';
-import CameraRearIcon from '@mui/icons-material/CameraRear';
-import BathroomIcon from '@mui/icons-material/Bathroom';
 import { FcApproval } from "react-icons/fc";
 import style from './Hotel.module.css'
 import CircularProgress from '@mui/material/CircularProgress';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PropTypes from 'prop-types';
-import RatingC from './RatingC';
+import Welcome from '../../images/Welcome.png'
+import { useNavigate } from 'react-router-dom';
 
 const Detail = ({ data }) => {
 
-
+    const navigate = useNavigate()
     CircularProgressWithLabel.propTypes = {
         /**
          * The value of the progress indicator for the determinate variant.
@@ -23,6 +19,44 @@ const Detail = ({ data }) => {
          */
         value: PropTypes.number.isRequired,
     };
+
+    const RoomOffer = [
+        {
+            id: 1,
+            img: data?.hotelImages,
+            roomName: 'Budget Room',
+            roomRate: '1000',
+            facilities: 'NA'
+        },
+        {
+            id: 2,
+            img: data?.hotelImages,
+            roomName: 'Classic Room',
+            roomRate: '1000',
+            facilities: 'NA'
+        },
+        {
+            id: 3,
+            img: data?.hotelImages,
+            roomName: 'Deluxe Room',
+            roomRate: '1000',
+            facilities: 'NA'
+        },
+        {
+            id: 4,
+            img: data?.hotelImages,
+            roomName: 'Excutive Room',
+            roomRate: '1000',
+            facilities: 'NA'
+        },
+        {
+            id: 5,
+            img: data?.hotelImages,
+            roomName: 'Suit Room',
+            roomRate: '1000',
+            facilities: 'NA'
+        }
+    ]
 
     console.log(data)
     function CircularProgressWithLabel(props) {
@@ -56,34 +90,24 @@ const Detail = ({ data }) => {
     return (
         <div>
             <Grid container spacing={2}>
-                <Grid item xs={12} lg={8} xl={8} >
+                <Grid item xs={12} lg={8} xl={8} padding={1}>
                     <div className="p-2 ">
-                        <div className='d-flex align-items-center justify-content-around'>
-                            <h2><b>{data?.hotelName}</b></h2>
-                            <Chip color='success' label={` ${data?.hotelRatings} Rating`} />
-                        </div>
-                        <div>
-                            <hr />
-                            <h4 className='py-3 text-dark'>Description</h4>
-                            <Typography variant='p'>{data?.discription || 'NA'}</Typography>
-                        </div>
+                        <h4 className='py-3 text-dark'>Description</h4>
+                        <Typography variant='p'>{data?.discription || 'NA'}</Typography>
                     </div>
                     <hr />
                     <div className='px-2'>
-                        <h4 className='py-3 text-dark'>Amenities</h4>
-                        <div className="d-flex align-items-center justify-content-evenly">
+                        <h4 className='py-3 text-dark'>Amenities & Facilities</h4>
+                        <div className="d-flex align-items-center ">
+                            <img style={{ height: '250px', width: '250px' }} src={Welcome} alt="welcome" />
 
-                            <div>
-                                <ul>
-                                    <li className='p-2'><AcUnitIcon /> Air Conditioner Room</li>
-                                    <li className='p-2'><ConnectedTvIcon /> Smart TV Attached</li>
-                                    <li className='p-2'><NetworkWifiIcon /> Free WiFi</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <ul>
-                                    <li className='p-2'><CameraRearIcon /> Geyser</li>
-                                    <li className='p-2'><BathroomIcon /> Attached Bathroom</li>
+                            <div className=''>
+                                <ul className='d-flex'>
+                                    {data?.amenities.map((item, index) => {
+                                        return (
+                                            <li key={index} className='p-2'>{item}</li>
+                                        )
+                                    })}
                                 </ul>
                             </div>
                         </div>
@@ -91,47 +115,20 @@ const Detail = ({ data }) => {
                     <hr />
 
                 </Grid>
-                <Grid item xs={12} lg={4} xl={4} padding={1}>
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3178.414545560059!2d-3.717898024434202!3d37.19038204560858!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd71ff0676ddeaff%3A0xab7a2d29ef4f0546!2sHotel%20Casa%20del%20Trigo!5e0!3m2!1sen!2sin!4v1690436980354!5m2!1sen!2sin"
+                <Grid sx={{ display: 'grid', placeItems: 'center' }} item xs={12} lg={4} xl={4} padding={1}>
+                    <iframe src={data?.hotelMapLink}
                         height="450"
-                        className={`w-100 ${style.mapBox}`}
+                        className={`w-100 mt-2 ${style.mapBox}`}
                         style={{ borderRadius: '5px' }}
                         allowFullScreen=""
                         loading="lazy"
                         referrerPolicy="no-referrer-when-downgrade"
                     ></iframe>
                 </Grid>
-                <Grid item xs={12} lg={6} xl={6}>
-                    <Card sx={{ margin: 1 }}>
-                        <div className='p-2' style={{ background: 'linear-gradient(0deg, rgba(231,197,186,0.8688725490196079) 0%, rgba(255,255,255,0) 100%)', color: '#8d8d8d' }}>
-                            Your Chosen Room
-                        </div>
-                        <CardContent>
-                            <div className='d-flex justify-content-center align-items-center'>
-
-                            </div>
-
-                            <div className='d-flex align-items-center justify-content-between'>
-                                <img className='img-thumbnail' style={{ width: '200px' }} src="https://images.oyoroomscdn.com/uploads/hotel_image/109466/large/8f8433f482cb77d1.jpg" alt=".." />
-                                <div>
-                                    <div className="d-flex">
-                                        <h3>Delux Room</h3>
-                                        <FcApproval size={35} />
-                                    </div>
-                                    <h4>₹ 1000 <span className='text-secondary'><del>1500</del> off</span></h4>
-                                </div>
-                                <Button variant="contained" color='error'>
-                                    Book Now
-                                </Button>
-                            </div>
-                        </CardContent>
-                    </Card>
-                </Grid>
-                <Grid item xs={12} lg={6} xl={6}>
+                <Grid item xs={12} lg={12} xl={12}>
                     <Card sx={{ margin: 1 }}>
                         <div className='p-2 d-flex justify-content-between align-items-center' style={{ background: 'linear-gradient(0deg, rgba(231,197,186,0.8688725490196079) 0%, rgba(255,255,255,0) 100%)', color: '#8d8d8d' }}>
-                            Hotel Review & Rating
-                            <RatingC />
+                            <b>Hotel Review & Rating</b>
                         </div>
                         <CardContent>
                             <div className="d-flex justify-content-between align-items-center">
@@ -148,7 +145,7 @@ const Detail = ({ data }) => {
                                     <p>Comfort</p>
                                 </div>
 
-                                <Card sx={{ maxHeight: '134px', width: 200, p: 1 }} >
+                                <Card sx={{ maxHeight: '134px', width: 400, p: 1 }} >
                                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis maxime officiis error id nesciunt quos officia.
                                 </Card>
 
@@ -156,18 +153,73 @@ const Detail = ({ data }) => {
                         </CardContent>
                     </Card>
                 </Grid>
+                <Grid item xs={12} lg={12} xl={12}>
+                    <Card sx={{ margin: 1 }}>
+                        <div className='p-2' id='BookNow' style={{ background: 'linear-gradient(0deg, rgba(231,197,186,0.8688725490196079) 0%, rgba(255,255,255,0) 100%)', color: '#8d8d8d' }}>
+                            <b>Select Your Room</b>
+                        </div>
+                        {
+                            RoomOffer.map((item, index) => {
+                                return (
+                                    <CardContent>
+
+                                        <div className='d-flex align-items-center justify-content-between'>
+                                            <div>
+                                                <small>{item.id}</small>
+                                            </div>
+                                            <hr style={{ height: '150px', width: '2px', color: '#ee2e24' }} />
+                                            <div>
+                                                <div className='d-flex align-items-center'>
+                                                    <Typography variant='h6'>{item.roomName}</Typography>
+                                                    <FcApproval size={35} />
+                                                </div>
+                                                <div style={{ color: '#28a745' }}>
+                                                    <Typography variant='p' display={'block'}>Air conditioning</Typography>
+                                                    <Typography variant='p' display={'block'}>Flat-screen TV</Typography>
+                                                    <Typography variant='p' display={'block'}>Attached bathroom</Typography>
+                                                </div>
+                                            </div>
+                                            <hr style={{ height: '150px', width: '2px', color: '#ee2e24' }} />
+                                            <div>
+                                                <h4>₹ {item.roomRate} <span className='text-secondary'><del>1500</del> off</span></h4>
+                                                <p>+₹ 2,112 taxes and charges</p>
+                                            </div>
+                                            <hr style={{ height: '150px', width: '2px', color: '#ee2e24' }} />
+                                            <div>
+                                                <div className="d-flex">
+                                                    <p>{item.facilities}</p>
+                                                </div>
+                                            </div>
+                                            <hr style={{ height: '150px', width: '2px', color: '#ee2e24' }} />
+                                            <div className='text-center'>
+                                                <Button onClick={() => navigate("/booking")} variant="contained" color='error'>
+                                                    Book Now
+                                                </Button>
+                                            </div>
+                                        </div>
+                                        <hr />
+                                    </CardContent>
+                                )
+                            })
+                        }
+                    </Card>
+
+                </Grid>
+
 
                 <Grid item xs={12} lg={12} xl={12} padding={1} >
-                    <hr />
                     <div className='p-2'>
-                        <h4 className='py-3 text-dark'>Travellers are asking</h4>
-                        <Accordion>
+                        <div className='p-2' style={{ background: 'linear-gradient(0deg, rgba(231,197,186,0.8688725490196079) 0%, rgba(255,255,255,0) 100%)', color: '#000000' }}>
+                            <h6>Travellers are asking</h6>
+                        </div>
+                        <Accordion className='mt-1'>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel1a-content"
                                 id="panel1a-header"
+                                sx={{ background: '#ff0200', borderRadius: '5px' }}
                             >
-                                <Typography>Is there a swimming pool</Typography>
+                                <Typography color={'#fff'}>Is there a swimming pool</Typography>
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Typography>
@@ -175,13 +227,14 @@ const Detail = ({ data }) => {
                                 </Typography>
                             </AccordionDetails>
                         </Accordion>
-                        <Accordion>
+                        <Accordion className='mt-1'>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel2a-content"
                                 id="panel2a-header"
+                                sx={{ background: '#ff0200', borderRadius: '5px' }}
                             >
-                                <Typography>Do they serve breakfast</Typography>
+                                <Typography color={'#fff'} >Do they serve breakfast</Typography>
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Typography>
@@ -195,14 +248,17 @@ const Detail = ({ data }) => {
                 <Grid item xs={12} lg={12} xl={12} padding={1} >
                     <hr />
                     <div className='p-2'>
-                        <h4 className='py-3 text-dark'>Our Rules</h4>
-                        <Accordion>
+                        <div className='p-2' style={{ background: 'linear-gradient(0deg, rgba(231,197,186,0.8688725490196079) 0%, rgba(255,255,255,0) 100%)', color: '#000000' }}>
+                            <h6>Our Rules</h6>
+                        </div>
+                        <Accordion className='mt-1'>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel1a-content"
                                 id="panel1a-header"
+                                sx={{ background: '#ff0200', borderRadius: '5px' }}
                             >
-                                <Typography>Check-in Time</Typography>
+                                <Typography color={'#fff'}>Check-in Time</Typography>
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Typography>
@@ -210,13 +266,14 @@ const Detail = ({ data }) => {
                                 </Typography>
                             </AccordionDetails>
                         </Accordion>
-                        <Accordion>
+                        <Accordion className='mt-1'>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel2a-content"
                                 id="panel2a-header"
+                                sx={{ background: '#ff0200', borderRadius: '5px' }}
                             >
-                                <Typography>Check-out Time</Typography>
+                                <Typography color={'#fff'}>Check-out Time</Typography>
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Typography>
@@ -224,13 +281,14 @@ const Detail = ({ data }) => {
                                 </Typography>
                             </AccordionDetails>
                         </Accordion>
-                        <Accordion>
+                        <Accordion className='mt-1'>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel2a-content"
                                 id="panel2a-header"
+                                sx={{ background: '#ff0200', borderRadius: '5px' }}
                             >
-                                <Typography>Cancellation/prepayment</Typography>
+                                <Typography color={'#fff'}>Cancellation/prepayment</Typography>
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Typography>
@@ -242,7 +300,7 @@ const Detail = ({ data }) => {
 
                 </Grid>
             </Grid>
-        </div>
+        </div >
     );
 };
 

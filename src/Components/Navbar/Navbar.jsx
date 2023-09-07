@@ -36,7 +36,30 @@ import { Col, Row } from "react-bootstrap";
 import { useAuthContext } from "../../context/userAuthContext";
 
 const Navbar = ({ list }) => {
-  // Get Logged In User
+  // Locatio Asked function
+
+  const [userLocation, setUserLocation] = useState(null);
+
+  useEffect(() => {
+    // Check if the browser supports geolocation
+    if ('geolocation' in navigator) {
+      // Ask for the user's location
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          // Store the user's location in state
+          setUserLocation({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+        },
+        (error) => {
+          console.error('Error getting location:', error);
+        }
+      );
+    } else {
+      console.log('Geolocation is not available in this browser.');
+    }
+  }, []);
 
   // Popover Material UI Code
   const [anchorEl, setAnchorEl] = useState(null);
@@ -249,7 +272,7 @@ const Navbar = ({ list }) => {
                 className={style.main_nav}
               >
                 <Row className="m-0 p-0">
-                <marquee style={{ color: '#fff', fontWeight: '900', background:'#ff0000' }} behavior="alternate" direction="left"><b>Get 999 INR instantly Credit in your account. Also become eligible for refer and earn.</b></marquee>
+                  <marquee style={{ color: '#fff', fontWeight: '900', background: '#ff0000' }} behavior="alternate" direction="left"><b>Get 999 INR instantly Credit in your account. Also become eligible for refer and earn.</b></marquee>
                   <Col md={2} lg={12} xl={2}>
                     <Link to="/" className={`${style.logo} ms-4`}>
                       <img alt="logo" src={HotelioLogo} />
@@ -498,12 +521,12 @@ const Navbar = ({ list }) => {
                       <span>Menu</span>
                     </a>
                   </Col>
-                 
+
                 </Row>
                 <div
                   className={`py-2 text-white text-center ${style.navRemove}`}
                 >
-                  <CitywiseDropedown />
+                  <CitywiseDropedown CityWiseCityList={citites} />
                 </div>
               </nav>
             </div>

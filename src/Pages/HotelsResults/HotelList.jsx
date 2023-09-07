@@ -139,7 +139,7 @@ const HotelList = ({ hotels, location }) => {
                   <div className={` ${style.mobflex}`}>
                     <div className={`p-2 ${style.BookingCardColor}`}>
                       <Button
-                        onClick={() => navigate("/booking")}
+                        onClick={() => navigate(`/searchedhotel/${items._id}`)}
                         variant="contained"
                         sx={{ borderRadius: 5 }}
                         color="error"

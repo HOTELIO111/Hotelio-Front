@@ -7,8 +7,8 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Button } from '@mui/material';
 
 const responsive = {
-    0: { items: 1 },
-    568: { items: 2 },
+    0: { items: 3 },
+    568: { items: 3 },
     1024: { items: 3 },
 };
 
@@ -25,31 +25,31 @@ const HotelCover = ({ data }) => {
     let carousel = null;
 
     return (
-        <div className='py-2'>
+        <div className='py-2 d-none d-sm-block'>
             {/* Previous button */}
-            <Button variant="text" className={` ${style.previousButton}`} onClick={slidePrev}><ArrowBackIosIcon /></Button>
+            {/* <Button variant="text" className={` ${style.previousButton}`} onClick={slidePrev}><ArrowBackIosIcon /></Button> */}
 
             {/* AliceCarousel component */}
             <AliceCarousel
                 mouseTracking
-                // autoPlay
+                autoPlay
                 infinite
                 items={data?.hotelImages.map((item, index) => {
                     return (
-                        <div style={{ marginTop: '80px' }} className="item mx-1" data-value={index}>
-                            <img style={{ height: '250px' }} className='img-fluid rounded' src={item} alt="hotelimg" />
+                        <div className="item mx-1" data-value={index}>
+                            <img style={{ height: '200px', width: '380px', border: '2px solid #ee2e24', borderRadius: '5px' }} src={item} alt="hotelimg" />
                         </div>
                     )
                 })}
-                paddingLeft={50}
-                paddingRight={50}
+                paddingLeft={550} // Adjust the value to increase/decrease left spacing
+                paddingRight={550} // Adjust the value to increase/decrease right spacing
                 responsive={responsive}
                 disableButtonsControls // Disable the left and right navigation icons
                 ref={(el) => (carousel = el)} // Save reference to the carousel
             />
 
             {/* Next button */}
-            <Button variant="text" className={` ${style.NextButton}`} onClick={slideNext}><ArrowForwardIosIcon /></Button>
+            {/* <Button variant="text" className={` ${style.NextButton}`} onClick={slideNext}><ArrowForwardIosIcon /></Button> */}
         </div>
     );
 }
