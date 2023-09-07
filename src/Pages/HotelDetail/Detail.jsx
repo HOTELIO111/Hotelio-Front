@@ -7,6 +7,14 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PropTypes from 'prop-types';
 import Welcome from '../../images/Welcome.png'
 import { useNavigate } from 'react-router-dom';
+import AcUnitIcon from '@mui/icons-material/AcUnit';
+import ConnectedTvIcon from '@mui/icons-material/ConnectedTv';
+import NetworkWifiIcon from '@mui/icons-material/NetworkWifi';
+import CameraRearIcon from '@mui/icons-material/CameraRear';
+import BathroomIcon from '@mui/icons-material/Bathroom';
+import LocalParkingIcon from '@mui/icons-material/LocalParking';
+import FoodBankIcon from '@mui/icons-material/FoodBank';
+import PlusOneIcon from '@mui/icons-material/PlusOne';
 
 const Detail = ({ data }) => {
 
@@ -58,7 +66,6 @@ const Detail = ({ data }) => {
         }
     ]
 
-    console.log(data)
     function CircularProgressWithLabel(props) {
         return (
             <Box sx={{ position: 'relative', display: 'inline-flex' }}>
@@ -85,7 +92,7 @@ const Detail = ({ data }) => {
         );
     }
 
-
+    console.log(data)
 
     return (
         <div>
@@ -105,7 +112,13 @@ const Detail = ({ data }) => {
                                 <ul className='d-flex'>
                                     {data?.amenities.map((item, index) => {
                                         return (
-                                            <li key={index} className='p-2'>{item}</li>
+                                            <li key={index} className='p-2'>{
+                                                item === 'WiFi' ? <><NetworkWifiIcon /> {item}</>
+                                                    : item === 'Parking' ? <><LocalParkingIcon /> {item}</>
+                                                        : item === 'Restaurant' ? <><FoodBankIcon /> {item}</>
+                                                            : item === 'more' ? <><PlusOneIcon /> {item}</> : 'NA'
+                                            }
+                                            </li>
                                         )
                                     })}
                                 </ul>
