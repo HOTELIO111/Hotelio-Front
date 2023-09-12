@@ -17,11 +17,6 @@ import PasswordUpdateModal from "./PasswordUpdateModal";
 import moment from "moment/moment";
 
 const Profile = () => {
-  // Update the user details
-  const [currentUser, setCurrentUser] = useState(
-    JSON.parse(sessionStorage.getItem("customer"))
-  );
-
   // State variables
   const [profiledetailUpdate, setprofiledetailUpdate] = useState(false);
   const [updateEmail, setUpdateEmail] = useState(false);
@@ -35,7 +30,8 @@ const Profile = () => {
   // Password update modal handlers
   const handlePasswordUpdateOpen = () => setPasswordUpdateOpen(true);
 
-  const { sendOtp, otpResp, Loader, setLoader } = useAuthContext();
+  const { sendOtp, otpResp, Loader, setLoader, currentUser, setCurrentUser } =
+    useAuthContext();
 
   const sendNewOtp = (number) => {
     sendOtp(number).then(() => {
@@ -95,7 +91,7 @@ const Profile = () => {
     navigate("/");
   };
 
-  const [link, setLink] = useState('https://www.hoteliorooms.com/');
+  const [link, setLink] = useState("https://www.hoteliorooms.com/");
   const [isCopied, setIsCopied] = useState(false);
 
   const copyToClipboard = () => {
@@ -224,7 +220,9 @@ const Profile = () => {
               <div className="d-flex pb-1">
                 <div>
                   <span style={{ color: "#ee2e24" }}>Birthday</span>
-                  <h5>{moment(currentUser?.birthday).format("DD-MMMM-YYYY")}</h5>
+                  <h5>
+                    {moment(currentUser?.birthday).format("DD-MMMM-YYYY")}
+                  </h5>
                 </div>
               </div>
               <hr />
@@ -253,7 +251,7 @@ const Profile = () => {
                   <TextField
                     type="password"
                     margin="normal"
-                    value={currentUser ? currentUser.password : null}
+                    value={currentUser ? currentUser.password : ""}
                     id="standard-basic"
                     label="Password"
                     variant="outlined"
@@ -268,9 +266,9 @@ const Profile = () => {
                     // onClick={() => sendOtpToNumber()}
                     onClick={() => {
                       sendNewOtp(
-                        currentUser.mobileNo !== undefined
-                          ? currentUser.mobileNo
-                          : currentUser.email
+                        currentUser?.mobileNo
+                          ? currentUser?.mobileNo
+                          : currentUser?.email
                       );
                     }}
                   >
@@ -306,37 +304,54 @@ const Profile = () => {
             updateEmail={updateEmail}
           />
         </Grid>
-        <Grid item xs={12} md={12} lg={8} xl={8} className="d-none d-sm-block" >
-          <div style={{ marginBottom: "0.5rem", display: 'flex' }}
+        <Grid item xs={12} md={12} lg={8} xl={8} className="d-none d-sm-block">
+          <div
+            style={{ marginBottom: "0.5rem", display: "flex" }}
             className={` ${style.box}`}
           >
-            <Card className="p-2" style={{ maxWidth: '400px' }} >
-              <Typography variant="h5">Get 999 INR instantly Credit in your account. Also become eligible  for refer and earn.</Typography>
+            <Card className="p-2" style={{ maxWidth: "400px" }}>
+              <Typography variant="h5">
+                Get 999 INR instantly Credit in your account. Also become
+                eligible for refer and earn.
+              </Typography>
               {/* <input
                 type="text"
                 value={link}
                 onChange={(e) => setLink(e.target.value)}
               /> */}
               <Button onClick={copyToClipboard} className="mt-2">
-                {isCopied ? 'Copied!' : 'Refer Copy Link'}
+                {isCopied ? "Copied!" : "Refer Copy Link"}
               </Button>
             </Card>
             <Card sx={{ ml: 2 }} className="p-2">
               <Typography variant="h5">My Hotelio Wallet</Typography>
-              <hr style={{ marginTop: '0px' }} />
+              <hr style={{ marginTop: "0px" }} />
               <div className="d-flex align-items-center">
-                <Typography fontWeight={700} variant="p">My Hotelio Wallet :</Typography>
-                <Typography sx={{ pl: 2.5 }} variant="h6">₹ 999</Typography>
+                <Typography fontWeight={700} variant="p">
+                  My Hotelio Wallet :
+                </Typography>
+                <Typography sx={{ pl: 2.5 }} variant="h6">
+                  ₹ 999
+                </Typography>
               </div>
-              <hr style={{ marginTop: '0px' }} />
+              <hr style={{ marginTop: "0px" }} />
               <div className="d-flex align-items-center">
-                <Typography fontWeight={700} variant="p">Expires :</Typography>
-                <Typography sx={{ pl: 2.5 }} variant="h6"> 31 Sep, 2023</Typography>
+                <Typography fontWeight={700} variant="p">
+                  Expires :
+                </Typography>
+                <Typography sx={{ pl: 2.5 }} variant="h6">
+                  {" "}
+                  31 Sep, 2023
+                </Typography>
               </div>
-              <hr style={{ marginTop: '0px' }} />
+              <hr style={{ marginTop: "0px" }} />
               <div className="d-flex align-items-center">
-                <Typography fontWeight={700} variant="p">Usable :</Typography>
-                <Typography sx={{ pl: 2.5 }} variant="h6">₹ 100 each spent on every booking</Typography>
+                <Typography fontWeight={700} variant="p">
+                  Usable :
+                </Typography>
+                <Typography sx={{ pl: 2.5 }} variant="h6">
+                  ₹ 100 each spent on every booking
+                </Typography>
               </div>
             </Card>
           </div>

@@ -16,9 +16,12 @@ import { WaitLoader } from "../../Components/Elements/WaitLoader";
 import { API_URL } from "../../config";
 import NetworkWifi3BarRoundedIcon from "@mui/icons-material/NetworkWifi3BarRounded";
 import HotelListBack from "../../images/HotelListBack.jpg";
+import { useAuthContext } from "../../context/userAuthContext";
 
 const HotelList = ({ hotels, location }) => {
   const navigate = useNavigate();
+
+  const { facilities, roomType, amenities } = useAuthContext();
 
   // State to keep track of the selected rating filter
   const [selectedRatingFilter, setSelectedRatingFilter] = React.useState("4");
@@ -69,7 +72,6 @@ const HotelList = ({ hotels, location }) => {
           </div>
         </Grid>
       </Grid>
-      {console.log(hotels)}
       {hotels.map((items, index) => (
         <>
           <Card fluid sx={{ p: 1, my: 1, borderRadius: 4 }}>
@@ -102,18 +104,20 @@ const HotelList = ({ hotels, location }) => {
                   </p>
                   <h6>{items.zipCode}</h6>
                   <div>
-                    {items.amenities.map((item, index) => (
-                      <Chip
-                        key={index}
-                        label={item}
-                        sx={{
-                          mr: 1,
-                          mb: 1,
-                          background: "#6b0000",
-                          color: "#ffd700",
-                        }}
-                      />
-                    ))}
+                    {amenities
+                      ?.filter((x) => items.amenities?.includes(x._id))
+                      ?.map((item, index) => (
+                        <Chip
+                          key={index}
+                          label={item.amenity}
+                          sx={{
+                            mr: 1,
+                            mb: 1,
+                            background: "#6b0000",
+                            color: "#ffd700",
+                          }}
+                        />
+                      ))}
                   </div>
                   <div className="d-flex align-items-center">
                     <Rating

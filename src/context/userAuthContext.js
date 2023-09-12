@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { createContext } from "react";
 import { buildQueryString, validateInput } from "../Utilis/_fuctions";
@@ -16,6 +16,12 @@ const AuthProvider = ({ children }) => {
     const [isUser, setIsUser] = useState()
 
     const [Loader, setLoader] = useState(false);
+
+    // all amenities
+    const [amenities, setAmenities] = useState([])
+
+    const [facilities, setFacilities] = useState([])
+    const [roomType, setRoomType] = useState([])
 
     const [currentUser, setCurrentUser] = useState(
         JSON.parse(sessionStorage.getItem("customer"))
@@ -117,15 +123,11 @@ const AuthProvider = ({ children }) => {
             format: "otp",
         };
         const queryString = buildQueryString(formd);
+        console.log(number, queryString)
         try {
             let response;
-            if (isInput === "mobile") {
-                response = await axios.get(API_URL + "/verify/mobile/" + number, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
+            if (isInput === "mobileNo") {
+                response = await axios.get(API_URL + "/verify/mobile/" + number);
             } else if (isInput === "email") {
                 response = await axios.get(API_URL + "/verify/email?" + queryString, {
                     headers: {
@@ -155,6 +157,7 @@ const AuthProvider = ({ children }) => {
                 });
             }
         } catch (error) {
+            console.log(error)
             Swal.fire({
                 title: "Otp Send Failed ! Try Again",
                 icon: "error",
@@ -165,9 +168,71 @@ const AuthProvider = ({ children }) => {
 
 
 
+    // Get All Amenities 
+    const GetAllAmenities = async () => {
+        try {
+            const response = await axios.get(`${API_URL}/amenity/get`)
+            if (response.status === 200) {
+                setAmenities(response.data.data)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    // get all facilities
+    const GetAllFacilities = async () => {
+        try {
+            const response = await axios.get(`${API_URL}/facility/get`)
+            if (response.status === 200) {
+                setFacilities(response.data.data)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    // get all facilities
+    const GetAllRoomTypes = async () => {
+        try {
+            const response = await axios.get(`${API_URL}/roomtype/get`)
+            if (response.status === 200) {
+                setRoomType(response.data.data)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
 
-    return <AuthContext.Provider value={{ setIsUser, isUser, Loader, setLoader, setCurrentUser, currentUser, login, logOut, sendOtp, otpResp, AddEmailAndMobile }}>
+
+    useEffect(() => {
+        GetAllAmenities()
+        GetAllFacilities()
+        GetAllRoomTypes()
+    }, [])
+
+
+
+    return <AuthContext.Provider value={{
+        setIsUser,
+        isUser,
+        Loader,
+        setLoader,
+        setCurrentUser,
+        currentUser,
+        login,
+        logOut,
+        sendOtp,
+        otpResp,
+        AddEmailAndMobile,
+        GetAllAmenities,
+        GetAllRoomTypes,
+        GetAllFacilities,
+        facilities,
+        roomType,
+        amenities
+    }}>
         {children}
     </AuthContext.Provider>
 }
