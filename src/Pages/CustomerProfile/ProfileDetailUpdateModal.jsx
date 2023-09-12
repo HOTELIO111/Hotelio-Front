@@ -15,6 +15,9 @@ import React, { useEffect, useState } from "react";
 import { API_URL } from "../../config";
 import { useAuthContext } from "../../context/userAuthContext";
 import Swal from "sweetalert2";
+import { WaitLoader } from "../../Components/Elements/WaitLoader";
+import { render } from "@testing-library/react";
+import { useNavigate } from "react-router-dom";
 
 const ProfileDetailUpdateModal = ({
   profiledetailUpdate,
@@ -45,6 +48,7 @@ const ProfileDetailUpdateModal = ({
   const [formData, setFormData] = useState({});
 
   const [loader, setLoader] = useState(false);
+  const navigate = useNavigate();
 
   const { setCurrentUser } = useAuthContext();
 
@@ -54,12 +58,6 @@ const ProfileDetailUpdateModal = ({
       ...prevData,
       [name]: value,
     }));
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log("Form Data:", formData); // Log the form data
-    // You can add logic to handle form submission here
   };
 
   const styleo = {
@@ -98,6 +96,11 @@ const ProfileDetailUpdateModal = ({
         setLoader(false);
         sessionStorage.setItem("customer", JSON.stringify(response.data.data));
         setCurrentUser(response.data.data);
+        Swal.fire({
+          text: "Updated Successfully",
+          icon: "success",
+        });
+
         handelDetailUpdate();
       }
     } catch (error) {
@@ -135,6 +138,7 @@ const ProfileDetailUpdateModal = ({
       >
         <Fade in={profiledetailUpdate}>
           <Box component="form" sx={styleo}>
+            <WaitLoader loading={loader} />
             {/* Loader */}
             <form>
               <Grid container spacing={2}>
