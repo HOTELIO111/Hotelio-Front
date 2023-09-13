@@ -27,8 +27,12 @@ import AboutMob from "./Pages/MobilePages/AboutMob";
 import ContactUsMob from "./Pages/MobilePages/ContactUsMob";
 import Booking from "./Pages/Booking/Booking";
 import Refund from "./Pages/Refund/Refund";
+import SuccessPage from "./Pages/TransectionPage/SuccessPage";
+import FailedPage from "./Pages/TransectionPage/FailedPage";
+import { useAuthContext } from "./context/userAuthContext";
 
 function App() {
+  const { currentUser } = useAuthContext();
   return (
     <>
       <Routes>
@@ -53,12 +57,14 @@ function App() {
         <Route path="/About_Us" element={<AboutMob />} />
         <Route path="/Contact_Us" element={<ContactUsMob />} />
         <Route path="/about" element={<About />} />
-        <Route path='/CustomerNameProfile' element={<CustomerPro />} />
+        <Route path={`/Customer${currentUser.name}Profile`} element={<CustomerPro />} />
         <Route path='/searchedhotels' element={<HotelResults />} />
         <Route path='/searchedhotel/:id' element={<HotelDetail />} />
         <Route path='/hoteliomember' element={<Member />} />
         <Route path='/JoinOurNetwork' element={<JoinOurNetwork />} />
         <Route path='/Refund' element={<Refund />} />
+        <Route path='/Payment_success' element={<SuccessPage />} />
+        <Route path='/Payment_failed' element={<FailedPage />} />
 
         {/* Mobile pages */}
 

@@ -465,7 +465,7 @@ const Navbar = ({ list }) => {
                                 disableRipple
                                 sx={{ textAlign: 'center' }}
                               >
-                                <NavLink className='text-dark' to={"/CustomerNameProfile"}>
+                                <NavLink className='text-dark' to={`/Customer${currentUser.name}Profile`}>
                                   My Profile
                                 </NavLink>
                               </MenuItem>
