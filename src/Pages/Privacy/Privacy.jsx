@@ -22,7 +22,7 @@ const Privacy = () => {
                 </p>
 
             </div>
-            <div className='container'>
+            {/* <div className='container'>
                 <h5 className='py-3'><b>Information about Hotelio</b></h5>
                 <p className='py-2'>
                     In this privacy notice, references to “Hotelio”, “HotelioRooms”, "we" or "us" or “our” are to Oravel Stays Singapore Pte. Limited (a company incorporated under the laws of Singapore) and its parent company and its subsidiaries (the “Hotelio Group”).
@@ -30,7 +30,7 @@ const Privacy = () => {
                     Depending on where and how you interact with us (e.g. by using our app or by walking into one of our Hotelio-branded accommodations or booking an Hotelio-branded accommodation via a third party travel agency) different companies within Hotelio will process your information. You can find out more about the Hotelio companies that handle your information, including which company makes decisions about how your information is handled, by contacting us.
                 </p>
 
-            </div>
+            </div> */}
             <Footer />
         </div>
     );
