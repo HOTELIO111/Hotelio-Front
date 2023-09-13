@@ -57,7 +57,7 @@ function App() {
         <Route path="/About_Us" element={<AboutMob />} />
         <Route path="/Contact_Us" element={<ContactUsMob />} />
         <Route path="/about" element={<About />} />
-        <Route path={`/Customer${currentUser.name}Profile`} element={<CustomerPro />} />
+        <Route path={`/Customer${currentUser?.name}Profile`} element={<CustomerPro />} />
         <Route path='/searchedhotels' element={<HotelResults />} />
         <Route path='/searchedhotel/:id' element={<HotelDetail />} />
         <Route path='/hoteliomember' element={<Member />} />
