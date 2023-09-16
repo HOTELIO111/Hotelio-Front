@@ -209,7 +209,7 @@ const Navbar = ({ list }) => {
     navigate("/");
   };
   useEffect(() => {
-    if (currentUser !== {}) {
+    if (currentUser) {
       setIsLoggedIn(true);
     }
   }, [currentUser]);
@@ -255,8 +255,8 @@ const Navbar = ({ list }) => {
   };
 
   return (
-    <div className="w-100">
-      <header
+    <div className="">
+            <header
         className={`${style.header_area}  ${style.header_sticky} ${style.wow} ${style.slideInDown
           } ${!list ? "bg-light position-static border-bottom" : ""}`}
         data-wow-duration="0.75s"
@@ -271,18 +271,16 @@ const Navbar = ({ list }) => {
                 }}
                 className={style.main_nav}
               >
-                <Row className="m-0 p-0">
+                <div className="row">
                   <marquee style={{ color: '#fff', fontWeight: '900', background: '#ff0000' }} behavior="alternate" direction="left"><b>Get 999 INR instantly Credit in your account. Also become eligible for refer and earn.</b></marquee>
-                  <Col md={2} lg={12} xl={2}>
+                  <div className="col-md-2 col-lg-12 col-xl-2 p-0 m-0">
                     <Link to="/" className={`${style.logo} ms-4`}>
                       <img alt="logo" src={HotelioLogo} />
                     </Link>
-                  </Col>
-                  <Col
+                  </div>
+                  <div
                     style={isMobile ? MarginMobile : {}}
-                    md={12}
-                    lg={12}
-                    xl={10}
+                    className="col-md-12 col-lg-12 col-xl-10 p-0 m-0"
                   >
                     <ul className={style.nav}>
                       <li
@@ -520,9 +518,9 @@ const Navbar = ({ list }) => {
                     >
                       <span>Menu</span>
                     </a>
-                  </Col>
+                  </div>
 
-                </Row>
+                </div>
                 <div
                   className={`py-2 text-white text-center ${style.navRemove}`}
                 >
@@ -555,7 +553,6 @@ const Navbar = ({ list }) => {
                       </h4> */}
                   </div>
                 </div>
-                {/* {console.log(citites)} */}
                 <div className="col-lg-12 px-0">
                   <div className={` ${style.search_form}`}>
                     <div className="row position-relative">

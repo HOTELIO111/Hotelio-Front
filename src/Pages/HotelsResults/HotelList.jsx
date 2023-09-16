@@ -74,7 +74,7 @@ const HotelList = ({ hotels, location }) => {
       </Grid>
       {hotels.map((items, index) => (
         <>
-          <Card fluid sx={{ p: 1, my: 1, borderRadius: 4 }}>
+          <Card style={{ border: '2px solid #ee2e24' }} fluid sx={{ p: 1, my: 1, borderRadius: 4 }}>
             <Grid container>
               <Grid item xs={12} lg={3} xl={3}>
                 {/* <div className="w-100"> */}

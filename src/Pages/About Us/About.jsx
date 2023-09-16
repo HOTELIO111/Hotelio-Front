@@ -141,8 +141,7 @@ const About = () => {
             <div className="row">
               <div className="col-lg-12">
                 <div className={style.section_title}>
-                  <h1><u><b>Our Rooms</b></u></h1>
-                  <h2>Discover Our Room Types</h2>
+                  <h2>Discover Our Hotelio Categories</h2>
                 </div>
               </div>
             </div>
@@ -154,9 +153,9 @@ const About = () => {
                     style={{ backgroundImage: `url(${Hotel21})` }}
                   >
                     <div className={style.hr_text}>
-                      <h3 className="fw-bold fs-3">Single Room</h3>
-                      <h2 className="fs-4 ">
-                        199$<span>/Pernight</span>
+                      <h3 className="fw-bold fs-3">Hotelio Premium</h3>
+                      <h2 style={{ color: '#ee2e24' }} className="fs-4 ">
+                        1000₹<span>/Pernight</span>
                       </h2>
                       <table>
                         <tbody>
@@ -187,9 +186,9 @@ const About = () => {
                     style={{ backgroundImage: `url(${Hotel23})` }}
                   >
                     <div className={style.hr_text}>
-                      <h3 className="fw-bold fs-3">Twin Room</h3>
-                      <h2 className="fs-4">
-                        159$<span>/Pernight</span>
+                      <h3 className="fw-bold fs-3">Hotelio Home Stay</h3>
+                      <h2 style={{ color: '#ee2e24' }} className="fs-4">
+                        1590₹<span>/Pernight</span>
                       </h2>
                       <table>
                         <tbody>
@@ -220,9 +219,9 @@ const About = () => {
                     style={{ backgroundImage: `url(${Hotel25})` }}
                   >
                     <div className={style.hr_text}>
-                      <h3 className="fw-bold fs-3">Family Room</h3>
-                      <h2 className="fs-4">
-                        198$<span className="">/Pernight</span>
+                      <h3 className="fw-bold fs-3">Hotelio Budget</h3>
+                      <h2 style={{ color: '#ee2e24' }} className="fs-4">
+                        1980₹<span className="">/Pernight</span>
                       </h2>
                       <table>
                         <tbody>
@@ -315,8 +314,8 @@ const About = () => {
         <section className={`${style.aboutus_page_sectionOne} pt-4`}>
           <div className="container">
             <div className="row">
-              <div className="col-xl-5">
-                <img className="rounded-circle img-fluid" style={{ height: '500px' }} src={Client} alt="" />
+              <div className="col-xl-5 pb-4">
+                <img className="rounded-circle img-fluid" style={{ height: '500px' }} src={Client} alt="imgdata" />
               </div>
               <div className="col-xl-7 text-white" style={{ display: 'grid', placeItems: 'center' }}>
                 <h1><b>Our Founder</b></h1>
@@ -341,25 +340,25 @@ const About = () => {
           </div>
         </section>
 
-        <section className="p-0" >
-          <div className="container-fluid">
-            <div className="row" style={{ background: 'url(https://img.freepik.com/free-photo/woman-talking-with-hotel-receptionist-lobby_23-2149304051.jpg?w=900&t=st=1689250295~exp=1689250895~hmac=11307d5481c4db04b0d8d6ae392bcccc234f9ff37feb4c0aafac4746af640ff3)' }}>
-              <div className="col-xl-8 p-2 "
+        <section className="py-0" >
+          <div className="container">
+            <div className="row">
+              <div className="col-xl-12 p-3"
                 style={{
-                  display: 'grid', placeItems: 'center', clipPath: 'circle(133% at 0 51%)', background: `linear-gradient(37deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.4290966386554622) 100%),url(${DecorImage})`
+                  display: 'grid', placeItems: 'center', background: `linear-gradient(37deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.4290966386554622) 100%),url(${DecorImage})`
                 }}
               >
                 <h1><b>Our Vision</b></h1>
                 <ul>
                   <li>
-                    <b>Extensive Quality Assurance</b>: <p>Hotelio ensures standardized
+                    <h5><b>Extensive Quality Assurance :</b></h5> <p className="py-3">Hotelio ensures standardized
                       quality across accommodations by implementing a
                       stringent quality assurance program, verifying and rating
                       properties based on a set of predefined criteria to ensure
                       consistent and satisfactory experiences for travelers.</p>
                   </li>
                   <li>
-                    <b>Transparent Pricing</b>: <p>Hotelio provides transparent pricing
+                    <h5><b>Transparent Pricing :</b></h5> <p className="py-3">Hotelio provides transparent pricing
                       information, displaying comprehensive details of rates, fees,
                       and any additional charges upfront. This allows travelers to
                       make informed decisions and find the best deals,
@@ -367,7 +366,7 @@ const About = () => {
                       process.</p>
                   </li>
                   <li>
-                    <b>Increased Availability and Options</b>: <p>Hotelio actively expands
+                    <h5><b>Increased Availability and Options :</b></h5> <p className="py-3">Hotelio actively expands
                       its network of accommodations, forging partnerships with a
                       diverse range of properties to ensure availability and
                       options even during peak seasons. By offering a wide
@@ -375,9 +374,6 @@ const About = () => {
                       accommodations that meet their preferences and needs</p>
                   </li>
                 </ul>
-              </div>
-              <div className="col-xl-4">
-                {/* <img className="w-100 rounded" style={{ height: '500px' }} src="https://i.pinimg.com/736x/a7/96/98/a79698e6e8d74213650194e941b155df.jpg" alt="" /> */}
               </div>
             </div>
           </div>

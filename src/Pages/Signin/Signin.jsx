@@ -213,18 +213,17 @@ const Signin = () => {
   };
 
   return (
-    <Container fixed style={{ height: "100vh", background: "#fffffc" }}>
+    <Container style={{ background: "#fffffc" }}>
       <Grid container spacing={2}>
-        <Grid className="d-none d-sm-block" item xs={12} md={12} lg={7} xl={7}>
+        <Grid sx={{ display: 'grid', placeItems: 'center' }} className="d-none d-sm-block" item xs={12} md={12} lg={7} xl={7}>
           <img
             src={LoginMoto}
             alt="Main"
-            style={{ padding: "15px", marginTop: "20px" }}
+            style={{ padding: "15px" }}
           />
         </Grid>
         <Grid item xs={12} md={12} lg={5} xl={5}>
           <StepsForm />
-
           <div className="d-md-block d-lg-none d-xl-none">
             <MobileFooter />
           </div>

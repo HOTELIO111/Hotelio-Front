@@ -2,7 +2,7 @@ import { useState } from "react";
 import style from "./Profile.module.css";
 import Button from "@mui/material/Button";
 import List from "../../Components/YourBookings/List";
-import { Card, CardContent, Grid, TextField, Typography } from "@mui/material";
+import { Card, Grid, TextField, Typography } from "@mui/material";
 import Swal from "sweetalert2";
 import VerifiedRoundedIcon from "@mui/icons-material/VerifiedRounded";
 import MobileFriendlyIcon from "@mui/icons-material/MobileFriendly";
@@ -15,6 +15,7 @@ import ProfileDetailUpdateModal from "./ProfileDetailUpdateModal";
 import AddEmailId from "./AddEmailId";
 import PasswordUpdateModal from "./PasswordUpdateModal";
 import moment from "moment/moment";
+import { isMobile } from "react-device-detect";
 
 const Profile = () => {
   // State variables
@@ -141,22 +142,22 @@ const Profile = () => {
               <div className="pb-2">
                 <div>
                   <span style={{ color: "#ee2e24" }}>Full Name</span>
-                  <h4>
+                  <h5>
                     <b>{currentUser ? currentUser.name : "Your Name"}</b>
-                  </h4>
+                  </h5>
                 </div>
               </div>
               <div className="d-flex justify-content-between pb-1">
                 <div>
                   <span style={{ color: "#ee2e24" }}>Gender</span>
-                  <h5>{currentUser?.gender}</h5>
+                  <h6>{currentUser?.gender}</h6>
                 </div>
                 <div>
                   <span style={{ color: "#ee2e24" }}>Marital Status</span>
-                  <h5>{currentUser?.maritialStatus}</h5>
+                  <h6>{currentUser?.maritialStatus}</h6>
                 </div>
               </div>
-              <hr />
+              <hr style={{ margin: '0.2rem 0rem' }} />
               <div className="d-flex align-items-center pb-1">
                 <div>
                   <span style={{ color: "#ee2e24" }}>Mobile No.</span>
@@ -187,7 +188,7 @@ const Profile = () => {
                   </div>
                 </div>
               </div>
-              <hr />
+              <hr style={{ margin: '0.2rem 0rem' }} />
               <div className="d-flex align-items-center pb-1">
                 <div>
                   <span style={{ color: "#ee2e24" }}>Email Id</span>
@@ -216,36 +217,36 @@ const Profile = () => {
                   </div>
                 </div>
               </div>
-              <hr style={{ marginTop: "0px" }} />
+              <hr style={{ margin: '0.2rem 0rem' }} />
               <div className="d-flex pb-1">
                 <div>
                   <span style={{ color: "#ee2e24" }}>Birthday</span>
-                  <h5>
+                  <h6>
                     {moment(currentUser?.birthday).format("DD-MMMM-YYYY")}
-                  </h5>
+                  </h6>
                 </div>
               </div>
-              <hr />
+              <hr style={{ margin: '0.2rem 0rem' }} />
               <div className="d-flex pb-2">
                 <div>
-                  <span style={{ color: "#ee2e24" }}>Your Adress</span>
-                  <h5>{currentUser?.address}</h5>
+                  <span style={{ color: "#ee2e24" }}>Your Address</span>
+                  <h6>{currentUser?.address}</h6>
                 </div>
               </div>
-              <hr />
+              <hr style={{ margin: '0.2rem 0rem' }} />
               <div className="d-flex justify-content-between pb-2">
                 <div>
                   <span style={{ color: "#ee2e24" }}>State</span>
-                  <h5>{currentUser?.state}</h5>
+                  <h6>{currentUser?.state}</h6>
                 </div>
                 <div>
                   <span style={{ color: "#ee2e24" }}>Pincode</span>
-                  <h5>{currentUser?.pinCode}</h5>
+                  <h6>{currentUser?.pinCode}</h6>
                 </div>
               </div>
-              <hr />
+              <hr style={{ margin: '0.2rem 0rem' }} />
               <div
-                className={`mt-1 d-flex justify-content-evenly align-items-center ${style.button}`}
+                className={`mt-1 ${isMobile ? 'text-center' : 'd-flex justify-content-evenly align-items-center'}  ${style.button}`}
               >
                 {currentUser ? (
                   <TextField
@@ -260,9 +261,8 @@ const Profile = () => {
                 <div>
                   <Button
                     color="error"
-                    variant="text"
+                    variant="contained"
                     className={` ${style.connect}`}
-                    type="button"
                     // onClick={() => sendOtpToNumber()}
                     onClick={() => {
                       sendNewOtp(
@@ -276,12 +276,11 @@ const Profile = () => {
                   </Button>
                 </div>
               </div>
-              <div className="p-2 ">
+              <div className="p-2 text-center">
                 <Button
-                  sx={{ color: "#ee2e24", border: " 1px solid #ee2e24" }}
+                  color="error"
                   onClick={HandleLogOutCustomer}
-                  fullWidth
-                  variant="outlined"
+                  variant="contained"
                 >
                   LogOut
                 </Button>

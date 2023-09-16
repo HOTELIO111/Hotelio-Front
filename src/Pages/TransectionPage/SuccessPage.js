@@ -9,7 +9,7 @@ const SuccessPage = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      window.location.href = `/Customer${currentUser.name}Profile`; // Replace with your target page URL
+      window.location.href = `/Customer${currentUser?.name}Profile`; // Replace with your target page URL
     }, 8000);
 
     return () => {

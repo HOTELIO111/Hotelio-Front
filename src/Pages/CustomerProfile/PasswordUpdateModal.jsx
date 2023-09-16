@@ -99,7 +99,7 @@ const PasswordUpdateModal = ({ passwordUpdateOpen, setPasswordUpdateOpen }) => {
         top: "50%",
         left: "50%",
         transform: "translate(-50%, -50%)",
-        width: 400,
+        width: '90%',
         bgcolor: "background.paper",
         border: "2px solid #fff",
         // filter: "drop-shadow(10px 8px 6px red)",
@@ -107,6 +107,10 @@ const PasswordUpdateModal = ({ passwordUpdateOpen, setPasswordUpdateOpen }) => {
         boxShadow: 24,
         p: 3,
     };
+
+    if (window.innerWidth >= 960) {
+        styleo.width = '50%';
+      }
 
     return (
         <div>

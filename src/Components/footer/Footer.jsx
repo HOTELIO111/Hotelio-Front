@@ -271,6 +271,7 @@ const Footer = () => {
               style={{ fontSize: "20px", display: 'grid', placeItems: 'center' }}
             >
               © 2023 Hotelio is owned by Houda Carjour Tourism Pvt Ltd
+              <small style={{color:'goldenrod'}}>Designed & Developed By Trickle Solutions</small>
             </div>
             <div
               className={`col-xl-3 col-md-12 col-12`}

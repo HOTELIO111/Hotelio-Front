@@ -18,7 +18,15 @@ const SideFilter = () => {
     const categoryData = [
         {
             id: 1,
-            categoryName: 'Hotelio Budgets'
+            categoryName: 'Hotelio Premium'
+        },
+        {
+            id: 2,
+            categoryName: 'Hotelio Home Stay'
+        },
+        {
+            id: 3,
+            categoryName: 'Hotelio Budget'
         }
     ];
 
@@ -81,7 +89,7 @@ const SideFilter = () => {
         { key: '8.5', value: 'Excellent' }
     ];
 
-    const roomTypes = ['Single', 'Delux', 'Family', 'Luxuary'];
+    const roomTypes = ['Budget Hotel', 'Classic Room', 'Deluxe Room', 'Premium Room'];
 
     const handleLocationChange = (event, newValue) => {
         if (newValue) {

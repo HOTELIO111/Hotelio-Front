@@ -5,7 +5,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import PersonIcon from '@mui/icons-material/Person';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Offcanvas } from 'react-bootstrap';
 import { Typography } from '@mui/material';
 import PhoneAndroidRoundedIcon from '@mui/icons-material/PhoneAndroidRounded';
@@ -24,7 +24,8 @@ export default function MobileFooter() {
 
 
     const [value, setValue] = React.useState(0);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const location = useLocation(); // Get the current location
 
     const [show, setShow] = useState(false);
 
@@ -65,10 +66,31 @@ export default function MobileFooter() {
             navigate("/");
         };
         useEffect(() => {
-            if (currentUser !== {}) {
+            if (currentUser) {
                 setIsLoggedIn(true);
             }
         }, [currentUser]);
+
+        useEffect(() => {
+            // Update the selected value (icon) based on the current route
+            switch (location.pathname) {
+                case '/':
+                    setValue(0);
+                    break;
+                case '/favourite':
+                    setValue(1);
+                    break;
+                case '/offer':
+                    setValue(2);
+                    break;
+                case '/account':
+                    setValue(3);
+                    break;
+                default:
+                    setValue(0); // Default to the first icon if the route doesn't match
+                    break;
+            }
+        }, [location.pathname]);
 
 
         return (
@@ -82,21 +104,21 @@ export default function MobileFooter() {
                         <img src={HotelioLogo} style={{ height: '150px', width: '180px' }} alt="logo" />
                     </div>
                     <ul>
-                        <li style={{ borderBottom: '1px solid #ee2e24' }} className='py-2'><a style={{ color: '#ee2e24' }} href={playStoreLink} target="_blank" rel="noopener noreferrer"><Typography variant='h6'><PhoneAndroidRoundedIcon sx={{ mr: 2 }} /> Download App </Typography></a></li>
+                        <li style={{ borderBottom: '1px solid #ee2e24' }} className='py-2'><a href={playStoreLink} target="_blank" rel="noopener noreferrer"><Typography color={'error'} variant='h6'><PhoneAndroidRoundedIcon sx={{ mr: 2 }} /> Download App </Typography></a></li>
                         {
                             currentUser ?
-                            <li style={{ color: '#ee2e24', borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate('/CustomerNameProfile')} ><PersonIcon sx={{ mr: 2 }} /> Profile</Typography></li> : null
+                                <li style={{ borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate(`/Customer${currentUser?.name}Profile`)} ><PersonIcon sx={{ mr: 2 }} /> Profile</Typography></li> : null
                         }
                         {
                             currentUser ?
-                            <li style={{ color: '#ee2e24', borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate('/YourBooking')} ><FeaturedPlayListIcon sx={{ mr: 2 }} /> My Booking</Typography></li> : null
+                                <li style={{ borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate('/YourBooking')} ><FeaturedPlayListIcon sx={{ mr: 2 }} /> My Booking</Typography></li> : null
                         }
-                        <li style={{ color: '#ee2e24', borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate('/About_Us')} ><InfoRoundedIcon sx={{ mr: 2 }} /> About Us</Typography></li>
-                        <li style={{ color: '#ee2e24', borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate('/Contact_Us')} ><PermPhoneMsgRoundedIcon sx={{ mr: 2 }} /> Contact Us</Typography></li>
-                        <li style={{ color: '#ee2e24', borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate('/favourite')} ><FavoriteIcon sx={{ mr: 2 }} /> favourite</Typography></li>
-                        <li style={{ color: '#ee2e24', borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate('/Privacy&policy')} ><PolicyIcon sx={{ mr: 2 }} /> Privacy & Policy</Typography></li>
-                        <li style={{ color: '#ee2e24', borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate('/Terms&condition')} ><VerifiedUserIcon sx={{ mr: 2 }} /> Terms & Condition</Typography></li>
-                        <li style={{ color: '#ee2e24', borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={handlePhoneCall} ><PhoneRoundedIcon sx={{ mr: 2 }} /> Call us</Typography></li>
+                        <li style={{ borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate('/About_Us')} ><InfoRoundedIcon sx={{ mr: 2 }} /> About Us</Typography></li>
+                        <li style={{ borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate('/Contact_Us')} ><PermPhoneMsgRoundedIcon sx={{ mr: 2 }} /> Contact Us</Typography></li>
+                        <li style={{ borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate('/favourite')} ><FavoriteIcon sx={{ mr: 2 }} /> favourite</Typography></li>
+                        <li style={{ borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate('/Privacy&policy')} ><PolicyIcon sx={{ mr: 2 }} /> Privacy & Policy</Typography></li>
+                        <li style={{ borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate('/Terms&condition')} ><VerifiedUserIcon sx={{ mr: 2 }} /> Terms & Condition</Typography></li>
+                        <li style={{ borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={handlePhoneCall} ><PhoneRoundedIcon sx={{ mr: 2 }} /> Call us</Typography></li>
                         {
                             currentUser ?
                                 <li style={{ color: '#ee2e24' }} className='py-2'>
@@ -110,7 +132,7 @@ export default function MobileFooter() {
                                     </Typography>
                                 </li>
                         }
-                        
+
                     </ul>
                 </Offcanvas.Body>
             </Offcanvas>
@@ -122,23 +144,35 @@ export default function MobileFooter() {
             <LeftNav handleShow={handleShow} show={show} handleClose={handleClose} />
             <BottomNavigation
                 showLabels
-
                 value={value}
                 onChange={(event, newValue) => {
-                    setValue(newValue);
+                    // Update the active route when the user clicks an icon
+                    switch (newValue) {
+                        case 0:
+                            navigate('/');
+                            break;
+                        case 1:
+                            navigate('/favourite');
+                            break;
+                        case 2:
+                            navigate('/offer');
+                            break;
+                        default:
+                            break;
+                    }
                 }}
                 sx={{
                     '.Mui-selected': {
-                        color: '#ee2e24 !important', // Replace with your desired color
-                        backgroundColor: 'transparent !important', // Optional: Set background color for active item
+                        color: '#ee2e24 !important', // Change the color for the selected icon
+                        backgroundColor: 'transparent !important',
                         fontSize: '0.75rem !important',
                     },
                 }}
             >
-                <BottomNavigationAction onClick={() => navigate('/')} sx={{ margin: '0px -8px !important' }} label="Home" icon={<HomeIcon sx={{color:'#ee2e24'}} />} />
-                <BottomNavigationAction onClick={() => navigate('/favourite')} sx={{ margin: '0px -8px !important' }} label="favourite" icon={<FavoriteIcon sx={{color:'#ee2e24'}} />} />
-                <BottomNavigationAction onClick={() => navigate('/offer')} label="Offer" sx={{ margin: '0px -8px !important' }} icon={<LocalOfferIcon sx={{color:'#ee2e24'}} />} />
-                <BottomNavigationAction onClick={handleShow} sx={{ margin: '0px -8px !important' }} label="Account" icon={<PersonIcon sx={{color:'#ee2e24'}} />} />
+                <BottomNavigationAction label="Home" icon={<HomeIcon sx={{ color: '#ee2e24' }} />} />
+                <BottomNavigationAction label="favourite" icon={<FavoriteIcon />} />
+                <BottomNavigationAction label="Offer" icon={<LocalOfferIcon />} />
+                <BottomNavigationAction  onClick={handleShow} label="Account" icon={<PersonIcon />} />
             </BottomNavigation>
         </div>
     );

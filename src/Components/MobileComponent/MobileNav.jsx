@@ -56,14 +56,15 @@ const MobileNav = () => {
                     style={{
                         background: `url(${MainBannerMob})`,
                         backgroundPosition: 'center',
-                        height: '30vh',
+                        height: '25vh',
                         width: '100%',
                         display: 'flex',
                         justifyContent: 'center',
-                        alignItems: 'center'
+                        color:'#000'
+                        // alignItems: 'center'
                     }}
                 >
-                    <h1 className='mb-5' ><b>Welcome To Hotelio Rooms</b></h1>
+                    <h1 className='mt-3' ><b>Welcome To Hotelio Rooms</b></h1>
                 </div>
                 <Grid container padding={1} spacing={2}>
                     <Grid item xs={12}>

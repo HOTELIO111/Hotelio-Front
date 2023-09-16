@@ -91,5 +91,11 @@ ion-icon:hover {
         width: 60px;
         height: 60px;
     }
+
+    .onMobileUpdate {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+    }
 }
 /* Responsiveness:End */

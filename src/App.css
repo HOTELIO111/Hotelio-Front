@@ -375,7 +375,7 @@ body {
 
 .row {
   --mdb-gutter-x: revert !important;
-  --bs-gutter-x: 1.5rem !important;
+  --bs-gutter-x: revert !important;
 }
 
 .css-58b16v {

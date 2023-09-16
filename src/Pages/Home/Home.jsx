@@ -14,7 +14,7 @@ import FirstTimePopup from "../FirstTimePopup/FirstTimePopup";
 
 const Home = (props) => {
   const isXtraSmallScreen = useMediaQuery("(max-width: 450px)");
-  
+
   useEffect(() => {
     const hasSeenPopup = localStorage.getItem('hasSeenPopup');
     if (!hasSeenPopup) {
@@ -30,12 +30,6 @@ const Home = (props) => {
       </div>
       <div
         className="d-none d-md-none d-sm-none d-lg-block d-xl-block"
-        style={{
-          // background: ` linear-gradient(0deg, rgba(186,221,231,0.8688725490196079) 0%, rgba(255,255,255,0) 100%), url(${FeaturedBanner})`,
-          backgroundPosition: "bottom",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-        }}
       >
         <Navbar list={true} />
         {/* <QuickFilterNav /> */}

@@ -282,7 +282,7 @@ const StepThree = () => {
 
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
-          <Card className='w-100 mb-1'>
+          <Card style={{ border: '2px solid #ee2e24' }} className='w-100 mb-1'>
             <CardContent>
               <Typography display={'flex'} alignItems={'center'} sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                 Hotel <Rating
@@ -309,7 +309,7 @@ const StepThree = () => {
               </Typography>
             </CardContent>
           </Card>
-          <Card className='w-100 mt-2 my-1'>
+          <Card style={{ border: '2px solid #ee2e24' }} className='w-100 mt-2 my-1'>
             <CardContent>
               <Typography color="text-dark" fontWeight={700}>
                 Your booking details
@@ -352,7 +352,7 @@ const StepThree = () => {
               </Grid>
             </CardContent>
           </Card>
-          <Card>
+          <Card style={{ border: '2px solid #ee2e24' }}>
             <CardContent>
               <Typography color="text-dark" fontWeight={700}>
                 Your price summary
