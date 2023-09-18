@@ -3,8 +3,7 @@ import { styled, alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowRightTwoToneIcon from '@mui/icons-material/ArrowRightTwoTone';
 
 const StyledMenu = styled(Menu)(({ theme }) => ({
     '& .MuiPaper-root': {
@@ -122,7 +121,7 @@ export default function CitywiseDropedown({ CityWiseCityList }) {
                         sx={{ color: '#fff' }}
                         disableElevation
                         onClick={handleClick}
-                        endIcon={<KeyboardArrowDownIcon />}
+                        endIcon={<ArrowRightTwoToneIcon />}
                     >
                         {item}
                     </Button>

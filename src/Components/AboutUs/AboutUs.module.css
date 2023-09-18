@@ -1,7 +1,7 @@
 .AboutUsContainerFirst {
     /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
     /* background: radial-gradient(circle, rgba(177,56,69,1) 0%, rgba(255,255,255,1) 100%); */
-background-color: #6b0000;
+    background-color: #ff0000;
     border-radius: 5px;
     overflow: hidden;
     /* clip-path: polygon(0 0, 100% 10%, 100% 85%, 0 100%); */
@@ -20,12 +20,12 @@ background-color: #6b0000;
 
 @media (max-width:786px) {
 
-    .AboutUsContainerFirst{
+    .AboutUsContainerFirst {
         clip-path: none;
     }
 
     .AboutUsContainerSecond {
         clip-path: none;
     }
-  
-  }
+
+}

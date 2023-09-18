@@ -26,6 +26,7 @@ import LocalParkingIcon from "@mui/icons-material/LocalParking";
 import FoodBankIcon from "@mui/icons-material/FoodBank";
 import PlusOneIcon from "@mui/icons-material/PlusOne";
 import { useAuthContext } from "../../context/userAuthContext";
+import { isMobile } from "react-device-detect";
 
 const Detail = ({ data }) => {
   const navigate = useNavigate();
@@ -195,7 +196,7 @@ const Detail = ({ data }) => {
             referrerPolicy="no-referrer-when-downgrade"
           ></iframe>
         </Grid>
-        <Grid item xs={12} lg={12} xl={12}>
+        {isMobile ? null : <Grid item xs={12} lg={12} xl={12}>
           <Card
             className="p-3"
             sx={{
@@ -253,7 +254,7 @@ const Detail = ({ data }) => {
               </div>
             </CardContent>
           </Card>
-        </Grid>
+        </Grid>}
         <Grid item xs={12} lg={12} xl={12}>
           <Card sx={{ margin: 1, border: '2px solid #ee2e24' }}>
             <div
@@ -272,18 +273,13 @@ const Detail = ({ data }) => {
               ?.map((item, index) => {
                 return (
                   <CardContent>
-                    <div className="d-flex align-items-center justify-content-between">
-                      <div>
-                        <small>1</small>
-                      </div>
-                      <hr
-                        style={{
-                          height: "150px",
-                          width: "2px",
-                          color: "#ee2e24",
-                        }}
-                      />
-                      <div>
+                    <Grid container spacing={1}>
+                      <Grid sx={isMobile ? null : { borderRight: '2px solid #ee2e24' }} item xs={2} md={4} lg={1} xl={1}>
+                        <div>
+                          <small>{index + 1}</small>
+                        </div>
+                      </Grid>
+                      <Grid sx={isMobile ? null : { borderRight: '2px solid #ee2e24' }} item xs={10} md={4} lg={3} xl={3}>
                         <div className="d-flex align-items-center">
                           <Typography variant="h6">{item.roomType}</Typography>
                           <FcApproval size={35} />
@@ -324,15 +320,8 @@ const Detail = ({ data }) => {
                             Attached bathroom
                           </Typography> */}
                         </div>
-                      </div>
-                      <hr
-                        style={{
-                          height: "150px",
-                          width: "2px",
-                          color: "#ee2e24",
-                        }}
-                      />
-                      <div>
+                      </Grid>
+                      <Grid sx={isMobile ? null : { borderRight: '2px solid #ee2e24' }} item xs={12} md={4} lg={3} xl={3}>
                         <h4>
                           ₹ {data?.rooms[index]?.price}{" "}
                           <span className="text-secondary">
@@ -340,36 +329,27 @@ const Detail = ({ data }) => {
                           </span>
                         </h4>
                         <p>+ 18% taxes and charges</p>
-                      </div>
-                      <hr
-                        style={{
-                          height: "150px",
-                          width: "2px",
-                          color: "#ee2e24",
-                        }}
-                      />
-                      <div>
-                        <div className="d-flex">
-                          <p>{item?.facilities || 'NA'}</p>
+                      </Grid>
+                      <Grid sx={isMobile ? null : { borderRight: '2px solid #ee2e24' }} item xs={12} md={4} lg={3} xl={3}>
+                        <div className="text-center">
+                          <div className="d-flex">
+                            <p>{item?.facilities || 'NA'}</p>
+                          </div>
                         </div>
-                      </div>
-                      <hr
-                        style={{
-                          height: "150px",
-                          width: "2px",
-                          color: "#ee2e24",
-                        }}
-                      />
-                      <div className="text-center">
-                        <Button
-                          onClick={() => navigate("/booking")}
-                          variant="contained"
-                          color="error"
-                        >
-                          Book Now
-                        </Button>
-                      </div>
-                    </div>
+                      </Grid>
+                      <Grid item xs={12} md={4} lg={2} xl={2}>
+                        <div className="text-center">
+                          <Button
+                            onClick={() => navigate("/booking")}
+                            variant="contained"
+                            color="error"
+                          >
+                            Book Now
+                          </Button>
+                        </div>
+                      </Grid>
+                    </Grid>
+                    <hr />
                   </CardContent>
                 );
               })}

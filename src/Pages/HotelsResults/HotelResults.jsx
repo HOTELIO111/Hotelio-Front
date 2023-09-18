@@ -9,6 +9,9 @@ import { API_URL } from "../../config";
 import { useEffect } from "react";
 import { useState } from "react";
 import BottomFilter from "./BottomFilter";
+import { isMobile } from "react-device-detect";
+import MobileHeader from "../../Components/MobileComponent/MobileHeader";
+import MobileFooter from "../../Components/MobileComponent/MobileFooter";
 
 const HotelResults = () => {
   const searchParams = new URLSearchParams(document.location.search);
@@ -37,9 +40,9 @@ const HotelResults = () => {
   }, []);
   return (
     <div>
-      <Navbar />
-      <Container sx={{ marginTop: 11 }} maxWidth="xl">
-        <Grid container mt={6} spacing={1}>
+      {isMobile ? <MobileHeader /> : <Navbar />}
+      <Container sx={isMobile ? { marginTop: 0 } : { marginTop: 11 }} maxWidth="xl">
+        <Grid container spacing={1}>
           <Grid item xl={2} lg={2} xs={12}>
             <SideFilter hotels={hotels} />
           </Grid>
@@ -54,7 +57,7 @@ const HotelResults = () => {
           </Grid>
         </Grid>
       </Container>
-      <Footer />
+      {isMobile ? <MobileFooter /> : <Footer />}
     </div>
   );
 };

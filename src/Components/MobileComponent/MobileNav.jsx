@@ -9,6 +9,7 @@ import MobileHeader from './MobileHeader';
 import MobileDate from './MobileDate';
 import { Offcanvas } from 'react-bootstrap';
 import MainBannerMob from '../../images/MainBannerMob.jpg'
+import { LoadingButton } from '@mui/lab';
 
 const MobileNav = () => {
 
@@ -60,7 +61,7 @@ const MobileNav = () => {
                         width: '100%',
                         display: 'flex',
                         justifyContent: 'center',
-                        color:'#000'
+                        color: '#000'
                         // alignItems: 'center'
                     }}
                 >
@@ -103,7 +104,7 @@ const MobileNav = () => {
                                                 </Grid>
 
                                                 <Grid item xs={12}>
-                                                    <button style={{ background: '#ee2e24', color: '#fff' }} >Search</button>
+                                                    <LoadingButton fullWidth href='/searchedhotels' style={{ background: '#ee2e24', color: '#fff' }} >Search</LoadingButton>
                                                 </Grid>
                                             </Grid>
                                             <Offcanvas show={show} style={{ borderRadius: ' 25px 25px 0px 0px', height: '40vh' }} placement='bottom' onHide={handleClose}>
@@ -154,15 +155,15 @@ const MobileNav = () => {
 
                             <Premiumcard />
 
-                            <h5 style={{borderRadius:'50px 0px 50px 0px'}} className='p-2 py-2 pl-4 text-white bg-danger'><b>Explore Locations</b></h5>
+                            <h5 style={{ borderRadius: '50px 0px 50px 0px' }} className='p-2 py-2 pl-4 text-white bg-danger'><b>Explore Locations</b></h5>
 
                             <MobileDestination />
 
-                            <h5 style={{borderRadius:'50px 0px 50px 0px'}} className='p-2 py-2 pl-4 text-white bg-danger'><b>Our collection</b></h5>
+                            <h5 style={{ borderRadius: '50px 0px 50px 0px' }} className='p-2 py-2 pl-4 text-white bg-danger'><b>Our collection</b></h5>
 
                             <MobileSlider />
 
-                            <h5 style={{borderRadius:'50px 0px 50px 0px'}} className='p-2 py-2 pl-4 text-white bg-danger'><b>Recommendation</b></h5>
+                            <h5 style={{ borderRadius: '50px 0px 50px 0px' }} className='p-2 py-2 pl-4 text-white bg-danger'><b>Recommendation</b></h5>
 
                             <MobileSlider />
                         </div>

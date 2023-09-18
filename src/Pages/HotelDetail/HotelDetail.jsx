@@ -15,6 +15,9 @@ import {
   Typography,
 } from "@mui/material";
 import style from "./Hotel.module.css";
+import { isMobile } from "react-device-detect";
+import MobileHeader from "../../Components/MobileComponent/MobileHeader";
+import MobileFooter from "../../Components/MobileComponent/MobileFooter";
 
 const HotelDetail = () => {
   const { id } = useParams();
@@ -40,12 +43,11 @@ const HotelDetail = () => {
 
   return (
     <>
-      <Navbar />
+      {isMobile ? <MobileHeader /> : <Navbar />}
       <div
         style={{
-          marginTop: "85px",
-          background:
-            "radial-gradient(circle, rgba(238,46,36,0.3086484593837535) 0%, rgba(148,187,233,1) 100%)",
+          marginTop: isMobile ? null : '85px',
+          background: 'radial-gradient(circle, rgba(238,46,36,0.3086484593837535) 0%, rgba(148,187,233,1) 100%)',
           border: '2px solid #ee2e24'
         }}
       >
@@ -93,10 +95,10 @@ const HotelDetail = () => {
         </Container>
         <HotelCover data={data} />
       </div>
-      <Container>
+      <Container sx={isMobile ? { mb: 10 } : null}>
         <Detail data={data} />
       </Container>
-      <Footer />
+      {isMobile ? <MobileFooter /> : <Footer />}
     </>
   );
 };
