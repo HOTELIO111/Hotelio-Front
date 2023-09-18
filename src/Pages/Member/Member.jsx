@@ -1,7 +1,5 @@
-import React from "react";
-import Navbar from "../../Components/Navbar/Navbar";
+import React, { useEffect, useState } from "react";
 import CardMember from "./CardMember";
-import Footer from '../../Components/footer/Footer'
 import style from './Member.module.css'
 import { Accordion, AccordionDetails, AccordionSummary, Button, Card, Container, Grid, Typography } from "@mui/material";
 import SavingsIcon from '@mui/icons-material/Savings';
@@ -17,13 +15,29 @@ import MapsHomeWorkTwoToneIcon from '@mui/icons-material/MapsHomeWorkTwoTone';
 import ApartmentTwoToneIcon from '@mui/icons-material/ApartmentTwoTone';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PermPhoneMsgSharpIcon from '@mui/icons-material/PermPhoneMsgSharp';
-import Deal from '../../images/MemberDeal.png'
+import FaQ from '../../images/FaQ.png'
 import ResonsImage from '../../images/reasonsImage.jpg'
 import HoteliLogo from '../../images/HotelioLogo.png'
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import EmailIcon from '@mui/icons-material/Email';
+import BusinessImageFirst from '../../images/BusinessImageFirst.jpg'
 
 const Member = () => {
+
+  const [underlineColor, setUnderlineColor] = useState('#0d6efd');
+  const colors = ['#0d6efd', '#fff', '#ee2e24']; // Define your desired colors
+  const animationDuration = 3000; // Define the duration of the animation in milliseconds
+
+  useEffect(() => {
+    let currentIndex = 0;
+    const interval = setInterval(() => {
+      currentIndex = (currentIndex + 1) % colors.length;
+      setUnderlineColor(colors[currentIndex]);
+    }, animationDuration);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div
     >
@@ -44,34 +58,88 @@ const Member = () => {
         </Grid>
       </div>
       <section
-        className={`${style.MemberBackground}`}
+        className={`${style.MemberBackgroundS}`}
       >
         <CardMember />
-        <Grid container padding={5} spacing={1} >
+        <Grid container paddingX={5} paddingY={2} spacing={1} bgcolor={'#ffffff6b'} >
+          <Grid item xs={12} lg={5} xl={5} sx={{ display: 'grid', placeItems: 'center' }} >
+            <div style={{ clipPath: 'circle(50% at 50% 50%)' }}>
+              <img src={ResonsImage} alt="Bunisesspromises" />
+            </div>
+          </Grid>
           <Grid item xs={12} lg={7} xl={7} sx={{ display: 'grid', placeItems: 'center' }} >
-            <h2>Hotelio Business Promises</h2>
+            <Typography marginY={5} variant="h4" sx={{ borderBottom: `2px solid ${underlineColor}` }}>So many reasons become a partner</Typography>
             <div>
               <ul>
-                <li style={{ padding: '20px 0px' }}>
+                <li style={{ padding: '10px 0px' }}>
+                  <div className="d-flex text-dark align-items-center">
+                    <SpeedOutlinedIcon sx={{ fontSize: 40 }} />
+                    <Typography variant="h5" style={{ marginLeft: '10px' }}>Gets bookings Fast</Typography>
+                  </div>
+                  <Typography variant="p">Get easy access to 4000+ Hotelio properties with up to 40% savings, manage all your company bookings on a single portal, and say good-bye to third-party commissions.</Typography>
+                </li>
+                <li style={{ padding: '10px 0px' }}>
+                  <div className="d-flex text-dark align-items-center">
+                    <TrendingUpOutlinedIcon sx={{ fontSize: 40 }} />
+                    <Typography variant="h5" sx={{ marginLeft: '10px' }}>Stand out from the competition</Typography>
+                  </div>
+                  <Typography variant="p">With Hotelio Business effortless interface, have all your bookings at your fingertips anytime you need them.</Typography>
+                </li>
+                <li style={{ padding: '10px 0px' }}>
+                  <div className="d-flex text-dark align-items-center">
+                    <DomainAddOutlinedIcon sx={{ fontSize: 40 }} />
+                    <Typography variant="h5" sx={{ marginLeft: '10px' }}>List any property type</Typography>
+                  </div>
+                  <Typography variant="p">Get invoices directly from us without any human intervention, and always be in the know.</Typography>
+                </li>
+                <li style={{ padding: '10px 0px' }}>
+                  <div className="d-flex text-dark align-items-center">
+                    <LanguageOutlinedIcon sx={{ fontSize: 40 }} />
+                    <Typography variant="h5" sx={{ marginLeft: '10px' }}>Reach a global audience</Typography>
+                  </div>
+                  <Typography variant="p">With Hotelio Business effortless interface, have all your bookings at your fingertips anytime you need them.</Typography>
+                </li>
+                <li style={{ padding: '10px 0px' }}>
+                  <div className="d-flex text-dark align-items-center">
+                    <SupportAgentOutlinedIcon sx={{ fontSize: 40 }} />
+                    <Typography variant="h5" sx={{ marginLeft: '10px' }}>Support</Typography>
+                  </div>
+                  <Typography variant="p">Get invoices directly from us without any human intervention, and always be in the know.</Typography>
+                </li>
+              </ul>
+            </div>
+          </Grid>
+        </Grid>
+      </section>
+      <section
+        className={`${style.MemberBackground}`}
+      >
+
+        <Grid container padding={5} spacing={1} >
+          <Grid item xs={12} lg={7} xl={7} sx={{ display: 'grid', placeItems: 'center' }} >
+            <Typography sx={{ borderBottom: `3px solid ${underlineColor}` }} variant="h4">Hotelio Business Promises</Typography>
+            <div>
+              <ul>
+                <li style={{ padding: '10px 0px' }}>
                   <div className="d-flex text-dark align-items-center">
                     <SavingsIcon sx={{ fontSize: 40 }} />
-                    <h4 style={{ marginLeft: '10px' }}>Save Cost</h4>
+                    <Typography variant="h5" sx={{ marginLeft: '10px' }}>Save Cost</Typography>
                   </div>
-                  <h6>Get easy access to 4000+ Hotelio properties with up to 40% savings, manage all your company bookings on a single portal, and say good-bye to third-party commissions.</h6>
+                  <Typography variant="p">Get easy access to 4000+ Hotelio properties with up to 40% savings, manage all your company bookings on a single portal, and say good-bye to third-party commissions.</Typography>
                 </li>
-                <li style={{ padding: '20px 0px' }}>
+                <li style={{ padding: '10px 0px' }}>
                   <div className="d-flex text-dark align-items-center">
                     <ScheduleIcon sx={{ fontSize: 40 }} />
-                    <h4 style={{ marginLeft: '10px' }}>Save Time</h4>
+                    <Typography variant="h5" sx={{ marginLeft: '10px' }}>Save Time</Typography>
                   </div>
-                  <h6>With Hotelio Business effortless interface, have all your bookings at your fingertips anytime you need them.</h6>
+                  <Typography variant="p">With Hotelio Business effortless interface, have all your bookings at your fingertips anytime you need them.</Typography>
                 </li>
-                <li style={{ padding: '20px 0px' }}>
+                <li style={{ padding: '10px 0px' }}>
                   <div className="d-flex text-dark align-items-center">
                     <LocalPoliceIcon sx={{ fontSize: 40 }} />
-                    <h4 style={{ marginLeft: '10px' }}>Provide Transparency</h4>
+                    <Typography variant="h5" sx={{ marginLeft: '10px' }}>Provide Transparency</Typography>
                   </div>
-                  <h6>Get invoices directly from us without any human intervention, and always be in the know.</h6>
+                  <Typography variant="p">Get invoices directly from us without any human intervention, and always be in the know.</Typography>
                 </li>
               </ul>
             </div>
@@ -80,81 +148,20 @@ const Member = () => {
             <div
               style={
                 {
-                  clipPath: 'polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 15% 50%, 0% 0%)'
+                  clipPath: 'polygon(0% 15%, 15% 15%, 15% 0%, 85% 0%, 85% 15%, 100% 15%, 100% 85%, 85% 85%, 85% 100%, 15% 100%, 15% 85%, 0% 85%)'
                 }
               }
             >
-              <img src="https://img.freepik.com/free-vector/money-business-investment_24877-63845.jpg?w=740&t=st=1693652890~exp=1693653490~hmac=1c821a305dc1c692701cf5cd9223a2538dfd3440bef5109e4e5955bc431b7383" alt="Bunisesspromises" />
-            </div>
-          </Grid>
-        </Grid>
-      </section>
-      <section
-        className={`${style.MemberBackgroundS}`}
-      >
-        <Grid container paddingX={5} paddingY={2} spacing={1} bgcolor={'#ffffff6b'} >
-          <Grid item xs={12} lg={5} xl={5} sx={{ display: 'grid', placeItems: 'center' }} >
-            <div
-              style={
-                {
-                  clipPath: 'circle(50% at 50% 50%)'
-                }
-              }
-            >
-              <img src={ResonsImage} alt="Bunisesspromises" />
-            </div>
-          </Grid>
-          <Grid item xs={12} lg={7} xl={7} sx={{ display: 'grid', placeItems: 'center' }} >
-            <div>
-              <ul>
-                <li className="mb-5 text-center">
-                  <h3>So many reasons become a partner</h3>
-                </li>
-                <li style={{ padding: '10px 0px' }}>
-                  <div className="d-flex text-dark align-items-center">
-                    <SpeedOutlinedIcon sx={{ fontSize: 40 }} />
-                    <h4 style={{ marginLeft: '10px' }}>Gets bookings Fast</h4>
-                  </div>
-                  <p>Get easy access to 4000+ Hotelio properties with up to 40% savings, manage all your company bookings on a single portal, and say good-bye to third-party commissions.</p>
-                </li>
-                <li style={{ padding: '10px 0px' }}>
-                  <div className="d-flex text-dark align-items-center">
-                    <TrendingUpOutlinedIcon sx={{ fontSize: 40 }} />
-                    <h4 style={{ marginLeft: '10px' }}>Stand out from the competition</h4>
-                  </div>
-                  <p>With Hotelio Business effortless interface, have all your bookings at your fingertips anytime you need them.</p>
-                </li>
-                <li style={{ padding: '10px 0px' }}>
-                  <div className="d-flex text-dark align-items-center">
-                    <DomainAddOutlinedIcon sx={{ fontSize: 40 }} />
-                    <h4 style={{ marginLeft: '10px' }}>List any property type</h4>
-                  </div>
-                  <p>Get invoices directly from us without any human intervention, and always be in the know.</p>
-                </li>
-                <li style={{ padding: '10px 0px' }}>
-                  <div className="d-flex text-dark align-items-center">
-                    <LanguageOutlinedIcon sx={{ fontSize: 40 }} />
-                    <h4 style={{ marginLeft: '10px' }}>Reach a global audience</h4>
-                  </div>
-                  <p>With Hotelio Business effortless interface, have all your bookings at your fingertips anytime you need them.</p>
-                </li>
-                <li style={{ padding: '10px 0px' }}>
-                  <div className="d-flex text-dark align-items-center">
-                    <SupportAgentOutlinedIcon sx={{ fontSize: 40 }} />
-                    <h4 style={{ marginLeft: '10px' }}>Support</h4>
-                  </div>
-                  <p>Get invoices directly from us without any human intervention, and always be in the know.</p>
-                </li>
-              </ul>
+              <img src={BusinessImageFirst} alt="Bunisesspromises" />
             </div>
           </Grid>
         </Grid>
       </section>
       <section>
         <Container>
-          <Grid container spacing={5}>
+          <Grid container padding={5} spacing={5}>
             <Grid item xs={12} className="text-center">
-              <h4>Hotelio Business is an innovative offering for corporates by Hotelio, India's largest hospitality company.</h4>
+              <Typography variant="h6">Hotelio Business is an innovative offering for corporates by Hotelio, India's largest hospitality company.</Typography>
             </Grid>
             <Grid item xs={4} className="text-center">
               <PublicTwoToneIcon sx={{ fontSize: 50 }} />
@@ -183,18 +190,11 @@ const Member = () => {
         > */}
         <Grid container paddingX={5} spacing={1}>
           <Grid item className="text-center" xs={12}>
-            <h3>Partner FAQ's</h3>
+            <Typography padding={2} variant="h4">Partner FAQ's</Typography>
           </Grid>
           <Grid item xs={12} lg={5} xl={5} sx={{ display: 'grid', placeItems: 'center' }} >
-            <div
-              style={
-                {
-                  // clipPath: 'polygon(0% 20%, 100% 20%, 100% 75%, 40% 77%, 16% 99%, 22% 75%, 0% 75%)',
-                  boxShadow: 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px'
-                }
-              }
-            >
-              <img src={Deal} alt="Bunisesspromises" />
+            <div style={{ boxShadow: 'none' }}>
+              <img src={FaQ} alt="Bunisesspromises" />
             </div>
           </Grid>
           <Grid item xs={12} lg={7} xl={7} sx={{ display: 'grid', placeItems: 'center' }}>
@@ -248,11 +248,11 @@ const Member = () => {
         </Grid>
         {/* </Card> */}
         <div className="text-center fixed-bottom bg-light p-3">
-          <Button href="https://admin.hoteliorooms.com/" variant="contained" color="error" sx={{ width: '50%' }} >Join Us</Button>
-          <Button variant="contained" color="error" size="md" sx={{ marginLeft: '5%' }}><PermPhoneMsgSharpIcon /></Button>
+          <Button href="https://admin.hoteliorooms.com/" variant="contained" color="error" sx={{ width: '50%', borderRadius: '15px' }} >Join Us</Button>
+          <Button variant="contained" color="error" size="md" sx={{ marginLeft: '5%', borderRadius: '15px' }}><PermPhoneMsgSharpIcon /></Button>
         </div>
       </section>
-    </div>
+    </div >
   );
 };
 

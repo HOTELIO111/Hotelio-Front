@@ -110,21 +110,23 @@ const Profile = () => {
   // }, [currentUser]);
 
   return (
-    <div>
-      <Grid container className="min-vh-100 my-5" spacing={2}>
+    <div className="p-1">
+      <Grid container className="min-vh-100 mt-5" spacing={1}>
         <WaitLoader loading={Loader} />
         <Grid xs={12} className="text-center" item>
-          <h3 className="pt-4">
-            Welcome to Hotelio! Please Update YourProfile
-          </h3>
-          <p>Membership Offer Coming Soon</p>
+          <div className="pt-4">
+            <Typography variant="h4" className="mt-2">
+              Welcome to Hotelio! Please Update YourProfile
+            </Typography>
+            <Typography variant="p">Membership Offer Coming Soon</Typography>
+          </div>
         </Grid>
         <Grid item xs={12} md={12} lg={4} xl={4}>
           <div className={`${style.box}`}>
             <div className="d-flex justify-content-between">
-              <p>
+              <Typography variant="h6">
                 <b>My Profile</b>
-              </p>
+              </Typography>
               <div
                 style={{ color: "#ee2e24", cursor: "pointer" }}
                 onClick={() => setprofiledetailUpdate(true)}
@@ -308,7 +310,7 @@ const Profile = () => {
             style={{ marginBottom: "0.5rem", display: "flex" }}
             className={` ${style.box}`}
           >
-            <Card className="p-2" style={{ maxWidth: "400px" }}>
+            <Card className="p-2" style={{ maxWidth: "400px", background: 'transparent', boxShadow: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset', borderRadius: '15px' }}>
               <Typography variant="h5">
                 Get 999 INR instantly Credit in your account. Also become
                 eligible for refer and earn.
@@ -322,7 +324,7 @@ const Profile = () => {
                 {isCopied ? "Copied!" : "Refer Copy Link"}
               </Button>
             </Card>
-            <Card sx={{ ml: 2 }} className="p-2">
+            <Card sx={{ ml: 2, bgcolor: 'transparent', boxShadow: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset', borderRadius: '15px' }} className="p-2">
               <Typography variant="h5">My Hotelio Wallet</Typography>
               <hr style={{ marginTop: "0px" }} />
               <div className="d-flex align-items-center">
@@ -365,20 +367,8 @@ const Profile = () => {
             <List />
           </div>
         </Grid>
-        {/* <Grid item xs={12} md={12} lg={8} xl={8} className="d-none d-sm-block" >
-          <div
-            style={{
-              overflowY: "auto",
-              maxHeight: "100vh",
-              paddingBottom: "10rem",
-            }}
-            className={` ${style.box}`}
-          >
-            <List />
-          </div>
-        </Grid> */}
       </Grid>
-    </div>
+    </div >
   );
 };
 

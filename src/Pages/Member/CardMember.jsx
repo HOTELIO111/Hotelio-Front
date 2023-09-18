@@ -28,7 +28,7 @@ const CardMember = () => {
   };
 
   return (
-    <Grid container spacing={2} padding={2}>
+    <Grid sx={{borderTop:'2px solid #ee2e24'}} container spacing={2} padding={2}>
       <Grid paddingTop={0} item xs={12}>
         <div className="text-center text-white">
           <h2><span style={{ color: '#ee2e24' }} ><b>Hotelio Business</b></span> is a corporate hotel booking solution by <span style={{ color: '#ee2e24' }} ><b>Hotelio</b></span>.</h2>

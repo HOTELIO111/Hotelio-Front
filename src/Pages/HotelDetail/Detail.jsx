@@ -202,6 +202,7 @@ const Detail = ({ data }) => {
               margin: 1,
               boxShadow: "0px 0px 30px rgba(0,0,0,0.1) !important",
               borderRadius: "15px",
+              border: '2px solid #ee2e24'
             }}
           >
             <div
@@ -254,7 +255,7 @@ const Detail = ({ data }) => {
           </Card>
         </Grid>
         <Grid item xs={12} lg={12} xl={12}>
-          <Card sx={{ margin: 1 }}>
+          <Card sx={{ margin: 1, border: '2px solid #ee2e24' }}>
             <div
               className="p-2"
               id="BookNow"
@@ -333,12 +334,12 @@ const Detail = ({ data }) => {
                       />
                       <div>
                         <h4>
-                          ₹ {item.roomRate}{" "}
+                          ₹ {data?.rooms[index]?.price}{" "}
                           <span className="text-secondary">
                             <del>{item.maxPrice}</del> off
                           </span>
                         </h4>
-                        <p>+₹ {data?.rooms[index]?.price} taxes and charges</p>
+                        <p>+ 18% taxes and charges</p>
                       </div>
                       <hr
                         style={{
@@ -349,7 +350,7 @@ const Detail = ({ data }) => {
                       />
                       <div>
                         <div className="d-flex">
-                          <p>{item.facilities}</p>
+                          <p>{item?.facilities || 'NA'}</p>
                         </div>
                       </div>
                       <hr
@@ -369,7 +370,6 @@ const Detail = ({ data }) => {
                         </Button>
                       </div>
                     </div>
-                    <hr />
                   </CardContent>
                 );
               })}
@@ -393,11 +393,11 @@ const Detail = ({ data }) => {
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="panel1a-header"
-                sx={{ background: "#ff0200", borderRadius: "5px" }}
+                sx={{ border: '2px solid #ee2e24' }}
               >
-                <Typography color={"#fff"}>Is there a swimming pool</Typography>
+                <Typography>Is there a swimming pool</Typography>
               </AccordionSummary>
-              <AccordionDetails>
+              <AccordionDetails sx={{ border: '2px solid #ee2e24' }}>
                 <Typography>No</Typography>
               </AccordionDetails>
             </Accordion>
@@ -406,11 +406,11 @@ const Detail = ({ data }) => {
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel2a-content"
                 id="panel2a-header"
-                sx={{ background: "#ff0200", borderRadius: "5px" }}
+                sx={{ border: '2px solid #ee2e24' }}
               >
-                <Typography color={"#fff"}>Do they serve breakfast</Typography>
+                <Typography>Do they serve breakfast</Typography>
               </AccordionSummary>
-              <AccordionDetails>
+              <AccordionDetails sx={{ border: '2px solid #ee2e24' }}>
                 <Typography>Yes, We serve</Typography>
               </AccordionDetails>
             </Accordion>
@@ -434,11 +434,11 @@ const Detail = ({ data }) => {
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="panel1a-header"
-                sx={{ background: "#ff0200", borderRadius: "5px" }}
+                sx={{ border: '2px solid #ee2e24' }}
               >
-                <Typography color={"#fff"}>Check-in Time</Typography>
+                <Typography>Check-in Time</Typography>
               </AccordionSummary>
-              <AccordionDetails>
+              <AccordionDetails sx={{ border: '2px solid #ee2e24' }}>
                 <Typography>Available 24 hours</Typography>
               </AccordionDetails>
             </Accordion>
@@ -447,11 +447,11 @@ const Detail = ({ data }) => {
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel2a-content"
                 id="panel2a-header"
-                sx={{ background: "#ff0200", borderRadius: "5px" }}
+                sx={{ border: '2px solid #ee2e24' }}
               >
-                <Typography color={"#fff"}>Check-out Time</Typography>
+                <Typography >Check-out Time</Typography>
               </AccordionSummary>
-              <AccordionDetails>
+              <AccordionDetails sx={{ border: '2px solid #ee2e24' }}>
                 <Typography>From 08:00 to 10:00</Typography>
               </AccordionDetails>
             </Accordion>
@@ -460,11 +460,11 @@ const Detail = ({ data }) => {
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel2a-content"
                 id="panel2a-header"
-                sx={{ background: "#ff0200", borderRadius: "5px" }}
+                sx={{ border: '2px solid #ee2e24' }}
               >
-                <Typography color={"#fff"}>Cancellation/prepayment</Typography>
+                <Typography >Cancellation/prepayment</Typography>
               </AccordionSummary>
-              <AccordionDetails>
+              <AccordionDetails sx={{ border: '2px solid #ee2e24' }}>
                 <Typography>
                   Cancellation and prepayment policies vary according to
                   accommodation type. Please check what conditions may apply to

@@ -46,6 +46,7 @@ const HotelDetail = () => {
           marginTop: "85px",
           background:
             "radial-gradient(circle, rgba(238,46,36,0.3086484593837535) 0%, rgba(148,187,233,1) 100%)",
+          border: '2px solid #ee2e24'
         }}
       >
         <Container>

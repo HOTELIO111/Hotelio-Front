@@ -186,7 +186,7 @@ export default function List() {
                                                 <Grid spacing={1} container>
                                                     <Grid item xs={12} lg={6} xl={6}>
                                                         <div>
-                                                            <Button variant="contained" size="medium">View Hotel</Button>
+                                                            <Button href={`/searchedhotel/${item._id}`} variant="contained" size="medium">View Hotel</Button>
                                                             <Button onClick={AlertBox} sx={{ ml: 1 }} variant="outlined" color="error" size="medium">Cancel</Button>
                                                         </div>
                                                     </Grid>
@@ -201,7 +201,7 @@ export default function List() {
                                     </Box>
                                 </Card>
                             </Grid>
-                            <Grid item xs={12} sm={12}>
+                            <Grid sx={{borderTop: '2px solid #ee2e24'}} item xs={12} sm={12}>
                                 <Accordion sx={{ borderRadius: '0px' }}>
                                     <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}

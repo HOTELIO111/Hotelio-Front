@@ -36,7 +36,7 @@ const About = () => {
           </div>
         </section>
 
-        <section className={`${style.aboutus_page_section} pt-4 `}>
+        <section style={{ borderTop: '2px solid #ee2e24' }} className={`${style.aboutus_page_section} pt-4 `}>
           <div className="container">
             <div className={style.about_page_text}>
               <div className="row d-flex flex-row justify-content-between">
@@ -340,7 +340,7 @@ const About = () => {
           </div>
         </section>
 
-        <section className="py-0" >
+        <section style={{ border: '2px solid #ee2e24' }} className="py-0" >
           <div className="container">
             <div className="row">
               <div className="col-xl-12 p-3"

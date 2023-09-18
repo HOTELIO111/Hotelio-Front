@@ -41,8 +41,8 @@ const HotelCover = ({ data }) => {
                         </div>
                     )
                 })}
-                paddingLeft={550} // Adjust the value to increase/decrease left spacing
-                paddingRight={550} // Adjust the value to increase/decrease right spacing
+                paddingLeft={50} // Adjust the value to increase/decrease left spacing
+                paddingRight={50} // Adjust the value to increase/decrease right spacing
                 responsive={responsive}
                 disableButtonsControls // Disable the left and right navigation icons
                 ref={(el) => (carousel = el)} // Save reference to the carousel
