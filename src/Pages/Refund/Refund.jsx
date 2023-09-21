@@ -40,7 +40,7 @@ const Refund = () => {
                 <p className='py-2'>
                     Cancellation and Refund Policy
                     To request a refund, please contact us through  HOTELIO Help Center.
-                    Cancelling an HOTELIO is as fast and easy as booking one.
+                    Cancelling a HOTELIO is as fast and easy as booking one.
                     <ol>
                         <li style={{ display: 'flex', paddingTop: '10px' }}>&rarr; <p style={{ margin: '0px 0px 0px 10px' }}>We love to host you but in case your plans change, our simple cancellation process makes sure you receive a quick confirmation and fast refunds. Our standard check-in time is 11 PM.</p></li>
                         <li style={{ display: 'flex', paddingTop: '10px' }}>&rarr; <p style={{ margin: '0px 0px 0px 10px' }}>Hotelio is committed to providing you with a simple and efficient refund process. Please note that shortening your stay during the high season, periods of high occupancy, during trade fairs and conventions, or failure to cancel your reservation prior to the due date noted on your confirmation may result in a penalty charge being imposed by the hotel. If a penalty charge is incurred, this will be deducted from the amount refunded.</p></li>
