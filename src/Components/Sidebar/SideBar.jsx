@@ -47,6 +47,7 @@ const SideBar = ({ children }) => {
               to={route.link}
               key={index}
               className="link"
+              rel="preload"
               activeClassName="activee"
             >
               <div className="icon">{route.icon}</div>

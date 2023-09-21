@@ -111,11 +111,11 @@ const Profile = () => {
 
   return (
     <div className="p-1">
-      <Grid container className="min-vh-100 mt-5" spacing={1}>
+      <Grid container className={isMobile ? 'mb-5' : "min-vh-100 mt-5"} spacing={1}>
         <WaitLoader loading={Loader} />
         <Grid xs={12} className="text-center" item>
-          <div className="pt-4">
-            <Typography variant="h4" className="mt-2">
+          <div className={isMobile ? '' : 'pt-4'}>
+            <Typography variant="h5" className="mt-2">
               Welcome to Hotelio! Please Update YourProfile
             </Typography>
             <Typography variant="p">Membership Offer Coming Soon</Typography>

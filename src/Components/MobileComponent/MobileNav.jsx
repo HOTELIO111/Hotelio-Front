@@ -52,7 +52,7 @@ const MobileNav = () => {
     return (
         <>
             <MobileHeader />
-            <div className='bg-white'>
+            <div>
                 <div
                     style={{
                         background: `url(${MainBannerMob})`,
@@ -155,15 +155,15 @@ const MobileNav = () => {
 
                             <Premiumcard />
 
-                            <h5 style={{ borderRadius: '50px 0px 50px 0px' }} className='p-2 py-2 pl-4 text-white bg-danger'><b>Explore Locations</b></h5>
+                            <h5 style={{ borderRadius: '50px 0px 50px 0px', background: '#ee2e24' }} className='p-2 py-2 pl-4 text-white'><b>Explore Locations</b></h5>
 
                             <MobileDestination />
 
-                            <h5 style={{ borderRadius: '50px 0px 50px 0px' }} className='p-2 py-2 pl-4 text-white bg-danger'><b>Our collection</b></h5>
+                            <h5 style={{ borderRadius: '50px 0px 50px 0px', background: '#ee2e24' }} className='p-2 py-2 pl-4 text-white'><b>Our collection</b></h5>
 
                             <MobileSlider />
 
-                            <h5 style={{ borderRadius: '50px 0px 50px 0px' }} className='p-2 py-2 pl-4 text-white bg-danger'><b>Recommendation</b></h5>
+                            <h5 style={{ borderRadius: '50px 0px 50px 0px', background: '#ee2e24' }} className='p-2 py-2 pl-4 text-white'><b>Recommendation</b></h5>
 
                             <MobileSlider />
                         </div>

@@ -6,10 +6,11 @@ import Typography from '@mui/material/Typography';
 import HotelBudgetTwo from '../../images/HotelInBudgetTwo.png';
 import PrimeHotelTwo from '../../images/PrimeHotelTwo.png';
 import HomeStayTwo from '../../images/HomeStayTwo.png';
+import { useNavigate } from 'react-router';
 
 const cardStyles = {
     position: 'relative',
-    boxShadow: 'rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset',
+    boxShadow: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset',
     padding: '10px',
     filter: 'invert(1)'
 };
@@ -23,10 +24,13 @@ const titleStyles = {
     color: '#11d1db',
     padding: '1px',
     textAlign: 'center',
-    width: '100%',
+    width: '100%'
 };
 
 const Premiumcard = () => {
+
+    const navigate = useNavigate()
+
     const cardData = [
         { imageUrl: PrimeHotelTwo, title: 'Premium' },
         { imageUrl: HotelBudgetTwo, title: 'Homestay' },
@@ -38,7 +42,7 @@ const Premiumcard = () => {
             <Grid container spacing={2}>
                 {cardData.map((card, index) => (
                     <Grid key={index} item xs={4} sm={4} md={3}>
-                        <Card style={cardStyles}>
+                        <Card onClick={() => navigate('/searchedhotels')} style={cardStyles}>
                             <CardMedia
                                 component="img"
                                 alt={`Image ${index + 1}`}

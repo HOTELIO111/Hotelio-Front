@@ -157,6 +157,7 @@ const Topbar = () => {
           <div>
             <a
               className="nav-link dropdown-toggle w-50"
+              rel="preload"
               href="/"
               role="button"
               data-bs-toggle="dropdown"

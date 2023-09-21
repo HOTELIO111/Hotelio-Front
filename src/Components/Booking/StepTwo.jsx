@@ -25,7 +25,7 @@ const StepTwo = () => {
                 Enter your details
               </Typography>
               <Alert severity="success" color="info">
-                Almost done! Just fill in the * required info
+                Almost done! Just fill the * required info
               </Alert>
 
               <TextField

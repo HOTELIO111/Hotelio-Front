@@ -41,7 +41,7 @@ const HotelResults = () => {
   return (
     <div>
       {isMobile ? <MobileHeader /> : <Navbar />}
-      <Container sx={isMobile ? { marginTop: 0 } : { marginTop: 11 }} maxWidth="xl">
+      <Container sx={isMobile ? { marginBottom: 7 } : { marginTop: 11 }} maxWidth="xl">
         <Grid container spacing={1}>
           <Grid item xl={2} lg={2} xs={12}>
             <SideFilter hotels={hotels} />

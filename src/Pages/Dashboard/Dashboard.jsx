@@ -613,6 +613,7 @@ export default function Dashboard() {
         <div className="col-md-3 col-sm-6 mb-4" key={element.key}>
           <Link
             className={`${style.card1} rounded-3 pb-3 d-block h-100`}
+            rel="preload"
             to={element.link}
           >
             <h3 className="h-50">{element.title}</h3>
@@ -640,7 +641,7 @@ export default function Dashboard() {
               {element.description}
               <div className="fs-5 mt-3 text-secondary">{element.name}</div>
             </p>
-            <Link className={style.go_corner} to={element.link}>
+            <Link rel="preload" className={style.go_corner} to={element.link}>
               <div className={style.go_arrow}>→</div>
             </Link>
           </Link>

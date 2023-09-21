@@ -30,11 +30,29 @@ import Refund from "./Pages/Refund/Refund";
 import SuccessPage from "./Pages/TransectionPage/SuccessPage";
 import FailedPage from "./Pages/TransectionPage/FailedPage";
 import { useAuthContext } from "./context/userAuthContext";
+import { isMobile } from "react-device-detect";
+import MobileBackground from './images/MobileBackground.jpg'
+// import { useEffect } from "react";
+// import ReactGA from 'react-ga';
 
 function App() {
   const { currentUser } = useAuthContext();
+
+  // ReactGA.initialize('YOUR_TRACKING_ID');
+
+  // useEffect(() => {
+  //   ReactGA.pageview(window.location.pathname + window.location.search);
+  // }, []);
+
   return (
-    <>
+    <div
+      style={isMobile ? {
+        backgroundImage: `url(${MobileBackground})`,
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed',
+      } : {}}
+    >
       <Routes>
         <Route path="*" element={<PageNotFound />} />
         <Route path="/search" element={<SearchBar />} />
@@ -71,7 +89,7 @@ function App() {
         <Route path="/favourite" element={<Favourite />} />
         <Route path="/offer" element={<MobileOffer />} />
       </Routes>
-    </>
+    </div>
   );
 }
 

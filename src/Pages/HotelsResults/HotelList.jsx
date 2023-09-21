@@ -36,6 +36,9 @@ const HotelList = ({ hotels, location }) => {
     setSelectedRatingFilter(event.target.value);
   };
 
+
+  const count = hotels?.length
+
   return hotels === null ? (
     <WaitLoader loading="true" />
   ) : (
@@ -181,7 +184,7 @@ const HotelList = ({ hotels, location }) => {
         </>
       ))}
       <div className="d-flex justify-content-center py-2">
-        <Pagination count={5} />
+        <Pagination count={count} />
       </div>
     </Container>
   );

@@ -9,11 +9,11 @@ const FailedPage = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      window.location.href = `/Customer${currentUser?.name}Profile`; // Replace with your target page URL
-    }, 8000);
+      window.location.href = `/Customer${currentUser?.name}Profile`;
+    }, 5000);
 
     return () => {
-      clearTimeout(timer); // Clear the timer if the component unmounts
+      clearTimeout(timer);
     };
   }, []);
 
@@ -23,7 +23,7 @@ const FailedPage = () => {
         style={{
           display: 'grid',
           placeItems: 'center',
-          width: '500px',
+          width: 'auto',
           height: '500px',
           background: '#eeeeeb',
           boxShadow: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset'

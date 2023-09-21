@@ -9,33 +9,56 @@ import { useNavigate } from 'react-router-dom';
 const BookingSteps = () => {
   const [currentStep, setCurrentStep] = useState(2);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const nextStep = () => {
     setCurrentStep(currentStep + 1);
   };
 
   const prevStep = () => {
-    setCurrentStep(currentStep - 1);
+    // Check if currentStep is 3, use navigation if true
+    if (currentStep === 2) {
+      navigate(-1); // Replace '/target-route' with your desired route
+    } else {
+      setCurrentStep(currentStep - 1);
+    }
   };
 
   return (
     <div className="multi-step-form">
+       <div className="my-2">
+        {currentStep > 1 && (
+          <Button variant="outlined" onClick={prevStep}>
+            {currentStep === 3 ? 'Back' : 'Back'}
+          </Button>
+        )}
+        {currentStep < 3 && (
+          <Button variant="contained" className="mx-2" onClick={nextStep}>
+            Next
+          </Button>
+        )}
+      </div>
       <div className="stepper">
         <div className={`step ${currentStep === 1 ? 'active' : 'active'}`}>Your selection</div>
         <div className={`step ${currentStep === 2 ? 'active' : 'active'}`}>Your details</div>
-        <div className={`step ${currentStep === 3 ? 'active' : ''}`}>FInal Step</div>
+        <div className={`step ${currentStep === 3 ? 'active' : ''}`}>Final Step</div>
       </div>
 
       {/* Render the form content based on the current step */}
       {currentStep === 1 && <StepOne />}
       {currentStep === 2 && <StepTwo />}
       {currentStep === 3 && <StepThree />}
-
-      <div className="buttons">
-        {currentStep > 1 && <Button variant='outlined' onClick={() => navigate(-1)}>Previous</Button>}
-        {currentStep > 2 && <Button variant='outlined' onClick={prevStep}>Previous</Button>}
-        {currentStep < 3 && <Button variant='contained' className='mx-2' onClick={nextStep}>Next</Button>}
+      <div className="my-2">
+        {currentStep > 1 && (
+          <Button variant="outlined" onClick={prevStep}>
+            {currentStep === 3 ? 'Back' : 'Back'}
+          </Button>
+        )}
+        {currentStep < 3 && (
+          <Button variant="contained" className="mx-2" onClick={nextStep}>
+            Next
+          </Button>
+        )}
       </div>
     </div>
   );
