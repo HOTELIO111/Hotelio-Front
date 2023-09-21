@@ -32,17 +32,31 @@ import FailedPage from "./Pages/TransectionPage/FailedPage";
 import { useAuthContext } from "./context/userAuthContext";
 import { isMobile } from "react-device-detect";
 import MobileBackground from './images/MobileBackground.jpg'
+import { useEffect } from "react";
 // import { useEffect } from "react";
 // import ReactGA from 'react-ga';
 
 function App() {
   const { currentUser } = useAuthContext();
 
-  // ReactGA.initialize('YOUR_TRACKING_ID');
+  useEffect(() => {
+    // Check if the browser supports geolocation
+    if ('geolocation' in navigator) {
+      // Ask for the user's location
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          // Store the user's location in state
+          window.localStorage.setItem('location', JSON.stringify({ longitude: position.coords.longitude, latitude: position.coords.latitude }))
+        },
+        (error) => {
+          console.error('Error getting location:', error);
+        }
+      );
+    } else {
+      console.log('Geolocation is not available in this browser.');
+    }
+  }, []);
 
-  // useEffect(() => {
-  //   ReactGA.pageview(window.location.pathname + window.location.search);
-  // }, []);
 
   return (
     <div

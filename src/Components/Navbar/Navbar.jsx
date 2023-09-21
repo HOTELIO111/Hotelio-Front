@@ -32,34 +32,10 @@ import axios from "axios";
 import { API_URL } from "../../config";
 import InfoIcon from "@mui/icons-material/Info";
 import CitywiseDropedown from "../CitywiseDropedown/CitywiseDropedown";
-import { Col, Row } from "react-bootstrap";
 import { useAuthContext } from "../../context/userAuthContext";
 
 const Navbar = ({ list }) => {
   // Locatio Asked function
-
-  const [userLocation, setUserLocation] = useState(null);
-
-  useEffect(() => {
-    // Check if the browser supports geolocation
-    if ('geolocation' in navigator) {
-      // Ask for the user's location
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          // Store the user's location in state
-          setUserLocation({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          });
-        },
-        (error) => {
-          console.error('Error getting location:', error);
-        }
-      );
-    } else {
-      console.log('Geolocation is not available in this browser.');
-    }
-  }, []);
 
   // Popover Material UI Code
   const [anchorEl, setAnchorEl] = useState(null);
@@ -256,7 +232,7 @@ const Navbar = ({ list }) => {
 
   return (
     <div className="">
-            <header
+      <header
         className={`${style.header_area}  ${style.header_sticky} ${style.wow} ${style.slideInDown
           } ${!list ? "bg-light position-static border-bottom" : ""}`}
         data-wow-duration="0.75s"
