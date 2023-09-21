@@ -30,6 +30,11 @@ const MobileDate = ({ datedate }) => {
         textAlign: 'left'
     };
 
+    const placeholderStyle = {
+        fontSize: '12px',
+        fontWeight: '600'
+    }
+
 
     return (
         <>
@@ -37,17 +42,17 @@ const MobileDate = ({ datedate }) => {
                 <label style={Stylelabel} className="labelfordatepicker">Date</label>
                 <RangePicker
                     className="pb-3"
-                    style={{ paddingTop: '0.1rem', paddingRight: '16px' }}
+                    style={{ paddingTop: '0.1rem'}}
                     bordered={false}
-                    format="DD-MM-YYYY"
+                    format="D MMM"
                     disabledDate={disabledDate}
                     popupClassName={style.popup}
                     placeholder={["From", "To"]}
-                    inputPrefixCls={style.placeholder}
+                    inputPrefixCls={placeholderStyle}
                     onChange={(val) => {
                         dispatch({
                             type: "SET_DATE",
-                            payload: val.map((v) => v.format("DD-MM-YYYY")),
+                            payload: val.map((v) => v.format("D")),
                         });
                     }}
                     onClick={() => {
