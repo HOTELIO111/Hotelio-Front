@@ -158,7 +158,7 @@ const Footer = () => {
                     </Link>
                   </li>
                   <li className={style.fListItem}>
-                    <Link to="/tems" className="d-flex justify-content-start">
+                    <Link to="/terms-condition" className="d-flex justify-content-start">
                       <VerifiedUserIcon className="me-2" />
                       <span className="fs-6">Terms & Condition</span>
                     </Link>
@@ -271,7 +271,7 @@ const Footer = () => {
               style={{ fontSize: "20px", display: 'grid', placeItems: 'center' }}
             >
               © 2023 Hotelio is owned by Houda Carjour Tourism Pvt Ltd
-              <small style={{color:'goldenrod'}}>Designed & Developed By Trickle Solutions</small>
+              <small style={{ color: 'goldenrod' }}>Designed & Developed By Trickle Solutions</small>
             </div>
             <div
               className={`col-xl-3 col-md-12 col-12`}

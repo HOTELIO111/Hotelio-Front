@@ -18,11 +18,37 @@ import AboutUsTopBanner from '../../images/AboutUsTopBanner.jpg'
 import Client from '../../images/Client.jpg'
 import LabelImportantRoundedIcon from "@mui/icons-material/LabelImportantRounded";
 import { Images } from "./images";
+import { Helmet } from "react-helmet";
 
 const About = () => {
 
   return (
     <>
+      <Helmet>
+        <title>About Us | Best Luxury Hotel In Delhi India</title>
+        <meta
+          name="description"
+          content="About One of the best Luxury hotel in Lucknow. Hotelio have verdant grounds and its unrivalled service. Our luxurious rooms and suites feature elegant decor."
+        />
+        {/* Cononical tag:-  */}
+        <link rel="canonical" href="https://www.hoteliorooms.com/about" />
+
+        {/* OG Tag:- */}
+        <meta property="og:title" content="About Us | Best Luxury Hotel In Delhi India" />
+        <meta property="og:site_name" content="Hotelio" />
+        <meta property="og:url" content="https://www.hoteliorooms.com/about" />
+        <meta property="og:description" content="About One of the best Luxury hotel in Lucknow. Hotelio have verdant grounds and its unrivalled service. Our luxurious rooms and suites feature elegant decor." />
+        <meta property="og:type" content="" />
+        <meta property="og:image" content="https://www.hoteliorooms.com/static/media/HotelioLogo.8079a48b3c088ec911fa.png" />
+        {/* // Twitter card:- */}
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="About Us | Best Luxury Hotel In Delhi India" />
+        <meta name="twitter:site" content="@Hotelio" />
+        <meta name="twitter:description" content="About One of the best Luxury hotel in Lucknow. Hotelio have verdant grounds and its unrivalled service. Our luxurious rooms and suites feature elegant decor." />
+        <meta name="twitter:image" content="https://www.hoteliorooms.com/static/media/HotelioLogo.8079a48b3c088ec911fa.png" />
+
+
+      </Helmet>
       <Navbar />
       <div className="conatiner-fluid">
         <section style={{ background: `linear-gradient(37deg, rgba(255,255,255,0.8016456582633054) 0%, rgba(255,255,255,0.38147759103641454) 100%), url(${AboutUsTopBanner})`, backgroundSize: 'cover', backgroundPosition: 'bottom', backgroundAttachment: 'fixed', height: '50vh', display: 'grid', placeItems: 'center' }}>

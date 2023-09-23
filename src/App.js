@@ -81,7 +81,7 @@ function App() {
         <Route path="/booking" element={<Booking />} />
         <Route path="/skeleton" element={<Featured_skeleton />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path='/tems' element={<Terms />} />
+        <Route path='/terms-condition' element={<Terms />} />
         <Route path="/Terms&condition" element={<TermsMob />} />
         <Route path="/Privacy&policy" element={<PrivacyMob />} />
         <Route path='/privacy' element={<Privacy />} />
