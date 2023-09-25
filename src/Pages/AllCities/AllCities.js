@@ -47,13 +47,12 @@ const AllCities = () => {
 
   return (
     <>
-      <Grid container spacing={1} bgcolor={'#686867'}>
+      <Grid container spacing={1} bgcolor={'#ee2e24'}>
         {alphabet.map((item) => (
           <Grid item key={item}>
             <Button
               variant='text'
               sx={{ color: '#fff' }}
-              size='small'
               onClick={() => handleAlphabetClick(item)}
             >
               {item}
