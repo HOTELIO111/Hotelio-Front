@@ -36,6 +36,7 @@ import { useEffect } from "react";
 import TravelLoginSignup from "./Pages/Travel Partner Pages/TravelLoginSignup";
 import TravelHome from "./Pages/Travel Partner Pages/TravelHome";
 import TravelProfile from "./Pages/Travel Partner Pages/TravelProfile";
+import AllCities from "./Pages/AllCities/AllCities";
 // import { useEffect } from "react";
 // import ReactGA from 'react-ga';
 
@@ -100,6 +101,7 @@ function App() {
         <Route path='/Refund' element={<Refund />} />
         <Route path='/Payment_success' element={<SuccessPage />} />
         <Route path='/Payment_failed' element={<FailedPage />} />
+        <Route path='/allCities' element={<AllCities />} />
 
         {/* Mobile pages */}
 

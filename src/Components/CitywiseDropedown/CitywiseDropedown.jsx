@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ArrowRightTwoToneIcon from '@mui/icons-material/ArrowRightTwoTone';
+import { useNavigate } from 'react-router-dom';
 
 const StyledMenu = styled(Menu)(({ theme }) => ({
     '& .MuiPaper-root': {
@@ -31,6 +32,17 @@ const StyledMenu = styled(Menu)(({ theme }) => ({
     },
 }));
 
+const City = [
+    'Chennai',
+    'Hyderabad',
+    'Bangalore',
+    'Mumbai',
+    'Delhi',
+    'Pune',
+    'Kolkata',
+    'Ahmedabad',
+    'surat'
+]
 const StateWiseCityList = [
     {
         id: 1,
@@ -98,20 +110,21 @@ const StateWiseCityList = [
 ]
 
 export default function CitywiseDropedown({ CityWiseCityList }) {
+
+    const navigate = useNavigate()
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
+        navigate('/searchedhotels')
     };
     const handleClose = () => {
         setAnchorEl(null);
     };
 
-    console.log(CityWiseCityList)
-
     return (
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-            {CityWiseCityList?.map((item, index) => (
+            {/* {CityWiseCityList?.map((item, index) => (
                 <div key={index}>
                     <Button
                         aria-controls={open ? 'demo-customized-menu' : undefined}
@@ -125,7 +138,7 @@ export default function CitywiseDropedown({ CityWiseCityList }) {
                     >
                         {item}
                     </Button>
-                    {/* <StyledMenu
+                    <StyledMenu
                         anchorEl={anchorEl}
                         open={Boolean(anchorEl)}
                         onClose={handleClose}
@@ -135,20 +148,37 @@ export default function CitywiseDropedown({ CityWiseCityList }) {
                                 {city}
                             </MenuItem>
                         ))}
-                    </StyledMenu> */}
+                    </StyledMenu>
+                </div>
+            ))} */}
+            {City?.map((item, index) => (
+                <div key={index}>
+                    <Button
+                        aria-controls={open ? 'demo-customized-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                        variant="text"
+                        sx={{ color: '#fff' }}
+                        disableElevation
+                        onClick={handleClick}
+                        endIcon={<ArrowRightTwoToneIcon />}
+                    >
+                        {item}
+                    </Button>
                 </div>
             ))}
-            {/* <Button
+            <Button
                 aria-controls={open ? 'demo-customized-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 variant="text"
                 sx={{ color: '#fff' }}
                 disableElevation
-                endIcon={<ArrowForwardIosIcon fontSize='small' />}
+                onClick={() => navigate('/allCities')}
+                endIcon={<ArrowRightTwoToneIcon fontSize='small' />}
             >
                 All Cities
-            </Button> */}
+            </Button>
         </div>
     );
 }

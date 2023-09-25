@@ -390,6 +390,9 @@ const Navbar = ({ list }) => {
                               <MenuItem onClick={() => navigate("/signin")}>
                                 Customer Login
                               </MenuItem>
+                              <MenuItem onClick={() => navigate("/Travel-Partner-Auth")}>
+                                Agent Login
+                              </MenuItem>
                               <MenuItem>
                                 <Link
                                   to={
