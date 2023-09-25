@@ -11,7 +11,7 @@ const Dates = () => {
   const { RangePicker } = DatePicker;
   const dispatch = useDispatch();
 
-  
+
 
   const disabledDate = (current) => {
     return current && current < dayjs().endOf("day");
@@ -19,7 +19,6 @@ const Dates = () => {
   return (
     <Space direction="vertical" size={12}>
       <RangePicker
-      
         bordered={false}
         format="DD-MM-YYYY"
         disabledDate={disabledDate}
@@ -39,7 +38,7 @@ const Dates = () => {
           });
         }}
         required={true}
-        // ref={datePickerRef}
+      // ref={datePickerRef}
       />
     </Space>
   );

@@ -20,6 +20,7 @@ import { API_URL } from "../../config";
 import Swal from "sweetalert2";
 import { WaitLoader } from "../../Components/Elements/WaitLoader";
 import { useAuthContext } from "../../context/userAuthContext";
+import { isMobile } from "react-device-detect";
 
 const StepsForm = () => {
   const theme = createTheme({
@@ -276,7 +277,7 @@ const StepsForm = () => {
               <Grid item xs={12}>
                 <div className="d-flex justify-content-center align-items-center mt-4">
                   <hr style={{ width: "100px" }} />
-                  <Typography className="px-3" variant="caption">
+                  <Typography className={isMobile ? 'px-1' : 'px-3'} variant="caption">
                     Or Login/Signup With
                   </Typography>
                   <hr style={{ width: "100px" }} />

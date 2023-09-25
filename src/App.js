@@ -33,6 +33,9 @@ import { useAuthContext } from "./context/userAuthContext";
 import { isMobile } from "react-device-detect";
 import MobileBackground from './images/MobileBackground.jpg'
 import { useEffect } from "react";
+import TravelLoginSignup from "./Pages/Travel Partner Pages/TravelLoginSignup";
+import TravelHome from "./Pages/Travel Partner Pages/TravelHome";
+import TravelProfile from "./Pages/Travel Partner Pages/TravelProfile";
 // import { useEffect } from "react";
 // import ReactGA from 'react-ga';
 
@@ -102,6 +105,13 @@ function App() {
 
         <Route path="/favourite" element={<Favourite />} />
         <Route path="/offer" element={<MobileOffer />} />
+
+        {/* Travel Partner */}
+
+        <Route path="/Travel-Partner-Auth" element={<TravelLoginSignup />} />
+        <Route path="/Travel-Partner-Home" element={<TravelHome />} />
+        <Route path="/Travel-Partner-Profile" element={<TravelProfile />} />
+
       </Routes>
     </div>
   );
