@@ -39,54 +39,16 @@ const Detail = ({ data }) => {
     value: PropTypes.number.isRequired,
   };
 
-  const {
-    GetAllAmenities,
-    GetAllRoomTypes,
-    GetAllFacilities,
-    facilities,
-    roomType,
-    amenities,
-  } = useAuthContext();
+  const { facilities, amenities } = useAuthContext();
+
+  // const _roomAmenitiesList = (data, index) => {
+  //   const amenties = data?.rooms[index]?.roomType?.amenties;
+  //   const additionalAmenities = data?.rooms[index]?.roomType?.additionAmenities;
+  //   // const all = [...amenties, ...additionalAmenities];
+  //   return { amenties, additionalAmenities };
+  // };
 
   const dataroomId = data?.rooms.map((x) => x.roomType);
-
-  const RoomOffer = [
-    {
-      id: 1,
-      img: data?.hotelImages,
-      roomName: "Budget Room",
-      roomRate: "1000",
-      facilities: "NA",
-    },
-    {
-      id: 2,
-      img: data?.hotelImages,
-      roomName: "Classic Room",
-      roomRate: "1000",
-      facilities: "NA",
-    },
-    {
-      id: 3,
-      img: data?.hotelImages,
-      roomName: "Deluxe Room",
-      roomRate: "1000",
-      facilities: "NA",
-    },
-    {
-      id: 4,
-      img: data?.hotelImages,
-      roomName: "Excutive Room",
-      roomRate: "1000",
-      facilities: "NA",
-    },
-    {
-      id: 5,
-      img: data?.hotelImages,
-      roomName: "Suit Room",
-      roomRate: "1000",
-      facilities: "NA",
-    },
-  ];
 
   function CircularProgressWithLabel(props) {
     return (
@@ -118,8 +80,6 @@ const Detail = ({ data }) => {
     );
   }
 
-  console.log(data);
-
   return (
     <div>
       <Grid container spacing={2}>
@@ -140,7 +100,8 @@ const Detail = ({ data }) => {
 
               <div className="">
                 <ul className="d-flex gap-2">
-                  {data?.amenities.map((item, index) => {
+                  {/* ------------------------------------------------------ Map the Hotel Ammenities list (function defined upper side ) ------------------------------------------------- */}
+                  {data?.room?.amenities?.map((item, index) => {
                     return (
                       <li
                         key={index}
@@ -196,67 +157,69 @@ const Detail = ({ data }) => {
             referrerPolicy="no-referrer-when-downgrade"
           ></iframe>
         </Grid>
-        {isMobile ? null : <Grid item xs={12} lg={12} xl={12}>
-          <Card
-            className="p-3"
-            sx={{
-              margin: 1,
-              boxShadow: "0px 0px 30px rgba(0,0,0,0.1) !important",
-              borderRadius: "15px",
-              border: '2px solid #ee2e24'
-            }}
-          >
-            <div
-              className="p-2 d-flex justify-content-between align-items-center"
-              style={{
-                color: "#8d8d8d",
-                fontSize: "16px",
+        {isMobile ? null : (
+          <Grid item xs={12} lg={12} xl={12}>
+            <Card
+              className="p-3"
+              sx={{
+                margin: 1,
+                boxShadow: "0px 0px 30px rgba(0,0,0,0.1) !important",
+                borderRadius: "15px",
+                border: "2px solid #ee2e24",
               }}
             >
-              <b>Hotel Review & Rating</b>
-            </div>
-            <CardContent>
-              <div className="d-flex justify-content-evenly align-items-center">
-                <div
-                  className="d-flex flex-column align-items-center"
-                  sx={{ maxHeight: "134px", width: 200 }}
-                >
-                  <CircularProgressWithLabel value={75} />
-                  <p className="fw-bold mt-1">Value of Money</p>
-                </div>
-                <div
-                  className="d-flex flex-column align-items-center"
-                  sx={{ maxHeight: "134px", width: 200 }}
-                >
-                  <CircularProgressWithLabel value={80} />
-                  <p className="fw-bold mt-1">Cleanliness</p>
-                </div>
-                <div
-                  className="d-flex flex-column align-items-center"
-                  sx={{ maxHeight: "134px", width: 200 }}
-                >
-                  <CircularProgressWithLabel value={90} />
-                  <p className="fw-bold mt-1">Comfort</p>
-                </div>
-
-                <Card
-                  sx={{
-                    maxHeight: "134px",
-                    width: 400,
-                    p: 1,
-                    boxShadow: "none !important",
-                    color: "#4d4d4d",
-                  }}
-                >
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Perspiciatis maxime officiis error id nesciunt quos officia.
-                </Card>
+              <div
+                className="p-2 d-flex justify-content-between align-items-center"
+                style={{
+                  color: "#8d8d8d",
+                  fontSize: "16px",
+                }}
+              >
+                <b>Hotel Review & Rating</b>
               </div>
-            </CardContent>
-          </Card>
-        </Grid>}
+              <CardContent>
+                <div className="d-flex justify-content-evenly align-items-center">
+                  <div
+                    className="d-flex flex-column align-items-center"
+                    sx={{ maxHeight: "134px", width: 200 }}
+                  >
+                    <CircularProgressWithLabel value={75} />
+                    <p className="fw-bold mt-1">Value of Money</p>
+                  </div>
+                  <div
+                    className="d-flex flex-column align-items-center"
+                    sx={{ maxHeight: "134px", width: 200 }}
+                  >
+                    <CircularProgressWithLabel value={80} />
+                    <p className="fw-bold mt-1">Cleanliness</p>
+                  </div>
+                  <div
+                    className="d-flex flex-column align-items-center"
+                    sx={{ maxHeight: "134px", width: 200 }}
+                  >
+                    <CircularProgressWithLabel value={90} />
+                    <p className="fw-bold mt-1">Comfort</p>
+                  </div>
+
+                  <Card
+                    sx={{
+                      maxHeight: "134px",
+                      width: 400,
+                      p: 1,
+                      boxShadow: "none !important",
+                      color: "#4d4d4d",
+                    }}
+                  >
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Perspiciatis maxime officiis error id nesciunt quos officia.
+                  </Card>
+                </div>
+              </CardContent>
+            </Card>
+          </Grid>
+        )}
         <Grid item xs={12} lg={12} xl={12}>
-          <Card sx={{ margin: 1, border: '2px solid #ee2e24' }}>
+          <Card sx={{ margin: 1, border: "2px solid #ee2e24" }}>
             <div
               className="p-2"
               id="BookNow"
@@ -268,49 +231,73 @@ const Detail = ({ data }) => {
             >
               <b>Select Your Room</b>
             </div>
-            {roomType
-              ?.filter((x) => dataroomId?.includes(x._id))
-              ?.map((item, index) => {
-                return (
-                  <CardContent>
-                    <Grid container spacing={1}>
-                      <Grid sx={isMobile ? null : { borderRight: '2px solid #ee2e24' }} item xs={2} md={4} lg={1} xl={1}>
-                        <div>
-                          <small>{index + 1}</small>
-                        </div>
-                      </Grid>
-                      <Grid sx={isMobile ? null : { borderRight: '2px solid #ee2e24' }} item xs={10} md={4} lg={3} xl={3}>
-                        <div className="d-flex align-items-center">
-                          <Typography variant="h6">{item.roomType}</Typography>
-                          <FcApproval size={35} />
-                        </div>
-                        <div style={{ color: "#28a745" }}>
-                          {facilities
-                            ?.filter((x) =>
-                              item.includeFacilities?.includes(x._id)
-                            )
-                            ?.map((facility, index) => (
-                              <Typography
-                                key={index}
-                                variant="p"
-                                display={"block"}
-                              >
-                                {facility.title}
-                              </Typography>
-                            ))}
-                          {amenities
-                            ?.filter((x) => item.amenties?.includes(x._id))
-                            ?.map((amenity, index) => (
-                              <Typography
-                                key={index}
-                                variant="p"
-                                display={"block"}
-                              >
-                                {amenity.amenity}
-                              </Typography>
-                            ))}
+            {/* -------------------------------------------------Hotel rooms Maped ---------------------------------------------------------------------- */}
+            {data?.rooms?.map((item, index) => {
+              return (
+                <CardContent>
+                  <Grid container spacing={1}>
+                    <Grid
+                      sx={
+                        isMobile ? null : { borderRight: "2px solid #ee2e24" }
+                      }
+                      item
+                      xs={2}
+                      md={4}
+                      lg={1}
+                      xl={1}
+                    >
+                      <div>
+                        <small>{index + 1}</small>
+                      </div>
+                    </Grid>
+                    <Grid
+                      sx={
+                        isMobile ? null : { borderRight: "2px solid #ee2e24" }
+                      }
+                      item
+                      xs={10}
+                      md={4}
+                      lg={3}
+                      xl={3}
+                    >
+                      <div className="d-flex align-items-center">
+                        <Typography variant="h6">
+                          {item?.roomType?.roomType}
+                        </Typography>
+                        <FcApproval size={35} />
+                      </div>
+                      <div style={{ color: "#28a745" }}>
+                        {/* ------------------------------------Mapped Hotel Facilites as per room type amenites ------------------------------------------------------ */}
+                        {facilities
+                          ?.filter((x) =>
+                            item.roomType.includeFacilities?.includes(x._id)
+                          )
+                          ?.map((facility, index) => (
+                            <Typography
+                              key={index}
+                              variant="p"
+                              display={"block"}
+                            >
+                              {facility.title}
+                            </Typography>
+                          ))}
 
-                          {/* <Typography variant="p" display={"block"}>
+                        {/* ---------------------------------------------Mapped Amenites as per room type Amenites ----------------------------------------------------------------- */}
+                        {amenities
+                          ?.filter((x) =>
+                            item.roomType.amenties?.includes(x._id)
+                          )
+                          ?.map((amenity, index) => (
+                            <Typography
+                              key={index}
+                              variant="p"
+                              display={"block"}
+                            >
+                              {amenity.amenity}
+                            </Typography>
+                          ))}
+
+                        {/* <Typography variant="p" display={"block"}>
                             Air conditioning
                           </Typography>
                           <Typography variant="p" display={"block"}>
@@ -319,40 +306,63 @@ const Detail = ({ data }) => {
                           <Typography variant="p" display={"block"}>
                             Attached bathroom
                           </Typography> */}
-                        </div>
-                      </Grid>
-                      <Grid sx={isMobile ? null : { borderRight: '2px solid #ee2e24' }} item xs={12} md={4} lg={3} xl={3}>
-                        <h4>
-                          ₹ {data?.rooms[index]?.price}{" "}
-                          <span className="text-secondary">
-                            <del>{item.maxPrice}</del> off
-                          </span>
-                        </h4>
-                        <p>+ 18% taxes and charges</p>
-                      </Grid>
-                      <Grid sx={isMobile ? null : { borderRight: '2px solid #ee2e24' }} item xs={12} md={4} lg={3} xl={3}>
-                        <div className="text-center">
-                          <div className="d-flex">
-                            <p>{item?.facilities || 'NA'}</p>
-                          </div>
-                        </div>
-                      </Grid>
-                      <Grid item xs={12} md={4} lg={2} xl={2}>
-                        <div className="text-center">
-                          <Button
-                            onClick={() => navigate("/booking")}
-                            variant="contained"
-                            color="error"
-                          >
-                            Book Now
-                          </Button>
-                        </div>
-                      </Grid>
+                      </div>
                     </Grid>
-                    <hr />
-                  </CardContent>
-                );
-              })}
+                    <Grid
+                      sx={
+                        isMobile ? null : { borderRight: "2px solid #ee2e24" }
+                      }
+                      item
+                      xs={12}
+                      md={4}
+                      lg={3}
+                      xl={3}
+                    >
+                      {/* -------------------------------------------------Mapped the price of every room ---------------------------------------------------------- */}
+                      <h4>
+                        ₹ {item.price}{" "}
+                        <span className="text-secondary">
+                          {item?.prevPrice ? (
+                            <>
+                              <del>{item.prevPrice}</del> "off"
+                            </>
+                          ) : null}
+                        </span>
+                      </h4>
+                      <p>+ 18% taxes and charges</p>
+                    </Grid>
+                    <Grid
+                      sx={
+                        isMobile ? null : { borderRight: "2px solid #ee2e24" }
+                      }
+                      item
+                      xs={12}
+                      md={4}
+                      lg={3}
+                      xl={3}
+                    >
+                      <div className="text-center">
+                        <div className="d-flex">
+                          <p>{item?.facilities || "NA"}</p>
+                        </div>
+                      </div>
+                    </Grid>
+                    <Grid item xs={12} md={4} lg={2} xl={2}>
+                      <div className="text-center">
+                        <Button
+                          onClick={() => navigate("/booking")}
+                          variant="contained"
+                          color="error"
+                        >
+                          Book Now
+                        </Button>
+                      </div>
+                    </Grid>
+                  </Grid>
+                  <hr />
+                </CardContent>
+              );
+            })}
           </Card>
         </Grid>
 
@@ -373,11 +383,11 @@ const Detail = ({ data }) => {
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="panel1a-header"
-                sx={{ border: '2px solid #ee2e24' }}
+                sx={{ border: "2px solid #ee2e24" }}
               >
                 <Typography>Is there a swimming pool</Typography>
               </AccordionSummary>
-              <AccordionDetails sx={{ border: '2px solid #ee2e24' }}>
+              <AccordionDetails sx={{ border: "2px solid #ee2e24" }}>
                 <Typography>No</Typography>
               </AccordionDetails>
             </Accordion>
@@ -386,11 +396,11 @@ const Detail = ({ data }) => {
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel2a-content"
                 id="panel2a-header"
-                sx={{ border: '2px solid #ee2e24' }}
+                sx={{ border: "2px solid #ee2e24" }}
               >
                 <Typography>Do they serve breakfast</Typography>
               </AccordionSummary>
-              <AccordionDetails sx={{ border: '2px solid #ee2e24' }}>
+              <AccordionDetails sx={{ border: "2px solid #ee2e24" }}>
                 <Typography>Yes, We serve</Typography>
               </AccordionDetails>
             </Accordion>
@@ -414,11 +424,11 @@ const Detail = ({ data }) => {
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="panel1a-header"
-                sx={{ border: '2px solid #ee2e24' }}
+                sx={{ border: "2px solid #ee2e24" }}
               >
                 <Typography>Check-in Time</Typography>
               </AccordionSummary>
-              <AccordionDetails sx={{ border: '2px solid #ee2e24' }}>
+              <AccordionDetails sx={{ border: "2px solid #ee2e24" }}>
                 <Typography>Available 24 hours</Typography>
               </AccordionDetails>
             </Accordion>
@@ -427,11 +437,11 @@ const Detail = ({ data }) => {
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel2a-content"
                 id="panel2a-header"
-                sx={{ border: '2px solid #ee2e24' }}
+                sx={{ border: "2px solid #ee2e24" }}
               >
-                <Typography >Check-out Time</Typography>
+                <Typography>Check-out Time</Typography>
               </AccordionSummary>
-              <AccordionDetails sx={{ border: '2px solid #ee2e24' }}>
+              <AccordionDetails sx={{ border: "2px solid #ee2e24" }}>
                 <Typography>From 08:00 to 10:00</Typography>
               </AccordionDetails>
             </Accordion>
@@ -440,11 +450,11 @@ const Detail = ({ data }) => {
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel2a-content"
                 id="panel2a-header"
-                sx={{ border: '2px solid #ee2e24' }}
+                sx={{ border: "2px solid #ee2e24" }}
               >
-                <Typography >Cancellation/prepayment</Typography>
+                <Typography>Cancellation/prepayment</Typography>
               </AccordionSummary>
-              <AccordionDetails sx={{ border: '2px solid #ee2e24' }}>
+              <AccordionDetails sx={{ border: "2px solid #ee2e24" }}>
                 <Typography>
                   Cancellation and prepayment policies vary according to
                   accommodation type. Please check what conditions may apply to

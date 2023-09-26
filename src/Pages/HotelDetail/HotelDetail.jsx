@@ -18,23 +18,27 @@ import style from "./Hotel.module.css";
 import { isMobile } from "react-device-detect";
 import MobileHeader from "../../Components/MobileComponent/MobileHeader";
 import MobileFooter from "../../Components/MobileComponent/MobileFooter";
+import PageLoader from "../../Utilis/PageLoader";
 
 const HotelDetail = () => {
   const { id } = useParams();
 
   const [data, setData] = useState(null);
 
+  const [loader, setLoader] = useState(false);
+
   const GetHoteldata = async () => {
     try {
+      setLoader(true);
       const response = await axios.get(API_URL + `/hotel/hoteldetails/${id}`);
       if (response.status === 200) {
         setData(response.data.data);
-        console.log(data);
+        setLoader(false);
       }
-      console.log("API Response:", response.data.data);
     } catch (error) {
       console.log(error);
     }
+    setLoader(false);
   };
 
   useEffect(() => {
@@ -43,12 +47,14 @@ const HotelDetail = () => {
 
   return (
     <>
+      <PageLoader loading={loader} />
       {isMobile ? <MobileHeader /> : <Navbar />}
       <div
         style={{
-          marginTop: isMobile ? null : '85px',
-          background: 'radial-gradient(circle, rgba(238,46,36,0.3086484593837535) 0%, rgba(148,187,233,1) 100%)',
-          border: '2px solid #ee2e24'
+          marginTop: isMobile ? null : "85px",
+          background:
+            "radial-gradient(circle, rgba(238,46,36,0.3086484593837535) 0%, rgba(148,187,233,1) 100%)",
+          border: "2px solid #ee2e24",
         }}
       >
         <Container>
@@ -60,13 +66,19 @@ const HotelDetail = () => {
               lg={6}
             >
               <div className="text-center">
-                <Typography display={"block"} color={"#ee2e24"} fontWeight={700} variant={isMobile ? 'p' : 'h3'}>
+                <Typography
+                  display={"block"}
+                  color={"#ee2e24"}
+                  fontWeight={700}
+                  variant={isMobile ? "p" : "h3"}
+                >
                   {data?.hotelName}
                 </Typography>
                 <Rating
                   name="read-only"
                   size="large"
-                  value={data?.hotelRatings}
+                  color="#FF0000"
+                  value={`${data?.hotelRatings}`}
                   readOnly
                 />
                 <div>
