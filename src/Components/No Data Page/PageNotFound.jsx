@@ -1,5 +1,6 @@
 import React from "react";
 import FourZeroFour from "../../images/FourZeroFour.jpg";
+import { Helmet } from "react-helmet";
 
 const PageNotFound = () => {
   return (
@@ -9,6 +10,9 @@ const PageNotFound = () => {
         placeItems: 'center'
       }}
     >
+      <Helmet>
+        <title>Page Not Found</title>
+      </Helmet>
       <div
         style={{
           display: 'flex',

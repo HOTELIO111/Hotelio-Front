@@ -51,7 +51,9 @@ const About = () => {
       </Helmet>
       <Navbar />
       <div className="conatiner-fluid">
-        <section style={{ background: `linear-gradient(37deg, rgba(255,255,255,0.8016456582633054) 0%, rgba(255,255,255,0.38147759103641454) 100%), url(${AboutUsTopBanner})`, backgroundSize: 'cover', backgroundPosition: 'bottom', backgroundAttachment: 'fixed', height: '50vh', display: 'grid', placeItems: 'center' }}>
+        <section
+          style={{ background: `linear-gradient(37deg, rgba(255,255,255,0.8016456582633054) 0%, rgba(255,255,255,0.38147759103641454) 100%), url(${AboutUsTopBanner})`, backgroundSize: 'cover', backgroundPosition: 'bottom', backgroundAttachment: 'fixed', height: '50vh', display: 'grid', placeItems: 'center' }}
+        >
           <div className="row">
             <div style={{ display: 'grid', placeItems: 'center' }} className="col-12 p-5">
               <div className="border rounded p-2 text-center text-danger">
@@ -62,7 +64,8 @@ const About = () => {
           </div>
         </section>
 
-        <section style={{ borderTop: '2px solid #ee2e24' }} className={`${style.aboutus_page_section} pt-4 `}>
+        <section style={{ borderTop: '2px solid #ee2e24' }}
+          className={`${style.aboutus_page_section} pt-4 `}>
           <div className="container">
             <div className={style.about_page_text}>
               <div className="row d-flex flex-row justify-content-between">
@@ -89,9 +92,7 @@ const About = () => {
                   </div>
                 </div>
                 <div
-                  className="col-lg-5  offset-lg-1"
-                  style={{ fontFamily: "Rubik" }}
-                >
+                  className="col-lg-5  offset-lg-1">
                   <ul className={style.ap_services}>
                     <li>
                       <LabelImportantRoundedIcon color="primary" /> 20% Off On
@@ -277,7 +278,9 @@ const About = () => {
           </div>
         </section>
 
-        <section style={{ background: `url(${DecorImageS})`, backgroundSize: 'cover' }} className={`${style.gallery_section}`}>
+        <section
+          // style={{ background: `url(${DecorImageS})`, backgroundSize: 'cover' }}
+          className={`${style.gallery_section}`}>
           <div className="container">
             <div className="row">
               <div className="col-lg-12">
@@ -337,7 +340,7 @@ const About = () => {
           </div>
         </section>
 
-        <section className={`${style.aboutus_page_sectionOne} pt-4`}>
+        {/* <section className={`${style.aboutus_page_sectionOne} pt-4`}>
           <div className="container">
             <div className="row">
               <div className="col-xl-5 pb-4">
@@ -364,7 +367,7 @@ const About = () => {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         <section style={{ border: '2px solid #ee2e24' }} className="py-0" >
           <div className="container">

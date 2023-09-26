@@ -699,6 +699,3 @@ const Navbar = ({ list }) => {
 };
 
 export default Navbar;
-//  onClick={() =>  handleOption("singleRoom", "d")}
-// onClick={() =>  handleOption("singleRoom", "i")  }
-// {options.singleRoom}

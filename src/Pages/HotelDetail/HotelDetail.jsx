@@ -60,7 +60,7 @@ const HotelDetail = () => {
               lg={6}
             >
               <div className="text-center">
-                <Typography color={"#ee2e24"} fontWeight={700} variant={isMobile ? 'p' : "p"}>
+                <Typography display={"block"} color={"#ee2e24"} fontWeight={700} variant={isMobile ? 'p' : 'h3'}>
                   {data?.hotelName}
                 </Typography>
                 <Rating

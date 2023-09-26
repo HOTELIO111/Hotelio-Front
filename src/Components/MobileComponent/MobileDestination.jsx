@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, CardContent, Typography, Paper, Button } from '@mui/material';
+import AllcitiesIcon from '../../images/AllcitiesIcon.jpg'
 import LocationIcon from '../../images/LocationIcon.png'
 import BangloreIcon from '../../images/BangloreIcon.jpeg'
 import DelhiIcons from '../../images/DelhiIcon.webp'
@@ -10,6 +11,7 @@ import KolkataIcon from '../../images/KolkataIcon.jpg'
 import MumbaiIcon from '../../images/MumbaiIcon.jpg'
 import NoidaIcon from '../../images/NoidaIcon.jpg'
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const CardContainer = styled(Paper)`
   display: flex;
@@ -73,18 +75,26 @@ const cardData = [
         content: 'Noida',
         image: NoidaIcon,
     },
+    {
+
+        content: 'All cities',
+        image: AllcitiesIcon,
+    },
 ];
 
 const MobileDestination = () => {
+
+const navigate = useNavigate()
+
     return (
         <>
             <CardContainer className='my-4'>
                 {cardData.map((card, index) => (
-                    <StyledCard key={index}>
+                    <StyledCard onClick={() => navigate('/allCities')} key={index}>
 
                         <CardContent sx={{ padding: 0, textAlign: 'center' }}>
                             <Button>
-                                <img src={card.image} className='rounded' alt={`Image ${index}`} />
+                                <img src={card.image} className='rounded' loading="lazy" alt={`Image ${index}`} />
                             </Button>
                         </CardContent>
                         <Typography>{card.content}</Typography>

@@ -6,7 +6,6 @@ import BeenhereIcon from '@mui/icons-material/Beenhere';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
 import TravelProfile from './TravelProfile';
-import List from '../../Components/YourBookings/List';
 import TravelWallet from './TravelWallet';
 import { useAuthContext } from '../../context/userAuthContext';
 import TravelBooking from './TravelBooking';

@@ -2,7 +2,6 @@ import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import ArrowRightTwoToneIcon from '@mui/icons-material/ArrowRightTwoTone';
 import { useNavigate } from 'react-router-dom';
 
@@ -43,124 +42,24 @@ const City = [
     'Ahmedabad',
     'surat'
 ]
-const StateWiseCityList = [
-    {
-        id: 1,
-        State: 'Uttar Pradesh',
-        city: [
-            "Lucknow", "Lakhimpur", "Raibarely", "Sultanpur", "Mirzapur"
-        ]
-    },
-    {
-        id: 2,
-        State: 'Madya Pradesh',
-        city: [
-            "Lucknow", "Lakhimpur", "Raibarely", "Sultanpur", "Mirzapur"
-        ]
-    },
-    {
-        id: 3,
-        State: 'Rajasthan',
-        city: [
-            "Lucknow", "Lakhimpur", "Raibarely", "Sultanpur", "Mirzapur"
-        ]
-    },
-    {
-        id: 4,
-        State: 'Kerala',
-        city: [
-            "Lucknow", "Lakhimpur", "Raibarely", "Sultanpur", "Mirzapur"
-        ]
-    },
-    {
-        id: 5,
-        State: 'Tamil Nadu',
-        city: [
-            "Lucknow", "Lakhimpur", "Raibarely", "Sultanpur", "Mirzapur"
-        ]
-    },
-    {
-        id: 6,
-        State: 'Karnataka',
-        city: [
-            "Lucknow", "Lakhimpur", "Raibarely", "Sultanpur", "Mirzapur"
-        ]
-    },
-    {
-        id: 7,
-        State: 'Goa',
-        city: [
-            "Lucknow", "Lakhimpur", "Raibarely", "Sultanpur", "Mirzapur"
-        ]
-    },
-    {
-        id: 8,
-        State: 'Gujarat',
-        city: [
-            "Lucknow", "Lakhimpur", "Raibarely", "Sultanpur", "Mirzapur"
-        ]
-    },
-    {
-        id: 9,
-        State: 'West Bengal',
-        city: [
-            "Lucknow", "Lakhimpur", "Raibarely", "Sultanpur", "Mirzapur"
-        ]
-    }
-]
 
-export default function CitywiseDropedown({ CityWiseCityList }) {
+export default function CitywiseDropedown() {
 
-    const navigate = useNavigate()
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-        navigate('/searchedhotels')
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
+    const navigate = useNavigate();
+
+    const handleClick = (event, city) => {
+        navigate(`/searchedhotels?location=${encodeURIComponent(city)}`);
     };
 
     return (
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-            {/* {CityWiseCityList?.map((item, index) => (
-                <div key={index}>
-                    <Button
-                        aria-controls={open ? 'demo-customized-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? 'true' : undefined}
-                        variant="text"
-                        sx={{ color: '#fff' }}
-                        disableElevation
-                        onClick={handleClick}
-                        endIcon={<ArrowRightTwoToneIcon />}
-                    >
-                        {item}
-                    </Button>
-                    <StyledMenu
-                        anchorEl={anchorEl}
-                        open={Boolean(anchorEl)}
-                        onClose={handleClose}
-                    >
-                        {item.city.map((city, cityIndex) => (
-                            <MenuItem key={cityIndex} onClick={handleClose} disableRipple>
-                                {city}
-                            </MenuItem>
-                        ))}
-                    </StyledMenu>
-                </div>
-            ))} */}
             {City?.map((item, index) => (
                 <div key={index}>
                     <Button
-                        aria-controls={open ? 'demo-customized-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? 'true' : undefined}
                         variant="text"
                         sx={{ color: '#fff' }}
                         disableElevation
-                        onClick={handleClick}
+                        onClick={(event) => handleClick(event, item)}
                         endIcon={<ArrowRightTwoToneIcon />}
                     >
                         {item}
@@ -168,9 +67,7 @@ export default function CitywiseDropedown({ CityWiseCityList }) {
                 </div>
             ))}
             <Button
-                aria-controls={open ? 'demo-customized-menu' : undefined}
                 aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
                 variant="text"
                 sx={{ color: '#fff' }}
                 disableElevation
