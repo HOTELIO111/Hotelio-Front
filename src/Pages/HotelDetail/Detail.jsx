@@ -258,7 +258,7 @@ const Detail = ({ data }) => {
                     >
                       <div className="d-flex align-items-center">
                         <Typography variant="h6">
-                          {item?.roomType?.roomType}
+                          {item?.roomType?.title}
                         </Typography>
                         <FcApproval size={35} />
                       </div>
@@ -289,7 +289,7 @@ const Detail = ({ data }) => {
                               variant="p"
                               display={"block"}
                             >
-                              {amenity.amenity}
+                              {amenity.title}
                             </Typography>
                           ))}
 

@@ -14,7 +14,6 @@ const PageLoader = ({ loading }) => {
         zIndex: "9999",
         alignItems: "center",
         justifyContent: "center",
-        opacity: 0.3
       }}
     >
       <h1
