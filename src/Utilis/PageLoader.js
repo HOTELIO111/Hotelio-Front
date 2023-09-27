@@ -14,6 +14,7 @@ const PageLoader = ({ loading }) => {
         zIndex: "9999",
         alignItems: "center",
         justifyContent: "center",
+        opacity: 0.3
       }}
     >
       <h1
@@ -23,7 +24,7 @@ const PageLoader = ({ loading }) => {
           animation: "hotelioLoader 2s infinite",
         }}
       >
-        HOTELIO ...
+        Welcome To Hotelio, Your Travel Partner
       </h1>
     </div>
   );

@@ -61,6 +61,17 @@ function App() {
     }
   }, []);
 
+  const hotelioroomsStructuredData = {
+    "@context": "https://schema.org/",
+    "@type": "WebSite",
+    "name": "Hoteliorooms",
+    "url": "https://www.hoteliorooms.com",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.hoteliorooms.com{search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  };
 
   return (
     <div
@@ -71,6 +82,9 @@ function App() {
         backgroundAttachment: 'fixed',
       } : {}}
     >
+      <script type="application/ld+json">
+        {JSON.stringify(hotelioroomsStructuredData)}
+      </script>
       <Routes>
         <Route path="*" element={<PageNotFound />} />
         <Route path="/search" element={<SearchBar />} />

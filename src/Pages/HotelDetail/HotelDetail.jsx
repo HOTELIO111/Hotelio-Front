@@ -8,13 +8,11 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import {
   Button,
-  Chip,
   Container,
   Grid,
   Rating,
   Typography,
 } from "@mui/material";
-import style from "./Hotel.module.css";
 import { isMobile } from "react-device-detect";
 import MobileHeader from "../../Components/MobileComponent/MobileHeader";
 import MobileFooter from "../../Components/MobileComponent/MobileFooter";
@@ -24,26 +22,26 @@ const HotelDetail = () => {
   const { id } = useParams();
 
   const [data, setData] = useState(null);
-
   const [loader, setLoader] = useState(false);
 
-  const GetHoteldata = async () => {
-    try {
-      setLoader(true);
-      const response = await axios.get(API_URL + `/hotel/hoteldetails/${id}`);
-      if (response.status === 200) {
-        setData(response.data.data);
+  useEffect(() => {
+    const GetHoteldata = async () => {
+      try {
+        setLoader(true);
+        const response = await axios.get(API_URL + `/hotel/hoteldetails/${id}`);
+        if (response.status === 200) {
+          setData(response.data.data);
+          setLoader(false);
+        }
+      } catch (error) {
+        console.log(error);
         setLoader(false);
       }
-    } catch (error) {
-      console.log(error);
-    }
-    setLoader(false);
-  };
+    };
 
-  useEffect(() => {
     GetHoteldata();
-  }, []);
+  }, [id]);
+
 
   return (
     <>
@@ -57,23 +55,47 @@ const HotelDetail = () => {
           border: "2px solid #ee2e24",
         }}
       >
+
+        <HotelCover data={data} />
         <Container>
           <Grid spacing={1} container padding={5}>
             <Grid
-              sx={{ display: "grid", placeItems: "center" }}
               item
               xs={12}
               lg={6}
+              textAlign={"center"}
             >
-              <div className="text-center">
-                <Typography
-                  display={"block"}
-                  color={"#ee2e24"}
-                  fontWeight={700}
-                  variant={isMobile ? "p" : "h3"}
+              <Typography
+                display={"block"}
+                color={"#ee2e24"}
+                fontWeight={700}
+                variant={isMobile ? "p" : "h3"}
+              >
+                {data?.hotelName}
+              </Typography>
+              <div>
+                <Button
+                  size="large"
+                  href="#BookNow"
+                  color="error"
+                  sx={{ my: 1 }}
+                  variant="outlined"
                 >
-                  {data?.hotelName}
-                </Typography>
+                  Book Now
+                </Button>
+              </div>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              lg={6}
+              display={"flex"}
+              alignItems={"center"}
+            >
+              {/* <div className={style.Imagebox}>
+                <img src={data?.hotelCoverImg} alt="hotelImg" />
+              </div> */}
+              <div className="text-center">
                 <Rating
                   name="read-only"
                   size="large"
@@ -81,31 +103,11 @@ const HotelDetail = () => {
                   value={`${data?.hotelRatings}`}
                   readOnly
                 />
-                <div>
-                  <Button
-                    size="larger"
-                    href="#BookNow"
-                    color="error"
-                    variant="outlined"
-                  >
-                    Book Now
-                  </Button>
-                </div>
-              </div>
-            </Grid>
-            <Grid
-              sx={{ display: "grid", placeItems: "center" }}
-              item
-              xs={12}
-              lg={6}
-            >
-              <div className={style.Imagebox}>
-                <img src={data?.hotelCoverImg} alt="hotelImg" />
+                <Typography display={"block"} variant="p">{data?.address}</Typography>
               </div>
             </Grid>
           </Grid>
         </Container>
-        <HotelCover data={data} />
       </div>
       <Container sx={isMobile ? { mb: 10 } : null}>
         <Detail data={data} />

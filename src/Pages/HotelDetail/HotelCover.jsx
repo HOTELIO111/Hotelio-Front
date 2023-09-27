@@ -25,31 +25,33 @@ const HotelCover = ({ data }) => {
     let carousel = null;
 
     return (
-        <div className='py-2 d-none d-sm-block'>
+        <div className='p-1'>
             {/* Previous button */}
-            {/* <Button variant="text" className={` ${style.previousButton}`} onClick={slidePrev}><ArrowBackIosIcon /></Button> */}
+            <div className="position-relative">
+                <Button variant="text" className={` ${style.previousButton}`} onClick={slidePrev}><ArrowBackIosIcon /></Button>
 
-            {/* AliceCarousel component */}
-            <AliceCarousel
-                mouseTracking
-                autoPlay
-                infinite
-                items={data?.hotelImages.map((item, index) => {
-                    return (
-                        <div className="item mx-1" data-value={index}>
-                            <img style={{ height: '200px', width: '380px', border: '2px solid #ee2e24', borderRadius: '5px' }} src={item} alt="hotelimg" />
-                        </div>
-                    )
-                })}
-                paddingLeft={50} // Adjust the value to increase/decrease left spacing
-                paddingRight={50} // Adjust the value to increase/decrease right spacing
-                responsive={responsive}
-                disableButtonsControls // Disable the left and right navigation icons
-                ref={(el) => (carousel = el)} // Save reference to the carousel
-            />
+                {/* AliceCarousel component */}
+                <AliceCarousel
+                    mouseTracking
+                    autoPlay
+                    infinite
+                    items={data?.hotelImages.map((item, index) => {
+                        return (
+                            <div className="item mx-1" data-value={index}>
+                                <img style={{ height: '400px', width: '460px', borderRadius: '5px' }} src={item} alt="hotelimg" />
+                            </div>
+                        )
+                    })}
+                    paddingLeft={50}
+                    paddingRight={50}
+                    responsive={responsive}
+                    disableButtonsControls
+                    ref={(el) => (carousel = el)}
+                />
 
-            {/* Next button */}
-            {/* <Button variant="text" className={` ${style.NextButton}`} onClick={slideNext}><ArrowForwardIosIcon /></Button> */}
+                {/* Next button */}
+                <Button variant="text" className={` ${style.NextButton}`} onClick={slideNext}><ArrowForwardIosIcon /></Button>
+            </div>
         </div>
     );
 }

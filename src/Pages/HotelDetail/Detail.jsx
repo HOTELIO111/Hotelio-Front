@@ -17,11 +17,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import PropTypes from "prop-types";
 import Welcome from "../../images/Welcome.png";
 import { useNavigate } from "react-router-dom";
-import AcUnitIcon from "@mui/icons-material/AcUnit";
-import ConnectedTvIcon from "@mui/icons-material/ConnectedTv";
 import NetworkWifiIcon from "@mui/icons-material/NetworkWifi";
-import CameraRearIcon from "@mui/icons-material/CameraRear";
-import BathroomIcon from "@mui/icons-material/Bathroom";
 import LocalParkingIcon from "@mui/icons-material/LocalParking";
 import FoodBankIcon from "@mui/icons-material/FoodBank";
 import PlusOneIcon from "@mui/icons-material/PlusOne";
@@ -366,7 +362,7 @@ const Detail = ({ data }) => {
           </Card>
         </Grid>
 
-        <Grid item xs={12} lg={12} xl={12} padding={1}>
+        <Grid item xs={12} lg={6} xl={6} padding={1}>
           <div className="p-2">
             <div
               className="p-2"
@@ -406,8 +402,7 @@ const Detail = ({ data }) => {
             </Accordion>
           </div>
         </Grid>
-        <Grid item xs={12} lg={12} xl={12} padding={1}>
-          <hr />
+        <Grid item xs={12} lg={6} xl={6} padding={1}>
           <div className="p-2">
             <div
               className="p-2"
