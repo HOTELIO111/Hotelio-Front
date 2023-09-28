@@ -20,6 +20,8 @@ const HotelResults = () => {
     totalRooms: searchParams.get("totalRooms"),
   };
 
+  const [filterData, setFilterData] = useState({});
+
   const [hotels, setHotels] = useState(null);
 
   const GetSearchHotel = async () => {
@@ -41,10 +43,17 @@ const HotelResults = () => {
   return (
     <div>
       {isMobile ? <MobileHeader /> : <Navbar />}
-      <Container sx={isMobile ? { marginBottom: 7 } : { marginTop: 11 }} maxWidth="xl">
+      <Container
+        sx={isMobile ? { marginBottom: 7 } : { marginTop: 11 }}
+        maxWidth="xl"
+      >
         <Grid container spacing={1}>
           <Grid item xl={2} lg={2} xs={12}>
-            <SideFilter hotels={hotels} />
+            <SideFilter
+              hotels={hotels}
+              setFilterData={setFilterData}
+              filterData={filterData}
+            />
           </Grid>
           <Grid item xl={10} lg={10} xs={12}>
             <HotelList
