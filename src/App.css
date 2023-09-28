@@ -325,6 +325,7 @@ body {
 }
 
 @media (max-width: 991px) {
+
   html,
   body {
     overflow-x: hidden;
@@ -495,13 +496,13 @@ body {
 }
 
 @keyframes hotelioLoader {
+
   0%,
   100% {
     color: red;
   }
+
   50% {
     color: rgb(255, 173, 173);
   }
 }
-
-

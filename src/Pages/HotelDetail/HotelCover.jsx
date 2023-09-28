@@ -7,8 +7,10 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Button } from '@mui/material';
 
 const responsive = {
-    0: { items: 3 },
-    568: { items: 3 },
+    // 0: { items: 1 },
+    // 768: { items: 3 },
+    0: { items: 1 },
+    568: { items: 1 },
     1024: { items: 3 },
 };
 
@@ -28,7 +30,7 @@ const HotelCover = ({ data }) => {
         <div className='p-1'>
             {/* Previous button */}
             <div className="position-relative">
-                <Button variant="text" className={` ${style.previousButton}`} onClick={slidePrev}><ArrowBackIosIcon /></Button>
+                <Button variant="outlined" color='error' className={` ${style.previousButton}`} onClick={slidePrev}><ArrowBackIosIcon /></Button>
 
                 {/* AliceCarousel component */}
                 <AliceCarousel
@@ -37,20 +39,21 @@ const HotelCover = ({ data }) => {
                     infinite
                     items={data?.hotelImages.map((item, index) => {
                         return (
-                            <div className="item mx-1" data-value={index}>
-                                <img style={{ height: '400px', width: '460px', borderRadius: '5px' }} src={item} alt="hotelimg" />
+                            <div className="item mx-1 w-100" data-value={index}>
+                                <img style={{ height: '400px', width: '100%' }} src={item} alt="hotelimg" />
                             </div>
                         )
                     })}
-                    paddingLeft={50}
-                    paddingRight={50}
+                    // paddingLeft={50}
+                    // paddingRight={50}
                     responsive={responsive}
                     disableButtonsControls
+                    disableDotsControls={true}
                     ref={(el) => (carousel = el)}
                 />
 
                 {/* Next button */}
-                <Button variant="text" className={` ${style.NextButton}`} onClick={slideNext}><ArrowForwardIosIcon /></Button>
+                <Button variant="outlined" color='error' className={` ${style.NextButton}`} onClick={slideNext}><ArrowForwardIosIcon /></Button>
             </div>
         </div>
     );

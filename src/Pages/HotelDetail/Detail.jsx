@@ -23,6 +23,9 @@ import FoodBankIcon from "@mui/icons-material/FoodBank";
 import PlusOneIcon from "@mui/icons-material/PlusOne";
 import { useAuthContext } from "../../context/userAuthContext";
 import { isMobile } from "react-device-detect";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
+import './Detail.css'
 
 const Detail = ({ data }) => {
   const navigate = useNavigate();
@@ -42,9 +45,8 @@ const Detail = ({ data }) => {
   //   const additionalAmenities = data?.rooms[index]?.roomType?.additionAmenities;
   //   // const all = [...amenties, ...additionalAmenities];
   //   return { amenties, additionalAmenities };
-  // };
+  // };z
 
-  const dataroomId = data?.rooms.map((x) => x.roomType);
 
   function CircularProgressWithLabel(props) {
     return (
@@ -144,6 +146,7 @@ const Detail = ({ data }) => {
           padding={1}
         >
           <iframe
+            title="Hotel Location"
             src={data?.hotelMapLink}
             height="450"
             className={`w-100 mt-2 ${style.mapBox}`}
@@ -175,40 +178,82 @@ const Detail = ({ data }) => {
               </div>
               <CardContent>
                 <div className="d-flex justify-content-evenly align-items-center">
+                  <div className="border">
+                    <Typography className="bg-success text-center" variant="h5">4.5</Typography>
+                    <Typography className="bg-secondary text-nowrap p-1" variant="p">14 Rating</Typography>
+                  </div>
                   <div
                     className="d-flex flex-column align-items-center"
-                    sx={{ maxHeight: "134px", width: 200 }}
+                    style={{ maxHeight: "135px", width: 110 }}
                   >
                     <CircularProgressWithLabel value={75} />
                     <p className="fw-bold mt-1">Value of Money</p>
                   </div>
                   <div
                     className="d-flex flex-column align-items-center"
-                    sx={{ maxHeight: "134px", width: 200 }}
+                    style={{ maxHeight: "135px", width: 100 }}
                   >
                     <CircularProgressWithLabel value={80} />
                     <p className="fw-bold mt-1">Cleanliness</p>
                   </div>
                   <div
                     className="d-flex flex-column align-items-center"
-                    sx={{ maxHeight: "134px", width: 200 }}
+                    style={{ maxHeight: "135px", width: 100 }}
                   >
                     <CircularProgressWithLabel value={90} />
                     <p className="fw-bold mt-1">Comfort</p>
                   </div>
 
-                  <Card
-                    sx={{
-                      maxHeight: "134px",
-                      width: 400,
-                      p: 1,
-                      boxShadow: "none !important",
-                      color: "#4d4d4d",
-                    }}
-                  >
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Perspiciatis maxime officiis error id nesciunt quos officia.
-                  </Card>
+                  <Carousel
+                    autoPlay={true}
+                    infiniteLoop={true}
+                    interval={3000}
+                    showStatus={false}
+                    showIndicators={false}>
+                    <div>
+                      <Card
+                        sx={{
+                          maxHeight: "134px",
+                          width: 400,
+                          p: 1,
+                          boxShadow: "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
+                          color: "#4d4d4d",
+                          marginLeft: '10px'
+                        }}
+                      >
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Perspiciatis maxime officiis error id nesciunt quos officia.
+                      </Card>
+                    </div>
+                    <div>
+                      <Card
+                        sx={{
+                          maxHeight: "134px",
+                          width: 400,
+                          p: 1,
+                          boxShadow: "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
+                          color: "#4d4d4d",
+                        }}
+                      >
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Perspiciatis maxime officiis error id nesciunt quos officia.
+                      </Card>
+                    </div>
+                    <div>
+                      <Card
+                        sx={{
+                          maxHeight: "134px",
+                          width: 400,
+                          p: 1,
+                          boxShadow: "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
+                          color: "#4d4d4d",
+                        }}
+                      >
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Perspiciatis maxime officiis error id nesciunt quos officia.
+                      </Card>
+                    </div>
+                  </Carousel>
                 </div>
               </CardContent>
             </Card>

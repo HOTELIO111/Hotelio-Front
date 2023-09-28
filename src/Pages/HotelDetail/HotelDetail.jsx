@@ -105,6 +105,10 @@ const HotelDetail = () => {
                 />
                 <Typography display={"block"} variant="p">{data?.address}</Typography>
               </div>
+              <div className="border">
+                <Typography className="bg-success text-center" variant="h5">4.5</Typography>
+                <Typography className="bg-secondary text-nowrap p-1" variant="p">14 Rating</Typography>
+              </div>
             </Grid>
           </Grid>
         </Container>
