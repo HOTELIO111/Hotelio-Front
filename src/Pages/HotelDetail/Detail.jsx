@@ -264,26 +264,15 @@ const Detail = ({ data }) => {
                       </div>
                       <div style={{ color: "#28a745" }}>
                         {/* ------------------------------------Mapped Hotel Facilites as per room type amenites ------------------------------------------------------ */}
-                        {facilities
-                          ?.filter((x) =>
-                            item.roomType.includeFacilities?.includes(x._id)
-                          )
-                          ?.map((facility, index) => (
-                            <Typography
-                              key={index}
-                              variant="p"
-                              display={"block"}
-                            >
-                              {facility.title}
-                            </Typography>
-                          ))}
+                        {item.roomType?.amenties?.map((facility, index) => (
+                          <Typography key={index} variant="p" display={"block"}>
+                            {facility.title}
+                          </Typography>
+                        ))}
 
                         {/* ---------------------------------------------Mapped Amenites as per room type Amenites ----------------------------------------------------------------- */}
-                        {amenities
-                          ?.filter((x) =>
-                            item.roomType.amenties?.includes(x._id)
-                          )
-                          ?.map((amenity, index) => (
+                        {item.roomType?.includeFacilities?.map(
+                          (amenity, index) => (
                             <Typography
                               key={index}
                               variant="p"
@@ -291,7 +280,8 @@ const Detail = ({ data }) => {
                             >
                               {amenity.title}
                             </Typography>
-                          ))}
+                          )
+                        )}
 
                         {/* <Typography variant="p" display={"block"}>
                             Air conditioning
