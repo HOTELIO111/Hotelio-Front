@@ -1,0 +1,12 @@
+.carousel {
+    max-height: "134px" !important;
+    width: 450px !important;
+}
+
+.slider-wrapper {
+    margin-left: 25px !important;
+}
+
+.thumbs-wrapper {
+    display: none;
+}
