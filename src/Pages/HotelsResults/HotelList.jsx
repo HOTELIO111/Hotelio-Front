@@ -32,7 +32,10 @@ const HotelList = ({ hotels, location, loader }) => {
     setSelectedRatingFilter(event.target.value);
   };
 
-  const count = hotels?.length;
+  // Check the value in localStorage
+  const loggedIn = localStorage.getItem('customer');
+
+  const count = hotels?.length
 
   return hotels === null ? (
     <WaitLoader loading="true" />
@@ -151,7 +154,7 @@ const HotelList = ({ hotels, location, loader }) => {
                           if (loggedIn) {
                             navigate(`/searchedhotel/${items._id}`);
                           } else {
-                            navigate("/signin");
+                            navigate('/signin');
                           }
                         }}
                         variant="contained"
