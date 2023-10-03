@@ -9,22 +9,24 @@ import store from "./Toolkit/store";
 import { AuthProvider } from "./context/userAuthContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GOOGLE_OAUTH_CLIENT_ID } from "./config";
+import { SearchProvider } from "./context/useSearch";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-const CLIENT_ID =
-  GOOGLE_OAUTH_CLIENT_ID;
+const CLIENT_ID = GOOGLE_OAUTH_CLIENT_ID;
 
 root.render(
   <React.StrictMode>
     <GoogleOAuthProvider clientId={CLIENT_ID}>
-      <AuthProvider>
-        <BrowserRouter>
-          <Provider store={store}>
-            <App />
-          </Provider>
-        </BrowserRouter>
-      </AuthProvider>
+      <SearchProvider>
+        <AuthProvider>
+          <BrowserRouter>
+            <Provider store={store}>
+              <App />
+            </Provider>
+          </BrowserRouter>
+        </AuthProvider>
+      </SearchProvider>
     </GoogleOAuthProvider>
   </React.StrictMode>
 );

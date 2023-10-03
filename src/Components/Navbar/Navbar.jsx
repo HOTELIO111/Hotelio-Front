@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import style from "./navbar.module.css";
 import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -17,7 +17,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import CallIcon from '@mui/icons-material/Call';
+import CallIcon from "@mui/icons-material/Call";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { useMediaQuery } from "@mui/material";
@@ -113,7 +113,6 @@ const Navbar = ({ list }) => {
   //For Mobile Rsponsive of Navbar Search Bar
   const isMobile = useMediaQuery("(max-width: 400px)");
 
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
@@ -194,6 +193,7 @@ const Navbar = ({ list }) => {
   // ----------------------------------------- get the all cities
   const [citites, setCities] = useState(null);
   const [selectedCity, setSlectedCity] = useState(null);
+  const [geoLoc, setGeoLoc] = useState({ longitude: "", latitude: "" });
   const GetAllCities = async () => {
     try {
       const response = await axios.get(`${API_URL}/hotel/get/city`);
@@ -210,10 +210,15 @@ const Navbar = ({ list }) => {
   }, []);
   // ---------------------------------city get api
 
-  // ---------------------------------search the hotel
+  // ---------------------------------search the hotel -------------------------------------------------------------------------
   const searchData = {
-    location: selectedCity,
-    totalRooms: manageRoom.length,
+    // location: selectedCity,
+    lng: geoLoc?.longitude,
+    lat: geoLoc?.latitude,
+    // totalRooms: manageRoom.length,
+    kmRadius: 20,
+    priceMin: 400,
+    priceMax: 800,
   };
 
   const SearchTheField = () => {
@@ -225,16 +230,48 @@ const Navbar = ({ list }) => {
     navigate(`/searchedhotels?${queryString}`);
   };
 
-  const DummyArray = ["Your City", "Your City"];
   const MarginMobile = {
     marginTop: "-112px",
   };
 
+  // ------------------------------------Get The google autocomlete location --------------------------------------------------
+  const autoCompleteRef = useRef();
+  const inputRef = useRef();
+
+  useEffect(() => {
+    try {
+      const options = {
+        types: ["geocode"],
+        componentRestrictions: { country: "in" },
+        fields: ["formatted_address", "geometry"],
+      };
+
+      autoCompleteRef.current = new window.google.maps.places.Autocomplete(
+        inputRef.current,
+        options
+      );
+
+      autoCompleteRef.current.addListener("place_changed", () => {
+        const place = autoCompleteRef.current.getPlace();
+        setSlectedCity(place.formatted_address);
+        console.log(place);
+        // Get latitude and longitude
+        const { lat, lng } = place.geometry.location;
+        let longitude = lng();
+        let latitude = lat();
+        setGeoLoc({ longitude: longitude, latitude: latitude });
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
   return (
     <div className="">
       <header
-        className={`${style.header_area}  ${style.header_sticky} ${style.wow} ${style.slideInDown
-          } ${!list ? "bg-light position-static border-bottom" : ""}`}
+        className={`${style.header_area}  ${style.header_sticky} ${style.wow} ${
+          style.slideInDown
+        } ${!list ? "bg-light position-static border-bottom" : ""}`}
         data-wow-duration="0.75s"
         data-wow-delay="0s"
       >
@@ -248,7 +285,20 @@ const Navbar = ({ list }) => {
                 className={style.main_nav}
               >
                 <div className="row">
-                  <marquee style={{ color: '#fff', fontWeight: '900', background: '#ff0000' }} behavior="alternate" direction="left"><b>Get 999 INR instantly Credit in your account. Also become eligible for refer and earn.</b></marquee>
+                  <marquee
+                    style={{
+                      color: "#fff",
+                      fontWeight: "900",
+                      background: "#ff0000",
+                    }}
+                    behavior="alternate"
+                    direction="left"
+                  >
+                    <b>
+                      Get 999 INR instantly Credit in your account. Also become
+                      eligible for refer and earn.
+                    </b>
+                  </marquee>
                   <div className="col-md-2 col-lg-12 col-xl-2 p-0 m-0">
                     <Link to="/" className={`${style.logo} ms-4`}>
                       <img alt="logo" src={HotelioLogo} />
@@ -279,8 +329,9 @@ const Navbar = ({ list }) => {
                         >
                           <HomeIcon /> Home
                           <hr
-                            className={`mt-0 ${style.activeTab} ${activePath === "home" ? "d-block" : "d-none"
-                              }`}
+                            className={`mt-0 ${style.activeTab} ${
+                              activePath === "home" ? "d-block" : "d-none"
+                            }`}
                           />
                         </NavLink>
                       </li>
@@ -297,8 +348,9 @@ const Navbar = ({ list }) => {
                         >
                           <InfoIcon /> About Us
                           <hr
-                            className={`mt-0 ${style.activeTab} ${activePath === "about" ? "d-block" : "d-none"
-                              }`}
+                            className={`mt-0 ${style.activeTab} ${
+                              activePath === "about" ? "d-block" : "d-none"
+                            }`}
                           />
                         </NavLink>
                       </li>
@@ -316,16 +368,15 @@ const Navbar = ({ list }) => {
                         >
                           <BsFillBuildingsFill /> Become a Hotelio Partner
                           <hr
-                            className={`mt-0 ${style.activeTab} ${activePath === "parking" ? "d-block" : "d-none"
-                              }`}
+                            className={`mt-0 ${style.activeTab} ${
+                              activePath === "parking" ? "d-block" : "d-none"
+                            }`}
                           />
                         </NavLink>
                       </li>
                       <li style={{ listStyle: "none" }}>
                         <NavLink
-                          to={
-                            "https://admin.hoteliorooms.com/"
-                          }
+                          to={"https://admin.hoteliorooms.com/"}
                           className={`${!list ? "text-dark" : ""}`}
                           onClick={() => {
                             dispatch({
@@ -336,8 +387,9 @@ const Navbar = ({ list }) => {
                         >
                           <DomainAddIcon /> LIST YOUR PROPERTY
                           <hr
-                            className={`mt-0 ${style.activeTab} ${activePath === "register" ? "d-block" : "d-none"
-                              }`}
+                            className={`mt-0 ${style.activeTab} ${
+                              activePath === "register" ? "d-block" : "d-none"
+                            }`}
                           />
                         </NavLink>
                       </li>
@@ -348,8 +400,9 @@ const Navbar = ({ list }) => {
                         <>
                           <NavLink
                             to="/contact"
-                            className={`${!list ? "text-dark" : ""} ${style.iconHide
-                              }`}
+                            className={`${!list ? "text-dark" : ""} ${
+                              style.iconHide
+                            }`}
                           >
                             Contact us
                           </NavLink>
@@ -390,15 +443,13 @@ const Navbar = ({ list }) => {
                               <MenuItem onClick={() => navigate("/signin")}>
                                 Customer Login
                               </MenuItem>
-                              <MenuItem onClick={() => navigate("/Travel-Partner-Auth")}>
+                              <MenuItem
+                                onClick={() => navigate("/Travel-Partner-Auth")}
+                              >
                                 Agent Login
                               </MenuItem>
                               <MenuItem>
-                                <Link
-                                  to={
-                                    "https://admin.hoteliorooms.com/"
-                                  }
-                                >
+                                <Link to={"https://admin.hoteliorooms.com/"}>
                                   Partner Login
                                 </Link>
                               </MenuItem>
@@ -424,8 +475,8 @@ const Navbar = ({ list }) => {
                               {currentUser && currentUser.name
                                 ? currentUser.name
                                 : currentUser.email
-                                  ? currentUser.email
-                                  : currentUser.mobileNo}
+                                ? currentUser.email
+                                : currentUser.mobileNo}
                             </Button>
                             <StyledMenu
                               id="demo-customized-menu"
@@ -435,41 +486,49 @@ const Navbar = ({ list }) => {
                               anchorEl={anchorEl}
                               open={open}
                               onClose={handleClose}
-                              className='text-center'
+                              className="text-center"
                             >
                               <MenuItem
                                 onClick={handleClose}
                                 disableRipple
-                                sx={{ textAlign: 'center' }}
+                                sx={{ textAlign: "center" }}
                               >
-                                <NavLink className='text-dark' to={`/Customer${currentUser.name}Profile`}>
+                                <NavLink
+                                  className="text-dark"
+                                  to={`/Customer${currentUser.name}Profile`}
+                                >
                                   My Profile
                                 </NavLink>
                               </MenuItem>
                               <MenuItem
                                 onClick={handleClose}
                                 disableRipple
-                                sx={{ textAlign: 'center' }}
+                                sx={{ textAlign: "center" }}
                               >
-                                <NavLink className='text-dark' to="/YourBooking">
+                                <NavLink
+                                  className="text-dark"
+                                  to="/YourBooking"
+                                >
                                   My Booking
                                 </NavLink>
                               </MenuItem>
                               <MenuItem
                                 onClick={handleClose}
                                 disableRipple
-                                sx={{ textAlign: 'center' }}
+                                sx={{ textAlign: "center" }}
                               >
-                                <NavLink className='text-dark' to="/contact">
+                                <NavLink className="text-dark" to="/contact">
                                   <CallIcon /> +91 (811)55 10050
                                 </NavLink>
                               </MenuItem>
                               <MenuItem
                                 onClick={handleClose}
                                 disableRipple
-                                sx={{ textAlign: 'center' }}
+                                sx={{ textAlign: "center" }}
                               >
-                                <NavLink className='text-dark' to="/about">About Us</NavLink>
+                                <NavLink className="text-dark" to="/about">
+                                  About Us
+                                </NavLink>
                               </MenuItem>
                               <MenuItem onClick={handleClose} disableRipple>
                                 <div onClick={HandleLogOutCustomer}>
@@ -486,8 +545,9 @@ const Navbar = ({ list }) => {
                       </li>
                     </ul>
                     <a
-                      className={`${style.menu_trigger} ${menuOpen ? style.active : ""
-                        }`}
+                      className={`${style.menu_trigger} ${
+                        menuOpen ? style.active : ""
+                      }`}
                       onClick={() => {
                         setMenuOpen(!menuOpen);
                         $(`.${style.header_area} .${style.nav}`).slideToggle(
@@ -498,7 +558,6 @@ const Navbar = ({ list }) => {
                       <span>Menu</span>
                     </a>
                   </div>
-
                 </div>
                 <div
                   className={`py-2 text-white text-center ${style.navRemove}`}
@@ -535,17 +594,16 @@ const Navbar = ({ list }) => {
                 <div className="col-lg-12 px-0">
                   <div className={` ${style.search_form}`}>
                     <div className="row position-relative">
-
                       <div className={`col-lg-3 align-self-center`}>
-                        <fieldset className={`d-flex align-items-center`}>
+                        <input type="text" ref={inputRef} />
+                        {/* <fieldset className={`d-flex align-items-center`}>
                           <HotelIcon className="text-danger me-2" />
                           <Dropdown
                             citites={citites ? citites : DummyArray}
                             name="cityHotel"
                             setSlectedCity={setSlectedCity}
                           />
-
-                        </fieldset>
+                        </fieldset> */}
                       </div>
 
                       <div className={`col-lg-4 align-self-center`}>
@@ -560,7 +618,11 @@ const Navbar = ({ list }) => {
                         </fieldset>
                       </div>
 
-                      <div className={"col-lg-3 align-self-center position-relative"}>
+                      <div
+                        className={
+                          "col-lg-3 align-self-center position-relative"
+                        }
+                      >
                         <fieldset className="d-flex align-items-center justify-content-center">
                           <PersonIcon className="text-danger me-2" />
                           <span
@@ -573,8 +635,9 @@ const Navbar = ({ list }) => {
                             }}
                             className={`d-flex ${style.headerSearchText}`}
                           >
-                            {`${getTotalGuests()} Guests · ${manageRoom.length
-                              } room`}
+                            {`${getTotalGuests()} Guests · ${
+                              manageRoom.length
+                            } room`}
                             <div className="ms-3 text-dark">
                               {openOptions ? (
                                 <ExpandLessIcon />
@@ -598,14 +661,8 @@ const Navbar = ({ list }) => {
                                 <div className="row m-0 p-0">
                                   <div className="col-4">
                                     <div className={style.optionItem}>
-                                      <div
-                                      >
-                                        Rooms
-                                      </div>
-                                      <div
-                                      >
-                                        {item.room}
-                                      </div>
+                                      <div>Rooms</div>
+                                      <div>{item.room}</div>
                                     </div>
                                   </div>
                                   <div className="col-8">
@@ -657,7 +714,11 @@ const Navbar = ({ list }) => {
                                       Delete Room
                                     </div>
                                     <div
-                                      className={`${manageRoom.length === 7 ? style.optionTextDisable : style.optionText}`}
+                                      className={`${
+                                        manageRoom.length === 7
+                                          ? style.optionTextDisable
+                                          : style.optionText
+                                      }`}
                                       onClick={() =>
                                         ManageRoomAddandDelete("add")
                                       }
@@ -669,7 +730,6 @@ const Navbar = ({ list }) => {
                               </div>
                             </div>
                           )}
-
                         </fieldset>
                       </div>
 

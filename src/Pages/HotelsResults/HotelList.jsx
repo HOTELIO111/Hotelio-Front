@@ -18,7 +18,7 @@ import NetworkWifi3BarRoundedIcon from "@mui/icons-material/NetworkWifi3BarRound
 import HotelListBack from "../../images/HotelListBack.jpg";
 import { useAuthContext } from "../../context/userAuthContext";
 
-const HotelList = ({ hotels, location }) => {
+const HotelList = ({ hotels, location, loader }) => {
   const navigate = useNavigate();
 
   const { facilities, roomType, amenities } = useAuthContext();
@@ -26,23 +26,18 @@ const HotelList = ({ hotels, location }) => {
   // State to keep track of the selected rating filter
   const [selectedRatingFilter, setSelectedRatingFilter] = React.useState("4");
 
-  // const awsUrl = (key) => {
-  //   const url = `https://hotelio-images.s3.ap-south-1.amazonaws.com/${key}`;
-  //   return url;
-  // };
-
   // Function to handle the change of the rating filter
   const handleRatingFilterChange = (event) => {
     setSelectedRatingFilter(event.target.value);
   };
 
-
-  const count = hotels?.length
+  const count = hotels?.length;
 
   return hotels === null ? (
     <WaitLoader loading="true" />
   ) : (
     <Container>
+      <WaitLoader loading={loader} />
       {/* First hotel card */}
       <Grid sx={{ margin: "10px 0px" }} container>
         <Grid
@@ -77,7 +72,11 @@ const HotelList = ({ hotels, location }) => {
       </Grid>
       {hotels.map((items, index) => (
         <>
-          <Card style={{ border: '2px solid #ee2e24' }} fluid sx={{ p: 1, my: 1, borderRadius: 4 }}>
+          <Card
+            style={{ border: "2px solid #ee2e24" }}
+            fluid
+            sx={{ p: 1, my: 1, borderRadius: 4 }}
+          >
             <Grid container>
               <Grid item xs={12} lg={3} xl={3}>
                 {/* <div className="w-100"> */}
