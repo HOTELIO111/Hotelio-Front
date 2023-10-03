@@ -24,8 +24,10 @@ import PlusOneIcon from "@mui/icons-material/PlusOne";
 import { useAuthContext } from "../../context/userAuthContext";
 import { isMobile } from "react-device-detect";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from "react-responsive-carousel";
-import "./Detail.css";
+
+import { Carousel } from 'react-responsive-carousel';
+import { AiOutlineCheckCircle } from "react-icons/ai";
+import './Detail.css'
 
 const Detail = ({ data }) => {
   const navigate = useNavigate();
@@ -38,7 +40,6 @@ const Detail = ({ data }) => {
     value: PropTypes.number.isRequired,
   };
  
-
 
   function CircularProgressWithLabel(props) {
     return (
@@ -266,7 +267,7 @@ const Detail = ({ data }) => {
           </Grid>
         )}
         <Grid item xs={12} lg={12} xl={12}>
-          <Card sx={{ margin: 1, border: "2px solid #ee2e24" }}>
+          <Card sx={{ margin: 1, border: "2px solid #ee2e24", borderRadius: '15px' }}>
             <div
               className="p-2"
               id="BookNow"
@@ -287,6 +288,7 @@ const Detail = ({ data }) => {
                       sx={
                         isMobile ? null : { borderRight: "2px solid #ee2e24" }
                       }
+                      display={"flex"} alignItems={"center"} justifyContent={"center"}
                       item
                       xs={2}
                       md={4}
@@ -294,7 +296,7 @@ const Detail = ({ data }) => {
                       xl={1}
                     >
                       <div>
-                        <small>{index + 1}</small>
+                        <Typography variant="caption">{index + 1}</Typography>
                       </div>
                     </Grid>
                     <Grid
@@ -304,8 +306,8 @@ const Detail = ({ data }) => {
                       item
                       xs={10}
                       md={4}
-                      lg={3}
-                      xl={3}
+                      lg={4}
+                      xl={4}
                     >
                       <div className="d-flex align-items-center">
                         <Typography variant="h6">
@@ -316,8 +318,8 @@ const Detail = ({ data }) => {
                       <div style={{ color: "#28a745" }}>
                         {/* ------------------------------------Mapped Hotel Facilites as per room type amenites ------------------------------------------------------ */}
                         {item.roomType?.amenties?.map((facility, index) => (
-                          <Typography key={index} variant="p" display={"block"}>
-                            {facility.title}
+                          <Typography key={index} variant="caption">
+                            <AiOutlineCheckCircle /> {facility.title}{' '}
                           </Typography>
                         ))}
 
@@ -326,10 +328,9 @@ const Detail = ({ data }) => {
                           (amenity, index) => (
                             <Typography
                               key={index}
-                              variant="p"
-                              display={"block"}
+                              variant="caption"
                             >
-                              {amenity.title}
+                              <AiOutlineCheckCircle /> {amenity.title}{' '}
                             </Typography>
                           )
                         )}
@@ -346,34 +347,37 @@ const Detail = ({ data }) => {
                       </div>
                     </Grid>
                     <Grid
+                      display={"flex"} alignItems={"center"}
                       sx={
                         isMobile ? null : { borderRight: "2px solid #ee2e24" }
                       }
                       item
-                      xs={12}
+                      xs={6}
                       md={4}
-                      lg={3}
-                      xl={3}
+                      lg={2}
+                      xl={2}
                     >
                       {/* -------------------------------------------------Mapped the price of every room ---------------------------------------------------------- */}
-                      <h4>
-                        ₹ {item.price}{" "}
-                        <span className="text-secondary">
-                          {item?.prevPrice ? (
-                            <>
-                              <del>{item.prevPrice}</del> "off"
-                            </>
-                          ) : null}
-                        </span>
-                      </h4>
-                      <p>+ 18% taxes and charges</p>
+                      <div>
+                        <Typography variant="h6">
+                          ₹ {item.price}{" "}
+                          <span className="text-secondary">
+                            {item?.prevPrice ? (
+                              <>
+                                <del>{item.prevPrice}</del> "off"
+                              </>
+                            ) : null}
+                          </span>
+                        </Typography>
+                        <Typography variant="caption">+ 18% taxes and charges</Typography>
+                      </div>
                     </Grid>
                     <Grid
                       sx={
                         isMobile ? null : { borderRight: "2px solid #ee2e24" }
                       }
                       item
-                      xs={12}
+                      xs={6}
                       md={4}
                       lg={3}
                       xl={3}
@@ -384,11 +388,12 @@ const Detail = ({ data }) => {
                         </div>
                       </div>
                     </Grid>
-                    <Grid item xs={12} md={4} lg={2} xl={2}>
+                    <Grid display={"flex"} alignItems={"center"} justifyContent={"center"} item xs={12} md={4} lg={2} xl={2}>
                       <div className="text-center">
                         <Button
                           onClick={() => navigate("/booking")}
                           variant="contained"
+                          sx={{ borderRadius: '50px' }}
                           color="error"
                         >
                           Book Now

@@ -5,6 +5,7 @@ import StepTwo from './StepTwo';
 import StepThree from './StepThree';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { isMobile } from 'react-device-detect';
 
 const BookingSteps = () => {
   const [currentStep, setCurrentStep] = useState(2);
@@ -25,8 +26,8 @@ const BookingSteps = () => {
   };
 
   return (
-    <div className="multi-step-form">
-       <div className="my-2">
+    <div style={isMobile ? { padding: '5px' } : { padding: '20px' }} className="multi-step-form">
+      <div className="my-2">
         {currentStep > 1 && (
           <Button variant="outlined" onClick={prevStep}>
             {currentStep === 3 ? 'Back' : 'Back'}

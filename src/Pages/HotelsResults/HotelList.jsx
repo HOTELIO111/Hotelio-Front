@@ -9,6 +9,7 @@ import {
   Select,
   MenuItem,
   Chip,
+  Typography,
 } from "@mui/material";
 import style from "./HotelList.module.css";
 import { useNavigate } from "react-router-dom";
@@ -70,7 +71,8 @@ const HotelList = ({ hotels, location, loader }) => {
           </div>
         </Grid>
       </Grid>
-      {hotels.map((items, index) => (
+      {/* {count >= 0 ? null : <Typography variant="h4">We are currently working in this area</Typography>} */}
+      {hotels.map((items) => (
         <>
           <Card
             style={{ border: "2px solid #ee2e24" }}
@@ -145,7 +147,13 @@ const HotelList = ({ hotels, location, loader }) => {
                   <div className={` ${style.mobflex}`}>
                     <div className={`p-2 ${style.BookingCardColor}`}>
                       <Button
-                        onClick={() => navigate(`/searchedhotel/${items._id}`)}
+                        onClick={() => {
+                          if (loggedIn) {
+                            navigate(`/searchedhotel/${items._id}`);
+                          } else {
+                            navigate("/signin");
+                          }
+                        }}
                         variant="contained"
                         sx={{ borderRadius: 5 }}
                         color="error"
