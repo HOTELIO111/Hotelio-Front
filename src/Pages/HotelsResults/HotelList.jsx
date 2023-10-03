@@ -19,7 +19,7 @@ import NetworkWifi3BarRoundedIcon from "@mui/icons-material/NetworkWifi3BarRound
 import HotelListBack from "../../images/HotelListBack.jpg";
 import { useAuthContext } from "../../context/userAuthContext";
 
-const HotelList = ({ hotels, location }) => {
+const HotelList = ({ hotels, location, loader }) => {
   const navigate = useNavigate();
 
   const { facilities, roomType, amenities } = useAuthContext();
@@ -27,25 +27,18 @@ const HotelList = ({ hotels, location }) => {
   // State to keep track of the selected rating filter
   const [selectedRatingFilter, setSelectedRatingFilter] = React.useState("4");
 
-  // const awsUrl = (key) => {
-  //   const url = `https://hotelio-images.s3.ap-south-1.amazonaws.com/${key}`;
-  //   return url;
-  // };
-
   // Function to handle the change of the rating filter
   const handleRatingFilterChange = (event) => {
     setSelectedRatingFilter(event.target.value);
   };
 
-  // Check the value in localStorage
-  const loggedIn = localStorage.getItem('customer');
-
-  const count = hotels?.length
+  const count = hotels?.length;
 
   return hotels === null ? (
     <WaitLoader loading="true" />
   ) : (
     <Container>
+      <WaitLoader loading={loader} />
       {/* First hotel card */}
       <Grid sx={{ margin: "10px 0px" }} container>
         <Grid
@@ -81,7 +74,11 @@ const HotelList = ({ hotels, location }) => {
       {/* {count >= 0 ? null : <Typography variant="h4">We are currently working in this area</Typography>} */}
       {hotels.map((items) => (
         <>
-          <Card style={{ border: '2px solid #ee2e24' }} fluid sx={{ p: 1, my: 1, borderRadius: 4 }}>
+          <Card
+            style={{ border: "2px solid #ee2e24" }}
+            fluid
+            sx={{ p: 1, my: 1, borderRadius: 4 }}
+          >
             <Grid container>
               <Grid item xs={12} lg={3} xl={3}>
                 {/* <div className="w-100"> */}
@@ -154,7 +151,7 @@ const HotelList = ({ hotels, location }) => {
                           if (loggedIn) {
                             navigate(`/searchedhotel/${items._id}`);
                           } else {
-                            navigate('/signin');
+                            navigate("/signin");
                           }
                         }}
                         variant="contained"

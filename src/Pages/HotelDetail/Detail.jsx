@@ -24,6 +24,7 @@ import PlusOneIcon from "@mui/icons-material/PlusOne";
 import { useAuthContext } from "../../context/userAuthContext";
 import { isMobile } from "react-device-detect";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+
 import { Carousel } from 'react-responsive-carousel';
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import './Detail.css'
@@ -38,15 +39,7 @@ const Detail = ({ data }) => {
      */
     value: PropTypes.number.isRequired,
   };
-
-  const { facilities, amenities } = useAuthContext();
-
-  // const _roomAmenitiesList = (data, index) => {
-  //   const amenties = data?.rooms[index]?.roomType?.amenties;
-  //   const additionalAmenities = data?.rooms[index]?.roomType?.additionAmenities;
-  //   // const all = [...amenties, ...additionalAmenities];
-  //   return { amenties, additionalAmenities };
-  // };z
+ 
 
   function CircularProgressWithLabel(props) {
     return (
@@ -179,8 +172,15 @@ const Detail = ({ data }) => {
               <CardContent>
                 <div className="d-flex justify-content-evenly align-items-center">
                   <div className="border">
-                    <Typography className="bg-success text-center" variant="h5">4.5</Typography>
-                    <Typography className="bg-secondary text-nowrap p-1" variant="p">14 Rating</Typography>
+                    <Typography className="bg-success text-center" variant="h5">
+                      4.5
+                    </Typography>
+                    <Typography
+                      className="bg-secondary text-nowrap p-1"
+                      variant="p"
+                    >
+                      14 Rating
+                    </Typography>
                   </div>
                   <div
                     className="d-flex flex-column align-items-center"
@@ -209,20 +209,23 @@ const Detail = ({ data }) => {
                     infiniteLoop={true}
                     interval={3000}
                     showStatus={false}
-                    showIndicators={false}>
+                    showIndicators={false}
+                  >
                     <div>
                       <Card
                         sx={{
                           maxHeight: "134px",
                           width: 400,
                           p: 1,
-                          boxShadow: "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
+                          boxShadow:
+                            "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
                           color: "#4d4d4d",
-                          marginLeft: '10px'
+                          marginLeft: "10px",
                         }}
                       >
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Perspiciatis maxime officiis error id nesciunt quos officia.
+                        Perspiciatis maxime officiis error id nesciunt quos
+                        officia.
                       </Card>
                     </div>
                     <div>
@@ -231,12 +234,14 @@ const Detail = ({ data }) => {
                           maxHeight: "134px",
                           width: 400,
                           p: 1,
-                          boxShadow: "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
+                          boxShadow:
+                            "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
                           color: "#4d4d4d",
                         }}
                       >
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Perspiciatis maxime officiis error id nesciunt quos officia.
+                        Perspiciatis maxime officiis error id nesciunt quos
+                        officia.
                       </Card>
                     </div>
                     <div>
@@ -245,12 +250,14 @@ const Detail = ({ data }) => {
                           maxHeight: "134px",
                           width: 400,
                           p: 1,
-                          boxShadow: "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
+                          boxShadow:
+                            "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
                           color: "#4d4d4d",
                         }}
                       >
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Perspiciatis maxime officiis error id nesciunt quos officia.
+                        Perspiciatis maxime officiis error id nesciunt quos
+                        officia.
                       </Card>
                     </div>
                   </Carousel>

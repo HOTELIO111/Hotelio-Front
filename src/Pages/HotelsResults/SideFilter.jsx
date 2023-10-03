@@ -8,12 +8,30 @@ import {
   TextField,
 } from "@mui/material";
 import React, { useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { useAuthContext } from "../../context/userAuthContext";
+import { useSearch } from "../../context/useSearch";
+import { useEffect } from "react";
 
 const SideFilter = (setFilterData, filterData) => {
-  const [priceRange, setPriceRange] = useState([0, 45000]);
+  const [priceRange, setPriceRange] = useState([0, 20000]);
   const [selectedLocations, setSelectedLocations] = useState([]);
   const [selectedGuestRatings, setSelectedGuestRatings] = useState([]);
+  const { facilities, roomType, amenities, propertyType } = useAuthContext();
+  const { hotels, setHotels, getSearchHotel } = useSearch();
   const [selectedRoomTypes, setSelectedRoomTypes] = useState([]);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentSearchParams = Object.fromEntries(searchParams.entries());
+
+  // to update the query search value
+  const updateSearchQuery = async ({ ...args }) => {
+    const updatedSearchParams = {
+      ...currentSearchParams,
+      ...args,
+    };
+    setSearchParams(new URLSearchParams(updatedSearchParams));
+  };
 
   function valuetext(value) {
     return `${value}`;
@@ -21,9 +39,8 @@ const SideFilter = (setFilterData, filterData) => {
 
   function handlePriceChange(event, newValue) {
     setPriceRange(newValue);
+    updateSearchQuery({ priceMin: newValue[0], priceMax: newValue[1] });
   }
-
-  const HandleFilterChoose = () => {};
 
   const categoryData = [
     {
@@ -92,18 +109,11 @@ const SideFilter = (setFilterData, filterData) => {
   const locations = ["Mumbai", "Delhi", "Gaziabad"];
 
   const guestRatings = [
-    { key: "0", value: "Ok" },
-    { key: "7.0", value: "Fair" },
-    { key: "7.5", value: "Good" },
-    { key: "8.0", value: "Very Good" },
-    { key: "8.5", value: "Excellent" },
-  ];
-
-  const roomTypes = [
-    "Budget Hotel",
-    "Classic Room",
-    "Deluxe Room",
-    "Premium Room",
+    { key: "1", value: "Ok" },
+    { key: "2", value: "Fair" },
+    { key: "3", value: "Good" },
+    { key: "4", value: "Very Good" },
+    { key: "5", value: "Excellent" },
   ];
 
   const handleLocationChange = (event, newValue) => {
@@ -130,8 +140,28 @@ const SideFilter = (setFilterData, filterData) => {
     }
   };
 
+  const [selectedPropertyType, setSelectedPropertyType] = useState([]);
 
-  
+  const handlePropertyType = (property) => {
+    if (selectedPropertyType.includes(property)) {
+      setSelectedPropertyType(
+        selectedPropertyType.filter((r) => r !== property)
+      );
+    } else {
+      setSelectedPropertyType([...selectedPropertyType, property]);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedRoomTypes.length > 0) {
+      updateSearchQuery({ roomType: selectedRoomTypes.join(",") });
+    }
+    if (selectedPropertyType.length > 0) {
+      updateSearchQuery({ hotelType: selectedPropertyType.join(",") });
+    }
+  }, [selectedRoomTypes, selectedPropertyType]);
+
+  // useEffect(() => {}, [selectedGuestRatings]);
 
   return (
     <Grid
@@ -189,18 +219,20 @@ const SideFilter = (setFilterData, filterData) => {
       <Grid item xs={12}>
         <div>
           <h5>Accommodation Types</h5>
-          {roomTypes.map((roomType, index) => (
+          {roomType?.map((roomType, index) => (
             <div key={index}>
               <FormControlLabel
                 control={
                   <Checkbox
                     color="error"
                     sx={{ padding: "2px", marginLeft: "10px" }}
-                    checked={selectedRoomTypes.includes(roomType)}
-                    onChange={() => handleRoomTypeChange(roomType)}
+                    checked={currentSearchParams.roomType
+                      ?.split(",")
+                      ?.includes(roomType._id)}
+                    onChange={() => handleRoomTypeChange(roomType._id)}
                   />
                 }
-                label={roomType}
+                label={roomType.title}
               />
             </div>
           ))}
@@ -219,16 +251,14 @@ const SideFilter = (setFilterData, filterData) => {
           </span>
         </Typography>
         <Slider
-          aria-label="Small steps"
-          color="error"
-          value={priceRange}
+          getAriaLabel={() => "Minimum distance shift"}
+          value={[currentSearchParams.priceMin, currentSearchParams.priceMax]}
           onChange={handlePriceChange}
-          getAriaValueText={valuetext}
-          step={4500}
-          marks
-          min={0}
-          max={45000}
           valueLabelDisplay="auto"
+          min={0}
+          max={20000}
+          getAriaValueText={valuetext}
+          disableSwap
         />
       </Grid>
       <Grid item xs={12}>
@@ -254,17 +284,20 @@ const SideFilter = (setFilterData, filterData) => {
       <Grid item xs={12}>
         <div>
           <h5>Vacation Escapes</h5>
-          {AccomodationType.map((item, index) => (
+          {propertyType.map((item, index) => (
             <div key={index}>
               <FormControlLabel
                 control={
                   <Checkbox
                     color="error"
                     sx={{ padding: "2px", marginLeft: "10px" }}
-                    defaultChecked
+                    checked={currentSearchParams.hotelType
+                      ?.split(",")
+                      ?.includes(item.title)}
+                    onChange={() => handlePropertyType(item.title)}
                   />
                 }
-                label={item.AccomodationTypename}
+                label={item.title}
               />
             </div>
           ))}
