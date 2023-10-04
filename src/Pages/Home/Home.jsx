@@ -11,6 +11,7 @@ import AboutUs from "../../Components/AboutUs/AboutUs";
 import Testimonial from "../../Components/Testimonial/Testimonial";
 import MobileNav from "../../Components/MobileComponent/MobileNav";
 import FirstTimePopup from "../FirstTimePopup/FirstTimePopup";
+import { Helmet } from "react-helmet";
 
 const Home = (props) => {
   const isXtraSmallScreen = useMediaQuery("(max-width: 450px)");
@@ -19,11 +20,17 @@ const Home = (props) => {
     const hasSeenPopup = localStorage.getItem('hasSeenPopup');
     if (!hasSeenPopup) {
       // Show the popup
-      localStorage.setItem('hasSeenPopup', 'true');
+      localStorage.setItem('hasSeenPopup', 'false');
     }
   }, []);
   return (
     <>
+      <Helmet>
+        <title>Online hotel Booking in India | Hotelio</title>
+        <meta name="keywords"
+          content="online hotel booking, hoteliorooms, hotelio, online hotel booking in india, best hotel in lucknow,hotel booking in lucknow, five star hotel in lucknow" />
+
+      </Helmet>
       {localStorage.getItem('hasSeenPopup') !== 'true' && <FirstTimePopup />}
       <div className="d-lg-none d-xl-none">
         <MobileNav />
