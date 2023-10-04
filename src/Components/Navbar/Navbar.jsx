@@ -1,10 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import style from "./navbar.module.css";
 import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import $ from "jquery";
 import Dates from "../date/Date";
-import Dropdown from "../dropdown/Dropdown";
 import hotel from "../../images/hotel-bg.png";
 import { styled, alpha } from "@mui/material/styles";
 import Button from "@mui/material/Button";
@@ -52,9 +50,8 @@ const Navbar = ({ list }) => {
   };
 
   // Popover Material UI Code
-  const dispatch = useDispatch();
+
   const navigate = useNavigate();
-  const { activePath } = useSelector((state) => state.activePath);
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [openOptions, setOpenOptions] = useState(false);
@@ -320,38 +317,16 @@ const Navbar = ({ list }) => {
                         <NavLink
                           to="/"
                           className={`${!list ? "text-dark w-100" : ""}`}
-                          onClick={() => {
-                            dispatch({
-                              type: "activePath",
-                              payload: "home",
-                            });
-                          }}
                         >
                           <HomeIcon /> Home
-                          <hr
-                            className={`mt-0 ${style.activeTab} ${
-                              activePath === "home" ? "d-block" : "d-none"
-                            }`}
-                          />
                         </NavLink>
                       </li>
                       <li style={{ listStyle: "none" }}>
                         <NavLink
                           to="/about"
                           className={`${!list ? "text-dark" : ""}`}
-                          onClick={() => {
-                            dispatch({
-                              type: "activePath",
-                              payload: "about",
-                            });
-                          }}
                         >
                           <InfoIcon /> About Us
-                          <hr
-                            className={`mt-0 ${style.activeTab} ${
-                              activePath === "about" ? "d-block" : "d-none"
-                            }`}
-                          />
                         </NavLink>
                       </li>
                       <li style={{ listStyle: "none" }}>
@@ -359,38 +334,16 @@ const Navbar = ({ list }) => {
                           target="_blank"
                           to="/hoteliomember"
                           className={`${!list ? "text-dark" : ""}`}
-                          onClick={() => {
-                            dispatch({
-                              type: "activePath",
-                              payload: "parking",
-                            });
-                          }}
                         >
                           <BsFillBuildingsFill /> Become a Hotelio Partner
-                          <hr
-                            className={`mt-0 ${style.activeTab} ${
-                              activePath === "parking" ? "d-block" : "d-none"
-                            }`}
-                          />
                         </NavLink>
                       </li>
                       <li style={{ listStyle: "none" }}>
                         <NavLink
                           to={"https://admin.hoteliorooms.com/"}
                           className={`${!list ? "text-dark" : ""}`}
-                          onClick={() => {
-                            dispatch({
-                              type: "activePath",
-                              payload: "register",
-                            });
-                          }}
                         >
                           <DomainAddIcon /> LIST YOUR PROPERTY
-                          <hr
-                            className={`mt-0 ${style.activeTab} ${
-                              activePath === "register" ? "d-block" : "d-none"
-                            }`}
-                          />
                         </NavLink>
                       </li>
                       {/* <li style={{ listStyle: 'none' }}>
@@ -628,10 +581,6 @@ const Navbar = ({ list }) => {
                           <span
                             onClick={() => {
                               setOpenOptions(!openOptions);
-                              dispatch({
-                                type: "ALERTPERSON",
-                                payload: false,
-                              });
                             }}
                             className={`d-flex ${style.headerSearchText}`}
                           >
