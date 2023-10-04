@@ -3,13 +3,11 @@ import { DatePicker, Space } from "antd";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import style from "./Date.module.css";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 
 const Dates = () => {
   dayjs.extend(customParseFormat);
   const { RangePicker } = DatePicker;
-  const dispatch = useDispatch();
+
 
 
 
@@ -25,18 +23,6 @@ const Dates = () => {
         popupClassName={style.popup}
         placeholder={["Check In", "Check Out"]}
         inputPrefixCls={style.placeholder}
-        onChange={(val) => {
-          dispatch({
-            type: "SET_DATE",
-            payload: val.map((v) => v.format("DD-MM-YYYY")),
-          });
-        }}
-        onClick={() => {
-          dispatch({
-            type: "ALERTDATE",
-            payload: false,
-          });
-        }}
         required={true}
       // ref={datePickerRef}
       />

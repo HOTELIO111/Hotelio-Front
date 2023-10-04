@@ -4,8 +4,6 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
-import store from "./Toolkit/store";
 import { AuthProvider } from "./context/userAuthContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GOOGLE_OAUTH_CLIENT_ID } from "./config";
@@ -21,9 +19,7 @@ root.render(
       <SearchProvider>
         <AuthProvider>
           <BrowserRouter>
-            <Provider store={store}>
               <App />
-            </Provider>
           </BrowserRouter>
         </AuthProvider>
       </SearchProvider>
