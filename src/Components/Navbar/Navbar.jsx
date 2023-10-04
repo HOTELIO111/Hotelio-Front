@@ -216,6 +216,7 @@ const Navbar = ({ list }) => {
     kmRadius: 20,
     priceMin: 400,
     priceMax: 800,
+    sort: "popularity",
   };
 
   const SearchTheField = () => {
