@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Navbar from "../../Components/Navbar/Navbar";
 import HotelList from "./HotelList";
 import Footer from "../../Components/footer/Footer";
@@ -13,17 +14,21 @@ import { isMobile } from "react-device-detect";
 import MobileHeader from "../../Components/MobileComponent/MobileHeader";
 import MobileFooter from "../../Components/MobileComponent/MobileFooter";
 import { useLocation, useSearchParams } from "react-router-dom";
+import instance from "../../store/_utils";
 
 const HotelResults = () => {
   const searchParams = new URLSearchParams(document.location.search);
 
+  const { data } = useSelector((state) => state.GetSearchedHotelsReducers);
+
   const [filterData, setFilterData] = useState({});
   const [searchQuery, setSearchQuery] = useSearchParams();
   const params = new URLSearchParams(searchQuery.toString());
-  const location  = useLocation()
+  const location = useLocation();
 
   const [hotels, setHotels] = useState(null);
   const [loader, setLoader] = useState(false);
+  const dispatch = useDispatch();
 
   // to make the api call on the change of the query ------------------------------------------
   useEffect(() => {
@@ -31,7 +36,7 @@ const HotelResults = () => {
 
     const getSearchHotel = async () => {
       try {
-        const response = await axios.get(`${API_URL}/hotel/search?${params}`);
+        const response = await instance.get(`/hotel/search?${params}`);
         if (response.status === 200) {
           setHotels(response.data.data);
         }

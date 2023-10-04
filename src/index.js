@@ -8,6 +8,8 @@ import { AuthProvider } from "./context/userAuthContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GOOGLE_OAUTH_CLIENT_ID } from "./config";
 import { SearchProvider } from "./context/useSearch";
+import { Provider } from "react-redux";
+import store from "./store/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -19,7 +21,9 @@ root.render(
       <SearchProvider>
         <AuthProvider>
           <BrowserRouter>
+            <Provider store={store}>
               <App />
+            </Provider>
           </BrowserRouter>
         </AuthProvider>
       </SearchProvider>

@@ -1,0 +1,37 @@
+import * as constant from "./../constants/hotelConstant";
+
+const initialState = {
+  isError: false,
+  isLoading: false,
+  data: [],
+  isSuccess: false,
+};
+
+const GetSearchedHotelsReducers = (state = initialState, action) => {
+  switch (action.type) {
+    case constant.HOTEL_GET_API_LOADING:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case constant.HOTEL_GET_API_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        data: action.payload,
+        isSuccess: true,
+      };
+    case constant.HOTEL_GET_API_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: false,
+        isError: true,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export { GetSearchedHotelsReducers };

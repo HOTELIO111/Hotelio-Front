@@ -14,8 +14,6 @@ import {
 import style from "./HotelList.module.css";
 import { useNavigate } from "react-router-dom";
 import { WaitLoader } from "../../Components/Elements/WaitLoader";
-import { API_URL } from "../../config";
-import NetworkWifi3BarRoundedIcon from "@mui/icons-material/NetworkWifi3BarRounded";
 import HotelListBack from "../../images/HotelListBack.jpg";
 import { useAuthContext } from "../../context/userAuthContext";
 
@@ -75,7 +73,7 @@ const HotelList = ({ hotels, location, loader }) => {
         </Grid>
       </Grid>
       {/* {count >= 0 ? null : <Typography variant="h4">We are currently working in this area</Typography>} */}
-      {hotels.map((items) => (
+      {hotels?.map((items) => (
         <>
           <Card
             style={{ border: "2px solid #ee2e24" }}
