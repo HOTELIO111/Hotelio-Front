@@ -75,7 +75,7 @@ const Contact = () => {
                     <HomeRoundedIcon sx={{ color: '#ee2e24' }} />
                     <h5 className="mx-2 fw-bold">Address:</h5>
                     <h6 className="fw-lighter text-muted">
-                      Indira Nagar, Lucknow, UP
+                      A 210, Manas City, Indira Nagar, Lucknow, 226016
                     </h6>
                   </div>
                   <div className="my-2 d-flex align-items-center">

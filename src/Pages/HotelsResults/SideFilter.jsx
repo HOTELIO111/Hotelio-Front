@@ -57,21 +57,6 @@ const SideFilter = (setFilterData, filterData) => {
     },
   ];
 
-  const AccomodationType = [
-    {
-      id: 1,
-      AccomodationTypename: "Villa",
-    },
-    {
-      id: 2,
-      AccomodationTypename: "Resort",
-    },
-    {
-      id: 3,
-      AccomodationTypename: "Home stay",
-    },
-  ];
-
   const HotelFacilities = [
     {
       id: 1,
@@ -176,7 +161,7 @@ const SideFilter = (setFilterData, filterData) => {
         </div>
         <hr />
       </Grid>
-      <Grid item xs={12}>
+      {/* <Grid item xs={12}>
         <div>
           <h5>Location</h5>
           <Autocomplete
@@ -194,8 +179,8 @@ const SideFilter = (setFilterData, filterData) => {
           />
         </div>
         <hr />
-      </Grid>
-      <Grid item xs={12}>
+      </Grid> */}
+      {/* <Grid item xs={12}>
         <div>
           <h5>Ratings</h5>
           {guestRatings.map((rating, index) => (
@@ -215,7 +200,7 @@ const SideFilter = (setFilterData, filterData) => {
           ))}
         </div>
         <hr />
-      </Grid>
+      </Grid> */}
       <Grid item xs={12}>
         <div>
           <h5>Accommodation Types</h5>
@@ -247,7 +232,7 @@ const SideFilter = (setFilterData, filterData) => {
         >
           <b>Price / night</b>{" "}
           <span className="ml-auto">
-            ₹ {valuetext(priceRange[0])} - {valuetext(priceRange[1])}+
+            ₹ {currentSearchParams.priceMin} - {currentSearchParams.priceMax}+
           </span>
         </Typography>
         <Slider
@@ -307,17 +292,16 @@ const SideFilter = (setFilterData, filterData) => {
       <Grid item xs={12}>
         <div>
           <h5>In-Room Amenities</h5>
-          {HotelFacilities.map((item, index) => (
+          {amenities.slice(0, 5).map((item, index) => (
             <div key={index}>
               <FormControlLabel
                 control={
                   <Checkbox
                     color="error"
                     sx={{ padding: "2px", marginLeft: "10px" }}
-                    defaultChecked
                   />
                 }
-                label={item.HotelFacilitiesName}
+                label={item.title}
               />
             </div>
           ))}
