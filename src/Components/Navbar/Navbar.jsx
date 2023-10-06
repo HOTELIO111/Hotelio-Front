@@ -215,7 +215,7 @@ const Navbar = ({ list }) => {
     // totalRooms: manageRoom.length,
     kmRadius: 20,
     priceMin: 400,
-    priceMax: 800,
+    priceMax: 20000,
     sort: "popularity",
   };
 

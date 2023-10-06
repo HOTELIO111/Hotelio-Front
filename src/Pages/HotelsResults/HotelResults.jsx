@@ -13,8 +13,7 @@ import BottomFilter from "./BottomFilter";
 import { isMobile } from "react-device-detect";
 import MobileHeader from "../../Components/MobileComponent/MobileHeader";
 import MobileFooter from "../../Components/MobileComponent/MobileFooter";
-import { useLocation, useSearchParams } from "react-router-dom";
-import instance from "../../store/_utils";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 const HotelResults = () => {
   const searchParams = new URLSearchParams(document.location.search);
@@ -101,6 +100,26 @@ const HotelResults = () => {
     debounceApiCall();
     return () => clearTimeout(timeoutId);
   }, [location.search]);
+
+  const navigate = useNavigate();
+
+  const handleBackButton = () => {
+    navigate("/"); // Navigate to the desired route without a page reload
+  };
+
+  React.useEffect(() => {
+    const popstateListener = (e) => {
+      if (e.type === "popstate") {
+        handleBackButton();
+      }
+    };
+
+    window.addEventListener("popstate", popstateListener);
+
+    return () => {
+      window.removeEventListener("popstate", popstateListener);
+    };
+  }, [navigate]);
 
   // -------------------------------------------------------------------------------------------------------------------------
   return (
