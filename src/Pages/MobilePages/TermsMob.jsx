@@ -6,11 +6,11 @@ const TermsMob = () => {
     return (
         <>
             <div
-                className={` text-center p-5 mt-0 rounded ${style.TermsContainer}`}
+                className={` text-center p-5 mt-0  rounded ${style.TermsContainer}`}
             >
                 <h1>Hotelio Terms & Services</h1>
             </div>
-            <div className='container pb-5'>
+            <div className='container pb-5 min-vh-100'>
                 <h4 className='py-3'><b>Terms Of Use</b></h4>
                 <p className='py-2'>
                     By registering on, signing into, or using the Hotelio Platform, you (“you” or “User”) agree to the terms herein (this “Agreement”):
