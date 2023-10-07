@@ -82,7 +82,7 @@ const Contact = () => {
                     <LocalPhoneRoundedIcon sx={{ color: '#ee2e24' }} />
                     <h5 className="mx-2 fw-bold">Phone:</h5>
                     <h5 className="fw-lighter text-muted">
-                      +91 (811) 5510050
+                      05224329787
                     </h5>
                   </div>
                   <div className="my-2 d-flex align-items-center">
