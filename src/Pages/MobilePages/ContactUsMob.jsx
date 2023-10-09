@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import style from "../Contact/contact.module.css";
 import { TextField, Button, FormControl, InputLabel, Select, MenuItem, TextareaAutosize, Card, createTheme, ThemeProvider } from '@mui/material';
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
-import LocalPhoneRoundedIcon from "@mui/icons-material/LocalPhoneRounded";
 import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
 import HotelioLogo from '../../images/HotelioLogo.png'
 import MobileFooter from "../../Components/MobileComponent/MobileFooter";
 import MobileHeader from "../../Components/MobileComponent/MobileHeader";
+import TtyIcon from '@mui/icons-material/Tty';
+import SecurityUpdateGoodIcon from '@mui/icons-material/SecurityUpdateGood';
 
 const ContactUsMob = () => {
 
@@ -73,14 +74,21 @@ const ContactUsMob = () => {
                                         <HomeRoundedIcon sx={{ color: '#ee2e24' }} />
                                         <h5 className="mx-2 fw-bold">Address:</h5>
                                         <h6 className="fw-lighter text-muted">
-                                            Indira Nagar, Lucknow, UP
+                                            A 210, Manas City, Indira Nagar, Lucknow, 226016.
                                         </h6>
                                     </div>
                                     <div className="my-2 d-flex align-items-center">
-                                        <LocalPhoneRoundedIcon sx={{ color: '#ee2e24' }} />
+                                        <SecurityUpdateGoodIcon sx={{ color: '#ee2e24' }} />
                                         <h5 className="mx-2 fw-bold">Phone:</h5>
                                         <h5 className="fw-lighter text-muted">
                                             +91 (811) 5510050
+                                        </h5>
+                                    </div>
+                                    <div className="my-2 d-flex align-items-center">
+                                        <TtyIcon sx={{ color: '#ee2e24' }} />
+                                        <h5 className="mx-2 fw-bold">Telephone:</h5>
+                                        <h5 className="fw-lighter text-muted">
+                                            0522-4329787
                                         </h5>
                                     </div>
                                     <div className="my-2 d-flex align-items-center">
@@ -166,7 +174,7 @@ const ContactUsMob = () => {
                     <div className={`mt-3 ${style.map}`}>
                         <iframe
                             title="contact"
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.0606825994123!2d-72.8735845851828!3d40.760690042573295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e85b24c9274c91%3A0xf310d41b791bcb71!2sWilliam%20Floyd%20Pkwy%2C%20Mastic%20Beach%2C%20NY%2C%20USA!5e0!3m2!1sen!2sbd!4v1578582744646!5m2!1sen!2sbd"
+                            src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3557.96877780391!2d80.99880607543919!3d26.904485976652023!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjbCsDU0JzE2LjIiTiA4McKwMDAnMDUuMCJF!5e0!3m2!1sen!2sin!4v1696829941027!5m2!1sen!2sin"
                             height="470"
                             style={{ border: "0" }}
                             allowfullscreen="true"

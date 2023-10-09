@@ -1,7 +1,6 @@
 import style from "./footer.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Grid, useMediaQuery } from "@mui/material";
-import CallIcon from "@mui/icons-material/Call";
 import EmailIcon from "@mui/icons-material/Email";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -13,13 +12,7 @@ import PermPhoneMsgIcon from "@mui/icons-material/PermPhoneMsg";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import PolicyIcon from "@mui/icons-material/Policy";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
-import SpaIcon from "@mui/icons-material/Spa";
-import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
-import PoolIcon from "@mui/icons-material/Pool";
-import HotTubIcon from "@mui/icons-material/HotTub";
-import AcUnitIcon from '@mui/icons-material/AcUnit';
-import RoomServiceIcon from '@mui/icons-material/RoomService';
-import NetworkWifiIcon from '@mui/icons-material/NetworkWifi';
+import TtyIcon from '@mui/icons-material/Tty';
 import SendIcon from '@mui/icons-material/Send';
 import Applestore from "../../images/apple.png";
 import Playstore from "../../images/playstored.png";
@@ -28,6 +21,7 @@ import SavingsIcon from '@mui/icons-material/Savings';
 import FilterVintageIcon from '@mui/icons-material/FilterVintage';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
+import LocalPhoneRoundedIcon from "@mui/icons-material/LocalPhoneRounded";
 import VideoCameraFrontIcon from '@mui/icons-material/VideoCameraFront';
 
 const Footer = () => {
@@ -212,14 +206,14 @@ const Footer = () => {
             <ul className={`${style.fList} mt-4`}>
               <li className={style.fListItem}>
                 <Link to="/contact" className="d-flex justify-content-start">
-                  <CallIcon className="me-2" />{" "}
-                  <span className=" fs-6"> 05224329787 </span>
+                  <TtyIcon className="me-2" />{" "}
+                  <span className=" fs-6"> 0522-4329787 </span>
                 </Link>
               </li>
               <li className={style.fListItem}>
                 <Link to="/contact" className="d-flex justify-content-start">
-                  <CallIcon className="me-2" />
-                  <span className="fs-6">+91 (729) 0900835</span>
+                  <LocalPhoneRoundedIcon className="me-2" />
+                  <span className="fs-6">+91 (811) 5510050</span>
                 </Link>
               </li>
               <li className={style.fListItem}>
