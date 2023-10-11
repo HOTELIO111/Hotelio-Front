@@ -151,6 +151,7 @@ const Testimonial = () => {
                             paddingLeft={5}
                             paddingRight={5}
                             responsive={responsive}
+                            disableDotsControls
                             disableButtonsControls // Disable the left and right navigation icons
                         />
                     </div>

@@ -267,9 +267,8 @@ const Navbar = ({ list }) => {
   return (
     <div className="">
       <header
-        className={`${style.header_area}  ${style.header_sticky} ${style.wow} ${
-          style.slideInDown
-        } ${!list ? "bg-light position-static border-bottom" : ""}`}
+        className={`${style.header_area}  ${style.header_sticky} ${style.wow} ${style.slideInDown
+          } ${!list ? "bg-light position-static border-bottom" : ""}`}
         data-wow-duration="0.75s"
         data-wow-delay="0s"
       >
@@ -354,9 +353,8 @@ const Navbar = ({ list }) => {
                         <>
                           <NavLink
                             to="/contact"
-                            className={`${!list ? "text-dark" : ""} ${
-                              style.iconHide
-                            }`}
+                            className={`${!list ? "text-dark" : ""} ${style.iconHide
+                              }`}
                           >
                             Contact us
                           </NavLink>
@@ -429,8 +427,8 @@ const Navbar = ({ list }) => {
                               {currentUser && currentUser.name
                                 ? currentUser.name
                                 : currentUser.email
-                                ? currentUser.email
-                                : currentUser.mobileNo}
+                                  ? currentUser.email
+                                  : currentUser.mobileNo}
                             </Button>
                             <StyledMenu
                               id="demo-customized-menu"
@@ -499,9 +497,8 @@ const Navbar = ({ list }) => {
                       </li>
                     </ul>
                     <a
-                      className={`${style.menu_trigger} ${
-                        menuOpen ? style.active : ""
-                      }`}
+                      className={`${style.menu_trigger} ${menuOpen ? style.active : ""
+                        }`}
                       onClick={() => {
                         setMenuOpen(!menuOpen);
                         $(`.${style.header_area} .${style.nav}`).slideToggle(
@@ -548,7 +545,8 @@ const Navbar = ({ list }) => {
                 <div className="col-lg-12 px-0">
                   <div className={` ${style.search_form}`}>
                     <div className="row position-relative">
-                      <div className={`col-lg-3 align-self-center`}>
+                      <div className={`col-lg-3 align-self-center d-flex align-items-center`}>
+                        <HotelIcon className="text-danger me-2" />
                         <input type="text" ref={inputRef} />
                         {/* <fieldset className={`d-flex align-items-center`}>
                           <HotelIcon className="text-danger me-2" />
@@ -585,9 +583,8 @@ const Navbar = ({ list }) => {
                             }}
                             className={`d-flex ${style.headerSearchText}`}
                           >
-                            {`${getTotalGuests()} Guests · ${
-                              manageRoom.length
-                            } room`}
+                            {`${getTotalGuests()} Guests · ${manageRoom.length
+                              } room`}
                             <div className="ms-3 text-dark">
                               {openOptions ? (
                                 <ExpandLessIcon />
@@ -664,11 +661,10 @@ const Navbar = ({ list }) => {
                                       Delete Room
                                     </div>
                                     <div
-                                      className={`${
-                                        manageRoom.length === 7
+                                      className={`${manageRoom.length === 7
                                           ? style.optionTextDisable
                                           : style.optionText
-                                      }`}
+                                        }`}
                                       onClick={() =>
                                         ManageRoomAddandDelete("add")
                                       }
