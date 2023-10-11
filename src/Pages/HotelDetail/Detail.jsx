@@ -39,7 +39,10 @@ const Detail = ({ data }) => {
      */
     value: PropTypes.number.isRequired,
   };
- 
+
+    // Check the value in localStorage
+    const loggedIn = localStorage.getItem("customer");
+
 
   function CircularProgressWithLabel(props) {
     return (
@@ -101,7 +104,10 @@ const Detail = ({ data }) => {
                           boxShadow:
                             "rgb(204, 219, 232) 0px 0px 6px 0px inset, rgba(255, 255, 255, 0.5) -1px -1px 6px 1px inset",
                         }}
+
+                      
                       >
+                        {console.log(item)}
                         {item === "WiFi" ? (
                           <>
                             <NetworkWifiIcon /> {item}
@@ -391,7 +397,14 @@ const Detail = ({ data }) => {
                     <Grid display={"flex"} alignItems={"center"} justifyContent={"center"} item xs={12} md={4} lg={2} xl={2}>
                       <div className="text-center">
                         <Button
-                          onClick={() => navigate("/booking")}
+                          // onClick={() => navigate("/booking")}
+                          onClick={() => {
+                            if (loggedIn) {
+                              navigate(`/booking`);
+                            } else {
+                              navigate("/signin");
+                            }
+                          }}
                           variant="contained"
                           sx={{ borderRadius: '50px' }}
                           color="error"
