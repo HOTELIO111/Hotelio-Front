@@ -1,9 +1,11 @@
 import React from 'react'
 import './TravelWallet.css'
-import { Grid } from '@mui/material'
+import { Card, Grid, Typography } from '@mui/material'
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import BeenhereIcon from '@mui/icons-material/Beenhere';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import TravelCarousel from './TravelCarousel.js';
+import TravelGstVerify from './TravelGstVerify';
 
 const TravelWallet = () => {
     return (
@@ -60,7 +62,26 @@ const TravelWallet = () => {
                     </div>
                 </div>
             </Grid>
-        </Grid>
+            <Grid item xs={12}>
+                <Card className='p-4 mt-2' style={{ background: "#ee2e2463", boxShadow: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset' }}>
+                    <TravelGstVerify />
+                </Card>
+            </Grid>
+            <Grid item xs={12}>
+                <Card className='p-4' style={{ boxShadow: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset' }}>
+                    <Typography fontWeight={600} variant='h5'>Hotelio Biz Offerings</Typography>
+                    <Typography variant='p'>QUICK GLIMPSE OF WHAT HOTELIO OFFERS TO CORPORATES</Typography>
+                    <TravelCarousel />
+                </Card>
+            </Grid>
+            <Grid item xs={12}>
+                <Card className='p-4' style={{ boxShadow: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset' }}>
+                    <Typography fontWeight={600} variant='h5'>Offer & Updates</Typography>
+                    <Typography variant='p'>QUICK GLIMPSE OF WHAT HOTELIO OFFERS TO CORPORATES</Typography>
+                    <TravelCarousel />
+                </Card>
+            </Grid>
+        </Grid >
     )
 }
 

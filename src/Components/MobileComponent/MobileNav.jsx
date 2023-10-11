@@ -10,6 +10,7 @@ import MobileDate from './MobileDate';
 import { Offcanvas } from 'react-bootstrap';
 import MainBannerMob from '../../images/MainBannerMob.jpg'
 import { LoadingButton } from '@mui/lab';
+import { Helmet } from 'react-helmet';
 
 const MobileNav = () => {
 
@@ -51,6 +52,12 @@ const MobileNav = () => {
 
     return (
         <>
+            <Helmet>
+                <title>Online hotel Booking in India | Hotelio</title>
+                <meta name="keywords"
+                    content="online hotel booking, hoteliorooms, hotelio, online hotel booking in india, best hotel in lucknow,hotel booking in lucknow, five star hotel in lucknow" />
+
+            </Helmet>
             <MobileHeader />
             <div>
                 <div

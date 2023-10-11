@@ -19,17 +19,10 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Formik } from "formik";
 import Swal from "sweetalert2";
 import { API_URL } from "../../config";
-import { WaitLoader } from "../../Components/Elements/WaitLoader";
 import MobileFooter from "../../Components/MobileComponent/MobileFooter";
-import { MuiOtpInput } from "mui-one-time-password-input";
-import HotelioLogo from "../../images/HotelioLogo.png";
 import LoginMoto from "../../images/LoginMoto.jpg";
-import { FcGoogle } from "react-icons/fc";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import FirstTimeDetail from "./FirstTimeDetail";
 import { buildQueryString, validateInput } from "../../Utilis/_fuctions";
 import StepsForm from "./StepsForm";
 

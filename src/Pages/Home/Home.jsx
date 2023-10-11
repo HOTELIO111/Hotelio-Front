@@ -55,6 +55,7 @@ const Home = (props) => {
           {/* <WhyChooseUs /> */}
 
           {/* <Featured /> */}
+          
         </div>
 
         <Process />
