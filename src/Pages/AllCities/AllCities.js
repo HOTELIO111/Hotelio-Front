@@ -13,38 +13,6 @@ const AllCities = () => {
 
   const navigate = useNavigate();
 
-  // const indianStates = [
-  //   'Lucknow',
-  //   'Kanpur',
-  //   'Varanasi',
-  //   'Agra',
-  //   'Prayagraj (Allahabad)',
-  //   'Ghaziabad',
-  //   'Meerut',
-  //   'Bareilly',
-  //   'Aligarh',
-  //   'Moradabad',
-  //   'Saharanpur',
-  //   'Gorakhpur',
-  //   'Noida',
-  //   'Firozabad',
-  //   'Jhansi',
-  //   'Muzaffarnagar',
-  //   'Mathura',
-  //   'Budaun',
-  //   'Rampur',
-  //   'Shahjahanpur',
-  //   'Farrukhabad',
-  //   'Hapur',
-  //   'Etawah',
-  //   'Mirzapur',
-  //   'Sambhal',
-  //   'Amroha',
-  //   'Hardoi',
-  //   'Fatehpur',
-  //   'Raebareli'
-  // ];
-
   const [cities, setCities] = useState([]);
   const [show, setHide] = useState(false)
   const [loading, setLoading] = useState(true);
@@ -81,6 +49,8 @@ const AllCities = () => {
   const handleCityClick = (city) => {
     navigate(`/searchedhotels?location=${city}`);
   };
+
+  console.log(cities)
 
   return (
     <div style={{ minHeight: '100vh' }}>

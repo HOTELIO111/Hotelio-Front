@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, Typography, Paper, Button } from '@mui/material';
 import AllcitiesIcon from '../../images/AllcitiesIcon.jpg'
 import LocationIcon from '../../images/LocationIcon.png'
@@ -29,78 +29,96 @@ const StyledCard = styled(Card)`
   text-align: center;
 `;
 
-const cardData = [
-    {
-
-        content: 'Near me',
-        image: LocationIcon,
-    },
-    {
-
-        content: 'Bangalore',
+const cityCoordinates = {
+    'Bangalore': {
+        latitude: 12.9716,
+        longitude: 77.5946,
         image: BangloreIcon,
     },
-    {
-
-        content: 'Chennai',
+    'Chennai': {
+        latitude: 13.0827,
+        longitude: 80.2707,
         image: ChennaiIcon,
     },
-    {
-
-        content: 'Delhi',
+    'Delhi': {
+        latitude: 28.6139,
+        longitude: 77.2090,
         image: DelhiIcons,
     },
-    {
-
-        content: 'Gurgaon',
+    'Gurgaon': {
+        latitude: 28.4595,
+        longitude: 77.0266,
         image: GurgaonIcon,
     },
-    {
-
-        content: 'Hyderabad',
+    'Hyderabad': {
+        latitude: 17.3850,
+        longitude: 78.4867,
         image: HyderabadIcon,
     },
-    {
-
-        content: 'Kolkata',
+    'Kolkata': {
+        latitude: 22.5726,
+        longitude: 88.3639,
         image: KolkataIcon,
     },
-    {
-
-        content: 'Mumbai',
+    'Mumbai': {
+        latitude: 19.0760,
+        longitude: 72.8777,
         image: MumbaiIcon,
     },
-    {
-
-        content: 'Noida',
+    'Noida': {
+        latitude: 28.5355,
+        longitude: 77.3910,
         image: NoidaIcon,
     },
-    {
-
-        content: 'All cities',
+    'All cities': {
         image: AllcitiesIcon,
     },
-];
+    'Near me': {
+        // You can provide coordinates and image for 'Near me' if needed.
+        // image: SomeNearMeIcon, // Add the 'Near me' icon if available
+    },
+};
 
 const MobileDestination = () => {
+    const [selectedCity, setSelectedCity] = useState('');
+    const navigate = useNavigate();
 
-const navigate = useNavigate()
+    const handleCitySelect = (city) => {
+        setSelectedCity(city);
+
+        // Get the coordinates for the selected city
+        const { latitude, longitude } = cityCoordinates[city];
+
+        // Construct the search data
+        const searchData = {
+            lat: latitude,
+            lng: longitude,
+            kmRadius: 20,
+            priceMin: 400,
+            priceMax: 20000,
+            sort: 'popularity',
+        };
+
+        // Construct the URL with query parameters
+        const queryParams = new URLSearchParams(searchData);
+        const targetURL = `/searchedhotels?${queryParams.toString()}`;
+
+        navigate(targetURL);
+    };
 
     return (
         <>
             <CardContainer className='my-4'>
-                {cardData.map((card, index) => (
-                    <StyledCard onClick={() => navigate('/allCities')} key={index}>
-
+                {Object.keys(cityCoordinates).map((city, index) => (
+                    <StyledCard onClick={() => handleCitySelect(city)} key={index}>
                         <CardContent sx={{ padding: 0, textAlign: 'center' }}>
                             <Button>
-                                <img src={card.image} className='rounded' loading="lazy" alt={`Image ${index}`} />
+                                <img src={cityCoordinates[city].image} className='rounded' loading="lazy" alt={`Image ${index}`} />
                             </Button>
                         </CardContent>
-                        <Typography>{card.content}</Typography>
+                        <Typography>{city}</Typography>
                     </StyledCard>
                 ))}
-
             </CardContainer>
         </>
     );

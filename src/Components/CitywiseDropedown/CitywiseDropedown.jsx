@@ -1,35 +1,8 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
 import ArrowRightTwoToneIcon from '@mui/icons-material/ArrowRightTwoTone';
 import { useNavigate } from 'react-router-dom';
-
-const StyledMenu = styled(Menu)(({ theme }) => ({
-    '& .MuiPaper-root': {
-        borderRadius: 6,
-        marginTop: theme.spacing(1),
-        color: theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
-        boxShadow:
-            'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
-        '& .MuiMenu-list': {
-            padding: '4px 0',
-        },
-        '& .MuiMenuItem-root': {
-            '& .MuiSvgIcon-root': {
-                fontSize: 18,
-                color: theme.palette.text.secondary,
-                marginRight: theme.spacing(1.5),
-            },
-            '&:active': {
-                backgroundColor: alpha(
-                    theme.palette.primary.main,
-                    theme.palette.action.selectedOpacity,
-                ),
-            },
-        },
-    },
-}));
+import { useRef, useState } from 'react';
 
 const City = [
     'Chennai',
@@ -40,15 +13,47 @@ const City = [
     'Pune',
     'Kolkata',
     'Ahmedabad',
-    'surat'
-]
+    'Surat'
+];
 
-export default function CitywiseDropedown() {
+const cityCoordinates = {
+    'Chennai': { latitude: 13.0827, longitude: 80.2707 },
+    'Hyderabad': { latitude: 17.3850, longitude: 78.4867 },
+    'Bangalore': { latitude: 12.9716, longitude: 77.5946 },
+    'Mumbai': { latitude: 19.0760, longitude: 72.8777 },
+    'Delhi': { latitude: 28.6139, longitude: 77.2090 },
+    'Pune': { latitude: 18.5204, longitude: 73.8567 },
+    'Kolkata': { latitude: 22.5726, longitude: 88.3639 },
+    'Ahmedabad': { latitude: 23.0225, longitude: 72.5714 },
+    'Surat': { latitude: 21.1702, longitude: 72.8311 }
+};
 
+export default function CitywiseDropdown() {
+    const [selectedCity, setSelectedCity] = useState('');
     const navigate = useNavigate();
 
-    const handleClick = (event, city) => {
-        navigate(`/searchedhotels?location=${encodeURIComponent(city)}`);
+    const handleCitySelect = (city) => {
+        setSelectedCity(city);
+
+        // Get the coordinates for the selected city
+        const { latitude, longitude } = cityCoordinates[city];
+
+        // Construct the search data
+        const searchData = {
+            // location: city,
+            lat: latitude,
+            lng: longitude,
+            kmRadius: 20,
+            priceMin: 400,
+            priceMax: 20000,
+            sort: 'popularity',
+        };
+
+        // Construct the URL with query parameters
+        const queryParams = new URLSearchParams(searchData);
+        const targetURL = `/searchedhotels?${queryParams.toString()}`;
+
+        navigate(targetURL);
     };
 
     return (
@@ -57,9 +62,9 @@ export default function CitywiseDropedown() {
                 <div key={index}>
                     <Button
                         variant="text"
-                        sx={{ color: '#fff' }}
+                        sx={{ color: selectedCity === item ? 'primary.main' : '#fff' }}
                         disableElevation
-                        onClick={(event) => handleClick(event, item)}
+                        onClick={() => handleCitySelect(item)}
                         endIcon={<ArrowRightTwoToneIcon />}
                     >
                         {item}
@@ -72,11 +77,10 @@ export default function CitywiseDropedown() {
                 sx={{ color: '#fff' }}
                 disableElevation
                 onClick={() => navigate('/allCities')}
-                endIcon={<ArrowRightTwoToneIcon fontSize='small' />}
+                endIcon={<ArrowRightTwoToneIcon fontSize="small" />}
             >
                 All Cities
             </Button>
         </div>
     );
 }
-

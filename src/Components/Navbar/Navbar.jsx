@@ -291,10 +291,12 @@ const Navbar = ({ list }) => {
                     behavior="alternate"
                     direction="left"
                   >
-                    <b>
-                      Get 999 INR instantly Credit in your account. Also become
-                      eligible for refer and earn.
-                    </b>
+                    <h5>
+                      <b>
+                        Get 999 INR instantly Credit in your account. Also become
+                        eligible for refer and earn.
+                      </b>
+                    </h5>
                   </marquee>
                   <div className="col-md-2 col-lg-12 col-xl-2 p-0 m-0">
                     <Link to="/" className={`${style.logo} ms-4`}>
@@ -662,8 +664,8 @@ const Navbar = ({ list }) => {
                                     </div>
                                     <div
                                       className={`${manageRoom.length === 7
-                                          ? style.optionTextDisable
-                                          : style.optionText
+                                        ? style.optionTextDisable
+                                        : style.optionText
                                         }`}
                                       onClick={() =>
                                         ManageRoomAddandDelete("add")
