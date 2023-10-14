@@ -1,28 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import {
+  Grid,
+  Typography,
+  createTheme,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import * as Yup from "yup";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import {
-  Avatar,
-  Button,
-  CssBaseline,
-  TextField,
-  Grid,
-  Box,
-  Typography,
-  Container,
-  InputAdornment,
-  IconButton,
-  createTheme,
-  ThemeProvider,
-} from "@mui/material";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { API_URL } from "../../config";
 import MobileFooter from "../../Components/MobileComponent/MobileFooter";
-import LoginMoto from "../../images/LoginMoto.jpg";
+import LoginLogo from "../../images/HotelioLogo.png";
 import { buildQueryString, validateInput } from "../../Utilis/_fuctions";
 import StepsForm from "./StepsForm";
 
@@ -206,23 +195,27 @@ const Signin = () => {
   };
 
   return (
-    <Container style={{ background: "#fffffc" }}>
-      <Grid container spacing={2}>
-        <Grid sx={{ display: 'grid', placeItems: 'center' }} className="d-none d-sm-block" item xs={12} md={12} lg={7} xl={7}>
-          <img
-            src={LoginMoto}
-            alt="Main"
-            style={{ padding: "15px" }}
-          />
+    <div style={{ background: 'url(https://assets.cntraveller.in/photos/63b80c6d79d81704e445df00/master/pass/Westin%20Himalayas%20facade.jpg)', backgroundSize: 'cover', minHeight: '100vh' }}>
+      <Grid container mt={0} spacing={2}>
+        <Grid className="d-none d-sm-block" item xs={12} md={12} lg={7} xl={7}>
+          <div className="text-center">
+            <img
+              src={LoginLogo}
+              alt="Main"
+              className="animate__animated animate__fadeInDown"
+              style={{ width: "260px", height: "200px" }}
+            />
+            <Typography className="animate__animated animate__backInUp" fontWeight={800} color={"white"} variant="h4">Welcome To Hotelio, Your Travel Partner</Typography>
+          </div>
         </Grid>
-        <Grid item xs={12} md={12} lg={5} xl={5}>
+        <Grid sx={{ background: '#ffffff', minHeight: '100vh' }} item xs={12} md={12} lg={5} xl={5}>
           <StepsForm />
           <div className="d-md-block d-lg-none d-xl-none">
             <MobileFooter />
           </div>
         </Grid>
       </Grid>
-    </Container>
+    </div>
   );
 };
 

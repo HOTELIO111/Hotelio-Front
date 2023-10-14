@@ -256,7 +256,7 @@ const StepsForm = () => {
     switch (step) {
       case 1:
         return (
-          <Grid container spacing={1}>
+          <Grid p={2} container spacing={1}>
             <ThemeProvider theme={theme}>
               <Grid item xs={12}>
                 <TextField
@@ -267,7 +267,7 @@ const StepsForm = () => {
                   onChange={handleChange}
                   id="mobileNo"
                   value={formData.mobileNo || ""}
-                  sx={{ mt: 4 }}
+                  sx={{ mt: 2 }}
                   label="Mobile Number / Email Id"
                   name="mobileNo"
                   autoComplete="mobileNo"
@@ -306,6 +306,7 @@ const StepsForm = () => {
               fullWidth
               type="button"
               variant="contained"
+              className="animate__animated animate__flipInX"
               color="primary"
               sx={{ mt: 3, mb: 2 }}
             >
@@ -334,7 +335,7 @@ const StepsForm = () => {
               {isUser ? (
                 <>
                   <Grid item xs={12}>
-                    <div className="d-flex justify-content-center align-items-center mt-4">
+                    <div className="d-flex justify-content-center align-items-center mt-2 text-nowrap">
                       <hr style={{ width: "120px" }} />
                       <Typography className="px-3" variant="caption">
                         Or
@@ -392,7 +393,7 @@ const StepsForm = () => {
         );
       case 3:
         return (
-          <Grid container spacing={1}>
+          <Grid container spacing={2}>
             <ThemeProvider theme={theme}>
               <Grid item xs={12}>
                 <TextField

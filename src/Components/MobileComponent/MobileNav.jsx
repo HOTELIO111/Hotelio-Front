@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Autocomplete, Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import MobileFooter from './MobileFooter';
 import Premiumcard from './Premiumcard';
-import style from "../Navbar/navbar.module.css";
 import MobileSlider from './MobileSlider';
 import MobileDestination from './MobileDestination';
 import MobileHeader from './MobileHeader';
@@ -11,8 +10,83 @@ import { Offcanvas } from 'react-bootstrap';
 import MainBannerMob from '../../images/MainBannerMob.jpg'
 import { LoadingButton } from '@mui/lab';
 import { Helmet } from 'react-helmet';
+import axios from 'axios';
+import { API_URL } from '../../config';
+import { useNavigate } from 'react-router-dom';
 
 const MobileNav = () => {
+
+
+    const navigate = useNavigate();
+    const [manageRoom, setManageRoom] = useState([{ room: 1, guest: 1 }]);
+    const [citites, setCities] = useState(null);
+    const [selectedCity, setSlectedCity] = useState(null);
+    const [geoLoc, setGeoLoc] = useState({ longitude: "", latitude: "" });
+    const GetAllCities = async () => {
+        try {
+            const response = await axios.get(`${API_URL}/hotel/get/city`);
+            if (response.status === 200) {
+                setCities(response.data.data);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        GetAllCities();
+    }, []);
+
+    const searchData = {
+        // location: selectedCity,
+        lng: geoLoc?.longitude,
+        lat: geoLoc?.latitude,
+        // totalRooms: manageRoom.length,
+        kmRadius: 20,
+        priceMin: 400,
+        priceMax: 20000,
+        sort: "popularity",
+    };
+
+    const SearchTheField = () => {
+        if (selectedCity === null)
+            return window.alert("please Select the location");
+        if (manageRoom[0].guest === 0)
+            return window.alert("please select the room and guest ");
+        const queryString = new URLSearchParams(searchData).toString();
+        navigate(`/searchedhotels?${queryString}`);
+    };
+
+    const autoCompleteRef = useRef();
+    const inputRef = useRef();
+
+    useEffect(() => {
+        try {
+            const options = {
+                types: ["geocode"],
+                componentRestrictions: { country: "in" },
+                fields: ["formatted_address", "geometry"],
+            };
+
+            autoCompleteRef.current = new window.google.maps.places.Autocomplete(
+                inputRef.current,
+                options
+            );
+
+            autoCompleteRef.current.addListener("place_changed", () => {
+                const place = autoCompleteRef.current.getPlace();
+                setSlectedCity(place.formatted_address);
+                console.log(place);
+                // Get latitude and longitude
+                const { lat, lng } = place.geometry.location;
+                let longitude = lng();
+                let latitude = lat();
+                setGeoLoc({ longitude: longitude, latitude: latitude });
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
 
     const top100Films = [
         { label: 'The Shawshank Redemption' },
@@ -69,7 +143,6 @@ const MobileNav = () => {
                         display: 'flex',
                         justifyContent: 'center',
                         color: '#000'
-                        // alignItems: 'center'
                     }}
                 >
                     <h1 className='mt-3' ><b>Welcome To Hotelio Rooms</b></h1>
@@ -80,25 +153,20 @@ const MobileNav = () => {
                             <div className='bg-white p-2 rounded'>
                                 <Grid container spacing={1}>
                                     <Grid item xs={12}>
-                                        <Autocomplete
+                                        {/* <Autocomplete
                                             options={top100Films}
                                             id="disable-close-on-select"
                                             renderInput={(params) => (
                                                 <TextField fullWidth {...params} label="Destination" variant="standard" />
                                             )}
-                                        />
+                                        /> */}
+                                        <input style={{ border: 'none' }} type="text" ref={inputRef} />
                                     </Grid>
                                     <Grid item xs={6}>
                                         <MobileDate />
                                     </Grid>
                                     <Grid item xs={6} className='d-flex'>
                                         <hr style={{ height: '50px', width: '1px', position: 'relative', left: '-4px', top: '-13px' }} />
-                                        {/* <TextField onClick={handleShow} disabled fullWidth id="standard-read-only-input" label="Rooms and guests" value={'1 Guests 1 Room'} variant="standard"
-                                                        InputProps={{
-                                                            readOnly: true,
-                                                            style: { userSelect: 'none' },
-                                                        }}
-                                                    /> */}
                                         <div onClick={handleShow} className='w-100'>
                                             <label style={Stylelabel} className="labelfordatepicker">Rooms and guests</label>
                                             <p style={{ marginTop: '14px' }}>{selectedGuest} Guests, {selectedRoom} Room</p>
@@ -107,7 +175,7 @@ const MobileNav = () => {
                                     </Grid>
 
                                     <Grid item xs={12}>
-                                        <LoadingButton fullWidth href='/searchedhotels' style={{ background: '#ee2e24', color: '#fff' }} >Search</LoadingButton>
+                                        <LoadingButton fullWidth onClick={() => SearchTheField()} style={{ background: '#ee2e24', color: '#fff' }} >Search</LoadingButton>
                                     </Grid>
                                 </Grid>
                                 <Offcanvas show={show} style={{ borderRadius: ' 25px 25px 0px 0px', height: '40vh' }} placement='bottom' onHide={handleClose}>
