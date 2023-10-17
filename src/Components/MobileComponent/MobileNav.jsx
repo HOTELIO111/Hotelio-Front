@@ -114,24 +114,32 @@ const MobileNav = () => {
         textAlign: 'left'
     };
 
-    const [selectedGuest, setselectedGuest] = useState('1')
-    const [selectedRoom, setselectedRoom] = useState('1')
+    const [selectedGuest, setselectedGuest] = useState(1)
+    const [selectedRoom, setselectedRoom] = useState(1)
 
 
     const Guestincrement = () => {
-        setselectedGuest(selectedGuest + 1);
+        if (selectedGuest < 4) {
+            setselectedGuest(selectedGuest + 1);
+        }
     };
 
     const Guestdecrement = () => {
-        setselectedGuest(selectedGuest - 1);
+        if (selectedGuest > 1) {
+            setselectedGuest(selectedGuest - 1);
+        }
     };
 
     const Roomincrement = () => {
-        setselectedRoom(selectedRoom + 1);
+        if (selectedRoom < 7) {
+            setselectedRoom(selectedRoom + 1);
+        }
     };
 
     const Roomdecrement = () => {
-        setselectedRoom(selectedRoom - 1);
+        if (selectedRoom > 1) {
+            setselectedRoom(selectedRoom - 1);
+        }
     };
 
 
@@ -161,18 +169,26 @@ const MobileNav = () => {
                 <div className="w-100">
                     <div className="row">
                         <div className="col-lg-12">
-                            <div className='bg-white p-2 rounded'>
+                            <div
+                                style={
+                                    {
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'center',
+                                        justifyContent: 'center'
+                                    }
+                                }
+                                className='bg-white p-2 rounded'>
+                                <input
+                                    style={{
+                                        border: 'none',
+                                        outline: 'none',
+                                        borderBottom: '1px solid #000',
+                                        padding: '10px',
+                                        borderRadius: '0px'
+                                    }}
+                                    type="text" ref={inputRef} />
                                 <Grid container spacing={1}>
-                                    <Grid item xs={12}>
-                                        {/* <Autocomplete
-                                            options={top100Films}
-                                            id="disable-close-on-select"
-                                            renderInput={(params) => (
-                                                <TextField fullWidth {...params} label="Destination" variant="standard" />
-                                            )}
-                                        /> */}
-                                        <input style={{ border: 'none' }} type="text" ref={inputRef} />
-                                    </Grid>
                                     <Grid item xs={6}>
                                         <MobileDate />
                                     </Grid>
