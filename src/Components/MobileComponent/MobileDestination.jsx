@@ -69,14 +69,7 @@ const cityCoordinates = {
         latitude: 28.5355,
         longitude: 77.3910,
         image: NoidaIcon,
-    },
-    'All cities': {
-        image: AllcitiesIcon,
-    },
-    'Near me': {
-        // You can provide coordinates and image for 'Near me' if needed.
-        // image: SomeNearMeIcon, // Add the 'Near me' icon if available
-    },
+    }
 };
 
 const MobileDestination = () => {
@@ -109,6 +102,14 @@ const MobileDestination = () => {
     return (
         <>
             <CardContainer className='my-4'>
+                <StyledCard>
+                    <CardContent sx={{ padding: 0, textAlign: 'center' }}>
+                        <Button>
+                            <img src={LocationIcon} className='rounded' loading="lazy" alt='nearme' />
+                        </Button>
+                    </CardContent>
+                    <Typography>Near me</Typography>
+                </StyledCard>
                 {Object.keys(cityCoordinates).map((city, index) => (
                     <StyledCard onClick={() => handleCitySelect(city)} key={index}>
                         <CardContent sx={{ padding: 0, textAlign: 'center' }}>
@@ -119,6 +120,14 @@ const MobileDestination = () => {
                         <Typography>{city}</Typography>
                     </StyledCard>
                 ))}
+                <StyledCard>
+                    <CardContent sx={{ padding: 0, textAlign: 'center' }}>
+                        <Button>
+                            <img src={AllcitiesIcon} className='rounded' loading="lazy" alt='nearme' />
+                        </Button>
+                    </CardContent>
+                    <Typography>All Cities</Typography>
+                </StyledCard>
             </CardContainer>
         </>
     );

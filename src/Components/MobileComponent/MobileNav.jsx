@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Autocomplete, Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Autocomplete, Button, FormControl, Grid, IconButton, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import MobileFooter from './MobileFooter';
 import Premiumcard from './Premiumcard';
 import MobileSlider from './MobileSlider';
@@ -13,6 +13,8 @@ import { Helmet } from 'react-helmet';
 import axios from 'axios';
 import { API_URL } from '../../config';
 import { useNavigate } from 'react-router-dom';
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 
 const MobileNav = () => {
 
@@ -116,13 +118,22 @@ const MobileNav = () => {
     const [selectedRoom, setselectedRoom] = useState('1')
 
 
-    const handelChangeGuest = (e) => {
-        setselectedGuest(e.target.value)
-    }
+    const Guestincrement = () => {
+        setselectedGuest(selectedGuest + 1);
+    };
 
-    const handelChangeRoom = (e) => {
-        setselectedRoom(e.target.value)
-    }
+    const Guestdecrement = () => {
+        setselectedGuest(selectedGuest - 1);
+    };
+
+    const Roomincrement = () => {
+        setselectedRoom(selectedRoom + 1);
+    };
+
+    const Roomdecrement = () => {
+        setselectedRoom(selectedRoom - 1);
+    };
+
 
     return (
         <>
@@ -186,29 +197,19 @@ const MobileNav = () => {
                                         <div className='text-center'>
                                             <div className='d-flex justify-content-evenly align-items-center'>
                                                 <h5>Guest</h5>
-                                                <FormControl className='w-25'>
-                                                    {/* <InputLabel>Select an option</InputLabel> */}
-                                                    <Select value={selectedGuest} onChange={handelChangeGuest}>
-                                                        <MenuItem value="1">1</MenuItem>
-                                                        <MenuItem value="2">2</MenuItem>
-                                                        <MenuItem value="3">3</MenuItem>
-                                                    </Select>
+                                                <FormControl className='w-50'>
+                                                    <div>
+                                                        <IconButton onClick={Guestdecrement} ><RemoveIcon /></IconButton>&nbsp;{selectedGuest}&nbsp;<IconButton onClick={Guestincrement} ><AddIcon /></IconButton>
+                                                    </div>
                                                 </FormControl>
                                             </div>
                                             <hr />
                                             <div className='d-flex justify-content-evenly align-items-center py-2'>
                                                 <h5>Room</h5>
-                                                <FormControl className='w-25'>
-                                                    {/* <InputLabel>Select an option</InputLabel> */}
-                                                    <Select value={selectedRoom} onChange={handelChangeRoom}>
-                                                        <MenuItem value="1">1</MenuItem>
-                                                        <MenuItem value="2">2</MenuItem>
-                                                        <MenuItem value="3">3</MenuItem>
-                                                        <MenuItem value="4">4</MenuItem>
-                                                        <MenuItem value="5">5</MenuItem>
-                                                        <MenuItem value="6">6</MenuItem>
-                                                        <MenuItem value="7">7</MenuItem>
-                                                    </Select>
+                                                <FormControl className='w-50'>
+                                                    <div>
+                                                        <IconButton onClick={Roomdecrement} ><RemoveIcon /></IconButton>&nbsp;{selectedRoom}&nbsp;<IconButton onClick={Roomincrement} ><AddIcon /></IconButton>
+                                                    </div>
                                                 </FormControl>
                                             </div>
                                             <Button color='error' onClick={handleClose} fullWidth variant='contained'>Done</Button>
