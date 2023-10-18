@@ -1,4 +1,4 @@
-import { Alert, Button, Card, CardActions, CardContent, Chip, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, Rating, TextField, Typography } from '@mui/material'
+import { Alert, Box, Button, Card, CardContent, Chip, FormControl, FormControlLabel, Grid, IconButton, Modal, Radio, RadioGroup, Rating, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
@@ -8,15 +8,95 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import VapingRoomsIcon from '@mui/icons-material/VapingRooms';
 import Tooltip from '@mui/material/Tooltip/Tooltip';
 import PersonIcon from '@mui/icons-material/Person';
-import { useNavigate } from 'react-router-dom';
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import Dates from '../date/Date';
 
 const StepTwo = () => {
 
-  const navigate = useNavigate()
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 500,
+    bgcolor: 'background.paper',
+    border: '2px solid #fff',
+    boxShadow: 24,
+    p: 2,
+    textAlign: 'center',
+    borderRadius: '8px'
+  };
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [changeSelection, setChangeSelection] = useState(false)
+  const [selectedValue, setSelectedValue] = useState('myself');
   const [show, setHide] = useState(false)
+  const handleRadioChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+
+  const [selectedGuest, setselectedGuest] = useState(1);
+  const [selectedRoom, setselectedRoom] = useState(1);
+
+  const Guestincrement = () => {
+    if (selectedRoom) {
+      if (selectedGuest < selectedRoom * 4) {
+        setselectedGuest(selectedGuest + 1);
+      } else {
+        if (selectedGuest === 32) {
+          window.alert('Maximum guests and rooms reached');
+        } else {
+          setselectedGuest(selectedGuest + 1);
+          if (selectedGuest % 4 === 0) {
+            setselectedRoom(selectedRoom + 1);
+            window.alert('Selected room increased to ' + (selectedRoom + 1));
+          }
+        }
+      }
+    }
+  };
+
+  const Guestdecrement = () => {
+    if (selectedGuest > 1) {
+      setselectedGuest(selectedGuest - 1);
+    }
+  };
+
+  const Roomincrement = () => {
+    if (selectedRoom < 8) {
+      setselectedRoom(selectedRoom + 1);
+    }
+  };
+
+  const Roomdecrement = () => {
+    if (selectedRoom > 1) {
+      setselectedRoom(selectedRoom - 1);
+    }
+  };
+
+
 
   return (
     <div className='container p-2'>
+      <Modal
+        sx={{ zIndex: '1000' }}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Dates />
+          <div className='my-2 d-flex justify-content-between'>
+            <Button variant='contained'>Submit</Button>
+            <Button sx={{ ml: 1 }} onClick={handleClose} variant='outlined'>Cancel</Button>
+          </div>
+        </Box>
+      </Modal>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={12} md={6} lg={8} xl={8}>
           <Card style={{ border: '2px solid #ee2e24' }} className='w-100'>
@@ -25,24 +105,48 @@ const StepTwo = () => {
                 Enter your details
               </Typography>
               <Alert severity="success" color="info">
-                Almost done! Just fill the * required info
+                {selectedValue === 'myself' ? 'Almost done! Just fill the * required info' : 'Just fill guest details'}
               </Alert>
 
-              <TextField
-                InputProps={{ className: 'custom-input' }}
-                id="outlined-basic"
-                label="Full Name *"
-                margin='normal'
-                variant="outlined" />
+              {selectedValue === 'myself' ? <div>
+                <TextField
+                  InputProps={{ className: 'custom-input' }}
+                  id="outlined-basic"
+                  label="Full Name *"
+                  margin='normal'
+                  variant="outlined" />
 
-              <br />
+                <br />
 
-              <TextField
-                InputProps={{ className: 'custom-input' }}
-                id="outlined-basic"
-                label="Email *"
-                margin='normal'
-                variant="outlined" />
+                <TextField
+                  InputProps={{ className: 'custom-input' }}
+                  id="outlined-basic"
+                  label="Email *"
+                  margin='normal'
+                  variant="outlined" />
+              </div> : <div>
+                <TextField
+                  InputProps={{ className: 'custom-input' }}
+                  id="outlined-basic"
+                  label="Full Name *"
+                  margin='normal'
+                  variant="outlined" />
+                <TextField
+                  InputProps={{ className: 'custom-input' }}
+                  id="outlined-basic"
+                  label="Email *"
+                  margin='normal'
+                  sx={{ ml: 1 }}
+                  variant="outlined" />
+                <br />
+
+                <TextField
+                  InputProps={{ className: 'custom-input' }}
+                  id="outlined-basic"
+                  label="Contact No. *"
+                  margin='normal'
+                  variant="outlined" />
+              </div>}
               <Typography variant="caption" display="block">
                 Confirmation email goes to this address
               </Typography>
@@ -54,11 +158,11 @@ const StepTwo = () => {
               <FormControl sx={{ ml: 1.5 }}>
                 <RadioGroup
                   aria-labelledby="demo-radio-buttons-group-label"
-                  defaultValue="female"
-                  name="radio-buttons-group"
+                  value={selectedValue}
+                  onChange={handleRadioChange}
                 >
                   <FormControlLabel value="myself" control={<Radio sx={{ p: 0, pr: 1 }} />} label="Myself" />
-                  <FormControlLabel value="someoneElse" control={<Radio sx={{ p: 0, pr: 1 }} />} label="someone else" />
+                  <FormControlLabel value="someoneElse" control={<Radio sx={{ p: 0, pr: 1 }} />} label="Someone else" />
                 </RadioGroup>
               </FormControl>
             </CardContent>
@@ -121,9 +225,16 @@ const StepTwo = () => {
           </Card>
           <Card style={{ border: '2px solid #ee2e24' }} className='w-100 mt-2 my-1'>
             <CardContent>
-              <Typography color="text-dark" fontWeight={700}>
-                Your booking details
-              </Typography>
+              <div className='d-flex justify-content-between align-items-center'>
+                <Typography color="text-dark" variant='h6' fontWeight={700}>
+                  Your booking details
+                </Typography>
+
+                <Typography onClick={handleOpen} sx={{ cursor: 'pointer' }} color='#ee2e24' variant='button' fontWeight={700}>
+                  Edit
+                </Typography>
+
+              </div>
               <Grid container spacing={1}>
                 <Grid item xs={6} >
                   <Typography variant="overline" display="block">
@@ -166,7 +277,7 @@ const StepTwo = () => {
                       Your selected
                     </Typography>
                     <Typography variant="subtitle2">
-                      1 room for 1 adult
+                      {selectedRoom} room for {selectedGuest} Guest
                     </Typography>
 
                   </div>
@@ -183,9 +294,31 @@ const StepTwo = () => {
                       3 adults
                     </Typography>
                   </> : null}
-                  <Typography onClick={() => navigate(-1)} sx={{ color: '#ee2e24' }} variant="subtitle2">
+                  <Typography color='error' sx={{ cursor: 'pointer' }} onClick={() => setChangeSelection(!changeSelection)} variant="subtitle2">
                     Change Your Selection
                   </Typography>
+                  {changeSelection &&
+                    <div className='text-center'>
+                      <div className='d-flex justify-content-evenly align-items-center'>
+                        <Typography variant='overline' gutterBottom>Guest</Typography>
+                        <FormControl className='w-50'>
+                          <div>
+                            <IconButton onClick={Guestdecrement} ><RemoveIcon /></IconButton>&nbsp;{selectedGuest}&nbsp;<IconButton onClick={Guestincrement} ><AddIcon /></IconButton>
+                          </div>
+                        </FormControl>
+                      </div>
+                      <div className='d-flex justify-content-evenly align-items-center py-2'>
+                        <Typography variant='overline' gutterBottom>Room</Typography>
+                        <FormControl className='w-50'>
+                          <div>
+                            <IconButton onClick={Roomdecrement} ><RemoveIcon /></IconButton>&nbsp;{selectedRoom}&nbsp;<IconButton onClick={Roomincrement} ><AddIcon /></IconButton>
+                          </div>
+                        </FormControl>
+                      </div>
+                      <Button color='error' fullWidth variant='contained'>Done</Button>
+                    </div>
+
+                  }
                 </Grid>
               </Grid>
             </CardContent>

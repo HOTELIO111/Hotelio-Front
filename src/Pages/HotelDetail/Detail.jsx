@@ -21,7 +21,6 @@ import NetworkWifiIcon from "@mui/icons-material/NetworkWifi";
 import LocalParkingIcon from "@mui/icons-material/LocalParking";
 import FoodBankIcon from "@mui/icons-material/FoodBank";
 import PlusOneIcon from "@mui/icons-material/PlusOne";
-import { useAuthContext } from "../../context/userAuthContext";
 import { isMobile } from "react-device-detect";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
@@ -40,8 +39,8 @@ const Detail = ({ data }) => {
     value: PropTypes.number.isRequired,
   };
 
-    // Check the value in localStorage
-    const loggedIn = localStorage.getItem("customer");
+  // Check the value in localStorage
+  const loggedIn = localStorage.getItem("customer");
 
 
   function CircularProgressWithLabel(props) {
@@ -105,7 +104,7 @@ const Detail = ({ data }) => {
                             "rgb(204, 219, 232) 0px 0px 6px 0px inset, rgba(255, 255, 255, 0.5) -1px -1px 6px 1px inset",
                         }}
 
-                      
+
                       >
                         {console.log(item)}
                         {item === "WiFi" ? (
@@ -290,6 +289,9 @@ const Detail = ({ data }) => {
               return (
                 <CardContent>
                   <Grid container spacing={1}>
+                    <Grid item xs={12} p={5} textAlign={"center"} sx={{ cursor: 'not-allowed', filter: 'blur(1px)' }}>
+                      <Typography variant="h6" color='error' fontWeight={800}>Room Not Available</Typography>
+                    </Grid>
                     <Grid
                       sx={
                         isMobile ? null : { borderRight: "2px solid #ee2e24" }
@@ -340,16 +342,6 @@ const Detail = ({ data }) => {
                             </Typography>
                           )
                         )}
-
-                        {/* <Typography variant="p" display={"block"}>
-                            Air conditioning
-                          </Typography>
-                          <Typography variant="p" display={"block"}>
-                            Flat-screen TV
-                          </Typography>
-                          <Typography variant="p" display={"block"}>
-                            Attached bathroom
-                          </Typography> */}
                       </div>
                     </Grid>
                     <Grid
@@ -370,12 +362,14 @@ const Detail = ({ data }) => {
                           <span className="text-secondary">
                             {item?.prevPrice ? (
                               <>
-                                <del>{item.prevPrice}</del> "off"
+                                <del>{item.prevPrice}</del> off
                               </>
-                            ) : null}
+                            ) : <>
+                              <del>1000</del> off
+                            </>}
                           </span>
                         </Typography>
-                        <Typography variant="caption">+ 18% taxes and charges</Typography>
+                        <Typography variant="caption">+ 18% taxes and charges per room</Typography>
                       </div>
                     </Grid>
                     <Grid
