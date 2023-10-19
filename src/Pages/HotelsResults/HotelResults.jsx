@@ -32,8 +32,33 @@ const HotelResults = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [loader, setLoader] = useState(false);
   const dispatch = useDispatch();
-
   const [pagination, setPagination] = useState(1);
+
+  // to setthe price
+
+  // Hotel PriceManagement
+  const PriceManagement = (hotelData) => {
+    const report = {};
+    hotelData?.rooms?.forEach((element) => {
+      report[element?.roomType?._id] = {
+        price: element?.price,
+        title: element?.roomType?.title,
+      };
+    });
+    const result = {};
+    if (currentSearchParams.roomType !== undefined) {
+      const newData = {
+        price: report[currentSearchParams.roomType]?.price,
+        title: report[currentSearchParams.roomType]?.title,
+      };
+      Object.assign(result, newData);
+    } else {
+      const roomListPriceList = Object.values(report);
+      const minPrice = roomListPriceList.sort((a, b) => a?.price - b?.price);
+      Object.assign(result, minPrice[0]);
+    }
+    return result;
+  };
 
   const paginationManage = (count) => {
     let paginationCount;
@@ -60,10 +85,14 @@ const HotelResults = () => {
         hotelData?.sort((a, b) => b.hotelRatings - a.hotelRatings);
         break;
       case "l2h":
-        hotelData?.sort((a, b) => a.rooms[0]?.price - b.rooms[0]?.price);
+        hotelData?.sort(
+          (a, b) => PriceManagement(a).price - PriceManagement(b).price
+        );
         break;
       case "h2l":
-        hotelData?.sort((a, b) => b.rooms[0]?.price - a.rooms[0]?.price);
+        hotelData?.sort(
+          (a, b) => PriceManagement(b)?.price - PriceManagement(a)?.price
+        );
         break;
     }
     const startIndex = (pagination - 1) * 5;
@@ -87,6 +116,10 @@ const HotelResults = () => {
           // setHotels(response.data.data);
           setTotalPages(response.data.data.length);
           FilterhotelsData(response.data.data, pagination);
+          sessionStorage.setItem(
+            "search",
+            encodeURIComponent(decodedUriComponent)
+          );
           setLoader(false);
         }
       } catch (error) {

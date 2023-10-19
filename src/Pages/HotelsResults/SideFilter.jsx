@@ -6,6 +6,7 @@ import {
   Typography,
   Autocomplete,
   TextField,
+  Radio,
 } from "@mui/material";
 import React, { useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -118,11 +119,7 @@ const SideFilter = (setFilterData, filterData) => {
   };
 
   const handleRoomTypeChange = (roomType) => {
-    if (selectedRoomTypes.includes(roomType)) {
-      setSelectedRoomTypes(selectedRoomTypes.filter((r) => r !== roomType));
-    } else {
-      setSelectedRoomTypes([...selectedRoomTypes, roomType]);
-    }
+    setSelectedRoomTypes(roomType);
   };
 
   const [selectedPropertyType, setSelectedPropertyType] = useState([]);
@@ -138,8 +135,8 @@ const SideFilter = (setFilterData, filterData) => {
   };
 
   useEffect(() => {
-    if (selectedRoomTypes.length > 0) {
-      updateSearchQuery({ roomType: selectedRoomTypes.join(",") });
+    if (selectedRoomTypes) {
+      updateSearchQuery({ roomType: selectedRoomTypes });
     }
     if (selectedPropertyType.length > 0) {
       updateSearchQuery({ hotelType: selectedPropertyType.join(",") });
@@ -161,46 +158,6 @@ const SideFilter = (setFilterData, filterData) => {
         </div>
         <hr />
       </Grid>
-      {/* <Grid item xs={12}>
-        <div>
-          <h5>Location</h5>
-          <Autocomplete
-            options={locations}
-            value={selectedLocations}
-            onChange={handleLocationChange}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                variant="outlined"
-                label="Select Locations"
-                placeholder="Location"
-              />
-            )}
-          />
-        </div>
-        <hr />
-      </Grid> */}
-      {/* <Grid item xs={12}>
-        <div>
-          <h5>Ratings</h5>
-          {guestRatings.map((rating, index) => (
-            <div key={index}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    color="error"
-                    sx={{ padding: "2px", marginLeft: "10px" }}
-                    checked={selectedGuestRatings.includes(rating.key)}
-                    onChange={() => handleGuestRatingChange(rating.key)}
-                  />
-                }
-                label={rating.value}
-              />
-            </div>
-          ))}
-        </div>
-        <hr />
-      </Grid> */}
       <Grid item xs={12}>
         <div>
           <h5>Accommodation Types</h5>
@@ -208,12 +165,12 @@ const SideFilter = (setFilterData, filterData) => {
             <div key={index}>
               <FormControlLabel
                 control={
-                  <Checkbox
+                  <Radio
                     color="error"
+                    name="roomType"
+                    size="small"
                     sx={{ padding: "2px", marginLeft: "10px" }}
-                    checked={currentSearchParams.roomType
-                      ?.split(",")
-                      ?.includes(roomType._id)}
+                    checked={currentSearchParams.roomType === roomType._id}
                     onChange={() => handleRoomTypeChange(roomType._id)}
                   />
                 }

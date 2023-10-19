@@ -55,6 +55,8 @@ const Navbar = ({ list }) => {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [openOptions, setOpenOptions] = useState(false);
+  // selected checkinCheckOut Date
+  const [checkInCheckOut, setCheckInCheckOut] = useState([]);
 
   const StyledMenu = styled((props) => (
     <Menu
@@ -212,11 +214,15 @@ const Navbar = ({ list }) => {
     // location: selectedCity,
     lng: geoLoc?.longitude,
     lat: geoLoc?.latitude,
-    // totalRooms: manageRoom.length,
+    totalRooms: manageRoom.length,
+    totalGuest: manageRoom.reduce((a, b) => a + b.guest, 0),
+    checkIn: checkInCheckOut[0],
+    checkOut: checkInCheckOut[1],
     kmRadius: 20,
     priceMin: 400,
     priceMax: 20000,
     sort: "popularity",
+    // search ki api shi krna hai phle chekinChekout or totalrooms ke liye
   };
 
   const SearchTheField = () => {
@@ -226,6 +232,7 @@ const Navbar = ({ list }) => {
       return window.alert("please select the room and guest ");
     const queryString = new URLSearchParams(searchData).toString();
     navigate(`/searchedhotels?${queryString}`);
+    console.log(checkInCheckOut);
   };
 
   const MarginMobile = {
@@ -267,8 +274,9 @@ const Navbar = ({ list }) => {
   return (
     <div className="">
       <header
-        className={`${style.header_area}  ${style.header_sticky} ${style.wow} ${style.slideInDown
-          } ${!list ? "bg-light position-static border-bottom" : ""}`}
+        className={`${style.header_area}  ${style.header_sticky} ${style.wow} ${
+          style.slideInDown
+        } ${!list ? "bg-light position-static border-bottom" : ""}`}
         data-wow-duration="0.75s"
         data-wow-delay="0s"
       >
@@ -293,8 +301,8 @@ const Navbar = ({ list }) => {
                   >
                     <h5>
                       <b>
-                        Get 999 INR instantly Credit in your account. Also become
-                        eligible for refer and earn.
+                        Get 999 INR instantly Credit in your account. Also
+                        become eligible for refer and earn.
                       </b>
                     </h5>
                   </marquee>
@@ -355,8 +363,9 @@ const Navbar = ({ list }) => {
                         <>
                           <NavLink
                             to="/contact"
-                            className={`${!list ? "text-dark" : ""} ${style.iconHide
-                              }`}
+                            className={`${!list ? "text-dark" : ""} ${
+                              style.iconHide
+                            }`}
                           >
                             Contact us
                           </NavLink>
@@ -429,8 +438,8 @@ const Navbar = ({ list }) => {
                               {currentUser && currentUser.name
                                 ? currentUser.name
                                 : currentUser.email
-                                  ? currentUser.email
-                                  : currentUser.mobileNo}
+                                ? currentUser.email
+                                : currentUser.mobileNo}
                             </Button>
                             <StyledMenu
                               id="demo-customized-menu"
@@ -499,8 +508,9 @@ const Navbar = ({ list }) => {
                       </li>
                     </ul>
                     <a
-                      className={`${style.menu_trigger} ${menuOpen ? style.active : ""
-                        }`}
+                      className={`${style.menu_trigger} ${
+                        menuOpen ? style.active : ""
+                      }`}
                       onClick={() => {
                         setMenuOpen(!menuOpen);
                         $(`.${style.header_area} .${style.nav}`).slideToggle(
@@ -547,7 +557,9 @@ const Navbar = ({ list }) => {
                 <div className="col-lg-12 px-0">
                   <div className={` ${style.search_form}`}>
                     <div className="row position-relative">
-                      <div className={`col-lg-3 align-self-center d-flex align-items-center`}>
+                      <div
+                        className={`col-lg-3 align-self-center d-flex align-items-center`}
+                      >
                         <HotelIcon className="text-danger me-2" />
                         <input type="text" ref={inputRef} />
                         {/* <fieldset className={`d-flex align-items-center`}>
@@ -567,7 +579,10 @@ const Navbar = ({ list }) => {
                         >
                           <div>
                             <CalendarMonthIcon className="text-danger" />
-                            <Dates />
+                            <Dates
+                              setCheckInCheckOut={setCheckInCheckOut}
+                              checkInCheckOut={checkInCheckOut}
+                            />
                           </div>
                         </fieldset>
                       </div>
@@ -585,8 +600,9 @@ const Navbar = ({ list }) => {
                             }}
                             className={`d-flex ${style.headerSearchText}`}
                           >
-                            {`${getTotalGuests()} Guests · ${manageRoom.length
-                              } room`}
+                            {`${getTotalGuests()} Guests · ${
+                              manageRoom.length
+                            } room`}
                             <div className="ms-3 text-dark">
                               {openOptions ? (
                                 <ExpandLessIcon />
@@ -663,10 +679,11 @@ const Navbar = ({ list }) => {
                                       Delete Room
                                     </div>
                                     <div
-                                      className={`${manageRoom.length === 7
-                                        ? style.optionTextDisable
-                                        : style.optionText
-                                        }`}
+                                      className={`${
+                                        manageRoom.length === 7
+                                          ? style.optionTextDisable
+                                          : style.optionText
+                                      }`}
                                       onClick={() =>
                                         ManageRoomAddandDelete("add")
                                       }

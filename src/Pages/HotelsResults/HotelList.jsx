@@ -30,14 +30,21 @@ const HotelList = ({
 }) => {
   const navigate = useNavigate();
 
-
   const [searchParams, setSearchParams] = useSearchParams();
+  const searchQuery = new URLSearchParams(document.location.search);
 
   // State to keep track of the selected rating filter
   const [selectedRatingFilter, setSelectedRatingFilter] =
     React.useState("popularity");
 
-  const currentSearchParams = Object.fromEntries(searchParams.entries());
+  const currentSearchParams = Object.fromEntries(searchQuery?.entries());
+
+  const bookingQueries = new URLSearchParams({
+    checkIn: currentSearchParams.checkIn,
+    checkOut: currentSearchParams.checkOut,
+    totalRooms: currentSearchParams.totalRooms,
+    totalGuest: currentSearchParams.totalGuest,
+  }).toString();
 
   const updateSearchQuery = async ({ ...args }) => {
     const updatedSearchParams = {
@@ -50,6 +57,30 @@ const HotelList = ({
   // Function to handle the change of the rating filter
   const handleRatingFilterChange = (event) => {
     updateSearchQuery({ sort: event.target.value });
+  };
+
+  // Hotel PriceManagement
+  const PriceManagement = (hotelData) => {
+    const report = {};
+    hotelData?.rooms?.forEach((element) => {
+      report[element?.roomType?._id] = {
+        price: element?.price,
+        title: element?.roomType?.title,
+      };
+    });
+    const result = {};
+    if (currentSearchParams.roomType !== undefined) {
+      const newData = {
+        price: report[currentSearchParams.roomType]?.price,
+        title: report[currentSearchParams.roomType]?.title,
+      };
+      Object.assign(result, newData);
+    } else {
+      const roomListPriceList = Object.values(report);
+      const minPrice = roomListPriceList.sort((a, b) => a?.price - b?.price);
+      Object.assign(result, minPrice[0]);
+    }
+    return result;
   };
 
   // Check the value in localStorage
@@ -253,7 +284,9 @@ const HotelList = ({
                         <Button
                           onClick={() => {
                             if (loggedIn) {
-                              navigate(`/searchedhotel/${items._id}`);
+                              navigate(
+                                `/searchedhotel/${items._id}?${bookingQueries}`
+                              );
                             } else {
                               navigate("/signin");
                             }
@@ -271,7 +304,9 @@ const HotelList = ({
                           sx={{ borderRadius: 5 }}
                           color="error"
                           onClick={() =>
-                            navigate(`/searchedhotel/${items._id}`)
+                            navigate(
+                              `/searchedhotel/${items._id}?${bookingQueries}`
+                            )
                           }
                         >
                           View Hotel
@@ -282,7 +317,7 @@ const HotelList = ({
                       className={`align-items-center p-2 ${style.BookingCardColor} ${style.mobflex}`}
                     >
                       <h4>
-                        {items?.rooms[0]?.price} &nbsp;
+                        {PriceManagement(items).price} &nbsp;
                         <span>
                           <del>{items?.rooms[0]?.prevPrice}</del>
                         </span>

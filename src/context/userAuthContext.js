@@ -73,7 +73,7 @@ const AuthProvider = ({ children }) => {
               setCurrentUser(isUser.data.data);
               console.log("user login successfully");
               setLoader(false);
-              window.location.href = "/";
+              window.history.back();
             }
           } catch (error) {
             setLoader(false);

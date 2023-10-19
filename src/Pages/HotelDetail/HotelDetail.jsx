@@ -4,15 +4,9 @@ import Footer from "../../Components/footer/Footer";
 import HotelCover from "./HotelCover";
 import Detail from "./Detail";
 import { API_URL } from "../../config";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import axios from "axios";
-import {
-  Button,
-  Container,
-  Grid,
-  Rating,
-  Typography,
-} from "@mui/material";
+import { Button, Container, Grid, Rating, Typography } from "@mui/material";
 import { isMobile } from "react-device-detect";
 import MobileHeader from "../../Components/MobileComponent/MobileHeader";
 import MobileFooter from "../../Components/MobileComponent/MobileFooter";
@@ -42,7 +36,6 @@ const HotelDetail = () => {
     GetHoteldata();
   }, [id]);
 
-
   return (
     <>
       <PageLoader loading={loader} />
@@ -55,16 +48,10 @@ const HotelDetail = () => {
           border: "2px solid #ee2e24",
         }}
       >
-
         <HotelCover data={data} />
         <Container>
           <Grid spacing={1} container padding={5}>
-            <Grid
-              item
-              xs={12}
-              lg={6}
-              textAlign={"center"}
-            >
+            <Grid item xs={12} lg={6} textAlign={"center"}>
               <Typography
                 display={"block"}
                 color={"#ee2e24"}
@@ -85,13 +72,7 @@ const HotelDetail = () => {
                 </Button>
               </div>
             </Grid>
-            <Grid
-              item
-              xs={12}
-              lg={6}
-              display={"flex"}
-              alignItems={"center"}
-            >
+            <Grid item xs={12} lg={6} display={"flex"} alignItems={"center"}>
               {/* <div className={style.Imagebox}>
                 <img src={data?.hotelCoverImg} alt="hotelImg" />
               </div> */}
@@ -103,11 +84,20 @@ const HotelDetail = () => {
                   value={`${data?.hotelRatings}`}
                   readOnly
                 />
-                <Typography display={"block"} variant="p">{data?.address}</Typography>
+                <Typography display={"block"} variant="p">
+                  {data?.address}
+                </Typography>
               </div>
               <div className="border">
-                <Typography className="bg-success text-center" variant="h5">4.5</Typography>
-                <Typography className="bg-secondary text-nowrap p-1" variant="p">14 Rating</Typography>
+                <Typography className="bg-success text-center" variant="h5">
+                  4.5
+                </Typography>
+                <Typography
+                  className="bg-secondary text-nowrap p-1"
+                  variant="p"
+                >
+                  14 Rating
+                </Typography>
               </div>
             </Grid>
           </Grid>

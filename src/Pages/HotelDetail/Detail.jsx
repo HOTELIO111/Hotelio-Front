@@ -16,7 +16,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import PropTypes from "prop-types";
 import Welcome from "../../images/Welcome.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import NetworkWifiIcon from "@mui/icons-material/NetworkWifi";
 import LocalParkingIcon from "@mui/icons-material/LocalParking";
 import FoodBankIcon from "@mui/icons-material/FoodBank";
@@ -24,12 +24,24 @@ import PlusOneIcon from "@mui/icons-material/PlusOne";
 import { isMobile } from "react-device-detect";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-import { Carousel } from 'react-responsive-carousel';
+import { Carousel } from "react-responsive-carousel";
 import { AiOutlineCheckCircle } from "react-icons/ai";
-import './Detail.css'
+import "./Detail.css";
 
 const Detail = ({ data }) => {
   const navigate = useNavigate();
+
+  const { searchParams, setSearchParams } = useSearchParams();
+  const searchQuery = new URLSearchParams(document.location.search);
+  const currentSearchParams = Object.fromEntries(searchQuery?.entries());
+
+  const bookingQueries = new URLSearchParams({
+    checkIn: currentSearchParams.checkIn,
+    checkOut: currentSearchParams.checkOut,
+    totalRooms: currentSearchParams.totalRooms,
+    totalGuest: currentSearchParams.totalGuest,
+  }).toString();
+
   CircularProgressWithLabel.propTypes = {
     /**
      * The value of the progress indicator for the determinate variant.
@@ -41,7 +53,6 @@ const Detail = ({ data }) => {
 
   // Check the value in localStorage
   const loggedIn = localStorage.getItem("customer");
-
 
   function CircularProgressWithLabel(props) {
     return (
@@ -103,10 +114,7 @@ const Detail = ({ data }) => {
                           boxShadow:
                             "rgb(204, 219, 232) 0px 0px 6px 0px inset, rgba(255, 255, 255, 0.5) -1px -1px 6px 1px inset",
                         }}
-
-
                       >
-                        {console.log(item)}
                         {item === "WiFi" ? (
                           <>
                             <NetworkWifiIcon /> {item}
@@ -272,7 +280,13 @@ const Detail = ({ data }) => {
           </Grid>
         )}
         <Grid item xs={12} lg={12} xl={12}>
-          <Card sx={{ margin: 1, border: "2px solid #ee2e24", borderRadius: '15px' }}>
+          <Card
+            sx={{
+              margin: 1,
+              border: "2px solid #ee2e24",
+              borderRadius: "15px",
+            }}
+          >
             <div
               className="p-2"
               id="BookNow"
@@ -289,14 +303,24 @@ const Detail = ({ data }) => {
               return (
                 <CardContent>
                   <Grid container spacing={1}>
-                    <Grid item xs={12} p={5} textAlign={"center"} sx={{ cursor: 'not-allowed', filter: 'blur(1px)' }}>
-                      <Typography variant="h6" color='error' fontWeight={800}>Room Not Available</Typography>
+                    <Grid
+                      item
+                      xs={12}
+                      p={5}
+                      textAlign={"center"}
+                      sx={{ cursor: "not-allowed", filter: "blur(1px)" }}
+                    >
+                      <Typography variant="h6" color="error" fontWeight={800}>
+                        Room Not Available
+                      </Typography>
                     </Grid>
                     <Grid
                       sx={
                         isMobile ? null : { borderRight: "2px solid #ee2e24" }
                       }
-                      display={"flex"} alignItems={"center"} justifyContent={"center"}
+                      display={"flex"}
+                      alignItems={"center"}
+                      justifyContent={"center"}
                       item
                       xs={2}
                       md={4}
@@ -327,25 +351,23 @@ const Detail = ({ data }) => {
                         {/* ------------------------------------Mapped Hotel Facilites as per room type amenites ------------------------------------------------------ */}
                         {item.roomType?.amenties?.map((facility, index) => (
                           <Typography key={index} variant="caption">
-                            <AiOutlineCheckCircle /> {facility.title}{' '}
+                            <AiOutlineCheckCircle /> {facility.title}{" "}
                           </Typography>
                         ))}
 
                         {/* ---------------------------------------------Mapped Amenites as per room type Amenites ----------------------------------------------------------------- */}
                         {item.roomType?.includeFacilities?.map(
                           (amenity, index) => (
-                            <Typography
-                              key={index}
-                              variant="caption"
-                            >
-                              <AiOutlineCheckCircle /> {amenity.title}{' '}
+                            <Typography key={index} variant="caption">
+                              <AiOutlineCheckCircle /> {amenity.title}{" "}
                             </Typography>
                           )
                         )}
                       </div>
                     </Grid>
                     <Grid
-                      display={"flex"} alignItems={"center"}
+                      display={"flex"}
+                      alignItems={"center"}
                       sx={
                         isMobile ? null : { borderRight: "2px solid #ee2e24" }
                       }
@@ -364,12 +386,16 @@ const Detail = ({ data }) => {
                               <>
                                 <del>{item.prevPrice}</del> off
                               </>
-                            ) : <>
-                              <del>1000</del> off
-                            </>}
+                            ) : (
+                              <>
+                                <del>1000</del> off
+                              </>
+                            )}
                           </span>
                         </Typography>
-                        <Typography variant="caption">+ 18% taxes and charges per room</Typography>
+                        <Typography variant="caption">
+                          + 18% taxes and charges per room
+                        </Typography>
                       </div>
                     </Grid>
                     <Grid
@@ -388,19 +414,32 @@ const Detail = ({ data }) => {
                         </div>
                       </div>
                     </Grid>
-                    <Grid display={"flex"} alignItems={"center"} justifyContent={"center"} item xs={12} md={4} lg={2} xl={2}>
+                    <Grid
+                      display={"flex"}
+                      alignItems={"center"}
+                      justifyContent={"center"}
+                      item
+                      xs={12}
+                      md={4}
+                      lg={2}
+                      xl={2}
+                    >
                       <div className="text-center">
                         <Button
                           // onClick={() => navigate("/booking")}
                           onClick={() => {
                             if (loggedIn) {
-                              navigate(`/booking`);
+                              const query = new URLSearchParams({
+                                hid: data?._id,
+                                rid: item?._id,
+                              }).toString();
+                              navigate(`/booking?${query}&${bookingQueries}`);
                             } else {
                               navigate("/signin");
                             }
                           }}
                           variant="contained"
-                          sx={{ borderRadius: '50px' }}
+                          sx={{ borderRadius: "50px" }}
                           color="error"
                         >
                           Book Now
