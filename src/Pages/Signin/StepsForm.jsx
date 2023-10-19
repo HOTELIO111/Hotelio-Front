@@ -117,7 +117,7 @@ const StepsForm = () => {
       );
 
       if (response.status === 200) {
-        navigate("/"); // Assuming 'navigate' is properly defined
+        navigate(-1); // Assuming 'navigate' is properly defined
         setLoader(false);
         const responseData = response.data.data;
         localStorage.setItem("customer", response.data.token);
@@ -214,7 +214,7 @@ const StepsForm = () => {
         setLoader(false);
         Swal.fire({ icon: "success", text: "Login Successfully" });
         sessionStorage.setItem("customer", JSON.stringify(response.data.data));
-        navigate("/");
+        navigate(-1);
       }
     } catch (error) {
       setLoader(false);
@@ -250,7 +250,7 @@ const StepsForm = () => {
       icon: "success",
       text: "Login successfully",
     });
-    navigate("/");
+    navigate(-1);
   };
   const renderForm = () => {
     switch (step) {
@@ -277,7 +277,10 @@ const StepsForm = () => {
               <Grid item xs={12}>
                 <div className="d-flex justify-content-center align-items-center mt-4">
                   <hr style={{ width: "100px" }} />
-                  <Typography className={isMobile ? 'px-1' : 'px-3'} variant="caption">
+                  <Typography
+                    className={isMobile ? "px-1" : "px-3"}
+                    variant="caption"
+                  >
                     Or Login/Signup With
                   </Typography>
                   <hr style={{ width: "100px" }} />
@@ -357,8 +360,16 @@ const StepsForm = () => {
                       autoFocus
                     />
                   </Grid>
-                  <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'end' }}>
-                    <Typography color={'error'} style={{ cursor: 'pointer' }} onClick={() => navigate('/forgetpassword')} >
+                  <Grid
+                    item
+                    xs={12}
+                    sx={{ display: "flex", justifyContent: "end" }}
+                  >
+                    <Typography
+                      color={"error"}
+                      style={{ cursor: "pointer" }}
+                      onClick={() => navigate("/forgetpassword")}
+                    >
                       Forgot password?
                     </Typography>
                   </Grid>
