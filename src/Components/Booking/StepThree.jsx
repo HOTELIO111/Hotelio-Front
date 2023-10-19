@@ -239,11 +239,19 @@ const StepThree = ({ hotelData, roomData }) => {
         </Grid> */}
         <Grid item xs={12} sm={12} md={6} lg={8} xl={8}>
           {/* Conditionally render content based on activeTab */}
-          <Grid container spacing={2} my={2}>
+          <Grid container spacing={2} mb={2}>
             <Grid item xs="12">
-              <Typography variant="h5" gutterBottom>
-                Order Id: <b>#HT0123456</b>
-              </Typography>
+              <div style={{ border: '2px solid #ee2e24' }} className="d-flex justify-content-between align-items-center p-2 rounded">
+                <Typography variant="h6" gutterBottom>
+                  Your Name
+                </Typography>
+                <Typography variant="p" gutterBottom>
+                  xyz@gmail.com
+                </Typography>
+                <Typography variant="p" gutterBottom>
+                  999999999
+                </Typography>
+              </div>
             </Grid>
             <Grid item xs="12">
               <Typography variant="h5" gutterBottom>
@@ -251,34 +259,58 @@ const StepThree = ({ hotelData, roomData }) => {
               </Typography>
             </Grid>
             <Grid item xs="12">
-              <Button
-                size="small"
-                variant="contained"
-                color="error"
-                onClick={() => handleTabChange("payAtHotel")}
-              >
-                Pay at Hotel
-              </Button>
-              <Button
-                size="small"
-                variant="contained"
-                color="error"
-                sx={{ m: 1 }}
-                onClick={() => handleTabChange("partPayment")}
-              >
-                Part Payment
-              </Button>
-              <Button
-                size="small"
-                variant="contained"
-                color="error"
-                onClick={() => handleTabChange("payOnline")}
-              >
-                Pay Online
-              </Button>
+              <div style={{ border: '2px solid #ee2e24' }} className="rounded p-2">
+                <Typography variant="h5" fontWeight={800}>
+                  Choose payment method to pay
+                </Typography>
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="error"
+                  onClick={() => handleTabChange("payAtHotel")}
+                >
+                  Pay at Hotel
+                </Button>
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="error"
+                  sx={{ m: 1 }}
+                  onClick={() => handleTabChange("partPayment")}
+                >
+                  Part Payment
+                </Button>
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="error"
+                  onClick={() => handleTabChange("payOnline")}
+                >
+                  Pay Online
+                </Button>
+              </div>
             </Grid>
           </Grid>
-          <Grid container paddingY={2} spacing={1} mt={2}>
+
+          {activeTab === 'payAtHotel' &&
+            <div
+              style={{ background: "#eeeeeb" }}
+              className="text-center"
+            >
+              <img
+                style={{ width: "200px" }}
+                src={OrderSucessfully}
+                alt="OrderSucessfully"
+              />
+              <Typography variant="h6" gutterBottom>
+                Your hotel room booking has been successfully confirmed.
+                Please check your registered email or mobile number for
+                further details. If you require assistance, please contact
+                our customer care.
+              </Typography>
+            </div>
+          }
+          {/* <Grid container paddingY={2} spacing={1} mt={2}>
             <Grid item xs="12">
               {activeTab === "payAtHotel" ? (
                 <>
@@ -629,7 +661,7 @@ const StepThree = ({ hotelData, roomData }) => {
                 </>
               ) : null}
             </Grid>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Grid>
     </div>
