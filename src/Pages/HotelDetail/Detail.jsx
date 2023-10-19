@@ -306,13 +306,22 @@ const Detail = ({ data }) => {
                     <Grid
                       item
                       xs={12}
-                      p={5}
-                      textAlign={"center"}
-                      sx={{ cursor: "not-allowed", filter: "blur(1px)" }}
+                      sx={{
+                        cursor: "not-allowed",
+                        display: 'grid',
+                        placeItems: 'center',
+                        position: 'absolute',
+                        background: '#ffffffba',
+                        width: '1100px',
+                        marginTop: '5px',
+                        zIndex: '1200'
+                      }}
                     >
-                      <Typography variant="h6" color="error" fontWeight={800}>
-                        Room Not Available
-                      </Typography>
+                      <div className="p-5">
+                        <Typography variant="h6" color="error" fontWeight={800}>
+                          Room Not Available
+                        </Typography>
+                      </div>
                     </Grid>
                     <Grid
                       sx={
