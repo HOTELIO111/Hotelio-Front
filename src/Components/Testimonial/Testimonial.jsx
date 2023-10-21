@@ -73,7 +73,7 @@ const Testimonial = () => {
                     <Rating value={5} readOnly />
                 </div>
             </div>
-            <Typography variant="body1" className={classes.testimonialText}>
+            <Typography sx={{ fontFamily: 'Baloo 2 sansSerif' }} variant="body1" className={classes.testimonialText}>
                 "The hotel staff provided exceptional service during our stay. The room was clean and comfortable, and the amenities were top-notch. The staff went above and beyond to make sure we had a wonderful experience. We will definitely be staying here again!"
             </Typography>
         </div>,
@@ -90,7 +90,7 @@ const Testimonial = () => {
                     <Rating value={5} readOnly />
                 </div>
             </div>
-            <Typography variant="body1" className={classes.testimonialText}>
+            <Typography sx={{ fontFamily: 'Baloo 2 sansSerif' }} variant="body1" className={classes.testimonialText}>
                 "The hotel staff provided exceptional service during our stay. The room was clean and comfortable, and the amenities were top-notch. The staff went above and beyond to make sure we had a wonderful experience. We will definitely be staying here again!"
             </Typography>
         </div>,
@@ -107,7 +107,7 @@ const Testimonial = () => {
                     <Rating value={5} readOnly />
                 </div>
             </div>
-            <Typography variant="body1" className={classes.testimonialText}>
+            <Typography sx={{ fontFamily: 'Baloo 2 sansSerif' }} variant="body1" className={classes.testimonialText}>
                 "The hotel staff provided exceptional service during our stay. The room was clean and comfortable, and the amenities were top-notch. The staff went above and beyond to make sure we had a wonderful experience. We will definitely be staying here again!"
             </Typography>
         </div>,
@@ -124,7 +124,7 @@ const Testimonial = () => {
                     <Rating value={5} readOnly />
                 </div>
             </div>
-            <Typography variant="body1" className={classes.testimonialText}>
+            <Typography sx={{ fontFamily: 'Baloo 2 san' }} variant="body1" className={classes.testimonialText}>
                 "The hotel staff provided exceptional service during our stay. The room was clean and comfortable, and the amenities were top-notch. The staff went above and beyond to make sure we had a wonderful experience. We will definitely be staying here again!"
             </Typography>
         </div>

@@ -5,6 +5,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
+import { Typography } from '@mui/material';
 
 function FirstTimePopup() {
     const [open, setOpen] = useState(true);
@@ -27,6 +28,7 @@ function FirstTimePopup() {
 
         // Remove the temporary input element
         document.body.removeChild(tempInput);
+        setOpen(false);
     };
 
     return (
@@ -34,14 +36,14 @@ function FirstTimePopup() {
             {/* <DialogTitle>First-Time Popup</DialogTitle> */}
             <DialogContent>
                 <DialogContentText>
-                    <h3><b>Get 999 INR instantly Credit in your account. Also become eligible for refer and earn.</b></h3>
+                    <Typography fontWeight={700} variant='h5'>Get 999 INR instantly Credit in your account. Also become eligible for refer and earn.</Typography>
                 </DialogContentText>
                 <div className='d-flex justify-content-center align-items-center mt-3'>
-                    <Button size='sm' variant='contained' onClick={copyTextToClipboard} color="primary">
+                    <Button size='sm' variant='contained' onClick={copyTextToClipboard} color="error">
                         COPY CODE
                     </Button>
                     <div style={{ border: '3px dotted #ee2e24', padding: '3px' }}>
-                        <b>GET999INR</b>
+                        <Typography variant='body1' fontWeight={700} >GET999INR</Typography>
                     </div>
                 </div>
             </DialogContent>

@@ -1,9 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Questrial&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 @import "react-loading-skeleton/dist/skeleton.css";
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap');
 
 * {
-  font-family: "Questrial", sans-serif;
+  font-family: 'Baloo 2', sans-serif
 }
 
 /* 
@@ -326,6 +327,7 @@ body {
 }
 
 @media (max-width: 991px) {
+
   html,
   body {
     overflow-x: hidden;
@@ -496,6 +498,7 @@ body {
 }
 
 @keyframes hotelioLoader {
+
   0%,
   100% {
     color: red;

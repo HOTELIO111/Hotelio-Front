@@ -10,6 +10,14 @@ import { GOOGLE_OAUTH_CLIENT_ID } from "./config";
 import { SearchProvider } from "./context/useSearch";
 import { Provider } from "react-redux";
 import store from "./store/store";
+import { createMuiTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
+const customTheme = createMuiTheme({
+  typography: {
+    fontFamily: 'Baloo 2',
+  },
+});
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -22,7 +30,10 @@ root.render(
         <AuthProvider>
           <BrowserRouter>
             <Provider store={store}>
-              <App />
+              <ThemeProvider theme={customTheme}>
+                <CssBaseline />
+                <App />
+              </ThemeProvider>
             </Provider>
           </BrowserRouter>
         </AuthProvider>

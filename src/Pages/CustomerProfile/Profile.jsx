@@ -114,16 +114,16 @@ const Profile = () => {
       <Grid container className={isMobile ? 'mb-5' : "min-vh-100 mt-5"} spacing={1}>
         <WaitLoader loading={Loader} />
         <Grid xs={12} className="text-center" item>
-          <div className={isMobile ? '' : 'pt-4'}>
-            <Typography variant="h5" className="mt-2">
+          <div className={isMobile ? '' : 'pt-4 my-4'}>
+            <Typography variant={isMobile ? 'h4' : 'h3'} className="mt-2">
               Welcome to Hotelio! Please Update YourProfile
             </Typography>
-            <Typography variant="p">Membership Offer Coming Soon</Typography>
+            <Typography variant="h6">Membership Offer Coming Soon</Typography>
           </div>
         </Grid>
         <Grid item xs={12} md={12} lg={4} xl={4}>
           <div className={`${style.box}`}>
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-between p-2">
               <Typography variant="h6">
                 <b>My Profile</b>
               </Typography>
@@ -131,10 +131,10 @@ const Profile = () => {
                 style={{ color: "#ee2e24", cursor: "pointer" }}
                 onClick={() => setprofiledetailUpdate(true)}
               >
-                <u>Edit Details</u>
+                <Button color="error" variant="contained">Edit Details</Button>
               </div>
             </div>
-            <div className={` ${style.content}`}>
+            <div className={` ${style.content} p-2`}>
               {/* <div className={` ${style.image}`}>
                 <img
                   src="https://i.postimg.cc/bryMmCQB/profile-image.jpg"
@@ -201,7 +201,8 @@ const Profile = () => {
                         userEmailId
                       ) : (
                         <Button
-                          variant="text"
+                          variant="outlined"
+                          color="error"
                           onClick={() => {
                             handelUpdateEmailOpen();
                             setUpdateField("Email Id");
@@ -310,21 +311,7 @@ const Profile = () => {
             style={{ marginBottom: "0.5rem", display: "flex" }}
             className={` ${style.box}`}
           >
-            <Card className="p-2" style={{ maxWidth: "400px", background: 'transparent', boxShadow: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset', borderRadius: '15px' }}>
-              <Typography variant="h5">
-                Get 999 INR instantly Credit in your account. Also become
-                eligible for refer and earn.
-              </Typography>
-              {/* <input
-                type="text"
-                value={link}
-                onChange={(e) => setLink(e.target.value)}
-              /> */}
-              <Button onClick={copyToClipboard} className="mt-2">
-                {isCopied ? "Copied!" : "Refer Copy Link"}
-              </Button>
-            </Card>
-            <Card sx={{ ml: 2, bgcolor: 'transparent', boxShadow: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset', borderRadius: '15px' }} className="p-2">
+            <Card sx={{ bgcolor: 'transparent', boxShadow: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset', borderRadius: '15px' }} className="p-3">
               <Typography variant="h5">My Hotelio Wallet</Typography>
               <hr style={{ marginTop: "0px" }} />
               <div className="d-flex align-items-center">
@@ -355,6 +342,20 @@ const Profile = () => {
                 </Typography>
               </div>
             </Card>
+            <Card className="p-3" sx={{ ml: 1, maxWidth: "400px", background: 'transparent', boxShadow: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset', borderRadius: '15px', display: 'grid', placeItems: 'center' }}>
+              <div>
+                <Typography variant="h6" fontWeight={700}>
+                  Get 999 INR instantly Credit in your account. Also become
+                  eligible for refer and earn.
+                </Typography>
+                <div className="d-flex justify-content-end">
+                  <Button variant="contained" color="error" onClick={copyToClipboard} className="mt-2">
+                    {isCopied ? "Copied!" : "Refer Copy Link"}
+                  </Button>
+                </div>
+              </div>
+            </Card>
+
           </div>
           <div
             style={{

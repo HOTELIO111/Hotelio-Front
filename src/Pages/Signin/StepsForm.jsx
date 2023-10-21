@@ -310,7 +310,7 @@ const StepsForm = () => {
               type="button"
               variant="contained"
               className="animate__animated animate__flipInX"
-              color="primary"
+              color="error"
               sx={{ mt: 3, mb: 2 }}
             >
               Continue
@@ -320,7 +320,7 @@ const StepsForm = () => {
               fullWidth
               type="button"
               variant="text"
-              color="primary"
+              color="error"
               sx={{ mt: 1, mb: 2 }}
             >
               I will do later
@@ -329,7 +329,7 @@ const StepsForm = () => {
         );
       case 2:
         return (
-          <Grid container spacing={1}>
+          <Grid p={2} container spacing={1}>
             <ThemeProvider theme={theme}>
               <Grid item xs={12}>
                 <h4 className="py-4">Enter OTP</h4>
@@ -348,7 +348,6 @@ const StepsForm = () => {
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
-                      margin="normal"
                       required
                       fullWidth
                       onChange={handleChange}
@@ -382,7 +381,7 @@ const StepsForm = () => {
                 fullWidth
                 type="button"
                 variant="outlined"
-                color="primary"
+                color="error"
                 sx={{ mt: 3, mb: 2 }}
               >
                 Back
@@ -394,7 +393,7 @@ const StepsForm = () => {
                 fullWidth
                 type="button"
                 variant="contained"
-                color="primary"
+                color="error"
                 sx={{ mt: 3, mb: 2 }}
               >
                 Continue
