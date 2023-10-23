@@ -350,6 +350,7 @@ const StepsForm = () => {
                     <TextField
                       required
                       fullWidth
+                      // className="w-100"
                       onChange={handleChange}
                       id="password"
                       value={formData.password || null}
@@ -455,7 +456,7 @@ const StepsForm = () => {
                 fullWidth
                 type="button"
                 variant="outlined"
-                color="primary"
+                color="error"
                 sx={{ mt: 3, mb: 2 }}
               >
                 Back
@@ -467,7 +468,7 @@ const StepsForm = () => {
                 onClick={() => handleUpdateFinal(formData, isUser._id)}
                 type="submit"
                 variant="contained"
-                color="primary"
+                color="error"
                 sx={{ mt: 3, mb: 2 }}
               >
                 Login
@@ -478,7 +479,7 @@ const StepsForm = () => {
               fullWidth
               type="button"
               variant="text"
-              color="primary"
+              color="error"
               sx={{ mt: 1, mb: 2 }}
             >
               I will do later

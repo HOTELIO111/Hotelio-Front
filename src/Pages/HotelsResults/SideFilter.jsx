@@ -149,7 +149,8 @@ const SideFilter = (setFilterData, filterData) => {
     <Grid
       container
       spacing={1}
-      className="border p-2 ml-1 m-2 rounded d-none d-sm-block"
+      sx={{ borderRadius: '8px' }}
+      className="border p-2 ml-1 m-2 d-none d-sm-block"
     >
       <Grid item xs={12}>
         <div className="d-flex align-items-center justify-content-between">

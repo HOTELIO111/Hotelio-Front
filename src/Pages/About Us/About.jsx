@@ -15,9 +15,8 @@ import Hotel6 from "../../images/hotelPic7.jpg";
 import DecorImage from '../../images/DecorImage.png'
 import DecorImageS from '../../images/DecoreImageS.jpg'
 import AboutUsTopBanner from '../../images/AboutUsTopBanner.jpg'
-import Client from '../../images/Client.jpg'
+// import Client from '../../images/Client.jpg'
 import LabelImportantRoundedIcon from "@mui/icons-material/LabelImportantRounded";
-import { Images } from "./images";
 import { Helmet } from "react-helmet";
 
 const About = () => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CardMember from "./CardMember";
 import style from './Member.module.css'
-import { Accordion, AccordionDetails, AccordionSummary, Button, Card, Container, Grid, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Button, Container, Grid, Typography } from "@mui/material";
 import SavingsIcon from '@mui/icons-material/Savings';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import LocalPoliceIcon from '@mui/icons-material/LocalPolice';

@@ -4,7 +4,7 @@ import Footer from "../../Components/footer/Footer";
 import HotelCover from "./HotelCover";
 import Detail from "./Detail";
 import { API_URL } from "../../config";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Button, Container, Grid, Rating, Typography } from "@mui/material";
 import { isMobile } from "react-device-detect";

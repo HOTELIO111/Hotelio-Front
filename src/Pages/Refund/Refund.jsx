@@ -4,27 +4,6 @@ import style from '../Terms/Terms.module.css'
 import Footer from '../../Components/footer/Footer';
 
 const Refund = () => {
-    const termsList = [
-        'Terms of Service',
-        'Terms of Operations',
-        'Payment and Reconciliation',
-        'Hotelio Wizard',
-        'Hotelio Products',
-        'Invoicing',
-        'Set-off',
-        'Taxes',
-        'OTA Related Terms',
-        'Brand Exclusivity',
-        'Right to Audit and Inspect',
-        'Intellectual Property',
-        'Data Privacy and Retention',
-        'Confidentiality',
-        'Term and Termination',
-        'Indemnity',
-        'Limitation of Liability',
-        'Representation and Warranties',
-        'Miscellaneous'
-    ];
 
     return (
         <div>

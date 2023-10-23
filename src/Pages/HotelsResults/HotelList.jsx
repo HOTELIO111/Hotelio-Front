@@ -108,6 +108,7 @@ const HotelList = ({
             backgroundPosition: "bottom",
             backgroundSize: "cover",
             color: "#000",
+            borderRadius:'8px'
           }}
         >
           <div className="d-flex justify-content-between align-items-center">

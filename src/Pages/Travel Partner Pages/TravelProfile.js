@@ -1,6 +1,5 @@
 import React from 'react'
-import TravelHeader from '../../Components/Travel Partner Components/TravelHeader'
-import { Button, Card, Grid, Input, TextField, Typography } from '@mui/material';
+import { Button, Card, Grid, TextField, Typography } from '@mui/material';
 import { WaitLoader } from '../../Components/Elements/WaitLoader';
 import EmailIcon from "@mui/icons-material/Email";
 import VerifiedRoundedIcon from "@mui/icons-material/VerifiedRounded";
@@ -9,12 +8,10 @@ import style from '../CustomerProfile/Profile.module.css'
 import { useAuthContext } from '../../context/userAuthContext';
 import { isMobile } from 'react-device-detect';
 import moment from "moment/moment";
-import { useState } from 'react';
-import List from "../../Components/YourBookings/List";
 
 const TravelProfile = () => {
 
-    const { sendOtp, otpResp, Loader, setLoader, currentUser, setCurrentUser } =
+    const { Loader, currentUser } =
         useAuthContext();
     const userMobileNo = currentUser?.mobileNo || "Add";
     const userEmailId = currentUser?.email || "Add";
