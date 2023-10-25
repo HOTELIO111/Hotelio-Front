@@ -301,28 +301,26 @@ const Detail = ({ data }) => {
             {/* -------------------------------------------------Hotel rooms Maped ---------------------------------------------------------------------- */}
             {data?.rooms?.map((item, index) => {
               return (
-                <CardContent>
+                <CardContent sx={{ position: 'relative', padding: '5px' }}>
+                  <div
+                    style={{
+                      cursor: "not-allowed",
+                      display: 'grid',
+                      placeItems: 'center',
+                      position: 'absolute',
+                      background: '#ffffffba',
+                      zIndex: '1000',
+                      width: '100%',
+                      height: '100%'
+                    }}
+                  >
+                    <div>
+                      <Typography variant="h6" color="error" fontWeight={800}>
+                        Room Not Available
+                      </Typography>
+                    </div>
+                  </div>
                   <Grid container spacing={1}>
-                    <Grid
-                      item
-                      xs={12}
-                      sx={{
-                        cursor: "not-allowed",
-                        display: 'grid',
-                        placeItems: 'center',
-                        position: 'absolute',
-                        background: '#ffffffba',
-                        width: '1100px',
-                        marginTop: '5px',
-                        zIndex: '1200'
-                      }}
-                    >
-                      <div className="p-5">
-                        <Typography variant="h6" color="error" fontWeight={800}>
-                          Room Not Available
-                        </Typography>
-                      </div>
-                    </Grid>
                     <Grid
                       sx={
                         isMobile ? null : { borderRight: "2px solid #ee2e24" }

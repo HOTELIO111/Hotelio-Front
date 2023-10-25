@@ -14,7 +14,6 @@ import PageLoader from "../../Utilis/PageLoader";
 
 const HotelDetail = () => {
   const { id } = useParams();
-
   const [data, setData] = useState(null);
   const [loader, setLoader] = useState(false);
 
@@ -74,6 +73,7 @@ const HotelDetail = () => {
             </Grid>
             <Grid item xs={12} lg={6} display={"flex"} alignItems={"center"}>
               {/* <div className={style.Imagebox}>
+              
                 <img src={data?.hotelCoverImg} alt="hotelImg" />
               </div> */}
               <div className="text-center">
