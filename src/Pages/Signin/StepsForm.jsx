@@ -265,26 +265,26 @@ const StepsForm = () => {
     switch (step) {
       case 1:
         return (
-          <Grid p={2} container spacing={1}>
+          <Grid p={1} container spacing={1} textAlign={"center"}>
             <ThemeProvider theme={theme}>
-              <Grid item xs={12}>
+              <Grid item xs={12} textAlign={"center"}>
                 <TextField
                   margin="normal"
                   required
                   type="text"
-                  fullWidth
+                  // fullWidth
                   onChange={handleChange}
                   id="mobileNo"
                   value={formData.mobileNo || ""}
-                  sx={{ mt: 2 }}
+                  sx={{ mt: 2, width: 300 }}
                   label="Mobile Number / Email Id"
                   name="mobileNo"
                   autoComplete="mobileNo"
                   autoFocus
                 />
               </Grid>
-              <Grid item xs={12}>
-                <div className="d-flex justify-content-center align-items-center mt-4">
+              <Grid item xs={12} >
+                <div className="d-flex justify-content-center align-items-center mt-2">
                   <hr style={{ width: "100px" }} />
                   <Typography
                     className={isMobile ? "px-1" : "px-3"}
@@ -296,7 +296,7 @@ const StepsForm = () => {
                 </div>
               </Grid>
               <Grid item xs={12} justifyContent={"center"}>
-                <div className="d-flex align-items-center justify-content-center my-4">
+                <div className="d-flex align-items-center justify-content-center mt-2 mb-4">
                   <div
                     className="d-flex align-items-center justify-content-center"
                     style={{
@@ -312,25 +312,27 @@ const StepsForm = () => {
                   </div>
                 </div>
               </Grid>
+              <Grid item xs={12} textAlign={"center"} >
+                <Button
+                  onClick={() => sendOtp(formData.mobileNo)}
+                  type="button"
+                  variant="contained"
+                  className="animate__animated animate__flipInX"
+                  color="error"
+                  sx={{ mt: 0, mb: 2, width: 300 }}
+                >
+                  Continue
+                </Button>
+              </Grid>
             </ThemeProvider>
-            <Button
-              onClick={() => sendOtp(formData.mobileNo)}
-              fullWidth
-              type="button"
-              variant="contained"
-              className="animate__animated animate__flipInX"
-              color="error"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Continue
-            </Button>
+
             <Button
               onClick={() => navigate("/")}
               fullWidth
               type="button"
               variant="text"
               color="error"
-              sx={{ mt: 1, mb: 2 }}
+              sx={{ mt: 1, mb: 3 }}
             >
               I will do later
             </Button>
@@ -340,13 +342,15 @@ const StepsForm = () => {
         return (
           <Grid p={2} container spacing={1}>
             <ThemeProvider theme={theme}>
-              <Grid item xs={12}>
-                <h4 className="py-4">Enter OTP</h4>
-                <MuiOtpInput value={inputOtp} onChange={handleOtp} />
+              <Grid item xs={12} textAlign={"center"}>
+                <h4 className="pb-4">Enter OTP</h4>
+                <center>
+                  <MuiOtpInput sx={{ width: 300 }} value={inputOtp} onChange={handleOtp} />
+                </center>
               </Grid>
               {isUser ? (
                 <>
-                  <Grid item xs={12}>
+                  <Grid item xs={12} textAlign={"center"}>
                     <div className="d-flex justify-content-center align-items-center mt-2 text-nowrap">
                       <hr style={{ width: "120px" }} />
                       <Typography className="px-3" variant="caption">
@@ -355,17 +359,17 @@ const StepsForm = () => {
                       <hr style={{ width: "120px" }} />
                     </div>
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid item xs={12} textAlign={"center"}>
                     <TextField
                       required
-                      fullWidth
-                      // className="w-100"
+                      // fullWidth
                       onChange={handleChange}
                       id="password"
                       value={formData.password || null}
                       label="Enter Your Password"
                       name="password"
                       autoComplete="password"
+                      sx={{ width: 300 }}
                       autoFocus
                     />
                   </Grid>
@@ -385,26 +389,23 @@ const StepsForm = () => {
                 </>
               ) : null}
             </ThemeProvider>
-            <Grid item xs={6}>
+            <Grid item xs={12} textAlign={"center"}>
               <Button
                 onClick={handlePrevious}
-                fullWidth
                 type="button"
                 variant="outlined"
                 color="error"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ m: 1, mb: 2 }}
               >
                 Back
               </Button>
-            </Grid>
-            <Grid item xs={6}>
+
               <Button
                 onClick={() => handleCreateAccount(formData)}
-                fullWidth
                 type="button"
                 variant="contained"
                 color="error"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ m: 1, mb: 2 }}
               >
                 Continue
               </Button>
@@ -415,22 +416,22 @@ const StepsForm = () => {
         return (
           <Grid container spacing={2}>
             <ThemeProvider theme={theme}>
-              <Grid item xs={12}>
+              <Grid item xs={12} textAlign={"center"}>
                 <TextField
                   margin="normal"
                   required
-                  fullWidth
                   onChange={handleChange}
                   value={formData.name}
                   name="name"
                   label="Enter Your Full Name"
                   autoComplete="name"
                   autoFocus
-                />
+                  sx={{ width: 300 }}
+                /> <br />
                 <TextField
                   margin="normal"
+                  sx={{ width: 300 }}
                   required
-                  fullWidth
                   onChange={handleChange}
                   value={formData.password || ""}
                   name="password"
@@ -458,41 +459,37 @@ const StepsForm = () => {
                   }}
                 />
               </Grid>
-            </ThemeProvider>
-            <Grid item xs={6}>
+              <Grid item xs={12} textAlign={"center"}>
+                <Button
+                  onClick={handlePrevious}
+                  type="button"
+                  variant="outlined"
+                  color="error"
+                  sx={{ m: 1 }}
+                >
+                  Back
+                </Button>
+                <Button
+                  onClick={() => handleUpdateFinal(formData, isUser._id)}
+                  type="submit"
+                  variant="contained"
+                  color="error"
+                  sx={{ m: 1 }}
+                >
+                  Login
+                </Button>
+              </Grid>
               <Button
-                onClick={handlePrevious}
+                onClick={() => LoginBeforeUpdate(isUser)}
                 fullWidth
                 type="button"
-                variant="outlined"
+                variant="text"
                 color="error"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ m: 1 }}
               >
-                Back
+                I will do later
               </Button>
-            </Grid>
-            <Grid item xs={6}>
-              <Button
-                fullWidth
-                onClick={() => handleUpdateFinal(formData, isUser._id)}
-                type="submit"
-                variant="contained"
-                color="error"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Login
-              </Button>
-            </Grid>
-            <Button
-              onClick={() => LoginBeforeUpdate(isUser)}
-              fullWidth
-              type="button"
-              variant="text"
-              color="error"
-              sx={{ mt: 1, mb: 2 }}
-            >
-              I will do later
-            </Button>
+            </ThemeProvider>
           </Grid>
         );
       default:
@@ -508,9 +505,19 @@ const StepsForm = () => {
           <img
             src={LoginMoto}
             alt="Main"
-            style={{ width: "260px", height: "200px" }}
+            style={{ width: "260px", height: "150px" }}
           />
         </NavLink>
+        <Typography variant={isMobile ? 'h4' : 'h3'}
+          sx={{
+            backgroundImage: 'radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%)',
+            backgroundClip: 'text',
+            color: 'transparent',
+            pl: 1
+          }}
+          fontWeight={700}>
+          Welcome To Hotelio, Your Travel Partner
+        </Typography>
         <Typography variant="h5" gutterBottom>
           Customer Login / Signup
         </Typography>

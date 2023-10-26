@@ -116,7 +116,7 @@ const HotelResults = () => {
           // setHotels(response.data.data);
           setTotalPages(response.data.data.length);
           FilterhotelsData(response.data.data, pagination);
-          sessionStorage.setItem(
+          window.localStorage.setItem(
             "search",
             encodeURIComponent(decodedUriComponent)
           );

@@ -39,7 +39,7 @@ const PasswordUpdateModal = ({ passwordUpdateOpen, setPasswordUpdateOpen }) => {
     const [profileUpdateOpen, setProfileUpdateOpen] = useState(false);
     const [confirmUpdatedPassword, setConfirmUpdatedPassword] = useState(null);
     const [currentUser, setCurrentUser] = useState(
-        JSON.parse(sessionStorage.getItem("customer"))
+        JSON.parse(window.localStorage.getItem("customer"))
     );
 
     const handleProfileUpdateClose = () => setProfileUpdateOpen(false);
@@ -76,7 +76,7 @@ const PasswordUpdateModal = ({ passwordUpdateOpen, setPasswordUpdateOpen }) => {
                     "customer",
                     JSON.stringify(isChanged.data.data)
                 );
-                setCurrentUser(JSON.parse(sessionStorage.getItem("customer")));
+                setCurrentUser(JSON.parse(window.localStorage.getItem("customer")));
                 handlePasswordUpdateClose();
             } else {
                 setLoader(false);
