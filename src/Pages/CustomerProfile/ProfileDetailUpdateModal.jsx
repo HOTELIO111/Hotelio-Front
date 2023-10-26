@@ -88,13 +88,16 @@ const ProfileDetailUpdateModal = ({
         {
           headers: {
             "Content-Type": "application/json",
-            "access-token": `Bearer ${localStorage.getItem("customer")}`,
+            "access-token": `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
       if (response.status === 200) {
         setLoader(false);
-        sessionStorage.setItem("customer", JSON.stringify(response.data.data));
+        window.localStorage.setItem(
+          "customer",
+          JSON.stringify(response.data.data)
+        );
         setCurrentUser(response.data.data);
         Swal.fire({
           text: "Updated Successfully",

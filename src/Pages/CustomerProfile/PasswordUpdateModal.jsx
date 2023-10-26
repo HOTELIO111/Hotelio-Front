@@ -133,7 +133,7 @@ const PasswordUpdateModal = ({ passwordUpdateOpen, setPasswordUpdateOpen }) => {
                         <Grid container spacing={2}>
                             <Grid xs={12} className="text-center" item>
                                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                    we sent you a otp on you number {currentUser.mobileNo}
+                                    we sent you a otp on you number {currentUser?.mobileNo}
                                 </Typography>
                             </Grid>
                             <Grid xs={12} className="text-center" item>

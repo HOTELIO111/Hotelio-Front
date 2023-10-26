@@ -11,6 +11,7 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [isUser, setIsUser] = useState();
+  const [token, setToken] = useState(null);
 
   const [Loader, setLoader] = useState(false);
 
@@ -22,7 +23,7 @@ const AuthProvider = ({ children }) => {
   const [roomType, setRoomType] = useState([]);
 
   const [currentUser, setCurrentUser] = useState(
-    JSON.parse(sessionStorage.getItem("customer"))
+    JSON.parse(window.localStorage.getItem("customer"))
   );
   // otp response state
   const [otpResp, setOtpResp] = useState({});
@@ -36,6 +37,8 @@ const AuthProvider = ({ children }) => {
   // logout
   const logOut = () => {
     googleLogout();
+    window.localStorage.removeItem("customer");
+    window.localStorage.removeItem("token");
     // setProfile(null);
   };
 
@@ -66,9 +69,13 @@ const AuthProvider = ({ children }) => {
               }
             );
             if (isUser.status === 200) {
-              sessionStorage.setItem(
+              window.localStorage.setItem(
                 "customer",
                 JSON.stringify(isUser.data.data)
+              );
+              window.localStorage.setItem(
+                "token",
+                JSON.stringify(isUser.data.token)
               );
               setCurrentUser(isUser.data.data);
               console.log("user login successfully");
@@ -236,6 +243,8 @@ const AuthProvider = ({ children }) => {
         setIsUser,
         isUser,
         Loader,
+        setToken,
+        token,
         setLoader,
         setCurrentUser,
         currentUser,

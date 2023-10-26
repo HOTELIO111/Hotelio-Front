@@ -80,7 +80,7 @@ const Profile = () => {
   const userEmailId = currentUser?.email || "Add";
 
   const HandleLogOutCustomer = () => {
-    sessionStorage.removeItem("customer");
+    window.localStorage.removeItem("customer");
     Swal.fire({
       position: "top-center",
       icon: "success",
@@ -88,7 +88,7 @@ const Profile = () => {
       showConfirmButton: false,
       timer: 1500,
     });
-    setCurrentUser(sessionStorage.getItem("customer"));
+    setCurrentUser(window.localStorage.getItem("customer"));
     navigate("/");
   };
 
@@ -111,7 +111,11 @@ const Profile = () => {
 
   return (
     <div className="p-1">
-      <Grid container className={isMobile ? 'mb-5' : "min-vh-100 mt-5"} spacing={1}>
+      <Grid
+        container
+        className={isMobile ? "mb-5" : "min-vh-100 mt-5"}
+        spacing={1}
+      >
         <WaitLoader loading={Loader} />
         <Grid xs={12} className="text-center" item>
           <div className={isMobile ? '' : 'pt-4 my-4'}>
@@ -159,16 +163,16 @@ const Profile = () => {
                   <h6>{currentUser?.maritialStatus}</h6>
                 </div>
               </div>
-              <hr style={{ margin: '0.2rem 0rem' }} />
+              <hr style={{ margin: "0.2rem 0rem" }} />
               <div className="d-flex align-items-center pb-1">
                 <div>
                   <span style={{ color: "#ee2e24" }}>Mobile No.</span>
                   <div className="d-flex justify-content-center align-items-center">
                     <h6 className={` mt-0 ${style.job_discription}`}>
-                      {userMobileNo === currentUser.mobileNo ? (
+                      {userMobileNo === currentUser?.mobileNo ? (
                         <MobileFriendlyIcon />
                       ) : null}{" "}
-                      {userMobileNo === currentUser.mobileNo ? (
+                      {userMobileNo === currentUser?.mobileNo ? (
                         userMobileNo
                       ) : (
                         <Button
@@ -182,7 +186,7 @@ const Profile = () => {
                         </Button>
                       )}
                     </h6>
-                    {userMobileNo === currentUser.mobileNo ? (
+                    {userMobileNo === currentUser?.mobileNo ? (
                       <div className={` ${style.level}`}>
                         <VerifiedRoundedIcon />
                       </div>
@@ -190,14 +194,14 @@ const Profile = () => {
                   </div>
                 </div>
               </div>
-              <hr style={{ margin: '0.2rem 0rem' }} />
+              <hr style={{ margin: "0.2rem 0rem" }} />
               <div className="d-flex align-items-center pb-1">
                 <div>
                   <span style={{ color: "#ee2e24" }}>Email Id</span>
                   <div className="d-flex justify-content-center align-items-center">
                     <h6 className={` mt-0 ${style.job_discription}`}>
-                      {userEmailId === currentUser.email ? <EmailIcon /> : null}{" "}
-                      {userEmailId === currentUser.email ? (
+                      {userEmailId === currentUser?.email ? <EmailIcon /> : null}{" "}
+                      {userEmailId === currentUser?.email ? (
                         userEmailId
                       ) : (
                         <Button
@@ -212,7 +216,7 @@ const Profile = () => {
                         </Button>
                       )}
                     </h6>
-                    {userEmailId === currentUser.email ? (
+                    {userEmailId === currentUser?.email ? (
                       <div className={` ${style.level}`}>
                         <VerifiedRoundedIcon />
                       </div>
@@ -220,7 +224,7 @@ const Profile = () => {
                   </div>
                 </div>
               </div>
-              <hr style={{ margin: '0.2rem 0rem' }} />
+              <hr style={{ margin: "0.2rem 0rem" }} />
               <div className="d-flex pb-1">
                 <div>
                   <span style={{ color: "#ee2e24" }}>Birthday</span>
@@ -229,14 +233,14 @@ const Profile = () => {
                   </h6>
                 </div>
               </div>
-              <hr style={{ margin: '0.2rem 0rem' }} />
+              <hr style={{ margin: "0.2rem 0rem" }} />
               <div className="d-flex pb-2">
                 <div>
                   <span style={{ color: "#ee2e24" }}>Your Address</span>
                   <h6>{currentUser?.address}</h6>
                 </div>
               </div>
-              <hr style={{ margin: '0.2rem 0rem' }} />
+              <hr style={{ margin: "0.2rem 0rem" }} />
               <div className="d-flex justify-content-between pb-2">
                 <div>
                   <span style={{ color: "#ee2e24" }}>State</span>
@@ -247,9 +251,13 @@ const Profile = () => {
                   <h6>{currentUser?.pinCode}</h6>
                 </div>
               </div>
-              <hr style={{ margin: '0.2rem 0rem' }} />
+              <hr style={{ margin: "0.2rem 0rem" }} />
               <div
-                className={`mt-1 ${isMobile ? 'text-center' : 'd-flex justify-content-evenly align-items-center'}  ${style.button}`}
+                className={`mt-1 ${
+                  isMobile
+                    ? "text-center"
+                    : "d-flex justify-content-evenly align-items-center"
+                }  ${style.button}`}
               >
                 {currentUser ? (
                   <TextField
@@ -369,7 +377,7 @@ const Profile = () => {
           </div>
         </Grid>
       </Grid>
-    </div >
+    </div>
   );
 };
 

@@ -20,13 +20,38 @@ import OrderSucessfully from "../../images/OrderSucessfully.gif";
 import "./BookingSteps.css";
 import { useSearchParams } from "react-router-dom";
 import BookingInfo from "./BookingInfo";
+import { API_URL } from "../../config";
+import { loadStripe } from "@stripe/stripe-js";
+import { calculateThePrice } from "../../Utilis/_fuctions";
+import { useMemo } from "react";
+import { useAuthContext } from "../../context/userAuthContext";
 
 const StepThree = ({ hotelData, roomData }) => {
-  const [activeTab, setActiveTab] = useState("payOnline"); // Initialize the active tab state
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = new URLSearchParams(document.location.search);
+  const { currentUser } = useAuthContext();
 
   const currentSearchParam = Object.fromEntries(searchQuery?.entries());
+  // Calculate the total night stay
+  const totalLengthOfStay = (checkIn, checkOut) => {
+    const newCheckIn = new Date(checkIn);
+    const newCheckOut = new Date(checkOut);
+    const timeDifference = newCheckOut.getTime() - newCheckIn.getTime();
+    const totalDays = timeDifference / (1000 * 3600 * 24);
+    return totalDays;
+  };
+  //   credentials
+  const checkIn = currentSearchParam.checkIn;
+  const checkOut = currentSearchParam.checkOut;
+  const qunatityRooms = currentSearchParam.totalRooms;
+  const totalGuest = currentSearchParam.totalGuest;
+  const priceOfaRoom = roomData?.price;
+  const totalDays = totalLengthOfStay(checkIn, checkOut);
+  // const currentDate = new Date.now();
+  // credentials ----------------------------
+
+  const [activeTab, setActiveTab] = useState("payOnline"); // Initialize the active tab state
+
   const [formData, setFormData] = useState({
     cardNumber: "",
     cardholderName: "",
@@ -34,6 +59,24 @@ const StepThree = ({ hotelData, roomData }) => {
     cvv: "",
     orderId: "#HT0123456",
   });
+
+  // yaha se dobara flow start kro  ------------------------------------------------------------------------------------------------------------
+  // checkoute itemss
+  const [checkOutItems, setCheckOutItems] = useState([
+    {
+      price:
+        calculateThePrice(
+          currentSearchParam,
+          qunatityRooms,
+          priceOfaRoom,
+          totalDays,
+          0.2
+        ).AmountWithGst / parseInt(qunatityRooms),
+      hotelName: hotelData?.hotelName,
+      hotelImages: hotelData?.hotelImages,
+      quantity: currentSearchParam.totalRooms,
+    },
+  ]);
 
   const handleInputChange = (field, value) => {
     setFormData((prevData) => ({
@@ -61,6 +104,7 @@ const StepThree = ({ hotelData, roomData }) => {
   const [bankName, setBankName] = useState("");
   const [accountNumber, setAccountNumber] = useState("");
   const [password, setPassword] = useState("");
+  const [paymentDetails, setPaymentDetails] = useState(null);
 
   const handleBankNameChange = (event) => {
     setBankName(event.target.value);
@@ -78,6 +122,85 @@ const StepThree = ({ hotelData, roomData }) => {
     event.preventDefault();
   };
 
+  // payment integration
+  const makePayment = async () => {
+    const stripe = await loadStripe(
+      "pk_test_51O2tezSBvo7xLGZXm6nnypNabyvvn56l4TMy85SXcRf8D8l1FFON7RDzd8jdEdoTXfKirTFaPY0zozkbKS6aFyj900AE74slEY"
+    );
+
+    const body = {
+      hotelData: checkOutItems,
+    };
+    const headers = {
+      "Content-Type": "application/json",
+    };
+    const response = await fetch(`${API_URL}/api/create-checkout-session`, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(body),
+    });
+
+    const session = await response.json();
+
+    const result = stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+    setPaymentDetails(result);
+
+    if (result.error) {
+      console.log(result.error);
+    }
+  };
+
+  const TotalPrice = (quantity, price, day) => {
+    const TotalPrice = (quantity * price * 80) / 100;
+    const discountedPrice = TotalPrice * day;
+    return discountedPrice;
+  };
+
+  // const FormData = useMemo(
+  //   () => ({
+  //     room: roomData?._id,
+  //     numberOfRoom: qunatityRooms,
+  //     hotel: hotelData._id,
+  //     guest: {
+  //       name: currentUser?.name,
+  //       email: currentUser?.email,
+  //       phoneNumber: currentUser?.mobileNo,
+  //     },
+  //     bookingDate: {
+  //       checkIn: checkIn,
+  //       checkOut: checkOut,
+  //     },
+  //     amount: calculateThePrice(
+  //       currentSearchParam,
+  //       qunatityRooms,
+  //       priceOfaRoom,
+  //       totalDays,
+  //       0.2
+  //     ).AmountWithGst,
+  //     dateOfBooking: currentDate,
+  //     payment: {
+  //       status: "success",
+  //       method: "debit card", 
+  //       transactionID: "PQR54321",
+  //       confirmationNumber: "C543210", 
+  //       date: "2023-10-16T11:30:00.000Z",
+  //     },
+  //     specialRequests: "Ocean-view room",
+  //     bookingStatus: "confirmed",
+  //     additionalCharges: 100, 
+  //     promoCode: "WINTER2023",
+  //     discountAmount: 300, 
+  //     numberOfGuests: {
+  //       adults: totalGuest,
+  //     },
+  //     numberOfRooms: qunatityRooms, 
+  //     bookingSource: "web",
+  //     customer: currentUser?._id, 
+  //   }),
+  //   []
+  // );
   return (
     <div className="container p-2">
       <Grid container spacing={2}>
@@ -241,7 +364,10 @@ const StepThree = ({ hotelData, roomData }) => {
           {/* Conditionally render content based on activeTab */}
           <Grid container spacing={2} mb={2}>
             <Grid item xs="12">
-              <div style={{ border: '2px solid #ee2e24' }} className="d-flex justify-content-between align-items-center p-2 rounded">
+              <div
+                style={{ border: "2px solid #ee2e24" }}
+                className="d-flex justify-content-between align-items-center p-2 rounded"
+              >
                 <Typography variant="h6" gutterBottom>
                   Your Name
                 </Typography>
@@ -255,11 +381,27 @@ const StepThree = ({ hotelData, roomData }) => {
             </Grid>
             <Grid item xs="12">
               <Typography variant="h5" gutterBottom>
-                Pay Amount: <b>₹ 1680</b>
+                Pay Amount:{" "}
+                <b>
+                  ₹{" "}
+                  {
+                    calculateThePrice(
+                      currentSearchParam,
+                      qunatityRooms,
+                      priceOfaRoom,
+                      totalDays,
+                      0.2
+                    ).AmountWithGst
+                  }
+                  &nbsp; ( included all taxes )
+                </b>
               </Typography>
             </Grid>
             <Grid item xs="12">
-              <div style={{ border: '2px solid #ee2e24' }} className="rounded p-2">
+              <div
+                style={{ border: "2px solid #ee2e24" }}
+                className="rounded p-2"
+              >
                 <Typography variant="h5" fontWeight={800}>
                   Choose payment method to pay
                 </Typography>
@@ -284,7 +426,7 @@ const StepThree = ({ hotelData, roomData }) => {
                   size="small"
                   variant="contained"
                   color="error"
-                  onClick={() => handleTabChange("payOnline")}
+                  onClick={() => makePayment()}
                 >
                   Pay Online
                 </Button>
@@ -292,24 +434,21 @@ const StepThree = ({ hotelData, roomData }) => {
             </Grid>
           </Grid>
 
-          {activeTab === 'payAtHotel' &&
-            <div
-              style={{ background: "#eeeeeb" }}
-              className="text-center"
-            >
+          {activeTab === "payAtHotel" && (
+            <div style={{ background: "#eeeeeb" }} className="text-center">
               <img
                 style={{ width: "200px" }}
                 src={OrderSucessfully}
                 alt="OrderSucessfully"
               />
               <Typography variant="h6" gutterBottom>
-                Your hotel room booking has been successfully confirmed.
-                Please check your registered email or mobile number for
-                further details. If you require assistance, please contact
-                our customer care.
+                Your hotel room booking has been successfully confirmed. Please
+                check your registered email or mobile number for further
+                details. If you require assistance, please contact our customer
+                care.
               </Typography>
             </div>
-          }
+          )}
           {/* <Grid container paddingY={2} spacing={1} mt={2}>
             <Grid item xs="12">
               {activeTab === "payAtHotel" ? (

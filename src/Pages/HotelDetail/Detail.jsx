@@ -42,6 +42,29 @@ const Detail = ({ data }) => {
     totalGuest: currentSearchParams.totalGuest,
   }).toString();
 
+  // arrage room listing
+  const ArrangeRoomList = (rooms) => {
+    const listing = [
+      "Budget Hotel",
+      "Classic Room",
+      "Deluxe Room",
+      "Premium Hotel",
+    ];
+
+    // Use the listing array to sort the rooms
+    const sortedRooms = rooms?.sort((room1, room2) => {
+      const index1 = listing.indexOf(room1?.roomType?.title);
+      const index2 = listing.indexOf(room2?.roomType?.title);
+      // If a room is not in the listing array, it will be placed at the end.
+      if (index1 === -1) return 1;
+      if (index2 === -1) return -1;
+
+      return index1 - index2;
+    });
+
+    return sortedRooms;
+  };
+
   CircularProgressWithLabel.propTypes = {
     /**
      * The value of the progress indicator for the determinate variant.
@@ -84,6 +107,49 @@ const Detail = ({ data }) => {
     );
   }
 
+  const AllAmentitesAndFacilities = (rooms) => {
+    const amenties = new Set();
+    const additonalAmenties = new Set();
+    const includeFacilities = new Set();
+    const additionalFacilities = new Set();
+
+    rooms?.forEach((element) => {
+      if (element?.roomType?.amenties) {
+        element.roomType.amenties.forEach((item) => amenties.add(item.title));
+      }
+      if (element.additionAmenities) {
+        element.additionAmenities.forEach((item) =>
+          additonalAmenties.add(item)
+        );
+      }
+      if (element?.roomType?.includeFacilities) {
+        element.roomType.includeFacilities.forEach((item) =>
+          includeFacilities.add(item.title)
+        );
+      }
+      if (element?.additionalFacilties) {
+        element.additionalFacilties.forEach((item) =>
+          additionalFacilities.add(item)
+        );
+      }
+    });
+
+    const allAmentiesFacilities = [
+      ...amenties,
+      ...includeFacilities,
+      ...additonalAmenties,
+      ...additionalFacilities,
+    ];
+
+    return {
+      amenties: [...amenties],
+      additonalAmenties: [...additonalAmenties],
+      includeFacilities: [...includeFacilities],
+      additionalFacilities: [...additionalFacilities],
+      allAmentiesFacilities,
+    };
+  };
+
   return (
     <div>
       <Grid container spacing={2}>
@@ -102,41 +168,25 @@ const Detail = ({ data }) => {
                 alt="welcome"
               />
 
-              <div className="">
-                <ul className="d-flex gap-2">
+              <div
+                className=""
+                style={{
+                  maxWidth: "30vw",
+                  height: "30vh",
+                }}
+              >
+                <ul
+                  className="d-flex gap-2"
+                  style={{ display: "flex", flexWrap: "wrap" }}
+                >
                   {/* ------------------------------------------------------ Map the Hotel Ammenities list (function defined upper side ) ------------------------------------------------- */}
-                  {data?.room?.amenities?.map((item, index) => {
-                    return (
-                      <li
-                        key={index}
-                        className="p-2 border rounded-4"
-                        style={{
-                          boxShadow:
-                            "rgb(204, 219, 232) 0px 0px 6px 0px inset, rgba(255, 255, 255, 0.5) -1px -1px 6px 1px inset",
-                        }}
-                      >
-                        {item === "WiFi" ? (
-                          <>
-                            <NetworkWifiIcon /> {item}
-                          </>
-                        ) : item === "Parking" ? (
-                          <>
-                            <LocalParkingIcon /> {item}
-                          </>
-                        ) : item === "Restaurant" ? (
-                          <>
-                            <FoodBankIcon /> {item}
-                          </>
-                        ) : item === "more" ? (
-                          <>
-                            <PlusOneIcon /> {item}
-                          </>
-                        ) : (
-                          "NA"
-                        )}
-                      </li>
-                    );
-                  })}
+                  {AllAmentitesAndFacilities(
+                    data?.rooms
+                  )?.allAmentiesFacilities?.map((item, index) => (
+                    <div className="customChip" key={index}>
+                      {item}
+                    </div>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -155,7 +205,7 @@ const Detail = ({ data }) => {
             title="Hotel Location"
             src={data?.hotelMapLink}
             height="450"
-            className={`w-100 mt-2 ${style.mapBox}`}
+            className={`w-100 mt-2 `}
             style={{ borderRadius: "5px" }}
             allowFullScreen=""
             loading="lazy"
@@ -299,7 +349,7 @@ const Detail = ({ data }) => {
               <b>Select Your Room</b>
             </div>
             {/* -------------------------------------------------Hotel rooms Maped ---------------------------------------------------------------------- */}
-            {data?.rooms?.map((item, index) => {
+            {ArrangeRoomList(data?.rooms)?.map((item, index) => {
               return (
                 <CardContent sx={{ position: 'relative', padding: '5px' }}>
                   <div
@@ -321,6 +371,26 @@ const Detail = ({ data }) => {
                     </div>
                   </div>
                   <Grid container spacing={1}>
+                    {/* <Grid
+                      item
+                      xs={12}
+                      sx={{
+                        cursor: "not-allowed",
+                        display: "grid",
+                        placeItems: "center",
+                        position: "absolute",
+                        background: "#ffffffba",
+                        width: "1100px",
+                        marginTop: "5px",
+                        zIndex: "1200",
+                      }}
+                    >
+                      <div className="p-5">
+                        <Typography variant="h6" color="error" fontWeight={800}>
+                          Room Not Available
+                        </Typography>
+                      </div>
+                    </Grid> */}
                     <Grid
                       sx={
                         isMobile ? null : { borderRight: "2px solid #ee2e24" }
