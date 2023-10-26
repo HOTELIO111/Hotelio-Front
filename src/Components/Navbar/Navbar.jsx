@@ -171,7 +171,8 @@ const Navbar = ({ list }) => {
 
   const HandleLogOutCustomer = () => {
     logOut();
-    sessionStorage.removeItem("customer");
+    window.localStorage.removeItem("customer");
+    window.localStorage.removeItem("token");
     Swal.fire({
       position: "top-end",
       icon: "success",
@@ -179,7 +180,7 @@ const Navbar = ({ list }) => {
       showConfirmButton: false,
       timer: 1500,
     });
-    setCurrentUser(sessionStorage.getItem("customer"));
+    setCurrentUser("");
     navigate("/");
   };
   useEffect(() => {
@@ -259,7 +260,6 @@ const Navbar = ({ list }) => {
       autoCompleteRef.current.addListener("place_changed", () => {
         const place = autoCompleteRef.current.getPlace();
         setSlectedCity(place.formatted_address);
-        console.log(place);
         // Get latitude and longitude
         const { lat, lng } = place.geometry.location;
         let longitude = lng();
@@ -488,7 +488,7 @@ const Navbar = ({ list }) => {
                               >
                                 <NavLink
                                   className="text-dark"
-                                  to={`/Customer${currentUser.name}Profile`}
+                                  to={`/CustomerProfile/${currentUser._id}`}
                                 >
                                   My Profile
                                 </NavLink>

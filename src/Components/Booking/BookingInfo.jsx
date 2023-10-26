@@ -12,6 +12,11 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  calculateDiscount,
+  calculateThePrice,
+  totalLengthOfStay,
+} from "../../Utilis/_fuctions";
 
 const BookingInfo = ({ hotelData, roomData, currentSearchParam }) => {
   const navigate = useNavigate();
@@ -26,31 +31,14 @@ const BookingInfo = ({ hotelData, roomData, currentSearchParam }) => {
     // navigate(`/searchedhotels?${decoded}`);
     navigate("/");
   };
+  //   credentials
+  const checkIn = currentSearchParam.checkIn;
+  const checkOut = currentSearchParam.checkOut;
+  const qunatityRooms = currentSearchParam.totalRooms;
+  const totalGuest = currentSearchParam.totalGuest;
+  const priceOfaRoom = roomData?.price;
+  const totalDays = totalLengthOfStay(checkIn, checkOut);
 
-  const totalLengthOfStay = (checkIn, checkOut) => {
-    const newCheckIn = new Date(checkIn);
-    const newCheckOut = new Date(checkOut);
-
-    // Calculate the time difference in milliseconds
-    const timeDifference = newCheckOut.getTime() - newCheckIn.getTime();
-
-    // Convert the time difference from milliseconds to days
-    const totalDays = timeDifference / (1000 * 3600 * 24);
-
-    // Return the total number of days
-    return totalDays;
-  };
-
-  const calculateDiscount = (originalAmount, discountPercent, parameter) => {
-    const discountAmount = (originalAmount * discountPercent) / 100;
-    const discountedAmount = originalAmount - discountAmount;
-
-    return {
-      originalAmount: originalAmount,
-      discountAmount: discountAmount,
-      discountedAmount: discountedAmount,
-    };
-  };
   return (
     <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
       <Card style={{ border: "2px solid #ee2e24" }} className="w-100 mb-1">
@@ -149,11 +137,20 @@ const BookingInfo = ({ hotelData, roomData, currentSearchParam }) => {
               <div>
                 <Typography variant="overline">Your selected</Typography>
                 <Typography variant="subtitle2">
-                  {currentSearchParam.totalRooms} room for{" "}
-                  {currentSearchParam.totalGuest} Guest
+                  {qunatityRooms} {roomData?.roomType?.title} for {totalDays}{" "}
+                  Days
                   <Typography variant="subtitle2">
-                    {currentSearchParam?.totalRooms} X ₹{roomData?.price} = ₹
-                    {roomData?.price * parseInt(currentSearchParam?.totalRooms)}
+                    {currentSearchParam?.totalRooms} X {totalDays} X ₹
+                    {roomData?.price} = ₹{" "}
+                    {
+                      calculateThePrice(
+                        currentSearchParam,
+                        qunatityRooms,
+                        priceOfaRoom,
+                        totalDays,
+                        0.2
+                      ).GrossAmount
+                    }
                   </Typography>
                 </Typography>
               </div>
@@ -169,14 +166,14 @@ const BookingInfo = ({ hotelData, roomData, currentSearchParam }) => {
               {show ? (
                 <>
                   <Typography variant="overline">
-                    {currentSearchParam.totalRooms} x {roomData.roomType.title}
+                    {qunatityRooms} x {roomData.roomType.title}
                   </Typography>
                   <Typography variant="caption" display="block">
-                    {currentSearchParam.totalGuest} adults
+                    {currentSearchParam.totalGuest} Guests
                   </Typography>
-                  <Typography variant="caption">
-                    ₹{roomData?.price * parseInt(currentSearchParam.totalRooms)}
-                  </Typography>
+                  {/* <Typography variant="caption">
+                    ₹{roomData?.price * parseInt(qunatityRooms)}
+                  </Typography> */}
                 </>
               ) : null}
 
@@ -245,7 +242,16 @@ const BookingInfo = ({ hotelData, roomData, currentSearchParam }) => {
           >
             <Typography variant="body2">Original price</Typography>
             <Typography variant="caption">
-              ₹{roomData?.price * parseInt(currentSearchParam?.totalRooms)}
+              ₹
+              {
+                calculateThePrice(
+                  currentSearchParam,
+                  qunatityRooms,
+                  priceOfaRoom,
+                  totalDays,
+                  0.2
+                ).GrossAmount
+              }
             </Typography>
           </div>
           <div
@@ -258,14 +264,17 @@ const BookingInfo = ({ hotelData, roomData, currentSearchParam }) => {
             <Typography variant="body2">20% off</Typography>
             <Typography variant="caption">
               {
-                calculateDiscount(
-                  parseInt(roomData?.price * currentSearchParam?.totalRooms),
-                  20,
-                  "discount"
+                calculateThePrice(
+                  currentSearchParam,
+                  qunatityRooms,
+                  priceOfaRoom,
+                  totalDays,
+                  0.2
                 ).discountAmount
               }
             </Typography>
           </div>
+
           <Typography variant="caption">
             You're getting a discount because, for a limited time, this property
             is offering reduced rates on some rooms that match your search.
@@ -288,24 +297,40 @@ const BookingInfo = ({ hotelData, roomData, currentSearchParam }) => {
               <del>
                 {" "}
                 {
-                  calculateDiscount(
-                    parseInt(roomData?.price * currentSearchParam?.totalRooms),
-                    20,
-                    "discount"
-                  ).originalAmount
+                  calculateThePrice(
+                    currentSearchParam,
+                    qunatityRooms,
+                    priceOfaRoom,
+                    totalDays,
+                    0.2
+                  ).GrossAmount
                 }
               </del>
             </Typography>
             <Typography fontWeight={700} variant="h5">
               {
-                calculateDiscount(
-                  parseInt(roomData?.price * currentSearchParam?.totalRooms),
-                  20,
-                  "discount"
-                ).discountedAmount
+                calculateThePrice(
+                  currentSearchParam,
+                  qunatityRooms,
+                  priceOfaRoom,
+                  totalDays,
+                  0.2
+                ).NetAmount
               }
             </Typography>
-            <Typography variant="caption">+ ₹ 202 taxes and charges</Typography>
+            <Typography variant="caption">
+              + ₹{" "}
+              {
+                calculateThePrice(
+                  currentSearchParam,
+                  qunatityRooms,
+                  priceOfaRoom,
+                  totalDays,
+                  0.2
+                ).GstAmount
+              }
+              taxes and charges
+            </Typography>
           </div>
         </div>
         <CardContent>

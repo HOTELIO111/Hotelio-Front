@@ -10,12 +10,13 @@ import { GOOGLE_OAUTH_CLIENT_ID } from "./config";
 import { SearchProvider } from "./context/useSearch";
 import { Provider } from "react-redux";
 import store from "./store/store";
-import { createMuiTheme, ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
+import { createMuiTheme, ThemeProvider } from "@mui/material/styles";
+import { BookingProvider } from "./context/useBooking";
+import CssBaseline from "@mui/material/CssBaseline";
 
 const customTheme = createMuiTheme({
   typography: {
-    fontFamily: 'Baloo 2',
+    fontFamily: "Baloo 2",
   },
 });
 
@@ -28,15 +29,17 @@ root.render(
     <GoogleOAuthProvider clientId={CLIENT_ID}>
       <SearchProvider>
         <AuthProvider>
-          <BrowserRouter>
-            <Provider store={store}>
+          <BookingProvider>
+            <BrowserRouter>
               <ThemeProvider theme={customTheme}>
-                <CssBaseline />
-                <App />
+                <Provider store={store}>
+                  <CssBaseline />
+                  <App />
+                </Provider>
               </ThemeProvider>
-            </Provider>
-          </BrowserRouter>
-        </AuthProvider>
+            </BrowserRouter>
+          </BookingProvider>
+        </AuthProvider>   
       </SearchProvider>
     </GoogleOAuthProvider>
   </React.StrictMode>

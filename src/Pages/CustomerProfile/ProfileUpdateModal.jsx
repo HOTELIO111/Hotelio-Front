@@ -1,16 +1,15 @@
 import { useState } from "react";
-import Backdrop from '@mui/material/Backdrop';
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Fade from '@mui/material/Fade';
-import Button from '@mui/material/Button';
-import { Grid, TextField, ThemeProvider, createTheme } from '@mui/material';
-import { useAuthContext } from '../../context/userAuthContext';
+import Backdrop from "@mui/material/Backdrop";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import Fade from "@mui/material/Fade";
+import Button from "@mui/material/Button";
+import { Grid, TextField, ThemeProvider, createTheme } from "@mui/material";
+import { useAuthContext } from "../../context/userAuthContext";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { API_URL } from "../../config";
 import { WaitLoader } from "../../Components/Elements/WaitLoader";
-
 
 const ProfileUpdateModal = () => {
   // Loader
@@ -23,8 +22,8 @@ const ProfileUpdateModal = () => {
     JSON.parse(sessionStorage.getItem("customer"))
   );
 
-  const [isEmail, setIsEmail] = useState(currentUser.email); // State to track the email input value
-  const [isName, setIsName] = useState(currentUser.name); // State to track the name input value
+  const [isEmail, setIsEmail] = useState(currentUser?.email); // State to track the email input value
+  const [isName, setIsName] = useState(currentUser?.name); // State to track the name input value
   const theme = createTheme({
     components: {
       MuiTextField: {
@@ -52,7 +51,7 @@ const ProfileUpdateModal = () => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: '90%',
+    width: "90%",
     bgcolor: "background.paper",
     border: "2px solid #fff",
     filter: "drop-shadow(10px 8px 6px red)",
@@ -62,7 +61,7 @@ const ProfileUpdateModal = () => {
   };
 
   if (window.innerWidth >= 960) {
-    styleo.width = '50%';
+    styleo.width = "50%";
   }
 
   // Function to update user data
@@ -89,11 +88,11 @@ const ProfileUpdateModal = () => {
             title: "Updated Successfully",
             icon: "success",
           });
-          sessionStorage.setItem(
+          window.localStorage.setItem(
             "customer",
             JSON.stringify(response.data.data)
           );
-          setCurrentUser(JSON.parse(sessionStorage.getItem("customer")));
+          setCurrentUser(JSON.parse(window.localStorage.getItem("customer")));
         }
       } catch (error) {
         setLoader(false); // Hide loader
@@ -153,7 +152,7 @@ const ProfileUpdateModal = () => {
                     name="number"
                     label="Enter Mobile No."
                     variant="outlined"
-                    value={currentUser.mobileNo} // Display the current user's mobile number
+                    value={currentUser?.mobileNo} // Display the current user's mobile number
                   />
                 </Grid>
                 <Grid xs={12} className="text-center" item>

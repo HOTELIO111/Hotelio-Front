@@ -15,7 +15,11 @@ import { NavLink, Navigate, useNavigate } from "react-router-dom";
 import { MuiOtpInput } from "mui-one-time-password-input";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import axios from "axios";
-import { buildQueryString, validateInput } from "../../Utilis/_fuctions";
+import {
+  ManageStorage,
+  buildQueryString,
+  validateInput,
+} from "../../Utilis/_fuctions";
 import { API_URL } from "../../config";
 import Swal from "sweetalert2";
 import { WaitLoader } from "../../Components/Elements/WaitLoader";
@@ -67,6 +71,8 @@ const StepsForm = () => {
     logOut,
     currentUser,
     setCurrentUser,
+    token,
+    setToken,
   } = useAuthContext();
 
   const handleNext = () => {
@@ -120,8 +126,8 @@ const StepsForm = () => {
         navigate(-1); // Assuming 'navigate' is properly defined
         setLoader(false);
         const responseData = response.data.data;
-        localStorage.setItem("customer", response.data.token);
-        sessionStorage.setItem("customer", JSON.stringify(responseData));
+        window.localStorage.setItem("token", response.data.token);
+        window.localStorage.setItem("customer", JSON.stringify(responseData));
         setCurrentUser(responseData);
         Swal.fire({
           title: "Successfully Logged In",
@@ -130,8 +136,9 @@ const StepsForm = () => {
         });
       } else if (response.status === 201) {
         setIsUser(response.data.data);
-        localStorage.setItem("customer", response.data.token);
-        handleNext(); // Assuming 'handleNext' is properly defined
+        localStorage.setItem("customer", JSON.stringify(response.data.data));
+        localStorage.setItem("token", response.data.token);
+        handleNext();
       } else {
         Swal.fire({
           text: `Invalid Otp And Password`,
@@ -205,7 +212,7 @@ const StepsForm = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            "access-token": `Bearer ${localStorage.getItem("customer")}`,
+            "access-token": `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
@@ -213,7 +220,10 @@ const StepsForm = () => {
         setIsUser(response.data.data);
         setLoader(false);
         Swal.fire({ icon: "success", text: "Login Successfully" });
-        sessionStorage.setItem("customer", JSON.stringify(response.data.data));
+        window.localStorage.setItem(
+          "customer",
+          JSON.stringify(response.data.data)
+        );
         navigate(-1);
       }
     } catch (error) {
@@ -245,7 +255,6 @@ const StepsForm = () => {
   // before update Login
 
   const LoginBeforeUpdate = (data) => {
-    sessionStorage.setItem("customer", JSON.stringify(data));
     Swal.fire({
       icon: "success",
       text: "Login successfully",
