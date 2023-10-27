@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Container, Grid, TextField, Typography } from "@mui/material";
+import { Grid, TextField, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import HoteliLogo from '../../images/HotelioLogo.png'
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
+import { isMobile } from "react-device-detect";
 
 const CardMember = () => {
   const [formData, setFormData] = useState({
@@ -28,20 +29,22 @@ const CardMember = () => {
   };
 
   return (
-    <Grid sx={{borderTop:'2px solid #ee2e24'}} container spacing={2} padding={2}>
+    <Grid sx={{ borderTop: '2px solid #ee2e24' }} container spacing={2} padding={2} pb={12}>
       <Grid paddingTop={0} item xs={12}>
-        <div className="text-center text-white">
-          <h2><span style={{ color: '#ee2e24' }} ><b>Hotelio Business</b></span> is a corporate hotel booking solution by <span style={{ color: '#ee2e24' }} ><b>Hotelio</b></span>.</h2>
+        <div className={isMobile ? 'text-center text-white border-top border-bottom' : 'text-center text-white border-top border-bottom m-4 mx-5 py-4'}>
+          <Typography variant={isMobile ? 'h6' : 'h4'} fontWeight={800}><span style={{ color: '#ee2e24' }} ><b>Hotelio Business</b></span> is a corporate hotel booking solution by <span style={{ color: '#ee2e24' }} ><b>Hotelio</b></span></Typography>
         </div>
       </Grid>
 
       <Grid item xs={12} lg={7} xl={7} xxl={7} style={{ display: 'grid', placeItems: 'center' }}>
-        <img src={HoteliLogo} style={{ height: '250px', width: '450px' }} alt="logo" />
-        <Typography color={"white"} variant="h4"> "Grow your <span style={{ color: '#ee2e24' }}><i>Business</i> <TrendingUpIcon fontSize="large" /></span> and make your <span style={{ color: '#ee2e24' }}><b>profit double</b> <KeyboardDoubleArrowUpIcon fontSize="large" /> </span>"</Typography>
+        <div className="text-center">
+          <img src={HoteliLogo} style={{ height: '250px', width: '450px' }} className={isMobile ? 'w-100 h-25' : ''} alt="logo" />
+          <Typography fontWeight={800} color={"white"} variant={isMobile ? 'h6' : 'h4'} > "Grow your <span style={{ color: '#ee2e24' }}><i>Business</i> <TrendingUpIcon fontSize="large" /></span> and make your <span style={{ color: '#ee2e24' }}><b>profit double</b> <KeyboardDoubleArrowUpIcon fontSize="large" /> </span>"</Typography>
+        </div>
       </Grid>
 
       <Grid item xs={12} lg={5} xl={5} xxl={5} style={{ display: 'grid', placeItems: 'center' }}>
-        <form className="bg-white rounded p-4" onSubmit={handleSubmit}>
+        <form style={{ borderRadius: '24px', boxShadow: ' rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset' }} className="bg-white p-4" onSubmit={handleSubmit}>
           <h3>Get Started</h3>
           {/* Name input */}
           <TextField
@@ -93,7 +96,7 @@ const CardMember = () => {
 
           <div className="text-center">
             {/* Submit button */}
-            <Button variant="contained" color="error" type="submit">
+            <Button variant="contained" fullWidth sx={{ mt: 2, borderRadius: '24px', p: 1.5 }} color="error" type="submit">
               Register Now
             </Button>
           </div>

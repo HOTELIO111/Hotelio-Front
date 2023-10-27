@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Button, Container, Grid, TextField, Typography } from '@mui/material';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import TravelPartner from '../../images/TravelPartner.png'
 import HoteliLogo from '../../images/HotelioLogo.png'
 import { isMobile } from 'react-device-detect';
@@ -9,6 +9,7 @@ import { FcGoogle } from 'react-icons/fc';
 const TravelLoginSignup = () => {
 
     const location = useLocation();
+    const navigat = useNavigate()
 
     // Extract query parameters from the location search string
     const queryParams = new URLSearchParams(location.search);
@@ -64,7 +65,7 @@ const TravelLoginSignup = () => {
                         <Box
 
                             sx={{
-                                my: 8,
+                                my: 6,
                                 mx: 4,
                                 display: 'flex',
                                 flexDirection: 'column',
@@ -79,8 +80,8 @@ const TravelLoginSignup = () => {
                             </Typography>
                             <TextField
                                 margin="normal"
-                                required
                                 fullWidth
+                                required
                                 id="email"
                                 label="Enter Mobile No. or Email Id"
                                 name="email"
@@ -113,9 +114,10 @@ const TravelLoginSignup = () => {
                             <Button
                                 type="submit"
                                 fullWidth
-                                href='/Travel-Partner-Home'
+                                onClick={() => navigat('/Travel-Partner-Home')}
                                 variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
+                                color='error'
+                                sx={{ mt: 2, mb: 2 }}
                             >
                                 Log In
                             </Button>
@@ -221,6 +223,7 @@ const TravelLoginSignup = () => {
                             <Button
                                 type="submit"
                                 fullWidth
+                                color='error'
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
                             >

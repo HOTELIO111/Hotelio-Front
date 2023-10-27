@@ -237,7 +237,7 @@ const TravelHeader = () => {
         <Grid sx={{ display: 'grid', placeItems: 'center' }} item xs={12} sm={2}>
           <div className='d-flex align-items-center'>
             <Typography className='text-capitalize' onClick={() => navigate('/Travel-Partner-Profile')} sx={{ m: 1, cursor: 'pointer' }} variant='h6'>{currentUser ? currentUser.name : ''}</Typography>
-            <Button color='error' variant='text'>Logout</Button>
+            <Button color='error' onClick={() => navigate('/Travel-Partner-Auth')} variant='text'>Logout</Button>
           </div>
         </Grid>
       </Grid>

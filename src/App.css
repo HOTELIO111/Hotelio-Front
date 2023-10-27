@@ -493,6 +493,14 @@ body {
   padding: 10px 14px !important;
 }
 
+.css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+  border-radius: 24px !important;
+}
+
+.css-igs3ac{
+  border-radius: 24px !important;
+}
+
 .css-hyxlzm {
   color: #ee2e24;
 }
@@ -508,3 +516,26 @@ body {
     color: rgb(255, 173, 173);
   }
 }
+
+.animatedElement {
+  width: 50px;
+  height: 50px;
+  background-color: blue;
+  position: absolute;
+  top: 0;
+  left: 50%; /* Center the element horizontally */
+  animation: moveDown 3s linear infinite;
+}
+
+@keyframes moveDown {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: 100%; /* Adjust the final position as needed */
+  }
+}
+
+
+
+
