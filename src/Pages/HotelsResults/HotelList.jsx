@@ -108,7 +108,7 @@ const HotelList = ({
             backgroundPosition: "bottom",
             backgroundSize: "cover",
             color: "#000",
-            borderRadius:'8px'
+            borderRadius: "8px",
           }}
         >
           <div className="d-flex justify-content-between align-items-center">
@@ -236,7 +236,7 @@ const HotelList = ({
                   <div className="px-3 pt-2">
                     <div className="d-flex align-items-center">
                       <h4>
-                        {items.hotelName} ({items.hotelType})
+                        {items.hotelName} ({items?.hotelType?.title})
                       </h4>
                     </div>
                     <p>

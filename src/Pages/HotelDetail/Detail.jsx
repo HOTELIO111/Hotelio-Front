@@ -67,8 +67,6 @@ const Detail = ({ data }) => {
 
   CircularProgressWithLabel.propTypes = {
     /**
-     * The value of the progress indicator for the determinate variant.
-     * Value between 0 and 100.
      * @default 0
      */
     value: PropTypes.number.isRequired,
@@ -148,6 +146,21 @@ const Detail = ({ data }) => {
       additionalFacilities: [...additionalFacilities],
       allAmentiesFacilities,
     };
+  };
+
+  // Function ko pura karna hai
+  const RoomAvailable = (allbookings, room, checkIn, checkOut) => {
+    let result;
+    const checkin = new Date(checkIn);
+    const checkout = new Date(checkOut);
+
+    if (allbookings) {
+      const booking = allbookings?.find((x) => x?._id === room?._id);
+      return booking;
+    } else {
+      result = true;
+    }
+    return result;
   };
 
   return (
@@ -351,25 +364,32 @@ const Detail = ({ data }) => {
             {/* -------------------------------------------------Hotel rooms Maped ---------------------------------------------------------------------- */}
             {ArrangeRoomList(data?.rooms)?.map((item, index) => {
               return (
-                <CardContent sx={{ position: 'relative', padding: '5px' }}>
-                  <div
-                    style={{
-                      cursor: "not-allowed",
-                      display: 'grid',
-                      placeItems: 'center',
-                      position: 'absolute',
-                      background: '#ffffffba',
-                      zIndex: '1000',
-                      width: '100%',
-                      height: '100%'
-                    }}
-                  >
-                    <div>
-                      <Typography variant="h6" color="error" fontWeight={800}>
-                        Room Not Available
-                      </Typography>
+                <CardContent sx={{ position: "relative", padding: "5px" }}>
+                  {RoomAvailable(
+                    data?.bookings,
+                    item,
+                    currentSearchParams.checkIn,
+                    currentSearchParams.checkOut
+                  ) && (
+                    <div
+                      style={{
+                        cursor: "not-allowed",
+                        display: "grid",
+                        placeItems: "center",
+                        position: "absolute",
+                        background: "#ffffffba",
+                        zIndex: "1000",
+                        width: "100%",
+                        height: "100%",
+                      }}
+                    >
+                      <div>
+                        <Typography variant="h6" color="error" fontWeight={800}>
+                          Room Not Available
+                        </Typography>
+                      </div>
                     </div>
-                  </div>
+                  )}
                   <Grid container spacing={1}>
                     {/* <Grid
                       item
