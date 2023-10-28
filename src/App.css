@@ -1,10 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Questrial&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 @import "react-loading-skeleton/dist/skeleton.css";
-@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap");
 
 * {
-  font-family: 'Baloo 2', sans-serif
+  font-family: "Baloo 2", sans-serif;
 }
 
 /* 
@@ -327,7 +327,6 @@ body {
 }
 
 @media (max-width: 991px) {
-
   html,
   body {
     overflow-x: hidden;
@@ -506,7 +505,6 @@ body {
 }
 
 @keyframes hotelioLoader {
-
   0%,
   100% {
     color: red;
@@ -517,6 +515,19 @@ body {
   }
 }
 
+.MapViewOnClick {
+  color: white !important;
+  text-decoration: none !important;
+  border: 1px solid transparent;
+  background-color: #ee2e24;
+  padding: 6px 20px;
+  border-radius: 10px;
+  transition: 0.4s ease-in-out;
+}
+
+.MapViewOnClick:hover {
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.15);
+}
 .animatedElement {
   width: 50px;
   height: 50px;

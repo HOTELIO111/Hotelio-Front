@@ -274,8 +274,9 @@ const Navbar = ({ list }) => {
   return (
     <div className="">
       <header
-        className={`${style.header_area}  ${style.header_sticky} ${style.wow} ${style.slideInDown
-          } ${!list ? "bg-light position-static border-bottom" : ""}`}
+        className={`${style.header_area}  ${style.header_sticky} ${style.wow} ${
+          style.slideInDown
+        } ${!list ? "bg-light position-static border-bottom" : ""}`}
         data-wow-duration="0.75s"
         data-wow-delay="0s"
       >
@@ -307,7 +308,10 @@ const Navbar = ({ list }) => {
                   </marquee>
                   <div className="col-md-2 col-lg-12 col-xl-2 p-0 m-0">
                     <Link to="/" className={`${style.logo} ms-4`}>
-                      <img alt="logo" src={HotelioLogo} />
+                      <img
+                        alt="logo"
+                        src={HotelioLogo}
+                      />
                     </Link>
                   </div>
                   <div
@@ -330,12 +334,14 @@ const Navbar = ({ list }) => {
                           <HomeIcon /> Home
                         </NavLink>
                       </li>
-                      <li style={{
-                        listStyle: "none",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}>
+                      <li
+                        style={{
+                          listStyle: "none",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
                         <NavLink
                           to="/about"
                           className={`${!list ? "text-dark" : ""}`}
@@ -343,12 +349,14 @@ const Navbar = ({ list }) => {
                           <InfoIcon /> About Us
                         </NavLink>
                       </li>
-                      <li style={{
-                        listStyle: "none",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}>
+                      <li
+                        style={{
+                          listStyle: "none",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
                         <NavLink
                           target="_blank"
                           to="/hoteliomember"
@@ -357,12 +365,14 @@ const Navbar = ({ list }) => {
                           <BsFillBuildingsFill /> Become a Hotelio Partner
                         </NavLink>
                       </li>
-                      <li style={{
-                        listStyle: "none",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}>
+                      <li
+                        style={{
+                          listStyle: "none",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
                         <NavLink
                           to={"https://admin.hoteliorooms.com/"}
                           className={`${!list ? "text-dark" : ""}`}
@@ -377,8 +387,9 @@ const Navbar = ({ list }) => {
                         <>
                           <NavLink
                             to="/contact"
-                            className={`${!list ? "text-dark" : ""} ${style.iconHide
-                              }`}
+                            className={`${!list ? "text-dark" : ""} ${
+                              style.iconHide
+                            }`}
                           >
                             Contact us
                           </NavLink>
@@ -406,7 +417,7 @@ const Navbar = ({ list }) => {
                                 display: "flex",
                                 justifyContent: "center",
                                 alignItems: "center",
-                                fontFamily: 'Baloo 2'
+                                fontFamily: "Baloo 2",
                               }}
                             >
                               <KeyIcon /> Log In / Sign Up
@@ -468,8 +479,8 @@ const Navbar = ({ list }) => {
                               {currentUser && currentUser.name
                                 ? currentUser.name
                                 : currentUser.email
-                                  ? currentUser.email
-                                  : currentUser.mobileNo}
+                                ? currentUser.email
+                                : currentUser.mobileNo}
                             </Button>
                             <StyledMenu
                               id="demo-customized-menu"
@@ -538,8 +549,9 @@ const Navbar = ({ list }) => {
                       </li>
                     </ul>
                     <a
-                      className={`${style.menu_trigger} ${menuOpen ? style.active : ""
-                        }`}
+                      className={`${style.menu_trigger} ${
+                        menuOpen ? style.active : ""
+                      }`}
                       onClick={() => {
                         setMenuOpen(!menuOpen);
                         $(`.${style.header_area} .${style.nav}`).slideToggle(
@@ -629,8 +641,9 @@ const Navbar = ({ list }) => {
                             }}
                             className={`d-flex ${style.headerSearchText}`}
                           >
-                            {`${getTotalGuests()} Guests · ${manageRoom.length
-                              } room`}
+                            {`${getTotalGuests()} Guests · ${
+                              manageRoom.length
+                            } room`}
                             <div className="ms-3 text-dark">
                               {openOptions ? (
                                 <ExpandLessIcon />
@@ -707,10 +720,11 @@ const Navbar = ({ list }) => {
                                       Delete Room
                                     </div>
                                     <div
-                                      className={`${manageRoom.length === 7
-                                        ? style.optionTextDisable
-                                        : style.optionText
-                                        }`}
+                                      className={`${
+                                        manageRoom.length === 7
+                                          ? style.optionTextDisable
+                                          : style.optionText
+                                      }`}
                                       onClick={() =>
                                         ManageRoomAddandDelete("add")
                                       }

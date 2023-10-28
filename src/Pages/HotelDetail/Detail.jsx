@@ -193,13 +193,13 @@ const Detail = ({ data }) => {
                   style={{ display: "flex", flexWrap: "wrap" }}
                 >
                   {/* ------------------------------------------------------ Map the Hotel Ammenities list (function defined upper side ) ------------------------------------------------- */}
-                  {AllAmentitesAndFacilities(
-                    data?.rooms
-                  )?.allAmentiesFacilities?.map((item, index) => (
-                    <div className="customChip" key={index}>
-                      {item}
-                    </div>
-                  ))}
+                  {AllAmentitesAndFacilities(data?.rooms)
+                    ?.allAmentiesFacilities?.slice(0, 15)
+                    ?.map((item, index) => (
+                      <div className="customChip" key={index}>
+                        {item}
+                      </div>
+                    ))}
                 </ul>
               </div>
             </div>
@@ -216,14 +216,22 @@ const Detail = ({ data }) => {
         >
           <iframe
             title="Hotel Location"
-            src={data?.hotelMapLink}
+            src={`https://www.google.com/maps/d/embed?mid=1PRNsTVTx_mxFS944bTNCFZldOoI&hl=en&ll=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}&z=10`}
             height="450"
             className={`w-100 mt-2 `}
             style={{ borderRadius: "5px" }}
-            allowFullScreen=""
+            allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           ></iframe>
+          <a
+            className="MapViewOnClick"
+            target="_blank"
+            href={`https://www.google.com/maps?q=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`}
+          >
+            {" "}
+            View on Map
+          </a>
         </Grid>
         {isMobile ? null : (
           <Grid item xs={12} lg={12} xl={12}>
