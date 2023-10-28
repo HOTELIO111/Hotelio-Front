@@ -19,7 +19,7 @@ const ProfileUpdateModal = () => {
   // onchange States
   const handleProfileUpdateClose = () => setProfileUpdateOpen(false);
   const [currentUser, setCurrentUser] = useState(
-    JSON.parse(sessionStorage.getItem("customer"))
+    JSON.parse(window.localStorage.getItem("customer"))
   );
 
   const [isEmail, setIsEmail] = useState(currentUser?.email); // State to track the email input value

@@ -49,12 +49,12 @@ export default function MobileFooter() {
 
         const [isLoggedIn, setIsLoggedIn] = useState(false);
         const [currentUser, setCurrentUser] = useState(
-            JSON.parse(sessionStorage.getItem("customer"))
+            JSON.parse(window.localStorage.getItem("customer"))
         );
 
 
         const HandleLogOutCustomer = () => {
-            sessionStorage.removeItem("customer");
+            window.localStorage.removeItem("customer");
             Swal.fire({
                 position: "top-center",
                 icon: "success",
@@ -62,7 +62,7 @@ export default function MobileFooter() {
                 showConfirmButton: false,
                 timer: 1500,
             });
-            setCurrentUser(sessionStorage.getItem("customer"));
+            setCurrentUser(window.localStorage.getItem("customer"));
             navigate("/");
         };
         useEffect(() => {
@@ -106,12 +106,12 @@ export default function MobileFooter() {
                     <ul>
                         <li style={{ borderBottom: '1px solid #ee2e24' }} className='py-2'><a href={playStoreLink} target="_blank" rel="noopener noreferrer"><Typography color={'error'} variant='h6'><PhoneAndroidRoundedIcon sx={{ mr: 2 }} /> Download App </Typography></a></li>
                         {
-                            currentUser ?
-                                <li style={{ borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate(`/Customer${currentUser?.name}Profile`)} ><PersonIcon sx={{ mr: 2 }} /> Profile</Typography></li> : null
+                            currentUser &&
+                                <li style={{ borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate(`/CustomerProfile/${currentUser._id}`)} ><PersonIcon sx={{ mr: 2 }} /> Profile</Typography></li>
                         }
                         {
-                            currentUser ?
-                                <li style={{ borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate('/YourBooking')} ><FeaturedPlayListIcon sx={{ mr: 2 }} /> My Booking</Typography></li> : null
+                            currentUser &&
+                                <li style={{ borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate('/YourBooking')} ><FeaturedPlayListIcon sx={{ mr: 2 }} /> My Booking</Typography></li>
                         }
                         <li style={{ borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate('/About_Us')} ><InfoRoundedIcon sx={{ mr: 2 }} /> About Us</Typography></li>
                         <li style={{ borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate('/Contact_Us')} ><PermPhoneMsgRoundedIcon sx={{ mr: 2 }} /> Contact Us</Typography></li>
@@ -172,7 +172,7 @@ export default function MobileFooter() {
                 <BottomNavigationAction label="Home" icon={<HomeIcon sx={{ color: '#ee2e24' }} />} />
                 <BottomNavigationAction label="favourite" icon={<FavoriteIcon />} />
                 <BottomNavigationAction label="Offer" icon={<LocalOfferIcon />} />
-                <BottomNavigationAction  onClick={handleShow} label="Account" icon={<PersonIcon />} />
+                <BottomNavigationAction onClick={handleShow} label="Account" icon={<PersonIcon />} />
             </BottomNavigation>
         </div>
     );

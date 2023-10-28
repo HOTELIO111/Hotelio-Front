@@ -26,7 +26,7 @@ const BookingInfo = ({ hotelData, roomData, currentSearchParam }) => {
   const handleClose = () => setOpen(false);
 
   const handleChangeCredentials = () => {
-    const lastQuerySearched = sessionStorage.getItem("search");
+    const lastQuerySearched = window.localStorage.getItem("search");
     const decoded = decodeURIComponent(lastQuerySearched);
     // navigate(`/searchedhotels?${decoded}`);
     navigate("/");

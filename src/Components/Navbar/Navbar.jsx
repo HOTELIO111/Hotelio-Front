@@ -301,7 +301,7 @@ const Navbar = ({ list }) => {
                   >
                     <h5>
                       <b>
-                        Get 999 INR instantly Credit in your account. Also
+                        Get 999 INR instantly Credit in your account on Sign Up. Also
                         become eligible for refer and earn.
                       </b>
                     </h5>

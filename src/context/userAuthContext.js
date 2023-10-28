@@ -23,24 +23,39 @@ const AuthProvider = ({ children }) => {
   const [roomType, setRoomType] = useState([]);
 
   const [currentUser, setCurrentUser] = useState(
-    JSON.parse(window.localStorage.getItem("customer"))
+    // JSON.parse(localStorage.getItem("customer"))
   );
   // otp response state
   const [otpResp, setOtpResp] = useState({});
 
-  // google login signup function
   const login = useGoogleLogin({
-    onSuccess: (codeResponse) => IfSuccessAuth(codeResponse),
+    onSuccess: (codeResponse) => {
+      setLoader(true); // Show loader while processing
+      IfSuccessAuth(codeResponse);
+    },
     onError: (error) => console.log("Login Failed:", error),
   });
 
-  // logout
   const logOut = () => {
     googleLogout();
     window.localStorage.removeItem("customer");
     window.localStorage.removeItem("token");
-    // setProfile(null);
+    setCurrentUser(null); // Clear current user
   };
+  useEffect(() => {
+    const handleStorageChange = (e) => {
+      if (e.key === "customer") {
+        setCurrentUser(JSON.parse(e.newValue));
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
+
 
   const IfSuccessAuth = async (codeResponse) => {
     if (codeResponse) {
@@ -56,7 +71,6 @@ const AuthProvider = ({ children }) => {
         );
 
         if (response.status === 200) {
-          setLoader(true);
           try {
             const isUser = await axios.post(
               `${API_URL}/api/google/auth`,
@@ -69,25 +83,18 @@ const AuthProvider = ({ children }) => {
               }
             );
             if (isUser.status === 200) {
-              window.localStorage.setItem(
-                "customer",
-                JSON.stringify(isUser.data.data)
-              );
-              window.localStorage.setItem(
-                "token",
-                JSON.stringify(isUser.data.token)
-              );
+              window.localStorage.setItem("customer", JSON.stringify(isUser.data.data));
+              window.localStorage.setItem("token", isUser.data.token);
               setCurrentUser(isUser.data.data);
-              console.log("user login successfully");
-              setLoader(false);
+              console.log("User logged in successfully");
+              setLoader(false); // Hide the loader
               window.history.back();
             }
           } catch (error) {
-            setLoader(false);
+            setLoader(false); // Hide the loader in case of an error
             console.log(error);
           }
         }
-        // setProfile(response.data);
       } catch (error) {
         console.log(error);
       }

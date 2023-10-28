@@ -12,39 +12,13 @@ import Swal from "sweetalert2";
 import { API_URL } from "../../config";
 import MobileFooter from "../../Components/MobileComponent/MobileFooter";
 import LoginLogo from "../../images/HotelioLogo.png";
+import Reception from "../../images/Reception.jpg";
 import { buildQueryString, validateInput } from "../../Utilis/_fuctions";
 import StepsForm from "./StepsForm";
+import { isMobile } from "react-device-detect";
 
 const Signin = () => {
   // code for loader top
-
-  const theme = createTheme({
-    components: {
-      MuiTextField: {
-        styleOverrides: {
-          root: {
-            borderRadius: "20px",
-            "& .MuiInputBase-input:focus": {
-              backgroundColor: "#fff",
-            },
-            "& .MuiInput-underline::before": {
-              borderBottom: "2px solid #ee2e24",
-            },
-            "& .MuiInput-underline::after": {
-              borderBottom: "2px solid #ee2e24",
-            },
-          },
-        },
-      },
-      // MuiInputAdornment: {
-      //   styleOverrides: {
-      //     root: {
-      //       backgroundColor: "#fff",
-      //     },
-      //   },
-      // },
-    },
-  });
 
   const [hideOtp, setShowOtp] = useState(false);
   const [inputOtp, setInputOtp] = useState("");
@@ -118,7 +92,7 @@ const Signin = () => {
           icon: "success",
           text: `Welcome ${data.name}`,
         });
-        sessionStorage.setItem("customer", JSON.stringify(data));
+        window.localStorage.setItem("customer", JSON.stringify(data));
         setLoader(false);
         Navigate("/");
       } else if (response.status === 201) {
@@ -195,27 +169,53 @@ const Signin = () => {
   };
 
   return (
-    <div style={{ background: 'url(https://assets.cntraveller.in/photos/63b80c6d79d81704e445df00/master/pass/Westin%20Himalayas%20facade.jpg)', backgroundSize: 'cover', minHeight: '100vh' }}>
-      <Grid container mt={0} spacing={2}>
-        <Grid className="d-none d-sm-block" item xs={12} md={12} lg={7} xl={7}>
-          <div className="text-center">
-            <img
-              src={LoginLogo}
-              alt="Main"
-              className="animate__animated animate__fadeInDown"
-              style={{ width: "260px", height: "200px" }}
-            />
-            <Typography className="animate__animated animate__backInUp" fontWeight={800} color={"white"} variant="h4">Welcome To Hotelio, Your Travel Partner</Typography>
-          </div>
+    <>
+      <marquee
+        style={{
+          color: "#fff",
+          fontWeight: "900",
+          background: "#ff0000",
+        }}
+        behavior="alternate"
+        direction="left"
+      >
+        <h5>
+          <b>
+            Get 999 INR instantly Credit in your account on Sign Up. Also
+            become eligible for refer and earn.
+          </b>
+        </h5>
+      </marquee>
+      <div style={{ background: `url(${Reception})`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}>
+
+        <Grid container pt={0} mt={0} spacing={1}>
+
+          {isMobile ? '' : <Grid sx={{ display: 'grid', placeItems: 'center' }} item xs={0} md={12} lg={7} xl={7}>
+            <div className="w-75 h-50 shadow-lg text-center" style={{ background: "rgba(255,255,255,0.011112)", borderRadius: "30px", display: 'grid', placeItems: 'center' }}>
+              <Typography
+                className="animate__animated animate__backInUp"
+                sx={{
+                  backgroundImage: 'linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%)',
+                  backgroundClip: 'text',
+                  color: 'transparent',
+                  pl: 1
+                }}
+                fontWeight={700} variant="h4">
+                Get 999 INR instantly Credit in your account on Sign Up. Also
+                become eligible for refer and earn.
+              </Typography>
+            </div>
+          </Grid>}
+          <Grid sx={{ background: '#e5e7eb', minHeight: '100vh' }} item xs={12} md={12} lg={5} xl={5}>
+            <StepsForm />
+            <Copyright />
+            <div className="d-md-block d-lg-none d-xl-none">
+              <MobileFooter />
+            </div>
+          </Grid>
         </Grid>
-        <Grid sx={{ background: '#ffffff', minHeight: '100vh' }} item xs={12} md={12} lg={5} xl={5}>
-          <StepsForm />
-          <div className="d-md-block d-lg-none d-xl-none">
-            <MobileFooter />
-          </div>
-        </Grid>
-      </Grid>
-    </div>
+      </div>
+    </>
   );
 };
 

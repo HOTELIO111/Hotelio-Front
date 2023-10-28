@@ -143,7 +143,7 @@ export default function SignUp() {
 
       if (response.status === 200) {
         const data = response.data;
-        sessionStorage.setItem("customer", JSON.stringify(data));
+        window.localStorage.setItem("customer", JSON.stringify(data));
         Swal.fire({
           title: "Successfully Registered",
           icon: "success",
