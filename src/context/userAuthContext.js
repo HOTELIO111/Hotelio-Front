@@ -23,8 +23,9 @@ const AuthProvider = ({ children }) => {
   const [roomType, setRoomType] = useState([]);
 
   const [currentUser, setCurrentUser] = useState(
-    // JSON.parse(localStorage.getItem("customer"))
+    JSON.parse(localStorage.getItem("customer"))
   );
+  // JSON.parse(localStorage.getItem("customer"))
   // otp response state
   const [otpResp, setOtpResp] = useState({});
 
@@ -42,20 +43,19 @@ const AuthProvider = ({ children }) => {
     window.localStorage.removeItem("token");
     setCurrentUser(null); // Clear current user
   };
-  useEffect(() => {
-    const handleStorageChange = (e) => {
-      if (e.key === "customer") {
-        setCurrentUser(JSON.parse(e.newValue));
-      }
-    };
+  // useEffect(() => {
+  //   const handleStorageChange = (e) => {
+  //     if (e.key === "customer") {
+  //       setCurrentUser(JSON.parse(e.newValue));
+  //     }
+  //   };
 
-    window.addEventListener("storage", handleStorageChange);
+  //   window.addEventListener("storage", handleStorageChange);
 
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, []);
-
+  //   return () => {
+  //     window.removeEventListener("storage", handleStorageChange);
+  //   };
+  // }, []);
 
   const IfSuccessAuth = async (codeResponse) => {
     if (codeResponse) {
@@ -83,7 +83,10 @@ const AuthProvider = ({ children }) => {
               }
             );
             if (isUser.status === 200) {
-              window.localStorage.setItem("customer", JSON.stringify(isUser.data.data));
+              window.localStorage.setItem(
+                "customer",
+                JSON.stringify(isUser.data.data)
+              );
               window.localStorage.setItem("token", isUser.data.token);
               setCurrentUser(isUser.data.data);
               console.log("User logged in successfully");

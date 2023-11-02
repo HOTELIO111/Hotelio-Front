@@ -17,12 +17,17 @@ const BookingSteps = () => {
 
   const [data, setData] = useState(null);
   const [roomData, setRoomData] = useState(null);
+  const [formData, setFormData] = useState({});
   const decoded = decodeURIComponent(location.search);
 
   const hotelId = new URLSearchParams(decoded).get("hid");
   const roomId = new URLSearchParams(decoded).get("rid");
 
   const [currentStep, setCurrentStep] = useState(2);
+
+  const handleFormData = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const navigate = useNavigate();
 
@@ -92,9 +97,33 @@ const BookingSteps = () => {
       </div>
 
       {/* Render the form content based on the current step */}
-      {currentStep === 1 && <StepOne hotelData={data} roomData={roomData} />}
-      {currentStep === 2 && <StepTwo hotelData={data} roomData={roomData} />}
-      {currentStep === 3 && <StepThree hotelData={data} roomData={roomData} />}
+      {currentStep === 1 && (
+        <StepOne
+          hotelData={data}
+          roomData={roomData}
+          formData={formData}
+          setFormData={setFormData}
+          handleFormData={handleFormData}
+        />
+      )}
+      {currentStep === 2 && (
+        <StepTwo
+          hotelData={data}
+          roomData={roomData}
+          formData={formData}
+          setFormData={setFormData}
+          handleFormData={handleFormData}
+        />
+      )}
+      {currentStep === 3 && (
+        <StepThree
+          hotelData={data}
+          roomData={roomData}
+          formData={formData}
+          setFormData={setFormData}
+          handleFormData={handleFormData}
+        />
+      )}
       <div className="my-2">
         {currentStep > 1 && (
           <Button variant="outlined" onClick={prevStep}>

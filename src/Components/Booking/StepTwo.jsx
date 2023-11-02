@@ -16,7 +16,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import CoffeeIcon from "@mui/icons-material/Coffee";
@@ -34,21 +34,24 @@ import { useAuthContext } from "../../context/userAuthContext";
 import moment from "moment/moment";
 import BookingInfo from "./BookingInfo";
 
-const StepTwo = ({ hotelData, roomData }) => {
+const StepTwo = ({
+  hotelData,
+  roomData,
+  formData,
+  setFormData,
+  handleFormData,
+}) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = new URLSearchParams(document.location.search);
 
   const currentSearchParam = Object.fromEntries(searchQuery?.entries());
-  const { currentUser } = useAuthContext();
-  const [formData, setFormData] = useState({
-    name: currentUser?.name,
-    email: currentUser?.email,
-  });
+  const { currentUser, setCurrentUser } = useAuthContext();
+  // const [formData, setFormData] = useState({});
   const navigate = useNavigate();
 
-  const handleFormData = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  // const handleFormData = (e) => {
+  //   setFormData({ ...formData, [e.target.name]: e.target.value });
+  // };
 
   const style = {
     position: "absolute",
@@ -155,6 +158,18 @@ const StepTwo = ({ hotelData, roomData }) => {
     };
   };
 
+  useEffect(() => {
+    if (selectedValue === "myself") {
+      setFormData({ ...currentUser });
+    } else {
+      setFormData({
+        name: "",
+        email: "",
+        mobileNo: "",
+      });
+    }
+  }, [selectedValue]);
+
   return (
     <div className="container p-2">
       <Modal
@@ -194,6 +209,9 @@ const StepTwo = ({ hotelData, roomData }) => {
                     id="outlined-basic"
                     label="Full Name *"
                     margin="normal"
+                    name="name"
+                    value={formData.name || ""}
+                    onChange={handleFormData}
                     variant="outlined"
                   />
 
@@ -204,6 +222,9 @@ const StepTwo = ({ hotelData, roomData }) => {
                     id="outlined-basic"
                     label="Email *"
                     margin="normal"
+                    name="email"
+                    value={formData.email || ""}
+                    onChange={handleFormData}
                     variant="outlined"
                   />
                 </div>
@@ -214,6 +235,9 @@ const StepTwo = ({ hotelData, roomData }) => {
                     id="outlined-basic"
                     label="Full Name *"
                     margin="normal"
+                    value={formData.name || ""}
+                    name="name"
+                    onChange={handleFormData}
                     variant="outlined"
                   />
                   <TextField
@@ -221,6 +245,9 @@ const StepTwo = ({ hotelData, roomData }) => {
                     id="outlined-basic"
                     label="Email *"
                     margin="normal"
+                    value={formData.email || ""}
+                    name="email"
+                    onChange={handleFormData}
                     sx={{ ml: 1 }}
                     variant="outlined"
                   />
@@ -230,6 +257,9 @@ const StepTwo = ({ hotelData, roomData }) => {
                     InputProps={{ className: "custom-input" }}
                     id="outlined-basic"
                     label="Contact No. *"
+                    value={formData.mobileNo || ""}
+                    name="mobileNo"
+                    onChange={handleFormData}
                     margin="normal"
                     variant="outlined"
                   />
@@ -313,7 +343,6 @@ const StepTwo = ({ hotelData, roomData }) => {
           hotelData={hotelData}
           roomData={roomData}
         />
-      
       </Grid>
     </div>
   );
