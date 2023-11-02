@@ -25,8 +25,15 @@ import { loadStripe } from "@stripe/stripe-js";
 import { calculateThePrice } from "../../Utilis/_fuctions";
 import { useMemo } from "react";
 import { useAuthContext } from "../../context/userAuthContext";
+import axios from "axios";
 
-const StepThree = ({ hotelData, roomData }) => {
+const StepThree = ({
+  hotelData,
+  roomData,
+  formData,
+  setFormData,
+  handleFormData,
+}) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = new URLSearchParams(document.location.search);
   const { currentUser } = useAuthContext();
@@ -52,13 +59,7 @@ const StepThree = ({ hotelData, roomData }) => {
 
   const [activeTab, setActiveTab] = useState("payOnline"); // Initialize the active tab state
 
-  const [formData, setFormData] = useState({
-    cardNumber: "",
-    cardholderName: "",
-    expirationDate: "",
-    cvv: "",
-    orderId: "#HT0123456",
-  });
+  const [paymentStatus, setPaymentStatus] = useState(false);
 
   // yaha se dobara flow start kro  ------------------------------------------------------------------------------------------------------------
   // checkoute itemss
@@ -78,18 +79,18 @@ const StepThree = ({ hotelData, roomData }) => {
     },
   ]);
 
-  const handleInputChange = (field, value) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      [field]: value,
-    }));
-  };
+  // const handleInputChange = (field, value) => {
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     [field]: value,
+  //   }));
+  // };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Here you can process the formData, perform validation, and handle the payment
-    console.log(formData);
-  };
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   // Here you can process the formData, perform validation, and handle the payment
+  //   console.log(formData);
+  // };
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -124,32 +125,110 @@ const StepThree = ({ hotelData, roomData }) => {
 
   // payment integration
   const makePayment = async () => {
-    const stripe = await loadStripe(
-      "pk_test_51O2tezSBvo7xLGZXm6nnypNabyvvn56l4TMy85SXcRf8D8l1FFON7RDzd8jdEdoTXfKirTFaPY0zozkbKS6aFyj900AE74slEY"
-    );
+    // const stripe = await loadStripe(
+    //   "pk_test_51O2tezSBvo7xLGZXm6nnypNabyvvn56l4TMy85SXcRf8D8l1FFON7RDzd8jdEdoTXfKirTFaPY0zozkbKS6aFyj900AE74slEY"
+    // );
 
-    const body = {
-      hotelData: checkOutItems,
+    // const body = {
+    //   hotelData: checkOutItems,
+    // };
+    // const headers = {
+    //   "Content-Type": "application/json",
+    // };
+    // const response = await fetch(`${API_URL}/api/create-checkout-session`, {
+    //   method: "POST",
+    //   headers: headers,
+    //   body: JSON.stringify(body),
+    // });
+
+    // const session = await response.json();
+
+    // const result = stripe.redirectToCheckout({
+    //   sessionId: session.id,
+    // });
+
+    // if (result.error) {
+    //   console.log(result.error);
+    // }
+    // const amount = calculateThePrice(
+    //   currentSearchParam,
+    //   qunatityRooms,
+    //   priceOfaRoom,
+    //   totalDays,
+    //   0.2
+    // );
+
+    // const allData = await GetBookingData(
+    //   result,
+    //   formData,
+    //   currentUser?._id,
+    //   checkIn,
+    //   checkOut,
+    //   totalGuest,
+    //   roomData?._id,
+    //   qunatityRooms,
+    //   hotelData?._id,
+    //   amount.AmountWithGst,
+    //   "pool",
+    //   "HTGET20",
+    //   amount.discountAmount,
+    //   "web",
+    //   0
+    // );
+    // sessionStorage.setItem("booking", JSON.stringify(allData));
+  };
+
+  // Confirm The booking
+  const GetBookingData = (
+    payment,
+    formData,
+    customerid,
+    checkIn,
+    checkOut,
+    numberOfGuests,
+    roomId,
+    numberOfrooms,
+    hotelId,
+    amount,
+    specialRequests,
+    promoCode,
+    discountAmount,
+    bookingSource,
+    additonalCharges
+  ) => {
+    return {
+      room: roomId,
+      numberOfRoom: numberOfrooms,
+      hotel: hotelId,
+      guest: {
+        name: formData?.name,
+        email: formData?.email,
+        phoneNumber: formData?.mobileNo,
+      },
+      bookingDate: {
+        checkIn: checkIn,
+        checkOut: checkOut,
+      },
+      amount: amount,
+      dateOfBooking: Date.now(),
+      payment: {
+        status: "success",
+        method: "card",
+        transactionID: payment?.id,
+        confirmationNumber: "C543210",
+        date: "2023-10-16T11:30:00.000Z",
+      },
+      specialRequests: specialRequests,
+      additionalCharges: additonalCharges,
+      promoCode: promoCode,
+      discountAmount: discountAmount,
+      numberOfGuests: {
+        adults: numberOfGuests,
+      },
+      numberOfRooms: numberOfrooms,
+      bookingSource: "website",
+      customer: customerid,
     };
-    const headers = {
-      "Content-Type": "application/json",
-    };
-    const response = await fetch(`${API_URL}/api/create-checkout-session`, {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify(body),
-    });
-
-    const session = await response.json();
-
-    const result = stripe.redirectToCheckout({
-      sessionId: session.id,
-    });
-    setPaymentDetails(result);
-
-    if (result.error) {
-      console.log(result.error);
-    }
   };
 
   const TotalPrice = (quantity, price, day) => {
@@ -182,25 +261,26 @@ const StepThree = ({ hotelData, roomData }) => {
   //     dateOfBooking: currentDate,
   //     payment: {
   //       status: "success",
-  //       method: "debit card", 
+  //       method: "debit card",
   //       transactionID: "PQR54321",
-  //       confirmationNumber: "C543210", 
+  //       confirmationNumber: "C543210",
   //       date: "2023-10-16T11:30:00.000Z",
   //     },
   //     specialRequests: "Ocean-view room",
   //     bookingStatus: "confirmed",
-  //     additionalCharges: 100, 
+  //     additionalCharges: 100,
   //     promoCode: "WINTER2023",
-  //     discountAmount: 300, 
+  //     discountAmount: 300,
   //     numberOfGuests: {
   //       adults: totalGuest,
   //     },
-  //     numberOfRooms: qunatityRooms, 
+  //     numberOfRooms: qunatityRooms,
   //     bookingSource: "web",
-  //     customer: currentUser?._id, 
+  //     customer: currentUser?._id,
   //   }),
   //   []
   // );
+
   return (
     <div className="container p-2">
       <Grid container spacing={2}>
@@ -369,13 +449,13 @@ const StepThree = ({ hotelData, roomData }) => {
                 className="d-flex justify-content-between align-items-center p-2 rounded"
               >
                 <Typography variant="h6" gutterBottom>
-                  Your Name
+                  {formData?.name}
                 </Typography>
                 <Typography variant="p" gutterBottom>
-                  xyz@gmail.com
+                  {formData?.email}
                 </Typography>
                 <Typography variant="p" gutterBottom>
-                  999999999
+                  {formData?.mobileNo}
                 </Typography>
               </div>
             </Grid>

@@ -271,6 +271,8 @@ const Navbar = ({ list }) => {
     }
   }, []);
 
+ 
+
   return (
     <div className="">
       <header
@@ -301,17 +303,14 @@ const Navbar = ({ list }) => {
                   >
                     <h5>
                       <b>
-                        Get 999 INR instantly Credit in your account on Sign Up. Also
-                        become eligible for refer and earn.
+                        Get 999 INR instantly Credit in your account on Sign Up.
+                        Also become eligible for refer and earn.
                       </b>
                     </h5>
                   </marquee>
                   <div className="col-md-2 col-lg-12 col-xl-2 p-0 m-0">
                     <Link to="/" className={`${style.logo} ms-4`}>
-                      <img
-                        alt="logo"
-                        src={HotelioLogo}
-                      />
+                      <img alt="logo" src={HotelioLogo} />
                     </Link>
                   </div>
                   <div
