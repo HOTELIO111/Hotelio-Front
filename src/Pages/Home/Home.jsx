@@ -25,7 +25,7 @@ const Home = (props) => {
   return (
     <>
       <Helmet>
-        <title>Online hotel Booking in India | Hotelio</title>
+        <title>Online Hotel Booking Sites in India | Hoteliorooms</title>
         <meta name="keywords"
           content="online hotel booking, hoteliorooms, hotelio, online hotel booking in india, best hotel in lucknow,hotel booking in lucknow, five star hotel in lucknow" />
 

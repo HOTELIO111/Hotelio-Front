@@ -15,7 +15,7 @@ const Process = () => {
 
             <div>
                 <div className="p-2 text-center">
-                    <h1>Best Online Hotel Booking in India - Hoteliorooms</h1>
+                    <h1>Best Online Hotel Booking Sites in India - Hoteliorooms</h1>
                     <hr />
                     <Typography variant="body1" textAlign={'left'} className='p-2'>
                         Hotelio Rooms is the <b>best online hotel booking in India</b> with multiple features that directly help you get all the convenient stuff during your trip. As an AI-based responsive service, it is capable of assisting you with the website or app where you can get all the facilities you are looking for. It will not be an exaggeration to say that once you get the pleasurable experience of booking with enormous facilities, you will always choose this for your planned booking.
