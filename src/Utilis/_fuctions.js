@@ -120,3 +120,57 @@ export const calculateThePrice = (
     AmountWithGst,
   };
 };
+
+// Convert the time and revert it
+
+export const convertToUTC = (dateString) => {
+  const [day, month, year] = dateString.split("-").map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day, 11, 0, 0, 0)); // Month is 0-based
+  return date.toISOString();
+};
+
+export const convertFromUTC = (utcDateString) => {
+  const date = new Date(utcDateString);
+  const year = date.getUTCFullYear();
+  const month = date.getUTCMonth() + 1; // Month is 0-based
+  const day = date.getUTCDate();
+  return `${year}-${month < 10 ? "0" : ""}${month}-${
+    day < 10 ? "0" : ""
+  }${day}`;
+};
+
+export function convertDatesToUTC(dateObjects) {
+  const utcDates = dateObjects?.map((dateObj) => {
+    const localDate = new Date(
+      dateObj.$y,
+      dateObj.$M,
+      dateObj.$D,
+      dateObj.$H,
+      dateObj.$m,
+      dateObj.$s
+    );
+    const utcDate = new Date(localDate.toUTCString());
+    return utcDate.toISOString();
+  });
+
+  return utcDates;
+}
+
+export function convertDatesFromUTC(utcDateStrings) {
+  const dateObjects = utcDateStrings.map((utcDateString) => {
+    const utcDate = new Date(utcDateString);
+    return {
+      $L: 'en',
+      $u: undefined,
+      $d: utcDate,
+      $y: utcDate.getUTCFullYear(),
+      $M: utcDate.getUTCMonth(),
+      $D: utcDate.getUTCDate(),
+      $H: utcDate.getUTCHours(),
+      $m: utcDate.getUTCMinutes(),
+      $s: utcDate.getUTCSeconds(),
+    };
+  });
+
+  return dateObjects;
+}

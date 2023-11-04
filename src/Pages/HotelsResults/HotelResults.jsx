@@ -74,31 +74,28 @@ const HotelResults = () => {
   // filter the hotel data as per the page and pagesize
   const FilterhotelsData = (data, pagination) => {
     const length = data.length;
-    const totalPageCounts = paginationManage(length);
-    setTotalPages(totalPageCounts);
-    const hotelData = data;
-    switch (currentSearchParams.sort) {
-      case "popularity":
-        hotelData?.sort((a, b) => b.hotelRatings - a.hotelRatings);
-        break;
-      case "ratings":
-        hotelData?.sort((a, b) => b.hotelRatings - a.hotelRatings);
-        break;
-      case "l2h":
-        hotelData?.sort(
-          (a, b) => PriceManagement(a).price - PriceManagement(b).price
-        );
-        break;
-      case "h2l":
-        hotelData?.sort(
-          (a, b) => PriceManagement(b)?.price - PriceManagement(a)?.price
-        );
-        break;
-    }
-    const startIndex = (pagination - 1) * 5;
-    const endIndex = startIndex + 5;
-    const dataArray = hotelData?.slice(startIndex, endIndex);
-    setHotels(dataArray);
+    // const totalPageCounts = paginationManage(length);
+    // setTotalPages(totalPageCounts);
+    // const hotelData = data;
+    // switch (currentSearchParams.sort) {
+    //   case "popularity":
+    //     hotelData?.sort((a, b) => b.hotelRatings - a.hotelRatings);
+    //     break;
+    //   case "ratings":
+    //     hotelData?.sort((a, b) => b.hotelRatings - a.hotelRatings);
+    //     break;
+    //   case "l2h":
+    //     hotelData?.sort(
+    //       (a, b) => PriceManagement(a).price - PriceManagement(b).price
+    //     );
+    //     break;
+    //   case "h2l":
+    //     hotelData?.sort(
+    //       (a, b) => PriceManagement(b)?.price - PriceManagement(a)?.price
+    //     );
+    //     break;
+    // }
+    setHotels(data);
   };
 
   // to make the api call on the change of the query ------------------------------------------
@@ -114,7 +111,7 @@ const HotelResults = () => {
         );
         if (response.status === 200) {
           // setHotels(response.data.data);
-          setTotalPages(response.data.data.length);
+          setTotalPages(response.data.totalCount);
           FilterhotelsData(response.data.data, pagination);
           window.localStorage.setItem(
             "search",

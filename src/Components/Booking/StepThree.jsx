@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import OrderSucessfully from "../../images/OrderSucessfully.gif";
 import "./BookingSteps.css";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import BookingInfo from "./BookingInfo";
 import { API_URL } from "../../config";
 import { loadStripe } from "@stripe/stripe-js";
@@ -26,6 +26,7 @@ import { calculateThePrice } from "../../Utilis/_fuctions";
 import { useMemo } from "react";
 import { useAuthContext } from "../../context/userAuthContext";
 import axios from "axios";
+import CcavForm from "./CcavForm";
 
 const StepThree = ({
   hotelData,
@@ -122,6 +123,7 @@ const StepThree = ({
   const handleSubmitS = (event) => {
     event.preventDefault();
   };
+  const navigate = useNavigate();
 
   // payment integration
   const makePayment = async () => {
@@ -129,6 +131,10 @@ const StepThree = ({
     //   "pk_test_51O2tezSBvo7xLGZXm6nnypNabyvvn56l4TMy85SXcRf8D8l1FFON7RDzd8jdEdoTXfKirTFaPY0zozkbKS6aFyj900AE74slEY"
     // );
 
+    navigate("/ccav");
+    // const stripe = await loadStripe(
+    //   "pk_test_51O2tezSBvo7xLGZXm6nnypNabyvvn56l4TMy85SXcRf8D8l1FFON7RDzd8jdEdoTXfKirTFaPY0zozkbKS6aFyj900AE74slEY"
+    // );
     // const body = {
     //   hotelData: checkOutItems,
     // };
@@ -229,6 +235,14 @@ const StepThree = ({
       bookingSource: "website",
       customer: customerid,
     };
+    // const session = await response.json();
+    // const result = stripe.redirectToCheckout({
+    //   sessionId: session.id,
+    // });
+    // setPaymentDetails(result);
+    // if (result.error) {
+    //   console.log(result.error);
+    // }
   };
 
   const TotalPrice = (quantity, price, day) => {

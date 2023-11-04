@@ -13,6 +13,7 @@ import store from "./store/store";
 import { createMuiTheme, ThemeProvider } from "@mui/material/styles";
 import { BookingProvider } from "./context/useBooking";
 import CssBaseline from "@mui/material/CssBaseline";
+import { StateManagerProvider } from "./context/useStateManager";
 
 const customTheme = createMuiTheme({
   typography: {
@@ -27,20 +28,22 @@ const CLIENT_ID = GOOGLE_OAUTH_CLIENT_ID;
 root.render(
   <React.StrictMode>
     <GoogleOAuthProvider clientId={CLIENT_ID}>
-      <SearchProvider>
-        <AuthProvider>
-          <BookingProvider>
-            <BrowserRouter>
-              <ThemeProvider theme={customTheme}>
-                <Provider store={store}>
-                  <CssBaseline />
-                  <App />
-                </Provider>
-              </ThemeProvider>
-            </BrowserRouter>
-          </BookingProvider>
-        </AuthProvider>   
-      </SearchProvider>
+      <StateManagerProvider>
+        <SearchProvider>
+          <AuthProvider>
+            <BookingProvider>
+              <BrowserRouter>
+                <ThemeProvider theme={customTheme}>
+                  <Provider store={store}>
+                    <CssBaseline />
+                    <App />
+                  </Provider>
+                </ThemeProvider>
+              </BrowserRouter>
+            </BookingProvider>
+          </AuthProvider>
+        </SearchProvider>
+      </StateManagerProvider>
     </GoogleOAuthProvider>
   </React.StrictMode>
 );

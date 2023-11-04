@@ -496,7 +496,7 @@ body {
   border-radius: 24px !important;
 }
 
-.css-igs3ac{
+.css-igs3ac {
   border-radius: 24px !important;
 }
 
@@ -547,6 +547,33 @@ body {
   }
 }
 
+.ButtonPrimary {
+  background-color: #ee2e24;
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.15);
+  /* border-radius: 5px; */
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 10px 20px;
+  border: 1px solid #ee2e24;
+  color: white;
+  user-select: none;
+}
+.ButtonPrimary:hover {
+  background-color: #973732;
+  border: 1px solid #973732;
+}
 
+.ButtonSecondary {
+  background-color: #707079;
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.15);
+  border-radius: 100%;
+  padding: 4px 12px;
+  border: 1px solid #707079;
+  color: white;
+  user-select: none;
+}
 
-
+.ButtonSecondary:hover {
+  background-color: #4d4d53;
+  border: 1px solid #4d4d53;
+}
