@@ -17,7 +17,7 @@ const Dates = ({ setCheckInCheckOut, checkInCheckOut }) => {
       return date.toISOString();
     });
     setCheckInCheckOut(dateObjects);
-    setSelectedDate(dates); // Update selectedData with the selected date range
+    setSelectedDate(dates);
   };
 
   const disabledDate = (current) => {
@@ -33,10 +33,9 @@ const Dates = ({ setCheckInCheckOut, checkInCheckOut }) => {
         popupClassName={style.popup}
         placeholder={["Check In", "Check Out"]}
         inputPrefixCls={style.placeholder}
-        value={selectedData}
+        value={checkInCheckOut}
         required={true}
-        onChange={handleDateValue}
-        // ref={datePickerRef}
+        onChange={(value, newValue) => setCheckInCheckOut(value)}
       />
     </Space>
   );

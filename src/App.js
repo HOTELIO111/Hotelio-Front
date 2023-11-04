@@ -37,6 +37,7 @@ import TravelLoginSignup from "./Pages/Travel Partner Pages/TravelLoginSignup";
 import TravelHome from "./Pages/Travel Partner Pages/TravelHome";
 import TravelProfile from "./Pages/Travel Partner Pages/TravelProfile";
 import AllCities from "./Pages/AllCities/AllCities";
+import CcavForm from "./Components/Booking/CcavForm";
 
 function App() {
   const { currentUser } = useAuthContext();
@@ -124,6 +125,7 @@ function App() {
         <Route path="/Payment_success" element={<SuccessPage />} />
         <Route path="/Payment_failed" element={<FailedPage />} />
         <Route path="/allCities" element={<AllCities />} />
+        <Route path="/ccav" element={<CcavForm />} />
 
         {/* Mobile pages */}
 

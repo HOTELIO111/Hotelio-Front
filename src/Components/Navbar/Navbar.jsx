@@ -31,6 +31,8 @@ import { API_URL } from "../../config";
 import InfoIcon from "@mui/icons-material/Info";
 import CitywiseDropedown from "../CitywiseDropedown/CitywiseDropedown";
 import { useAuthContext } from "../../context/userAuthContext";
+import { convertDatesToUTC } from "../../Utilis/_fuctions";
+import { useCollections } from "../../context/useStateManager";
 
 const Navbar = ({ list }) => {
   // Locatio Asked function
@@ -49,6 +51,8 @@ const Navbar = ({ list }) => {
     setLogin(null);
   };
 
+  // Quick Nav
+  const [selectedCategory, setSelectedCategory] = useState(null);
   // Popover Material UI Code
 
   const navigate = useNavigate();
@@ -56,7 +60,7 @@ const Navbar = ({ list }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openOptions, setOpenOptions] = useState(false);
   // selected checkinCheckOut Date
-  const [checkInCheckOut, setCheckInCheckOut] = useState([]);
+  const { checkInCheckOut, setCheckInCheckOut } = useCollections();
 
   const StyledMenu = styled((props) => (
     <Menu
@@ -212,13 +216,13 @@ const Navbar = ({ list }) => {
 
   // ---------------------------------search the hotel -------------------------------------------------------------------------
   const searchData = {
-    // location: selectedCity,
+    location: selectedCity,
     lng: geoLoc?.longitude,
     lat: geoLoc?.latitude,
     totalRooms: manageRoom.length,
     totalGuest: manageRoom.reduce((a, b) => a + b.guest, 0),
-    checkIn: checkInCheckOut[0],
-    checkOut: checkInCheckOut[1],
+    checkIn: convertDatesToUTC(checkInCheckOut)[0],
+    checkOut: convertDatesToUTC(checkInCheckOut)[1],
     kmRadius: 20,
     priceMin: 400,
     priceMax: 20000,
@@ -588,10 +592,6 @@ const Navbar = ({ list }) => {
                     <h2 className={` text-white ${style.text_shadow}`}>
                       Welcome To Hotelio, Your Travel Partner
                     </h2>
-                    {/* <h4 className={`py-3 text-white ${style.text_shadow}`}>
-                        Where comfort meets convenience and your journey begins
-                        with a click
-                      </h4> */}
                   </div>
                 </div>
                 <div className="col-lg-12 px-0">
@@ -602,14 +602,6 @@ const Navbar = ({ list }) => {
                       >
                         <HotelIcon className="text-danger me-2" />
                         <input type="text" ref={inputRef} />
-                        {/* <fieldset className={`d-flex align-items-center`}>
-                          <HotelIcon className="text-danger me-2" />
-                          <Dropdown
-                            citites={citites ? citites : DummyArray}
-                            name="cityHotel"
-                            setSlectedCity={setSlectedCity}
-                          />
-                        </fieldset> */}
                       </div>
 
                       <div className={`col-lg-4 align-self-center`}>
@@ -754,7 +746,10 @@ const Navbar = ({ list }) => {
               </div>
             </div>
             <div style={{ marginTop: "50px" }} className="container">
-              <QuickFilterNav />
+              <QuickFilterNav
+                setSelectedCategory={setSelectedCategory}
+                selectedCategory={selectedCategory}
+              />
             </div>
           </div>
         </>

@@ -19,6 +19,7 @@ import { useAuthContext } from "../../context/userAuthContext";
 import { useEffect } from "react";
 import { useState } from "react";
 import Skeleton from "react-loading-skeleton";
+import { current } from "@reduxjs/toolkit";
 
 const HotelList = ({
   hotels,
@@ -63,7 +64,7 @@ const HotelList = ({
   const PriceManagement = (hotelData) => {
     const report = {};
     hotelData?.rooms?.forEach((element) => {
-      report[element?.roomType?._id] = {
+      report[element?.roomType?._id] = { 
         price: element?.price,
         title: element?.roomType?.title,
       };
@@ -76,15 +77,45 @@ const HotelList = ({
       };
       Object.assign(result, newData);
     } else {
-      const roomListPriceList = Object.values(report);
-      const minPrice = roomListPriceList.sort((a, b) => a?.price - b?.price);
-      Object.assign(result, minPrice[0]);
+      if (
+        currentSearchParams.sort === "l2h" ||
+        currentSearchParams.sort === "h2l"
+      ) {
+        if (currentSearchParams.sort === "l2h") {
+          const roomListPriceList = Object.values(report);
+          const minPrice = roomListPriceList.sort(
+            (a, b) => a?.price - b?.price
+          );
+          Object.assign(result, minPrice[0]);
+        } else {
+          const roomListPriceList = Object.values(report);
+          const minPrice = roomListPriceList.sort(
+            (a, b) => b?.price - a?.price
+          );
+          Object.assign(result, minPrice[0]);
+        }
+      } else {
+        const roomListPriceList = Object.values(report);
+        const minPrice = roomListPriceList.sort((a, b) => a?.price - b?.price);
+        Object.assign(result, minPrice[0]);
+      }
     }
     return result;
   };
 
   // Check the value in localStorage
   const loggedIn = localStorage.getItem("customer");
+
+  // TO manage the paginationn
+  const Page = (count, pagesize) => {
+    let result;
+    if (Math.round(count / pagesize) > count / 5) {
+      result = Math.round(count / pagesize);
+    } else {
+      result = Math.round(count / pagesize) + 1;
+    }
+    return result;
+  };
 
   // update the pagination
   useEffect(() => {
@@ -335,7 +366,7 @@ const HotelList = ({
       ))}
       <div className="d-flex justify-content-center py-2">
         <Pagination
-          count={totalPages}
+          count={Page(totalPages, 5)}
           page={pagination}
           onChange={(value, newValue) => setPagination(newValue)}
         />
