@@ -33,6 +33,7 @@ import CitywiseDropedown from "../CitywiseDropedown/CitywiseDropedown";
 import { useAuthContext } from "../../context/userAuthContext";
 import { convertDatesToUTC } from "../../Utilis/_fuctions";
 import { useCollections } from "../../context/useStateManager";
+import { useSearch } from "../../context/useSearch";
 
 const Navbar = ({ list }) => {
   // Locatio Asked function
@@ -51,6 +52,7 @@ const Navbar = ({ list }) => {
     setLogin(null);
   };
 
+
   // Quick Nav
   const [selectedCategory, setSelectedCategory] = useState(null);
   // Popover Material UI Code
@@ -60,7 +62,7 @@ const Navbar = ({ list }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openOptions, setOpenOptions] = useState(false);
   // selected checkinCheckOut Date
-  const { checkInCheckOut, setCheckInCheckOut } = useCollections();
+  const { checkInCheckOut, setCheckInCheckOut ,GetPlaceInfo } = useCollections();
 
   const StyledMenu = styled((props) => (
     <Menu
@@ -275,10 +277,8 @@ const Navbar = ({ list }) => {
     }
   }, []);
 
- 
-
   return (
-    <div className="">
+    <div>
       <header
         className={`${style.header_area}  ${style.header_sticky} ${style.wow} ${
           style.slideInDown
@@ -330,6 +330,7 @@ const Navbar = ({ list }) => {
                           alignItems: "center",
                         }}
                       >
+                       
                         <NavLink
                           to="/"
                           className={`${!list ? "text-dark w-100" : ""}`}
@@ -349,6 +350,7 @@ const Navbar = ({ list }) => {
                           to="/about"
                           className={`${!list ? "text-dark" : ""}`}
                         >
+                          {console.log(GetPlaceInfo('chennai'))
                           <InfoIcon /> About Us
                         </NavLink>
                       </li>

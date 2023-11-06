@@ -6,6 +6,7 @@ import { buildQueryString, validateInput } from "../Utilis/_fuctions";
 import { API_URL } from "../config";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import Swal from "sweetalert2";
+import instance from "../store/_utils";
 
 const AuthContext = createContext();
 
@@ -240,6 +241,34 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const GetAgentLogin = async (formData) => {
+    try {
+      const queryUrl = new URLSearchParams({
+        mobileNo: formData.mobileNo,
+        otp: formData.otp,
+        password: formData.password,
+      }).toString();
+      const response = await instance.get(`/api/agent/auth/login?${queryUrl}`);
+      if (response.status === 200) {
+        Swal.fire({ icon: "success", title: "Login Successfully " });
+        window.localStorage.setItem(
+          "customer",
+          JSON.stringify(response.data.data)
+        );
+        window.localStorage.setItem("token", response.data.token);
+        window.location.href = "/";
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Login Failed ",
+          text: response.data.error,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     GetAllAmenities();
     GetAllFacilities();
@@ -269,6 +298,7 @@ const AuthProvider = ({ children }) => {
         facilities,
         roomType,
         amenities,
+        GetAgentLogin,
         propertyType,
       }}
     >
