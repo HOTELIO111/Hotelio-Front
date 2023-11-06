@@ -350,7 +350,7 @@ const Navbar = ({ list }) => {
                           to="/about"
                           className={`${!list ? "text-dark" : ""}`}
                         >
-                          {console.log(GetPlaceInfo('chennai'))
+                          {/* {console.log(GetPlaceInfo('chennai')) */}
                           <InfoIcon /> About Us
                         </NavLink>
                       </li>

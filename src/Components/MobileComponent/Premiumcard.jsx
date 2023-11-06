@@ -3,9 +3,9 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import HotelBudgetTwo from '../../images/HotelInBudgetTwo.png';
-import PrimeHotelTwo from '../../images/PrimeHotelTwo.png';
-import HomeStayTwo from '../../images/HomeStayTwo.png';
+import HotelBudgetTwo from '../../images/HotelInBudgetTwo.webp';
+import PrimeHotelTwo from '../../images/PrimeHotelTwo.webp';
+import HomeStayTwo from '../../images/HomeStayTwo.webp';
 import { useNavigate } from 'react-router';
 
 const cardStyles = {

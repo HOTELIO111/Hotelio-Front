@@ -1,6 +1,6 @@
 import React from 'react'
 import style from './AboutUs.module.css'
-import AboutUsImage from '../../images/AboutUs.png'
+import AboutUsImage from '../../images/AboutUs.webp'
 import AboutUsBanner from '../../images/AboutUsBanner.png'
 import { NavLink } from 'react-router-dom'
 
@@ -9,9 +9,6 @@ const AboutUs = () => {
         <div>
             <div className={`p-5 ${style.AboutUsContainerFirst}`}>
                 <div className="row">
-                    <div className='col-xl-4'>
-                        <img width={400} src={AboutUsImage} />
-                    </div>
                     <div className='col-xl-8' style={{ display: 'grid', placeItems: 'center', color: '#FFD700' }}>
                         <div>
                             <h2 className='mb-5'>ABOUT US</h2>
@@ -23,7 +20,7 @@ const AboutUs = () => {
                                 easy and comfortable stays to your
                                 fingertips. Explore our vast network of
                                 premium hotels, budget-friendly options,
-                                and authentic homestays. */}
+                            and authentic homestays. */}
 
 
                                 India's leading online booking platform, revolutionizes the way travelers find and book accommodations. With our user-friendly app and website, we bring easy and comfortable stays to your fingertips. Explore our vast network of premium hotels, budget-friendly options, and authentic homestays. As India's first AI-enabled platform, we prioritize your comfort and provide hassle-free check-ins. Join us on a journey where travel meets convenience, and let Hotelio be your trusted partner for unforgettable stays India's leading online booking wherever your adventures take you. Hotelio is owned by Houda Carjour Tourism Pvt Ltd, India's Number 1 Fastest Leading Hotel Chain.
@@ -32,6 +29,9 @@ const AboutUs = () => {
                             </div>
                         </div>
                     </div>
+                            <div className='col-xl-4'>
+                                <img width={400} src={AboutUsImage} className='rounded' />
+                            </div>
                 </div>
             </div>
             {/* <div className={`p-5 ${style.AboutUsContainerSecond}`}>

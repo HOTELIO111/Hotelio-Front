@@ -62,15 +62,15 @@ const Home = (props) => {
 
 
         <AboutUs />
-        <div className={`${style.homeContainer} container text-center`}>
-          {/* <h1
+        {/* <div className={`${style.homeContainer} container text-center`}>
+          <h1
           className={`${style.homeTitle} text-dark  fw-bold pb-4 ${
             isXtraSmallScreen ? "fs-4" : "fs-3"
           }`}
         >
           Our Testimonial
-        </h1> */}
-        </div>
+        </h1>
+        </div> */}
 
 
         <div className={` ${style.homeContainer} container text-center`}>
