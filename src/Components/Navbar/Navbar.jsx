@@ -62,7 +62,7 @@ const Navbar = ({ list }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openOptions, setOpenOptions] = useState(false);
   // selected checkinCheckOut Date
-  const { checkInCheckOut, setCheckInCheckOut ,GetPlaceInfo } = useCollections();
+  const { checkInCheckOut, setCheckInCheckOut  } = useCollections();
 
   const StyledMenu = styled((props) => (
     <Menu
@@ -214,6 +214,8 @@ const Navbar = ({ list }) => {
   useEffect(() => {
     GetAllCities();
   }, []);
+
+
   // ---------------------------------city get api
 
   // ---------------------------------search the hotel -------------------------------------------------------------------------
@@ -276,6 +278,8 @@ const Navbar = ({ list }) => {
       console.log(error);
     }
   }, []);
+
+
 
   return (
     <div>
@@ -350,7 +354,7 @@ const Navbar = ({ list }) => {
                           to="/about"
                           className={`${!list ? "text-dark" : ""}`}
                         >
-                          {console.log(GetPlaceInfo('chennai'))
+                          
                           <InfoIcon /> About Us
                         </NavLink>
                       </li>
