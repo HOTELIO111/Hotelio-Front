@@ -251,9 +251,9 @@ const SideFilter = (setFilterData, filterData) => {
       container
       spacing={1}
       sx={{ borderRadius: "8px" }}
-      className="border p-2 ml-1 m-2 d-none d-sm-block"
+      className="border ml-1 m-2 d-none d-sm-block"
     >
-      <Grid item xs={12}>
+      <Grid item pr={1} xs={12}>
         {/* ----------------------- Locaton search input ------------------------------ */}
         <div className="d-flex align-items-center flex-column justify-content-between">
           {/* <h6 className="text-left">Locations</h6> */}

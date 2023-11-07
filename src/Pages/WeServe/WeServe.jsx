@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./WeServe.module.css"; // Assuming you have a separate CSS module for styling
 import worldMap from "../../images/worldMap.png";
-import WeserveImage from "../../images/WeserveImage.png";
+import WeserveImage from "../../images/WeserveImage.webp";
 import style from "./WeServe.module.css";
 
 const WeServe = () => {
@@ -14,7 +14,7 @@ const WeServe = () => {
     >
       <div className={`row p-2 ${style.rowRevert}`}>
         <div className="col-xl-6 col-sm-12">
-          <img src={WeserveImage} className="img-fluid" alt="Weserve Banner" />
+          <img src={WeserveImage} alt="Weserve Banner" />
         </div>
         <div
           className="col-xl-6 col-sm-12"

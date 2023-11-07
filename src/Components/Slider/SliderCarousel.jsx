@@ -1,6 +1,8 @@
 import React from 'react';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
+import ImageOne from '../../images/luxurious.webp'
+import ImageTwo from '../../images/fortune.webp'
 
 const responsive = {
     0: { items: 1 },
@@ -12,27 +14,27 @@ const SliderCarousel = () => {
     const items = [
         // Slide 1
         <div style={{ maxHeight: '500px' }} className="item mx-2" data-value="1">
-            <img style={{ height: '250px', width: '100%' }} className='rounded' src="https://c4.wallpaperflare.com/wallpaper/686/52/945/luxurious-hotel-room-wallpaper-preview.jpg" alt="" />
+            <img style={{ height: '250px', width: '100%' }} className='rounded' src={ImageOne} alt="" />
         </div>,
         // Slide 2
         <div style={{ maxHeight: '500px' }} className="item mx-2" data-value="2">
-            <img style={{ height: '250px', width: '100%' }} className='rounded' src="https://media-cdn.tripadvisor.com/media/photo-m/1280/21/dc/27/d1/fortune-pandiyan-hotel.jpg" alt="" />
+            <img style={{ height: '250px', width: '100%' }} className='rounded' src={ImageTwo} alt="" />
         </div>,
         // Slide 3
         <div style={{ maxHeight: '500px' }} className="item mx-2" data-value="3">
-            <img style={{ height: '250px', width: '100%' }} className='rounded' src="https://c4.wallpaperflare.com/wallpaper/686/52/945/luxurious-hotel-room-wallpaper-preview.jpg" alt="" />
+            <img style={{ height: '250px', width: '100%' }} className='rounded' src={ImageOne} alt="" />
         </div>,
         // Slide 4
         <div style={{ maxHeight: '500px' }} className="item mx-2" data-value="4">
-            <img style={{ height: '250px', width: '100%' }} className='rounded' src="https://media-cdn.tripadvisor.com/media/photo-m/1280/21/dc/27/d1/fortune-pandiyan-hotel.jpg" alt="" />
+            <img style={{ height: '250px', width: '100%' }} className='rounded' src={ImageTwo} alt="" />
         </div>,
         // Slide 5
         <div style={{ maxHeight: '500px' }} className="item mx-2" data-value="5">
-            <img style={{ height: '250px', width: '100%' }} className='rounded' src="https://c4.wallpaperflare.com/wallpaper/686/52/945/luxurious-hotel-room-wallpaper-preview.jpg" alt="" />
+            <img style={{ height: '250px', width: '100%' }} className='rounded' src={ImageOne} alt="" />
         </div>,
         // Slide 6
         <div style={{ maxHeight: '500px' }} className="item mx-2" data-value="6">
-            <img style={{ height: '250px', width: '100%' }} className='rounded' src="https://media-cdn.tripadvisor.com/media/photo-m/1280/21/dc/27/d1/fortune-pandiyan-hotel.jpg" alt="" />
+            <img style={{ height: '250px', width: '100%' }} className='rounded' src={ImageTwo} alt="" />
         </div>,
     ];
 
