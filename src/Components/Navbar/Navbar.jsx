@@ -52,7 +52,6 @@ const Navbar = ({ list }) => {
     setLogin(null);
   };
 
-
   // Quick Nav
   const [selectedCategory, setSelectedCategory] = useState(null);
   // Popover Material UI Code
@@ -62,7 +61,7 @@ const Navbar = ({ list }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openOptions, setOpenOptions] = useState(false);
   // selected checkinCheckOut Date
-  const { checkInCheckOut, setCheckInCheckOut ,GetPlaceInfo } = useCollections();
+  const { checkInCheckOut, setCheckInCheckOut } = useCollections();
 
   const StyledMenu = styled((props) => (
     <Menu
@@ -214,6 +213,7 @@ const Navbar = ({ list }) => {
   useEffect(() => {
     GetAllCities();
   }, []);
+
   // ---------------------------------city get api
 
   // ---------------------------------search the hotel -------------------------------------------------------------------------
@@ -330,7 +330,6 @@ const Navbar = ({ list }) => {
                           alignItems: "center",
                         }}
                       >
-                       
                         <NavLink
                           to="/"
                           className={`${!list ? "text-dark w-100" : ""}`}
