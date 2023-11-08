@@ -1,6 +1,9 @@
 import React from 'react'
 import { Box, Card, Grid, Typography } from '@mui/material'
 import ProcessImage from '../../images/Process.png'
+import SearchSelect from '../../images/Search-Select.webp'
+import BookConfirm from '../../images/Book-Confirm.webp'
+import EnjoyBooking from '../../images/EnjoyHotel.webp'
 import style from './Process.module.css'
 import { useState } from 'react'
 
@@ -29,7 +32,7 @@ const Process = () => {
                         <Grid container spacing={2}>
                             <Grid item xs={12} md={4}>
                                 <Card className={style.processCardStyle} >
-                                    <img style={{ width: '180px', height: '180px' }} className='rounded-circle animate__animated animate__bounce animate__delay-3s' src="https://img.freepik.com/free-vector/real-estate-searching-concept_23-2148639937.jpg?w=740&t=st=1689235690~exp=1689236290~hmac=3f748d38133c3fbe944579f19fc04a40d482edd7a83631f87b54709146a1b33f" alt="" />
+                                    <img style={{ width: '180px', height: '180px' }} className='rounded-circle animate__animated animate__bounce animate__delay-3s' src={SearchSelect} alt="SearchSelect" />
                                     <Typography variant="h5" color='#FFD700' className='py-2' gutterBottom>
                                         <b>Search & Select</b>
                                     </Typography>
@@ -45,7 +48,7 @@ const Process = () => {
                             </Grid>
                             <Grid item xs={12} md={4}>
                                 <Card className={style.processCardStyle}>
-                                    <img style={{ width: '180px', height: '180px' }} className='rounded-circle animate__animated animate__bounce animate__delay-3s' src="https://img.freepik.com/free-vector/hotel-booking-concept-flat-style_23-2148167146.jpg?w=740&t=st=1689236031~exp=1689236631~hmac=19d6f7e7369231b0a0e31767af8967849647487cca32e1d397a5effbeb9e6267" alt="" />
+                                    <img style={{ width: '180px', height: '180px' }} className='rounded-circle animate__animated animate__bounce animate__delay-3s' src={BookConfirm} alt="BookConfirm" />
                                     <Typography variant="h5" color='#FFD700' className='py-2' gutterBottom>
                                         <b>Book & Confirm</b>
                                     </Typography>
@@ -61,7 +64,7 @@ const Process = () => {
                             </Grid>
                             <Grid item xs={12} md={4}>
                                 <Card className={style.processCardStyle}>
-                                    <img style={{ width: '180px', height: '180px' }} className='rounded-circle animate__animated animate__bounce animate__delay-3s' src="https://img.freepik.com/free-vector/refreshing-from-summer-heat-concept-illustration_114360-5805.jpg?size=626&ext=jpg&uid=R102512588&ga=GA1.2.703551834.1682442547&semt=sph" alt="" />
+                                    <img style={{ width: '180px', height: '180px' }} className='rounded-circle animate__animated animate__bounce animate__delay-3s' src={EnjoyBooking} alt="EnjoyBooking" />
                                     <Typography variant="h5" color='#FFD700' className='py-2' gutterBottom>
                                         <b>Enjoy Your Stay</b>
                                     </Typography>

@@ -23,6 +23,10 @@ import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import LocalPhoneRoundedIcon from "@mui/icons-material/LocalPhoneRounded";
 import VideoCameraFrontIcon from '@mui/icons-material/VideoCameraFront';
+import VISALOGO from '../../images/VISALogo.webp'
+import MASTERCARDLOGO from '../../images/MasterCardLogo.webp'
+import UPILOGO from '../../images/UPILogo.webp'
+import RUPAYLOGO from '../../images/RUPAYLogo.webp'
 
 const Footer = () => {
   const isXtraSmallScreen = useMediaQuery("(max-width:320px)");
@@ -272,10 +276,10 @@ const Footer = () => {
               style={{ fontSize: "20px", display: 'grid', placeItems: 'center' }}
             >
               <div className={` ${style.acceptPaymentStyle}`}>
-                <img src="https://1000logos.net/wp-content/uploads/2021/11/VISA-logo.png" alt="" />
-                <img src="https://freepngimg.com/thumb/mastercard/14-2-mastercard-download-png.png" alt="" />
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/UPI-Logo-vector.svg/1200px-UPI-Logo-vector.svg.png" alt="" />
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/RuPay.svg/330px-RuPay.svg.png" alt="" />
+                <img src={VISALOGO} alt="VISALOGO" />
+                <img src={MASTERCARDLOGO} alt="MASTERCARDLOGO" />
+                <img src={UPILOGO} alt="UPILOGO" />
+                <img src={RUPAYLOGO} alt="RUPAYLOGO" />
               </div>
             </div>
           </div>

@@ -21,7 +21,7 @@ import "./BookingSteps.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import BookingInfo from "./BookingInfo";
 import { API_URL } from "../../config";
-import { loadStripe } from "@stripe/stripe-js";
+// import { loadStripe } from "@stripe/stripe-js";
 import { calculateThePrice } from "../../Utilis/_fuctions";
 import { useMemo } from "react";
 import { useAuthContext } from "../../context/userAuthContext";

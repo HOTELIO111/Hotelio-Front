@@ -3,7 +3,7 @@ import style from "./navbar.module.css";
 import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import $ from "jquery";
 import Dates from "../date/Date";
-import hotel from "../../images/hotel-bg.png";
+import hotel from "../../images/hotel-bg.webp";
 import { styled, alpha } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
