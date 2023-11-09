@@ -9,12 +9,12 @@ const WeServe = () => {
     <div
       className={styles.weServeContainer} // Apply CSS class for styling
       style={{
-        backgroundImage: `url(${worldMap})`,
+        backgroundImage: `url(${worldMap})`, width: '100%'
       }}
     >
       <div className={`row p-2 ${style.rowRevert}`}>
         <div className="col-xl-6 col-sm-12">
-          <img src={WeserveImage} alt="Weserve Banner" />
+          <img src={WeserveImage} alt="Weserve Banner" width={'100%'} />
         </div>
         <div
           className="col-xl-6 col-sm-12"

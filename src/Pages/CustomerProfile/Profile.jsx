@@ -253,11 +253,10 @@ const Profile = () => {
               </div>
               <hr style={{ margin: "0.2rem 0rem" }} />
               <div
-                className={`mt-1 ${
-                  isMobile
+                className={`mt-1 ${isMobile
                     ? "text-center"
                     : "d-flex justify-content-evenly align-items-center"
-                }  ${style.button}`}
+                  }  ${style.button}`}
               >
                 {currentUser ? (
                   <TextField
@@ -353,8 +352,7 @@ const Profile = () => {
             <Card className="p-3" sx={{ ml: 1, maxWidth: "400px", background: 'transparent', boxShadow: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset', borderRadius: '15px', display: 'grid', placeItems: 'center' }}>
               <div>
                 <Typography variant="h6" fontWeight={700}>
-                  Get 999 INR instantly Credit in your account. Also become
-                  eligible for refer and earn.
+                  Get 999 INR instantly Credit in your account on Sign Up. Also become eligible for refer and earn.
                 </Typography>
                 <div className="d-flex justify-content-end">
                   <Button variant="contained" color="error" onClick={copyToClipboard} className="mt-2">

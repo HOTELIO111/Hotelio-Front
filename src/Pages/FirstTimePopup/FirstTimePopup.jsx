@@ -36,7 +36,7 @@ function FirstTimePopup() {
             {/* <DialogTitle>First-Time Popup</DialogTitle> */}
             <DialogContent>
                 <DialogContentText>
-                    <Typography fontWeight={700} variant='h5'>Get 999 INR instantly Credit in your account. Also become eligible for refer and earn.</Typography>
+                    <Typography fontWeight={700} variant='h5'>Get 999 INR instantly Credit in your account on Sign Up. Also become eligible for refer and earn.</Typography>
                 </DialogContentText>
                 <div className='d-flex justify-content-center align-items-center mt-3'>
                     <Button size='sm' variant='contained' onClick={copyTextToClipboard} color="error">
