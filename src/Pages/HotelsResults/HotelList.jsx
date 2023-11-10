@@ -64,7 +64,7 @@ const HotelList = ({
   const PriceManagement = (hotelData) => {
     const report = {};
     hotelData?.rooms?.forEach((element) => {
-      report[element?.roomType?._id] = { 
+      report[element?.roomType?._id] = {
         price: element?.price,
         title: element?.roomType?.title,
       };
@@ -128,6 +128,9 @@ const HotelList = ({
     <Container>
       {/* First hotel card */}
       <Grid sx={{ margin: "10px 0px" }} container>
+        <Grid item xs={12}>
+          <Typography variant="h3" fontWeight={700}>Welcome To Hotelio, Your Travel Partner</Typography>
+        </Grid>
         <Grid
           item
           xs={12}
@@ -144,7 +147,7 @@ const HotelList = ({
         >
           <div className="d-flex justify-content-between align-items-center">
             <h4>
-              <b>Here is your Searched Reasults of {location}</b>
+              <b>Here is your Searched Results of {location}</b>
             </h4>
             <Select
               value={currentSearchParams.sort}

@@ -6,6 +6,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
+import { isMobile } from 'react-device-detect';
 
 function FirstTimePopup() {
     const [open, setOpen] = useState(true);
@@ -35,8 +36,8 @@ function FirstTimePopup() {
         <Dialog open={open} onClose={handleClose}>
             {/* <DialogTitle>First-Time Popup</DialogTitle> */}
             <DialogContent>
-                <DialogContentText>
-                    <Typography fontWeight={700} variant='h5'>Get 999 INR instantly Credit in your account on Sign Up. Also become eligible for refer and earn.</Typography>
+                <DialogContentText className='text-center'>
+                    <Typography fontWeight={700} variant={isMobile ? 'body1' : 'h5'}>Get 999 INR instantly Credit in your account on Sign Up. Also become eligible for refer and earn.</Typography>
                 </DialogContentText>
                 <div className='d-flex justify-content-center align-items-center mt-3'>
                     <Button size='sm' variant='contained' onClick={copyTextToClipboard} color="error">

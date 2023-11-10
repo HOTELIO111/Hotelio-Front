@@ -1,6 +1,7 @@
 import { Button, ButtonGroup, ClickAwayListener, Grow, Input, MenuItem, MenuList, Paper, Popper, Typography } from '@mui/material'
 import React from 'react'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { isMobile } from 'react-device-detect';
 
 const TravelGstVerify = () => {
 
@@ -30,7 +31,7 @@ const TravelGstVerify = () => {
         setOpen(false);
     };
     return (
-        <div className='d-flex align-items-center justify-content-around'>
+        <div className={isMobile ? '' : 'd-flex align-items-center justify-content-around'}>
             <div>
                 <Typography fontWeight={600} variant='h5'>
                     Verify Your Organisation
@@ -40,7 +41,6 @@ const TravelGstVerify = () => {
                 </Typography>
             </div>
             <div>
-
                 <Popper
                     sx={{
                         zIndex: 1,
@@ -77,7 +77,7 @@ const TravelGstVerify = () => {
                         </Grow>
                     )}
                 </Popper>
-                <ButtonGroup variant="contained" ref={anchorRef} aria-label="split button">
+                <ButtonGroup sx={isMobile && { my: 2 }} variant="contained" ref={anchorRef} aria-label="split button">
                     <Button
                         size="small"
                         aria-controls={open ? 'split-button-menu' : undefined}

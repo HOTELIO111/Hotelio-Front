@@ -71,7 +71,7 @@ const TravelLoginSignup = () => {
           JSON.stringify(response.data.data)
         );
         window.localStorage.setItem("token", response.data.token);
-        window.location.href = "/";
+        window.location.href = "/Travel-Partner-Home";
       } else {
         Swal.fire({
           icon: "error",

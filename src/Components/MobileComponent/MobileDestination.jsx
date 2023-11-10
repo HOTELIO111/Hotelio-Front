@@ -12,6 +12,8 @@ import MumbaiIcon from '../../images/MumbaiIcon.jpg'
 import NoidaIcon from '../../images/NoidaIcon.jpg'
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useCollections } from '../../context/useStateManager';
+
 
 const CardContainer = styled(Paper)`
   display: flex;
@@ -28,6 +30,7 @@ const StyledCard = styled(Card)`
   margin: 4px;
   text-align: center;
 `;
+
 
 const cityCoordinates = {
     'Bangalore': {
@@ -73,31 +76,8 @@ const cityCoordinates = {
 };
 
 const MobileDestination = () => {
-    const [selectedCity, setSelectedCity] = useState('');
+    const { handleCityClick } = useCollections();
     const navigate = useNavigate();
-
-    const handleCitySelect = (city) => {
-        setSelectedCity(city);
-
-        // Get the coordinates for the selected city
-        const { latitude, longitude } = cityCoordinates[city];
-
-        // Construct the search data
-        const searchData = {
-            lat: latitude,
-            lng: longitude,
-            kmRadius: 20,
-            priceMin: 400,
-            priceMax: 20000,
-            sort: 'popularity',
-        };
-
-        // Construct the URL with query parameters
-        const queryParams = new URLSearchParams(searchData);
-        const targetURL = `/searchedhotels?${queryParams.toString()}`;
-
-        navigate(targetURL);
-    };
 
     return (
         <>
@@ -111,7 +91,7 @@ const MobileDestination = () => {
                     <Typography>Near me</Typography>
                 </StyledCard>
                 {Object.keys(cityCoordinates).map((city, index) => (
-                    <StyledCard onClick={() => handleCitySelect(city)} key={index}>
+                    <StyledCard onClick={() => handleCityClick(city)} key={index}>
                         <CardContent sx={{ padding: 0, textAlign: 'center' }}>
                             <Button>
                                 <img src={cityCoordinates[city].image} className='rounded' loading="lazy" alt={`Image ${index}`} />
@@ -122,7 +102,7 @@ const MobileDestination = () => {
                 ))}
                 <StyledCard>
                     <CardContent sx={{ padding: 0, textAlign: 'center' }}>
-                        <Button>
+                        <Button onClick={() => navigate("/allCities")}>
                             <img src={AllcitiesIcon} className='rounded' loading="lazy" alt='nearme' />
                         </Button>
                     </CardContent>
