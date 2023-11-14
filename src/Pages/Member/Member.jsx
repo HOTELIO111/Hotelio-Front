@@ -60,14 +60,17 @@ const Member = () => {
     >
       <div className={isMobile && 'mb-4 p-2'}>
         <Grid container spacing={1}>
-          <Grid item lg={6} xl={6}>
-            <div onClick={() => naviagte('/')} className="d-flex align-items-center">
+          <Grid item sx={{ display: 'grid', placeItems: 'center' }} xs={12} lg={3} xl={4}>
+            <div onClick={() => naviagte('/')} className="d-flex align-items-center justify-content-start">
               <img style={{ height: '120px', width: '150px' }} className={isMobile ? 'w-50 h-50' : ''} src={HoteliLogo} alt="logo" />
               <h3 style={{ color: '#ee2e24' }}>Business</h3>
             </div>
           </Grid>
-          <Grid item lg={6} xl={6}>
-            <div className="d-flex justify-content-end pr-2 align-items-center">
+          <Grid item sx={{ display: 'grid', placeItems: 'center', textAlign: 'center' }} xs={12}  lg={4} xl={4}>
+            <Typography color='error' fontWeight={800} variant={isMobile ? 'caption' : 'h5'}>Welcome To Hotelio, Your Travel Partner</Typography>
+          </Grid>
+          <Grid sx={{ display: 'grid', placeItems: 'center' }} item xs={12}  lg={5} xl={4}>
+            <div className="d-flex justify-content-end align-items-center">
               <Typography color='error' sx={{ pr: 2 }} variant={isMobile ? 'caption' : 'h6'}><LocalPhoneIcon /> +91 (811) 5510050</Typography>
               <Typography color='error' sx={{ borderLeft: '1px solid #ee2e24', padding: '0px 10px' }} variant={isMobile ? 'caption' : 'h6'}><EmailIcon /> info@hoteliorooms.com</Typography>
             </div>
@@ -309,20 +312,20 @@ const Member = () => {
               </use>
             </g>
           </svg>
-          <div className="border-top pt-3" style={{ position: 'absolute', top: '10px', width: '100%', left: '10px' }}>
+          <div className="border-top border-dark pt-3" style={{ position: 'absolute', top: '10px', width: '100%', left: '10px' }}>
             <Grid container spacing={2}>
               <Grid item xs={12} lg={6} className={isMobile && 'border-bottom border-danger"'}>
                 <u><Typography fontWeight={700} variant="h5">About</Typography></u>
                 <ul>
-                  <li><Typography fontWeight={600} variant="subtitle1">- About US</Typography></li>
-                  <li><Typography fontWeight={600} variant="subtitle1">- Contact US</Typography></li>
+                  <li><Typography sx={{ cursor: 'pointer' }} onClick={() => naviagte('/about')} fontWeight={600} variant="subtitle1">- About US</Typography></li>
+                  <li><Typography sx={{ cursor: 'pointer' }} onClick={() => naviagte('/contact')} fontWeight={600} variant="subtitle1">- Contact US</Typography></li>
                 </ul>
               </Grid>
               <Grid item xs={12} lg={6}>
                 <u><Typography fontWeight={700} variant="h5">List Property</Typography></u>
                 <ul>
-                  <li><Typography fontWeight={600} variant="subtitle1">- Terms & Condition</Typography></li>
-                  <li><Typography fontWeight={600} variant="subtitle1">- Privacy & Policy</Typography></li>
+                  <li><Typography sx={{ cursor: 'pointer' }} onClick={() => naviagte('/terms-condition')} fontWeight={600} variant="subtitle1">- Terms & Condition</Typography></li>
+                  <li><Typography sx={{ cursor: 'pointer' }} onClick={() => naviagte('/privacy')} fontWeight={600} variant="subtitle1">- Privacy & Policy</Typography></li>
                 </ul>
               </Grid>
             </Grid>

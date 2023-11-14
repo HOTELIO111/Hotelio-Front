@@ -172,7 +172,7 @@ const Contact = () => {
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3557.96877780391!2d80.99880607543919!3d26.904485976652023!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjbCsDU0JzE2LjIiTiA4McKwMDAnMDUuMCJF!5e0!3m2!1sen!2sin!4v1696829941027!5m2!1sen!2sin"
               height="470"
-              style={{ border: "0" }}
+              style={{ border: "0", borderRadius: '24px' }}
               allowfullscreen=""
             ></iframe>
           </div>

@@ -84,17 +84,17 @@ const HotelDetail = () => {
                   value={`${data?.hotelRatings}`}
                   readOnly
                 />
-                <Typography display={"block"} variant="p">
+                <Typography display={"block"} variant="subtitle2">
                   {data?.address}
                 </Typography>
               </div>
-              <div className="border">
-                <Typography className="bg-success text-center" variant="h5">
+              <div style={{ marginLeft: '5px' }} className="border">
+                <Typography display="block" className="bg-success text-center" variant="h5">
                   4.5
                 </Typography>
                 <Typography
-                  className="bg-secondary text-nowrap p-1"
-                  variant="p"
+                  className="bg-secondary p-1"
+                  variant="caption" display="block"
                 >
                   14 Rating
                 </Typography>

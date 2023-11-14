@@ -12,7 +12,7 @@ import Hotel25 from "../../images/hotelPic25.jpg";
 import Hotel6 from "../../images/hotelPic7.jpg";
 import DecorImage from '../../images/DecorImage.png'
 import DecorImageS from '../../images/DecoreImageS.jpg'
-import AboutUsTopBanner from '../../images/AboutUsTopBanner.jpg'
+import AboutUsTopBanner from '../../images/AboutUsTopBanner.webp'
 import Client from '../../images/Client.jpg'
 import LabelImportantRoundedIcon from "@mui/icons-material/LabelImportantRounded";
 import MobileFooter from "../../Components/MobileComponent/MobileFooter";

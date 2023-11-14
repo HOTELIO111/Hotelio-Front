@@ -14,10 +14,11 @@ import Hotel25 from "../../images/hotelPic25.jpg";
 import Hotel6 from "../../images/hotelPic7.jpg";
 import DecorImage from '../../images/DecorImage.png'
 import DecorImageS from '../../images/DecoreImageS.jpg'
-import AboutUsTopBanner from '../../images/AboutUsTopBanner.jpg'
+import AboutUsTopBanner from '../../images/AboutUsTopBanner.webp'
 // import Client from '../../images/Client.jpg'
 import LabelImportantRoundedIcon from "@mui/icons-material/LabelImportantRounded";
 import { Helmet } from "react-helmet";
+import { Typography } from "@mui/material";
 
 const About = () => {
 
@@ -51,13 +52,13 @@ const About = () => {
       <Navbar />
       <div className="conatiner-fluid">
         <section
-          style={{ background: `linear-gradient(37deg, rgba(255,255,255,0.8016456582633054) 0%, rgba(255,255,255,0.38147759103641454) 100%), url(${AboutUsTopBanner})`, backgroundSize: 'cover', backgroundPosition: 'bottom', backgroundAttachment: 'fixed', height: '50vh', display: 'grid', placeItems: 'center' }}
+          style={{ background: `linear-gradient(37deg, rgba(255,255,255,0.8016456582633054) 0%, rgba(255,255,255,0.38147759103641454) 100%), url(${AboutUsTopBanner})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '60vh', display: 'grid', placeItems: 'center' }}
         >
           <div className="row">
             <div style={{ display: 'grid', placeItems: 'center' }} className="col-12 p-5">
-              <div className="border rounded p-2 text-center text-danger">
-                <h1><b>About Us</b></h1>
-                <h4>Home 	&#62; About Us</h4>
+              <div className="rounded p-2 text-center text-danger">
+                <Typography fontWeight={800} variant="h2">About Us</Typography>
+                <Typography variant="h5">Home 	&#62; About Us</Typography>
               </div>
             </div>
           </div>

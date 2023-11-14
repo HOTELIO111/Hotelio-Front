@@ -87,12 +87,11 @@ const Home = (props) => {
         <SliderCarousel />
 
 
-        <div className="p-2">
+        <div className="p-2 pb-4">
           <hr />
           <Typography variant="body1">
             A comfortable and convenient stay is the invariable part of wanderlust, and it is ensured when your search for a room is accomplished by getting a <b>deluxe rooms</b> as per your desire and intention. Here at the hotelio rooms, all data and information are explicitly delivered, making your trips unforgettable and as per the gallery, you get the perfect <b>luxury rooms</b> after booking from the hotelio rooms. It’s one of the leading platforms where you can get instant response and evergreen assistance for your trip and pleasant stay.
           </Typography>
-          <hr />
         </div>
 
         <Testimonial />

@@ -7,6 +7,7 @@ import {
   Card,
   CardContent,
   Grid,
+  Rating,
   Typography,
 } from "@mui/material";
 import React from "react";
@@ -307,9 +308,15 @@ const Detail = ({ data }) => {
                           marginLeft: "10px",
                         }}
                       >
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Perspiciatis maxime officiis error id nesciunt quos
-                        officia.
+                        <div>
+                          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                          Perspiciatis maxime officiis error id nesciunt quos
+                          officia.
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', borderTop: '1px solid #ee2e24', borderBottom: '1px solid #ee2e24' }}>
+                          <Rating name="read-only" value={3} readOnly />
+                          <Typography variant="subtitle2">Adam Smith</Typography>
+                        </div>
                       </Card>
                     </div>
                     <div>
@@ -323,9 +330,15 @@ const Detail = ({ data }) => {
                           color: "#4d4d4d",
                         }}
                       >
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Perspiciatis maxime officiis error id nesciunt quos
-                        officia.
+                        <div>
+                          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                          Perspiciatis maxime officiis error id nesciunt quos
+                          officia.
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', borderTop: '1px solid #ee2e24', borderBottom: '1px solid #ee2e24' }}>
+                          <Rating name="read-only" value={3} readOnly />
+                          <Typography variant="subtitle2">Adam Smith</Typography>
+                        </div>
                       </Card>
                     </div>
                     <div>
@@ -339,9 +352,15 @@ const Detail = ({ data }) => {
                           color: "#4d4d4d",
                         }}
                       >
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Perspiciatis maxime officiis error id nesciunt quos
-                        officia.
+                        <div>
+                          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                          Perspiciatis maxime officiis error id nesciunt quos
+                          officia.
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', borderTop: '1px solid #ee2e24', borderBottom: '1px solid #ee2e24' }}>
+                          <Rating name="read-only" value={3} readOnly />
+                          <Typography variant="subtitle2">Adam Smith</Typography>
+                        </div>
                       </Card>
                     </div>
                   </Carousel>
@@ -379,25 +398,25 @@ const Detail = ({ data }) => {
                     currentSearchParams.checkIn,
                     currentSearchParams.checkOut
                   ) && (
-                    <div
-                      style={{
-                        cursor: "not-allowed",
-                        display: "grid",
-                        placeItems: "center",
-                        position: "absolute",
-                        background: "#ffffffba",
-                        zIndex: "1000",
-                        width: "100%",
-                        height: "100%",
-                      }}
-                    >
-                      <div>
-                        <Typography variant="h6" color="error" fontWeight={800}>
-                          Room Not Available
-                        </Typography>
+                      <div
+                        style={{
+                          cursor: "not-allowed",
+                          display: "grid",
+                          placeItems: "center",
+                          position: "absolute",
+                          background: "#ffffffba",
+                          zIndex: "1000",
+                          width: "100%",
+                          height: "100%",
+                        }}
+                      >
+                        <div>
+                          <Typography variant="h6" color="error" fontWeight={800}>
+                            Room Not Available
+                          </Typography>
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
                   <Grid container spacing={1}>
                     {/* <Grid
                       item

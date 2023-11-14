@@ -5,6 +5,7 @@ import {
   Slider,
   Typography,
   Radio,
+  RadioGroup,
 } from "@mui/material";
 import React, { useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -196,24 +197,25 @@ const SideFilter = (setFilterData, filterData) => {
 
   // handle the property type onChange
   const handlePropertyType = (property) => {
-    if (selectedPropertyType.includes(property)) {
-      setSelectedPropertyType(
-        selectedPropertyType.filter((r) => r !== property)
-      );
-    } else {
-      setSelectedPropertyType([...selectedPropertyType, property]);
-    }
+    setSelectedPropertyType(property)
+    // if (selectedPropertyType.includes(property)) {
+    //   setSelectedPropertyType(
+    //     selectedPropertyType.filter((r) => r !== property)
+    //   );
+    // } else {
+    //   setSelectedPropertyType([...selectedPropertyType, property]);
+    // }
   };
 
   // ======= Change the roomType And propertyType on query  ========
-  useEffect(() => {
-    if (selectedRoomTypes) {
-      updateSearchQuery({ roomType: selectedRoomTypes });
-    }
-    if (selectedPropertyType.length > 0) {
-      updateSearchQuery({ hotelType: selectedPropertyType.join(",") });
-    }
-  }, [selectedRoomTypes, selectedPropertyType]);
+  // useEffect(() => {
+  //   if (selectedRoomTypes) {
+  //     updateSearchQuery({ roomType: selectedRoomTypes });
+  //   }
+  //   if (selectedPropertyType.length > 0) {
+  //     updateSearchQuery({ hotelType: selectedPropertyType.join(",") });
+  //   }
+  // }, [selectedRoomTypes, selectedPropertyType]);
 
   const autoCompleteRef = useRef();
   const inputRef = useRef();
@@ -349,7 +351,7 @@ const SideFilter = (setFilterData, filterData) => {
         <hr />
       </Grid>
       <Grid item xs={12}>
-        <div className="d-flex align-items-center justify-content-between">
+        <div className="d-flex align-items-center justify-content-between px-1">
           <h4>Filter</h4>
           <p className="text-danger">clear All</p>
         </div>
@@ -437,19 +439,29 @@ const SideFilter = (setFilterData, filterData) => {
         <div>
           <h5>Vacation Escapes</h5>
           {propertyType.map((item, index) => (
-            <div key={index}>
+            <div key={index} style={{ marginBottom: '-10px' }}>
               <FormControlLabel
                 control={
-                  <Checkbox
-                    color="error"
-                    sx={{ padding: "2px", marginLeft: "10px" }}
-                    checked={currentSearchParams.hotelType
-                      ?.split(",")
-                      ?.includes(item.title)}
-                    onChange={() => handlePropertyType(item.title)}
-                  />
+                  // <Radio
+                  //   color="error"
+                  //   sx={{ padding: "2px", marginLeft: "10px" }}
+                  //   checked={currentSearchParams.hotelType
+                  //     ?.split(",")
+                  //     ?.includes(item.title)}
+                  //   onChange={() => handlePropertyType(item.title)}
+                  // />
+                  <RadioGroup
+                    sx={{ marginLeft: "10px" }}
+                    aria-labelledby="demo-controlled-radio-buttons-group"
+                    name="controlled-radio-buttons-group"
+                    value={selectedPropertyType}
+                    onChange={(e) => handlePropertyType(e.target.value)}
+                  >
+                    <FormControlLabel value={item.title} control={<Radio />} label={item.title} />
+                  </RadioGroup>
+
                 }
-                label={item.title}
+              // label={item.title}
               />
             </div>
           ))}

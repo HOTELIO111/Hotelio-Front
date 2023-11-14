@@ -4,6 +4,7 @@ import 'react-alice-carousel/lib/alice-carousel.css';
 import style from './Testimonial.module.css'
 import { Avatar, Grid, Rating, Typography } from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles';
+import TestimonialBack from '../../images/TestimonialBack.webp'
 
 const responsive = {
     0: { items: 0 },
@@ -131,7 +132,7 @@ const Testimonial = () => {
     ];
 
     return (
-        <div>
+        <div style={{ background: `url(${TestimonialBack})`, backgroundRepeat: 'repeat', backgroundSize: 'contain' }}>
             <Grid container>
                 <Grid item xs={12} lg={4} xl={4} sx={{ display: 'grid', placeItems: 'center' }}>
                     <div style={{ padding: '0px 10px', textAlign: 'center' }}>
