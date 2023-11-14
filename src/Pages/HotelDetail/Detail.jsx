@@ -164,6 +164,44 @@ const Detail = ({ data }) => {
     return result;
   };
 
+  //  Implement the review and ratings  ===========================================================================================================
+  // ==============================================================================================================================================
+  var apiKey = "AIzaSyD_kgE_S3Nwf1IAamPa6D6ZyyazleBTrhI";
+  var placeId = data.place_id;
+
+  // Make a request to the Places API to get details for the place
+  var request = {
+    placeId: placeId,
+    fields: ["name", "formatted_address", "reviews", "rating"],
+    key: apiKey,
+  };
+
+  // Perform the request
+  var service = new window.google.maps.places.PlacesService(
+    document.createElement("div")
+  );
+  service.getDetails(request, callback);
+
+  // Handle the callback function
+  function callback(place, status) {
+    if (status == window.google.maps.places.PlacesServiceStatus.OK) {
+      console.log(place);
+      // console.log("Place Name:", place.name);
+      // console.log("Formatted Address:", place.formatted_address);
+
+      // Access reviews and ratings
+      if (place.reviews) {
+        place.reviews.forEach(function (review) {
+          // console.log("Rating:", review.rating);
+          // console.log("Text:", review.text);
+        });
+      }
+    } else {
+      console.error("Error retrieving place details:", status);
+    }
+  }
+  //  Implement the review and ratings  ===========================================================================================================
+  // ==============================================================================================================================================
   return (
     <div>
       <Grid container spacing={2}>
@@ -216,23 +254,13 @@ const Detail = ({ data }) => {
           padding={1}
         >
           <iframe
-            title="Hotel Location"
-            src={`https://www.google.com/maps/d/embed?mid=1PRNsTVTx_mxFS944bTNCFZldOoI&hl=en&ll=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}&z=10`}
+            width="600"
             height="450"
-            className={`w-100 mt-2 `}
-            style={{ borderRadius: "5px" }}
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
+            frameborder="0"
+            style={{ border: "0" }}
+            src={decodeURIComponent(data?.hotelMapLink).toString()}
+            allowfullscreen
           ></iframe>
-          <a
-            className="MapViewOnClick"
-            target="_blank"
-            href={`https://www.google.com/maps?q=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`}
-          >
-            {" "}
-            View on Map
-          </a>
         </Grid>
         {isMobile ? null : (
           <Grid item xs={12} lg={12} xl={12}>
@@ -309,13 +337,23 @@ const Detail = ({ data }) => {
                         }}
                       >
                         <div>
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                          Perspiciatis maxime officiis error id nesciunt quos
-                          officia.
+                          Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Perspiciatis maxime officiis error id nesciunt
+                          quos officia.
                         </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', borderTop: '1px solid #ee2e24', borderBottom: '1px solid #ee2e24' }}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-evenly",
+                            alignItems: "center",
+                            borderTop: "1px solid #ee2e24",
+                            borderBottom: "1px solid #ee2e24",
+                          }}
+                        >
                           <Rating name="read-only" value={3} readOnly />
-                          <Typography variant="subtitle2">Adam Smith</Typography>
+                          <Typography variant="subtitle2">
+                            Adam Smith
+                          </Typography>
                         </div>
                       </Card>
                     </div>
@@ -331,13 +369,23 @@ const Detail = ({ data }) => {
                         }}
                       >
                         <div>
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                          Perspiciatis maxime officiis error id nesciunt quos
-                          officia.
+                          Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Perspiciatis maxime officiis error id nesciunt
+                          quos officia.
                         </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', borderTop: '1px solid #ee2e24', borderBottom: '1px solid #ee2e24' }}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-evenly",
+                            alignItems: "center",
+                            borderTop: "1px solid #ee2e24",
+                            borderBottom: "1px solid #ee2e24",
+                          }}
+                        >
                           <Rating name="read-only" value={3} readOnly />
-                          <Typography variant="subtitle2">Adam Smith</Typography>
+                          <Typography variant="subtitle2">
+                            Adam Smith
+                          </Typography>
                         </div>
                       </Card>
                     </div>
@@ -353,13 +401,23 @@ const Detail = ({ data }) => {
                         }}
                       >
                         <div>
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                          Perspiciatis maxime officiis error id nesciunt quos
-                          officia.
+                          Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Perspiciatis maxime officiis error id nesciunt
+                          quos officia.
                         </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', borderTop: '1px solid #ee2e24', borderBottom: '1px solid #ee2e24' }}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-evenly",
+                            alignItems: "center",
+                            borderTop: "1px solid #ee2e24",
+                            borderBottom: "1px solid #ee2e24",
+                          }}
+                        >
                           <Rating name="read-only" value={3} readOnly />
-                          <Typography variant="subtitle2">Adam Smith</Typography>
+                          <Typography variant="subtitle2">
+                            Adam Smith
+                          </Typography>
                         </div>
                       </Card>
                     </div>
@@ -398,25 +456,25 @@ const Detail = ({ data }) => {
                     currentSearchParams.checkIn,
                     currentSearchParams.checkOut
                   ) && (
-                      <div
-                        style={{
-                          cursor: "not-allowed",
-                          display: "grid",
-                          placeItems: "center",
-                          position: "absolute",
-                          background: "#ffffffba",
-                          zIndex: "1000",
-                          width: "100%",
-                          height: "100%",
-                        }}
-                      >
-                        <div>
-                          <Typography variant="h6" color="error" fontWeight={800}>
-                            Room Not Available
-                          </Typography>
-                        </div>
+                    <div
+                      style={{
+                        cursor: "not-allowed",
+                        display: "grid",
+                        placeItems: "center",
+                        position: "absolute",
+                        background: "#ffffffba",
+                        zIndex: "1000",
+                        width: "100%",
+                        height: "100%",
+                      }}
+                    >
+                      <div>
+                        <Typography variant="h6" color="error" fontWeight={800}>
+                          Room Not Available
+                        </Typography>
                       </div>
-                    )}
+                    </div>
+                  )}
                   <Grid container spacing={1}>
                     {/* <Grid
                       item

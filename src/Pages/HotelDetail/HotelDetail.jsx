@@ -88,13 +88,18 @@ const HotelDetail = () => {
                   {data?.address}
                 </Typography>
               </div>
-              <div style={{ marginLeft: '5px' }} className="border">
-                <Typography display="block" className="bg-success text-center" variant="h5">
+              <div style={{ marginLeft: "5px" }} className="border">
+                <Typography
+                  display="block"
+                  className="bg-success text-center"
+                  variant="h5"
+                >
                   4.5
                 </Typography>
                 <Typography
-                  className="bg-secondary p-1"
-                  variant="caption" display="block"
+                  className="bg-secondary p-1 text-nowrap"
+                  variant="caption"
+                  display="block"
                 >
                   14 Rating
                 </Typography>
