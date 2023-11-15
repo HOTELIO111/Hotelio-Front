@@ -1,5 +1,3 @@
-
-
 /* Content-1:Start */
 .box {
   height: fit-content;
@@ -14,10 +12,11 @@
 }
 
 .image img {
-  height: auto;
-  width: 120px;
+  height: 150px;
+  width: 150px;
   border-radius: 50%;
-
+  border: 4px solid #ffffff;
+  box-shadow: rgba(240, 46, 69, 0.4) 0px 5px, rgba(240, 46, 82, 0.3) 0px 10px, rgba(240, 46, 49, 0.2) 0px 15px, rgba(240, 46, 49, 0.1) 0px 20px, rgba(240, 46, 88, 0.05) 0px 25px; 
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -79,23 +78,25 @@ ion-icon:hover {
 
 /* Responsiveness:Start */
 @media screen and (max-width: 480px) {
-    .box{
-        width: 100vw;
-        border-radius: 0px;
-    }
+  .box {
+    width: 100vw;
+    border-radius: 0px;
+  }
 
-    .content2{
-        padding: 0px 20px;
-    }
-    .content2 img{
-        width: 60px;
-        height: 60px;
-    }
+  .content2 {
+    padding: 0px 20px;
+  }
 
-    .onMobileUpdate {
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
-    }
+  .content2 img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .onMobileUpdate {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
 }
+
 /* Responsiveness:End */

@@ -167,7 +167,7 @@ const Detail = ({ data }) => {
   //  Implement the review and ratings  ===========================================================================================================
   // ==============================================================================================================================================
   var apiKey = "AIzaSyD_kgE_S3Nwf1IAamPa6D6ZyyazleBTrhI";
-  var placeId = data.place_id;
+  var placeId = data?.place_id;
 
   // Make a request to the Places API to get details for the place
   var request = {
@@ -257,7 +257,8 @@ const Detail = ({ data }) => {
             width="600"
             height="450"
             frameborder="0"
-            style={{ border: "0" }}
+            className={`w-100 mt-2 ${style.mapBox}`}
+            style={{ borderRadius: "5px" }}
             src={decodeURIComponent(data?.hotelMapLink).toString()}
             allowfullscreen
           ></iframe>
@@ -456,25 +457,25 @@ const Detail = ({ data }) => {
                     currentSearchParams.checkIn,
                     currentSearchParams.checkOut
                   ) && (
-                    <div
-                      style={{
-                        cursor: "not-allowed",
-                        display: "grid",
-                        placeItems: "center",
-                        position: "absolute",
-                        background: "#ffffffba",
-                        zIndex: "1000",
-                        width: "100%",
-                        height: "100%",
-                      }}
-                    >
-                      <div>
-                        <Typography variant="h6" color="error" fontWeight={800}>
-                          Room Not Available
-                        </Typography>
+                      <div
+                        style={{
+                          cursor: "not-allowed",
+                          display: "grid",
+                          placeItems: "center",
+                          position: "absolute",
+                          background: "#ffffffba",
+                          zIndex: "1000",
+                          width: "100%",
+                          height: "100%",
+                        }}
+                      >
+                        <div>
+                          <Typography variant="h6" color="error" fontWeight={800}>
+                            Room Not Available
+                          </Typography>
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
                   <Grid container spacing={1}>
                     {/* <Grid
                       item
