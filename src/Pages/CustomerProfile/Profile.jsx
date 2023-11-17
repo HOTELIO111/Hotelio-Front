@@ -2,7 +2,7 @@ import { useState } from "react";
 import style from "./Profile.module.css";
 import Button from "@mui/material/Button";
 import List from "../../Components/YourBookings/List";
-import { Card, Grid, TextField, Typography } from "@mui/material";
+import { Card, Grid, IconButton, TextField, Typography } from "@mui/material";
 import Swal from "sweetalert2";
 import VerifiedRoundedIcon from "@mui/icons-material/VerifiedRounded";
 import MobileFriendlyIcon from "@mui/icons-material/MobileFriendly";
@@ -16,6 +16,7 @@ import AddEmailId from "./AddEmailId";
 import PasswordUpdateModal from "./PasswordUpdateModal";
 import moment from "moment/moment";
 import { isMobile } from "react-device-detect";
+import BorderColorIcon from '@mui/icons-material/BorderColor';
 
 const Profile = () => {
   // State variables
@@ -27,6 +28,14 @@ const Profile = () => {
   const handelDetailUpdate = () => setprofiledetailUpdate(false);
   const handelUpdateEmailOpen = () => setUpdateEmail(true);
   const handeleEmailUpdate = () => setUpdateEmail(false);
+
+
+  const [imageFile, setImageFile] = useState(null);
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImageFile(file);
+  };
+
 
   // Password update modal handlers
   const handlePasswordUpdateOpen = () => setPasswordUpdateOpen(true);
@@ -139,9 +148,21 @@ const Profile = () => {
               </div>
             </div>
             <div className={` ${style.content} p-2`}>
+
+              <div className={`${style.image}`} style={{ maxWidth: '100%', position: 'relative' }}>
+                <img
+                  src={imageFile ? URL.createObjectURL(imageFile) : "https://i.postimg.cc/bryMmCQB/profile-image.jpg"}
+                  alt="Profile Image"
+                />
+                <div style={{ position: 'absolute', left: '60%', transform: 'translateX(-50%)', bottom: 0 }}>
+                  <IconButton onClick={() => document.getElementById('clickMe').click()} variant='text'><BorderColorIcon color='dark' /></IconButton>
+                  <input id='clickMe' style={{ display: 'none' }} type="file" accept="image/*" onChange={handleImageChange} />
+                </div>
+              </div>
+
               {/* <div className={` ${style.image}`}>
                 <img
-                  src="https://i.postimg.cc/bryMmCQB/profile-image.jpg"
+                  src={imageFile ? URL.createObjectURL(imageFile) : "https://i.postimg.cc/bryMmCQB/profile-image.jpg"}
                   alt="Profile Image"
                 />
               </div> */}
@@ -254,8 +275,8 @@ const Profile = () => {
               <hr style={{ margin: "0.2rem 0rem" }} />
               <div
                 className={`mt-1 ${isMobile
-                    ? "text-center"
-                    : "d-flex justify-content-evenly align-items-center"
+                  ? "text-center"
+                  : "d-flex justify-content-evenly align-items-center"
                   }  ${style.button}`}
               >
                 {currentUser ? (

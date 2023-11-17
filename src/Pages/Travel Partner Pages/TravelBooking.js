@@ -146,7 +146,7 @@ export default function TravelBooking() {
                         <Typography component="legend"> Write your Review </Typography>
                         <textarea className='border p-1' cols={50} rows={5} />
                     </div>
-                    <Button variant="contained" onClick={handleClose} color="primary" size="medium">Share</Button>
+                    <Button variant="contained" onClick={handleClose} color="error" size="medium">Share</Button>
                 </Box>
             </Modal>
         )
@@ -222,13 +222,13 @@ export default function TravelBooking() {
                         <Grid container spacing={0} marginTop={1} key={item.id}>
                             <Grid item xs={12} sm={4}>
                                 <img
-                                    style={{ borderRadius: '5px 0px 0px 0px', width: '100%', height: '100%', objectFit: 'cover' }}
+                                    style={{ borderRadius: '5px 0px 0px 0px', width: '100%', maxHeight: '250px', objectFit: 'cover', minHeight: '250px' }}
                                     src={item.imageURL}
                                     alt="hotel"
                                 />
                             </Grid>
                             <Grid item xs={12} sm={8}>
-                                <Card sx={{ display: 'flex', borderRadius: '0px 5px 0px 0px' }}>
+                                <Card sx={{ display: 'flex', borderRadius: '0px 5px 0px 0px', height: '100%' }}>
                                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                                         <CardContent sx={{ flex: '1 0 auto' }}>
                                             <Typography component="div" variant="h5">
@@ -245,13 +245,13 @@ export default function TravelBooking() {
                                                 <Grid spacing={1} container>
                                                     <Grid item xs={12} lg={6} xl={6}>
                                                         <div>
-                                                            <Button href={`/searchedhotel/${item._id}`} variant="contained" size="medium">View Hotel</Button>
+                                                            <Button href={`/searchedhotel/${item._id}`} variant="contained" color="error" size="medium">View Hotel</Button>
                                                             <Button onClick={AlertBox} sx={{ ml: 1 }} variant="outlined" color="error" size="medium">Cancel</Button>
                                                         </div>
                                                     </Grid>
                                                     <Grid item xs={12} lg={6} xl={6} sx={{ display: 'flex', justifyContent: 'end' }}>
                                                         <ReviewModal />
-                                                        <Button variant="contained" onClick={handleOpen} color="primary" size="medium">Share review</Button>
+                                                        <Button variant="contained" onClick={handleOpen} color="error" size="medium">Share review</Button>
                                                     </Grid>
                                                 </Grid>
 
@@ -267,59 +267,118 @@ export default function TravelBooking() {
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                     >
-                                        <Button variant="contained" color="primary" size="medium">Check Details</Button>
+                                        <Button variant="contained" color='error' size="medium">Check Details</Button>
                                     </AccordionSummary>
                                     <AccordionDetails>
-                                        <Grid container spacing={2}>
-                                            <Grid item xs={6} lg={2} xl={2}>
-                                                <Typography variant="button" display="block">
-                                                    Booking ID
-                                                </Typography>
-                                                <Typography variant="caption" display="block">
-                                                    #HT0123456
-                                                </Typography>
+                                        <Card sx={{ bgcolor: 'transparent', boxShadow: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset', borderRadius: '15px' }} className="p-1">
+                                            {/* <Typography variant="h5">My Hotelio Wallet</Typography>
+                                            <hr style={{ marginTop: "0px" }} /> */}
+
+                                            <Grid spacing={2} p={1} container>
+                                                <Grid item xs={12} lg={6}>
+                                                    <div className="d-flex align-items-center border-bottom">
+                                                        <Typography fontWeight={700} variant="p">
+                                                            BOOKING ID :
+                                                        </Typography>
+                                                        <Typography fontWeight={800} sx={{ pl: 2.5 }} variant="h6">
+                                                            #HT0123456
+                                                        </Typography>
+                                                    </div>
+                                                </Grid>
+                                                <Grid item xs={12} lg={6}>
+                                                    <div className="d-flex align-items-center border-bottom">
+                                                        <Typography fontWeight={700} variant="p">
+                                                            BOOKING DATE & TIME :
+                                                        </Typography>
+                                                        <Typography sx={{ pl: 2.5 }} variant="h6">
+                                                            24-08-2023, 03:34 PM
+                                                        </Typography>
+                                                    </div>
+                                                </Grid>
+                                                <Grid item xs={12} lg={6}>
+                                                    <div className="d-flex align-items-center  border-bottom">
+                                                        <Typography fontWeight={700} variant="p">
+                                                            CHECK IN :
+                                                        </Typography>
+                                                        <Typography sx={{ pl: 2.5 }} variant="h6">
+                                                            25-08-2023, 10:00 AM
+                                                        </Typography>
+                                                    </div>
+                                                </Grid>
+                                                <Grid item xs={12} lg={6}>
+                                                    <div className="d-flex align-items-center  border-bottom">
+                                                        <Typography fontWeight={700} variant="p">
+                                                            CHECK OUT :
+                                                        </Typography>
+                                                        <Typography sx={{ pl: 2.5 }} variant="h6">
+                                                            27-08-2023, 10:00 AM
+                                                        </Typography>
+                                                    </div>
+                                                </Grid>
+                                                <Grid item xs={12} lg={6}>
+                                                    <div className="d-flex align-items-center  border-bottom">
+                                                        <Typography fontWeight={700} variant="p">
+                                                            NO OF DAYS & NIGHT :
+                                                        </Typography>
+                                                        <Typography sx={{ pl: 2.5 }} variant="h6">
+                                                            3 DAYS, 2 NIGHT
+                                                        </Typography>
+                                                    </div>
+                                                </Grid>
+                                                <Grid item xs={12} lg={6}>
+                                                    <div className="d-flex align-items-center  border-bottom">
+                                                        <Typography fontWeight={700} variant="p">
+                                                            NO OF GUEST :
+                                                        </Typography>
+                                                        <Typography sx={{ pl: 2.5 }} variant="h6">
+                                                            02 Guest, 1 Room
+                                                        </Typography>
+                                                    </div>
+                                                </Grid>
+                                                <Grid item xs={12} lg={6}>
+                                                    <div className="d-flex align-items-center border-bottom">
+                                                        <Typography fontWeight={700} variant="p">
+                                                            PAYMENT METHOD :
+                                                        </Typography>
+                                                        <Typography sx={{ pl: 2.5 }} variant="h6">
+                                                            Online
+                                                        </Typography>
+                                                    </div>
+                                                </Grid>
+                                                <Grid item xs={12} lg={6}>
+                                                    <div className="d-flex align-items-center  border-bottom">
+                                                        <Typography fontWeight={700} variant="p">
+                                                            PAID AMOUNT :
+                                                        </Typography>
+                                                        <Typography sx={{ pl: 2.5 }} variant="h6">
+                                                            ₹ 1200
+                                                        </Typography>
+                                                    </div>
+                                                </Grid>
+                                                <Grid item xs={12} lg={6}>
+                                                    <div className="d-flex align-items-center border-bottom">
+                                                        <Typography fontWeight={700} variant="p">
+                                                            TXN ID :
+                                                        </Typography>
+                                                        <Typography sx={{ pl: 2.5 }} variant="h6">
+                                                            SD852352896
+                                                        </Typography>
+                                                    </div>
+                                                </Grid>
+                                                <Grid item xs={12} lg={6}>
+                                                    <div className="d-flex align-items-center  border-bottom">
+                                                        <Typography fontWeight={700} variant="p">
+                                                            BOOKING STATUS :
+                                                        </Typography>
+                                                        <Typography sx={{ pl: 2.5 }} variant="h6">
+                                                            Completed
+                                                        </Typography>
+                                                    </div>
+                                                </Grid>
+
                                             </Grid>
-                                            <Grid item xs={6} lg={2} xl={2}>
-                                                <Typography variant="button" display="block">
-                                                    Booking Date
-                                                </Typography>
-                                                <Typography variant="caption" display="block">
-                                                    24-08-2023
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item xs={6} lg={2} xl={2}>
-                                                <Typography variant="button" display="block">
-                                                    Booking Time
-                                                </Typography>
-                                                <Typography variant="caption" display="block">
-                                                    03:34 PM
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item xs={6} lg={2} xl={2}>
-                                                <Typography variant="button" display="block">
-                                                    No Of Guest
-                                                </Typography>
-                                                <Typography variant="caption" display="block">
-                                                    02 Adult
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item xs={6} lg={2} xl={2}>
-                                                <Typography variant="button" display="block">
-                                                    Booking status
-                                                </Typography>
-                                                <Typography variant="caption" display="block">
-                                                    Completed
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item xs={6} lg={2} xl={2}>
-                                                <Typography variant="button" display="block">
-                                                    Payment Method
-                                                </Typography>
-                                                <Typography variant="caption" display="block">
-                                                    Online
-                                                </Typography>
-                                            </Grid>
-                                        </Grid>
+
+                                        </Card>
                                     </AccordionDetails>
                                 </Accordion>
                             </Grid>
