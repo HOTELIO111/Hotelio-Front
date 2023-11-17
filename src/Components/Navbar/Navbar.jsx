@@ -34,12 +34,15 @@ import { useAuthContext } from "../../context/userAuthContext";
 import { convertDatesToUTC } from "../../Utilis/_fuctions";
 import { useCollections } from "../../context/useStateManager";
 import { useSearch } from "../../context/useSearch";
+import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import GoogleTranslate from "../GoogleTranslate";
 
 const Navbar = ({ list }) => {
   // Locatio Asked function
 
   // Popover Material UI Code
   const [anchorEl, setAnchorEl] = useState(null);
+  const { selectedPlace, setSelectedPlace, placeData } = useSearch();
 
   const open = Boolean(anchorEl);
 
@@ -218,9 +221,9 @@ const Navbar = ({ list }) => {
 
   // ---------------------------------search the hotel -------------------------------------------------------------------------
   const searchData = {
-    location: selectedCity,
-    lng: geoLoc?.longitude,
-    lat: geoLoc?.latitude,
+    location: placeData?.address,
+    lng: placeData?.longitude,
+    lat: placeData?.latitude,
     totalRooms: manageRoom.length,
     totalGuest: manageRoom.reduce((a, b) => a + b.guest, 0),
     checkIn: convertDatesToUTC(checkInCheckOut)[0],
@@ -233,8 +236,11 @@ const Navbar = ({ list }) => {
   };
 
   const SearchTheField = () => {
-    if (selectedCity === null)
+    if (placeData?.address === undefined)
       return window.alert("please Select the location");
+    if (!checkInCheckOut[0] && !checkInCheckOut[1]) {
+      return window.alert("please select the check-in And Check-out");
+    }
     if (manageRoom[0].guest === 0)
       return window.alert("please select the room and guest ");
     const queryString = new URLSearchParams(searchData).toString();
@@ -246,36 +252,58 @@ const Navbar = ({ list }) => {
     marginTop: "-112px",
   };
 
+  // // ==================================== Google Web Translator  ===================================================
+  // const googleTranslateElementInit = () => {
+  //   new window.google.translate.TranslateElement(
+  //     {
+  //       pageLanguage: "en",
+  //       autoDisplay: false,
+  //     },
+  //     "google_translate_element"
+  //   );
+  // };
+  // useEffect(() => {
+  //   var addScript = document.createElement("script");
+  //   addScript.setAttribute(
+  //     "src",
+  //     "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+  //   );
+  //   document.body.appendChild(addScript);
+  //   window.googleTranslateElementInit = googleTranslateElementInit;
+  // }, []);
+
+  // // ========================================= Google Web Translator= ================================================
+
   // ------------------------------------Get The google autocomlete location --------------------------------------------------
-  const autoCompleteRef = useRef();
-  const inputRef = useRef();
+  // const autoCompleteRef = useRef();
+  // const inputRef = useRef();
 
-  useEffect(() => {
-    try {
-      const options = {
-        types: ["geocode"],
-        componentRestrictions: { country: "in" },
-        fields: ["formatted_address", "geometry"],
-      };
+  // useEffect(() => {
+  //   try {
+  //     const options = {
+  //       types: ["geocode"],
+  //       componentRestrictions: { country: "in" },
+  //       fields: ["formatted_address", "geometry"],
+  //     };
 
-      autoCompleteRef.current = new window.google.maps.places.Autocomplete(
-        inputRef.current,
-        options
-      );
+  //     autoCompleteRef.current = new window.google.maps.places.Autocomplete(
+  //       inputRef.current,
+  //       options
+  //     );
 
-      autoCompleteRef.current.addListener("place_changed", () => {
-        const place = autoCompleteRef.current.getPlace();
-        setSlectedCity(place.formatted_address);
-        // Get latitude and longitude
-        const { lat, lng } = place.geometry.location;
-        let longitude = lng();
-        let latitude = lat();
-        setGeoLoc({ longitude: longitude, latitude: latitude });
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+  //     autoCompleteRef.current.addListener("place_changed", () => {
+  //       const place = autoCompleteRef.current.getPlace();
+  //       setSlectedCity(place.formatted_address);
+  //       // Get latitude and longitude
+  //       const { lat, lng } = place.geometry.location;
+  //       let longitude = lng();
+  //       let latitude = lat();
+  //       setGeoLoc({ longitude: longitude, latitude: latitude });
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, []);
 
   return (
     <div>
@@ -387,6 +415,7 @@ const Navbar = ({ list }) => {
                       {/* <li style={{ listStyle: 'none' }}>
   <NavLink to="/contact">+91 (811)55 10050</NavLink>
   </li> */}
+
                       {!currentUser ? (
                         <>
                           <NavLink
@@ -602,7 +631,54 @@ const Navbar = ({ list }) => {
                         className={`col-lg-3 align-self-center d-flex align-items-center`}
                       >
                         <HotelIcon className="text-danger me-2" />
-                        <input type="text" ref={inputRef} />
+                        {/* <input type="text" ref={inputRef} /> */}
+                        <div className="w-100">
+                          <GooglePlacesAutocomplete
+                            onLoadFailed={(error) =>
+                              console.error(
+                                "Could not inject Google script",
+                                error
+                              )
+                            }
+                            placeholder="Enter location"
+                            apiKey={process.env.REACT_APP_GOOGLE_API_KEY}
+                            apiOptions={{
+                              language: "en",
+                              region: "in",
+                              libraries: "places",
+                            }}
+                            selectProps={{
+                              value: selectedPlace,
+                              onChange: setSelectedPlace,
+                              placeholder: "Enter Location",
+                              styles: {
+                                input: (provided) => ({
+                                  ...provided,
+                                  // padding: "px",
+                                  border: "none",
+                                  borderColor: "transparent",
+                                }),
+                                option: (provided) => ({
+                                  ...provided,
+                                  color: "#ee2e24",
+                                  borderBottom: "1px solid gray",
+                                  fontSize: "15px",
+                                  fontWeight: "500",
+                                }),
+                                control: (provided) => ({
+                                  ...provided,
+                                  borderColor: "transparent",
+                                  boxShadow: "none",
+                                }),
+                                menu: (provided) => ({
+                                  ...provided,
+                                  borderColor: "transparent",
+                                  outlineColor: "transparent",
+                                }),
+                              },
+                            }}
+                          />
+                        </div>
                       </div>
 
                       <div className={`col-lg-4 align-self-center`}>

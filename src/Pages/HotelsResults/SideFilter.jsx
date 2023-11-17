@@ -17,6 +17,7 @@ import GlobalModal from "../../Components/Global/GlobalModal";
 import { convertDatesFromUTC, convertDatesToUTC } from "../../Utilis/_fuctions";
 import { useCollections } from "../../context/useStateManager";
 import { useSearch } from "../../context/useSearch";
+import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 
 const SideFilter = (setFilterData, filterData) => {
   const [priceRange, setPriceRange] = useState([0, 20000]);
@@ -35,6 +36,8 @@ const SideFilter = (setFilterData, filterData) => {
     currentSearchParams.location
   );
   const { checkInCheckOut, setCheckInCheckOut } = useCollections();
+
+  const { placeData, selectedPlace, setSelectedPlace } = useSearch();
 
   const [selectedGuest, setselectedGuest] = useState(
     parseInt(currentSearchParams.totalGuest)
@@ -197,7 +200,7 @@ const SideFilter = (setFilterData, filterData) => {
 
   // handle the property type onChange
   const handlePropertyType = (property) => {
-    setSelectedPropertyType(property)
+    setSelectedPropertyType(property);
     // if (selectedPropertyType.includes(property)) {
     //   setSelectedPropertyType(
     //     selectedPropertyType.filter((r) => r !== property)
@@ -259,12 +262,50 @@ const SideFilter = (setFilterData, filterData) => {
         {/* ----------------------- Locaton search input ------------------------------ */}
         <div className="d-flex align-items-center flex-column justify-content-between">
           {/* <h6 className="text-left">Locations</h6> */}
-          <input
-            type="text"
-            ref={inputRef}
-            value={selectedLocations || ""}
-            onChange={HandleLocationUpdate}
-          />
+          <div className="w-100">
+            <GooglePlacesAutocomplete
+              onLoadFailed={(error) =>
+                console.error("Could not inject Google script", error)
+              }
+              placeholder="Enter location"
+              apiKey={process.env.REACT_APP_GOOGLE_API_KEY}
+              apiOptions={{
+                language: "en",
+                region: "in",
+                libraries: "places",
+              }}
+              selectProps={{
+                value: selectedPlace,
+                onChange: setSelectedPlace,
+                placeholder: "Enter Location",
+                styles: {
+                  input: (provided) => ({
+                    ...provided,
+                    // padding: "px",
+                    border: "none",
+                    borderColor: "transparent",
+                  }),
+                  option: (provided) => ({
+                    ...provided,
+                    color: "#ee2e24",
+                    borderBottom: "1px solid gray",
+                    fontSize: "15px",
+                    fontWeight: "500",
+                  }),
+                  control: (provided) => ({
+                    ...provided,
+                    borderColor: "transparent",
+                    boxShadow: "none",
+                  }),
+                  menu: (provided) => ({
+                    ...provided,
+                    borderColor: "transparent",
+                    outlineColor: "transparent",
+                  }),
+                },
+              }}
+            />
+          </div>
           <hr />
           {/* -------------------------------------------------- */}
           <MobileDate
@@ -334,13 +375,13 @@ const SideFilter = (setFilterData, filterData) => {
             fullWidth
             onClick={() =>
               HandleUpdateLocationQuery(
-                selectedLocations,
+                placeData?.address,
                 checkInCheckOut[0],
                 checkInCheckOut[1],
                 selectedRoom,
                 selectedGuest,
-                geoLoc.longitude,
-                geoLoc.latitude
+                placeData?.longitude,
+                placeData?.latitude
               )
             }
             style={{ background: "#ee2e24", color: "#fff" }}
@@ -439,7 +480,7 @@ const SideFilter = (setFilterData, filterData) => {
         <div>
           <h5>Vacation Escapes</h5>
           {propertyType.map((item, index) => (
-            <div key={index} style={{ marginBottom: '-10px' }}>
+            <div key={index} style={{ marginBottom: "-10px" }}>
               <FormControlLabel
                 control={
                   // <Radio
@@ -457,11 +498,14 @@ const SideFilter = (setFilterData, filterData) => {
                     value={selectedPropertyType}
                     onChange={(e) => handlePropertyType(e.target.value)}
                   >
-                    <FormControlLabel value={item.title} control={<Radio />} label={item.title} />
+                    <FormControlLabel
+                      value={item.title}
+                      control={<Radio />}
+                      label={item.title}
+                    />
                   </RadioGroup>
-
                 }
-              // label={item.title}
+                // label={item.title}
               />
             </div>
           ))}
