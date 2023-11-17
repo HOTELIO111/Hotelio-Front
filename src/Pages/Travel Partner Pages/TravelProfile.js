@@ -1,15 +1,22 @@
-import React from 'react'
-import { Button, Card, Grid, TextField, Typography } from '@mui/material';
+import React, { useState } from 'react'
+import { Button, Card, Grid, IconButton, TextField, Typography } from '@mui/material';
 import { WaitLoader } from '../../Components/Elements/WaitLoader';
 import EmailIcon from "@mui/icons-material/Email";
 import VerifiedRoundedIcon from "@mui/icons-material/VerifiedRounded";
 import MobileFriendlyIcon from "@mui/icons-material/MobileFriendly";
 import style from '../CustomerProfile/Profile.module.css'
 import { useAuthContext } from '../../context/userAuthContext';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
 import { isMobile } from 'react-device-detect';
 import moment from "moment/moment";
 
 const TravelProfile = () => {
+
+    const [imageFile, setImageFile] = useState(null);
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        setImageFile(file);
+    };
 
     const { Loader, currentUser } =
         useAuthContext();
@@ -37,6 +44,16 @@ const TravelProfile = () => {
                             </div>
                         </div>
                         <div className={` ${style.content}`}>
+                            <div className={`${style.image}`} style={{ maxWidth: '100%', position: 'relative' }}>
+                                <img
+                                    src={imageFile ? URL.createObjectURL(imageFile) : "https://i.postimg.cc/bryMmCQB/profile-image.jpg"}
+                                    alt="Profile Image"
+                                />
+                                <div style={{ position: 'absolute', left: '60%', transform: 'translateX(-50%)', bottom: 0 }}>
+                                    <IconButton onClick={() => document.getElementById('clickMe').click()} variant='text'><BorderColorIcon color='dark' /></IconButton>
+                                    <input id='clickMe' style={{ display: 'none' }} type="file" accept="image/*" onChange={handleImageChange} />
+                                </div>
+                            </div>
                             <div className="pb-2">
                                 <div>
                                     <span style={{ color: "#ee2e24" }}>Full Name</span>

@@ -19,7 +19,7 @@ const tabIcons = {
 };
 
 const tabLabels = {
-    tab1: 'Wallet',
+    tab1: 'Dashboard',
     tab2: 'Booking',
     tab3: 'Account',
     tab4: 'Settings',

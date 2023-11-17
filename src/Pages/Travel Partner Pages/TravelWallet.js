@@ -10,7 +10,7 @@ import TravelGstVerify from './TravelGstVerify';
 const TravelWallet = () => {
     return (
         <Grid container mt={1} spacing={1}>
-            <Grid item xs={12} lg={4}>
+            <Grid item sx={{ display: 'flex', justifyContent: 'center' }} xs={12} lg={4}>
                 <div className="credit-card">
                     <div className="card-top">
                         {/* <div className="chip"></div> */}
@@ -28,7 +28,7 @@ const TravelWallet = () => {
                     </div>
                 </div>
             </Grid>
-            <Grid item xs={12} lg={4}>
+            <Grid item sx={{ display: 'flex', justifyContent: 'center' }} xs={12} lg={4}>
                 <div className="credit-card">
                     <div className="card-top">
                         <BeenhereIcon fontSize='large' />
@@ -45,7 +45,7 @@ const TravelWallet = () => {
                     </div>
                 </div>
             </Grid>
-            <Grid item xs={12} lg={4}>
+            <Grid item sx={{ display: 'flex', justifyContent: 'center' }} xs={12} lg={4}>
                 <div className="credit-card">
                     <div className="card-top">
                         <CurrencyRupeeIcon fontSize='large' />

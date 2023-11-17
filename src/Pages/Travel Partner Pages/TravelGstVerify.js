@@ -1,35 +1,63 @@
-import { Button, ButtonGroup, ClickAwayListener, Grow, Input, MenuItem, MenuList, Paper, Popper, Typography } from '@mui/material'
+import { Box, Button, ButtonGroup, ClickAwayListener, Divider, Grow, Input, Menu, MenuItem, MenuList, Paper, Popper, Typography } from '@mui/material'
 import React from 'react'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { isMobile } from 'react-device-detect';
+import { styled, alpha } from '@mui/material/styles';
+
+
+const StyledMenu = styled((props) => (
+    <Menu
+        elevation={0}
+        anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+        }}
+        transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+        }}
+        {...props}
+    />
+))(({ theme }) => ({
+    '& .MuiPaper-root': {
+        borderRadius: 6,
+        marginTop: theme.spacing(1),
+        minWidth: 180,
+        color:
+            theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
+        boxShadow:
+            'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+        '& .MuiMenu-list': {
+            padding: '4px 0',
+        },
+        '& .MuiMenuItem-root': {
+            '& .MuiSvgIcon-root': {
+                fontSize: 18,
+                color: theme.palette.text.secondary,
+                marginRight: theme.spacing(1.5),
+            },
+            '&:active': {
+                backgroundColor: alpha(
+                    theme.palette.primary.main,
+                    theme.palette.action.selectedOpacity,
+                ),
+            },
+        },
+    },
+}));
 
 const TravelGstVerify = () => {
 
     const options = ['GSTIN No.', 'Udyam ID', 'NGO Id'];
-    const [open, setOpen] = React.useState(false);
-    const anchorRef = React.useRef(null);
-    const [selectedIndex, setSelectedIndex] = React.useState(1);
-
-    // const handleClick = () => {
-    //     console.info(`You clicked ${options[selectedIndex]}`);
-    // };
-
-    const handleMenuItemClick = (event, index) => {
-        setSelectedIndex(index);
-        setOpen(false);
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
     };
 
-    const handleToggle = () => {
-        setOpen((prevOpen) => !prevOpen);
-    };
-
-    const handleClose = (event) => {
-        if (anchorRef.current && anchorRef.current.contains(event.target)) {
-            return;
-        }
-
-        setOpen(false);
-    };
     return (
         <div className={isMobile ? '' : 'd-flex align-items-center justify-content-around'}>
             <div>
@@ -40,59 +68,46 @@ const TravelGstVerify = () => {
                     GET LIFETIME CORPORATE BENEFITS BY VERIFYING YOUR COMPANY
                 </Typography>
             </div>
-            <div>
-                <Popper
-                    sx={{
-                        zIndex: 1,
-                    }}
-                    open={open}
-                    anchorEl={anchorRef.current}
-                    role={undefined}
-                    transition
-                    disablePortal
+            <Box sx={{ background: '#ffffff', px: 1, borderRadius: '8px' }}>
+                <Button
+                    color='error'
+                    id="demo-customized-button"
+                    aria-controls={open ? 'demo-customized-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                    variant="contained"
+                    disableElevation
+                    onClick={handleClick}
+                    endIcon={<ArrowDropDownIcon />}
+                    size='large'
                 >
-                    {({ TransitionProps, placement }) => (
-                        <Grow
-                            {...TransitionProps}
-                            style={{
-                                transformOrigin:
-                                    placement === 'bottom' ? 'center left' : 'center bottom',
-                            }}
-                        >
-                            <Paper>
-                                <ClickAwayListener onClickAway={handleClose}>
-                                    <MenuList id="split-button-menu" autoFocusItem>
-                                        {options.map((option, index) => (
-                                            <MenuItem
-                                                key={option}
-                                                selected={index === selectedIndex}
-                                                onClick={(event) => handleMenuItemClick(event, index)}
-                                            >
-                                                {option}
-                                            </MenuItem>
-                                        ))}
-                                    </MenuList>
-                                </ClickAwayListener>
-                            </Paper>
-                        </Grow>
-                    )}
-                </Popper>
-                <ButtonGroup sx={isMobile && { my: 2 }} variant="contained" ref={anchorRef} aria-label="split button">
-                    <Button
-                        size="small"
-                        aria-controls={open ? 'split-button-menu' : undefined}
-                        aria-expanded={open ? 'true' : undefined}
-                        aria-label="select merge strategy"
-                        aria-haspopup="menu"
-                        onClick={handleToggle}
-                    >
-                        {options[selectedIndex]}<ArrowDropDownIcon />
-                    </Button>
-                    {/* <Button onClick={handleClick}>{options[selectedIndex]}</Button> */}
-                    <Input sx={{ p: 1 }} type='text' placeholder='AGXXXXXXXXXXX' />
-                </ButtonGroup>
-            </div>
-            <Button variant='contained'>Verify Now</Button>
+                    Select Document
+                </Button>
+                <StyledMenu
+                    id="demo-customized-menu"
+                    MenuListProps={{
+                        'aria-labelledby': 'demo-customized-button',
+                    }}
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                >
+                    <MenuItem onClick={handleClose} disableRipple>
+                        GSTIN No.
+                    </MenuItem>
+                    <Divider />
+                    <MenuItem onClick={handleClose} disableRipple>
+                        Udyam ID
+                    </MenuItem>
+                    <Divider />
+                    <MenuItem onClick={handleClose} disableRipple>
+                        NGO ID
+                    </MenuItem>
+
+                </StyledMenu>
+                <Input sx={{ p: 1, border: 'none', outline: 'none' }} type='text' placeholder='AGXXXXXXXXXXX' />
+            </Box>
+            <Button color='error' variant='contained'>Verify Now</Button>
         </div>
     )
 }
