@@ -167,13 +167,13 @@ const Detail = ({ data }) => {
   //  Implement the review and ratings  ===========================================================================================================
   // ==============================================================================================================================================
   var apiKey = "AIzaSyD_kgE_S3Nwf1IAamPa6D6ZyyazleBTrhI";
-  var placeId = data.place_id;
+  var placeId = "";
 
   // Make a request to the Places API to get details for the place
   var request = {
     placeId: placeId,
     fields: ["name", "formatted_address", "reviews", "rating"],
-    key: apiKey,
+    key: "ChIJKyBEbmzkmzkRBAMQgJDFmEs",
   };
 
   // Perform the request

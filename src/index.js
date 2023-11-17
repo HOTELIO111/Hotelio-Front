@@ -14,7 +14,6 @@ import { createMuiTheme, ThemeProvider } from "@mui/material/styles";
 import { BookingProvider } from "./context/useBooking";
 import CssBaseline from "@mui/material/CssBaseline";
 import { StateManagerProvider } from "./context/useStateManager";
-
 const customTheme = createMuiTheme({
   typography: {
     fontFamily: "Baloo 2",

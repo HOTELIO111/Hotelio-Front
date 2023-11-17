@@ -1,7 +1,8 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect } from "react";
 import { API_URL } from "../config";
 import { useState } from "react";
 import axios from "axios";
+import { geocodeByAddress } from "react-google-places-autocomplete";
 
 const searchContext = createContext();
 
@@ -18,8 +19,49 @@ const SearchProvider = ({ children }) => {
       console.error(error);
     }
   };
+
+  const [selectedPlace, setSelectedPlace] = useState(null);
+  const [placeData, setPlaceData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (selectedPlace !== null) {
+          const result = await geocodeByAddress(selectedPlace?.label);
+          console.log(result);
+
+          const { lat, lng } = result[0].geometry.location;
+          const latitude = lat();
+          const longitude = lng();
+
+          setPlaceData({
+            ...placeData,
+            latitude,
+            longitude,
+            address: selectedPlace?.label,
+          });
+
+          console.log(placeData);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [selectedPlace]);
+
   return (
-    <searchContext.Provider value={{ hotels, setHotels, getSearchHotel }}>
+    <searchContext.Provider
+      value={{
+        hotels,
+        setHotels,
+        getSearchHotel,
+        selectedPlace,
+        setSelectedPlace,
+        placeData,
+      }}
+    >
       {children}
     </searchContext.Provider>
   );
