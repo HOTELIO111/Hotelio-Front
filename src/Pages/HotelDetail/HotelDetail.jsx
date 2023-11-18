@@ -11,6 +11,7 @@ import { isMobile } from "react-device-detect";
 import MobileHeader from "../../Components/MobileComponent/MobileHeader";
 import MobileFooter from "../../Components/MobileComponent/MobileFooter";
 import PageLoader from "../../Utilis/PageLoader";
+import { Helmet } from "react-helmet";
 
 const HotelDetail = () => {
   const { id } = useParams();
@@ -37,6 +38,11 @@ const HotelDetail = () => {
 
   return (
     <>
+
+      <Helmet>
+        {/* Cononical tag:-  */}
+        <link rel="canonical" href="https://www.hoteliorooms.com" />
+      </Helmet>
       <PageLoader loading={loader} />
       {isMobile ? <MobileHeader /> : <Navbar />}
       <div

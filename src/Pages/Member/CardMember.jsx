@@ -37,13 +37,13 @@ const CardMember = () => {
       </Grid>
 
       <Grid item xs={12} lg={7} xl={7} xxl={7} style={{ display: 'grid', placeItems: 'center' }}>
-        <div className="text-center">
+        <div className="animate__animated animate__bounceInDown text-center">
           <img src={HoteliLogo} style={{ height: '250px', width: '450px' }} className={isMobile ? 'w-100 h-25' : ''} alt="logo" />
           <Typography fontWeight={800} color={"white"} variant={isMobile ? 'h6' : 'h4'} > "Grow your <span style={{ color: '#ee2e24' }}><i>Business</i> <TrendingUpIcon fontSize="large" /></span> and make your <span style={{ color: '#ee2e24' }}><b>profit double</b> <KeyboardDoubleArrowUpIcon fontSize="large" /> </span>"</Typography>
         </div>
       </Grid>
 
-      <Grid item xs={12} lg={5} xl={5} xxl={5} style={{ display: 'grid', placeItems: 'center' }}>
+      <Grid item className="animate__animated animate__fadeInRight" xs={12} lg={5} xl={5} xxl={5} style={{ display: 'grid', placeItems: 'center' }}>
         <form style={{ borderRadius: '24px', boxShadow: ' rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset' }} className="bg-white p-4" onSubmit={handleSubmit}>
           <h3>Get Started</h3>
           {/* Name input */}

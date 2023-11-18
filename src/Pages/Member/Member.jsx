@@ -19,7 +19,7 @@ import ResonsImage from '../../images/reasonsImage.jpg'
 import HoteliLogo from '../../images/HotelioLogo.png'
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import EmailIcon from '@mui/icons-material/Email';
-import BusinessImageFirst from '../../images/BusinessImageFirst.jpg'
+import BusinessImageFirst from '../../images/BusinessImageFirst.webp'
 import { useNavigate } from "react-router-dom";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -66,10 +66,10 @@ const Member = () => {
               <h3 style={{ color: '#ee2e24' }}>Business</h3>
             </div>
           </Grid>
-          <Grid item sx={{ display: 'grid', placeItems: 'center', textAlign: 'center' }} xs={12}  lg={4} xl={4}>
+          <Grid item sx={{ display: 'grid', placeItems: 'center', textAlign: 'center' }} xs={12} lg={4} xl={4}>
             <Typography color='error' fontWeight={800} variant={isMobile ? 'caption' : 'h5'}>Welcome To Hotelio, Your Travel Partner</Typography>
           </Grid>
-          <Grid sx={{ display: 'grid', placeItems: 'center' }} item xs={12}  lg={5} xl={4}>
+          <Grid sx={{ display: 'grid', placeItems: 'center' }} item xs={12} lg={5} xl={4}>
             <div className="d-flex justify-content-end align-items-center">
               <Typography color='error' sx={{ pr: 2 }} variant={isMobile ? 'caption' : 'h6'}><LocalPhoneIcon /> +91 (811) 5510050</Typography>
               <Typography color='error' sx={{ borderLeft: '1px solid #ee2e24', padding: '0px 10px' }} variant={isMobile ? 'caption' : 'h6'}><EmailIcon /> info@hoteliorooms.com</Typography>
@@ -84,7 +84,7 @@ const Member = () => {
         <CardMember />
         <Grid container paddingX={5} paddingY={2} spacing={1} bgcolor={'#ffffff'} >
           <Grid item xs={12} lg={5} xl={5} sx={{ display: 'grid', placeItems: 'center' }} >
-            <div style={{ clipPath: 'circle(64.3% at 20% 38%)' }}>
+            <div style={{ clipPath: 'circle(74.4% at 23% 23%)' }}>
               <img src={ResonsImage} alt="Bunisesspromises" />
             </div>
           </Grid>
@@ -138,7 +138,7 @@ const Member = () => {
       >
 
         <Grid container padding={5} spacing={1} >
-          <Grid item xs={12} lg={7} xl={7} sx={{ display: 'grid', placeItems: 'center' }} >
+          <Grid className="animate__animated animate__backInLeft" item xs={12} lg={7} xl={7} sx={{ display: 'grid', placeItems: 'center' }} >
             <Typography fontWeight={800} color={'#fff'} sx={{ borderBottom: `3px solid ${underlineColor}` }} variant={isMobile ? 'h6' : 'h4'}>Hotelio Business Promises</Typography>
             <div>
               <ul>
@@ -166,38 +166,37 @@ const Member = () => {
               </ul>
             </div>
           </Grid>
-          <Grid item xs={12} lg={5} xl={5} >
+          <Grid item className="animate__animated animate__backInLeft" xs={12} lg={5} xl={5} >
             <div
               style={
                 {
-                  clipPath: 'polygon(50% 0%, 90% 20%, 100% 60%, 75% 100%, 25% 100%, 0% 60%, 10% 20%)', height: isMobile ? '' : '500px'
+                  clipPath: 'circle(74.4% at 79% 23%)', height: isMobile ? '' : '500px'
                 }
               }
             >
               <img src={BusinessImageFirst} alt="Bunisesspromises" />
-              <div className="animatedElement"></div>
             </div>
           </Grid>
         </Grid>
       </section>
       <section>
         <Container>
-          <Grid container padding={5} spacing={5}>
+          <Grid container padding={5} spacing={1}>
             <Grid item xs={12} className="text-center">
               <Typography fontWeight={700} color={'primary'} variant={isMobile ? 'subtitle1' : 'h4'}>Hotelio Business is an innovative offering for corporates by Hotelio, India's largest hospitality company.</Typography>
             </Grid>
-            <Grid item xs={4} className="text-center text-primary">
+            <Grid item xs={4} className="text-center d-flex flex-column align-items-center text-primary">
               <PublicTwoToneIcon sx={{ fontSize: 50 }} />
               <Typography variant={isMobile ? 'h5' : 'h3'} fontWeight={600}>80</Typography>
               <Typography variant="subtitle2">Countries</Typography>
 
             </Grid>
-            <Grid item xs={4} className="text-center text-primary">
+            <Grid item xs={4} className="text-center d-flex flex-column align-items-center text-primary">
               <MapsHomeWorkTwoToneIcon sx={{ fontSize: 50 }} />
               <Typography variant={isMobile ? 'subtitle1' : 'h3'} fontWeight={600}>800 +</Typography>
               <Typography variant={isMobile ? 'caption' : 'subtitle2'}>Cities and Towns</Typography>
             </Grid>
-            <Grid item xs={4} className="text-center text-primary">
+            <Grid item xs={4} className="text-center d-flex flex-column align-items-center text-primary">
               <ApartmentTwoToneIcon sx={{ fontSize: 50 }} />
               <Typography variant={isMobile ? 'subtitle1' : 'h3'} fontWeight={600}>5000 +</Typography>
               <Typography variant={isMobile ? 'caption' : 'subtitle2'}>Hotels</Typography>
@@ -314,14 +313,14 @@ const Member = () => {
           </svg>
           <div className="border-top border-dark pt-3" style={{ position: 'absolute', top: '10px', width: '100%', left: '10px' }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} lg={6} className={isMobile && 'border-bottom border-danger"'}>
+              <Grid item xs={12} lg={6} textAlign={"center"} className={isMobile && 'border-bottom border-danger"'}>
                 <u><Typography fontWeight={700} variant="h5">About</Typography></u>
                 <ul>
                   <li><Typography sx={{ cursor: 'pointer' }} onClick={() => naviagte('/about')} fontWeight={600} variant="subtitle1">- About US</Typography></li>
                   <li><Typography sx={{ cursor: 'pointer' }} onClick={() => naviagte('/contact')} fontWeight={600} variant="subtitle1">- Contact US</Typography></li>
                 </ul>
               </Grid>
-              <Grid item xs={12} lg={6}>
+              <Grid item xs={12} lg={6} textAlign={"center"}>
                 <u><Typography fontWeight={700} variant="h5">List Property</Typography></u>
                 <ul>
                   <li><Typography sx={{ cursor: 'pointer' }} onClick={() => naviagte('/terms-condition')} fontWeight={600} variant="subtitle1">- Terms & Condition</Typography></li>
