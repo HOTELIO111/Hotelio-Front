@@ -14,6 +14,7 @@ import { isMobile } from "react-device-detect";
 import MobileHeader from "../../Components/MobileComponent/MobileHeader";
 import MobileFooter from "../../Components/MobileComponent/MobileFooter";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const HotelResults = () => {
   const searchParams = new URLSearchParams(document.location.search);
@@ -154,6 +155,12 @@ const HotelResults = () => {
   // -------------------------------------------------------------------------------------------------------------------------
   return (
     <div>
+
+      <Helmet>
+        {/* Cononical tag:-  */}
+        <link rel="canonical" href="https://www.hoteliorooms.com" />
+      </Helmet>
+
       {isMobile ? <MobileHeader /> : <Navbar />}
       <Container
         sx={isMobile ? { marginBottom: 7 } : { marginTop: 11 }}

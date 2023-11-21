@@ -38,6 +38,7 @@ import TravelHome from "./Pages/Travel Partner Pages/TravelHome";
 import TravelProfile from "./Pages/Travel Partner Pages/TravelProfile";
 import AllCities from "./Pages/AllCities/AllCities";
 import CcavForm from "./Components/Booking/CcavForm";
+import SeprateLocation from './Pages/SepratePage/SeprateLocation'
 
 function App() {
   const { currentUser } = useAuthContext();
@@ -83,11 +84,11 @@ function App() {
       style={
         isMobile
           ? {
-              backgroundImage: `url(${MobileBackground})`,
-              backgroundSize: "cover",
-              backgroundRepeat: "no-repeat",
-              backgroundAttachment: "fixed",
-            }
+            backgroundImage: `url(${MobileBackground})`,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            backgroundAttachment: "fixed",
+          }
           : {}
       }
     >
@@ -125,6 +126,7 @@ function App() {
         <Route path="/Payment_success" element={<SuccessPage />} />
         <Route path="/Payment_failed" element={<FailedPage />} />
         <Route path="/allCities" element={<AllCities />} />
+        <Route path='/:city' element={<SeprateLocation />} />
         <Route path="/ccav" element={<CcavForm />} />
 
         {/* Mobile pages */}
