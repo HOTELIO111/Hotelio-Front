@@ -4,11 +4,13 @@ import {
   GetAgentSignupReducer,
   GetAgentLoginReducer,
 } from "../reducers/agentReducers";
+import { GetAllRoomTypReducer } from "./roomCategoriesReducers";
 
 const rootReducers = combineReducers({
   GetSearchedHotelsReducers,
   GetAgentSignupReducer,
   GetAgentLoginReducer,
+  GetAllRoomTypReducer,
 });
 
 export default rootReducers;
