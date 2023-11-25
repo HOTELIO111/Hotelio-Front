@@ -245,7 +245,6 @@ const Navbar = ({ list }) => {
       return window.alert("please select the room and guest ");
     const queryString = new URLSearchParams(searchData).toString();
     navigate(`/searchedhotels?${queryString}`);
-    console.log(checkInCheckOut);
   };
 
   const MarginMobile = {

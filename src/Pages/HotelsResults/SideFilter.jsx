@@ -201,27 +201,48 @@ const SideFilter = (setFilterData, filterData) => {
   // handle the property type onChange
   const handlePropertyType = (property) => {
     setSelectedPropertyType(property);
-    // if (selectedPropertyType.includes(property)) {
-    //   setSelectedPropertyType(
-    //     selectedPropertyType.filter((r) => r !== property)
-    //   );
-    // } else {
-    //   setSelectedPropertyType([...selectedPropertyType, property]);
-    // }
+  };
+
+  const handleChangeAmenities = (id) => {
+    const array = searchParams.get("amenities");
+    if (array) {
+      const amenitiesArray = array.split(",");
+      if (amenitiesArray.includes(id)) {
+        updateSearchQuery({
+          amenities: amenitiesArray.filter((x) => x !== id).join(","),
+        });
+      } else {
+        updateSearchQuery({
+          amenities: [...amenitiesArray, id].join(","),
+        });
+      }
+    } else {
+      updateSearchQuery({ amenities: id });
+    }
   };
 
   // ======= Change the roomType And propertyType on query  ========
-  // useEffect(() => {
-  //   if (selectedRoomTypes) {
-  //     updateSearchQuery({ roomType: selectedRoomTypes });
-  //   }
-  //   if (selectedPropertyType.length > 0) {
-  //     updateSearchQuery({ hotelType: selectedPropertyType.join(",") });
-  //   }
-  // }, [selectedRoomTypes, selectedPropertyType]);
+  useEffect(() => {
+    if (selectedPropertyType) {
+      updateSearchQuery({ hotelType: selectedPropertyType });
+    }
+  }, [selectedPropertyType]);
+
+  useEffect(() => {
+    if (selectedRoomTypes) {
+      updateSearchQuery({ roomType: selectedRoomTypes });
+    }
+  }, [selectedRoomTypes]);
 
   const autoCompleteRef = useRef();
   const inputRef = useRef();
+
+  const HandleClearFilter = () => {
+    searchParams.delete("roomType");
+    searchParams.delete("hotelType");
+    searchParams.delete("amenities");
+    setSearchParams(searchParams, { priceMin: 0, priceMax: 20000 });
+  };
 
   // ===== Show the suggetion of the location search on the input ==========
   useEffect(() => {
@@ -394,7 +415,13 @@ const SideFilter = (setFilterData, filterData) => {
       <Grid item xs={12}>
         <div className="d-flex align-items-center justify-content-between px-1">
           <h4>Filter</h4>
-          <p className="text-danger">clear All</p>
+          <p
+            className="text-danger"
+            style={{ cursor: "pointer" }}
+            onClick={HandleClearFilter}
+          >
+            clear All
+          </p>
         </div>
         <hr />
       </Grid>
@@ -410,8 +437,8 @@ const SideFilter = (setFilterData, filterData) => {
                     name="roomType"
                     size="small"
                     sx={{ padding: "2px", marginLeft: "10px" }}
-                    checked={currentSearchParams.roomType === roomType._id}
-                    onChange={() => handleRoomTypeChange(roomType._id)}
+                    checked={currentSearchParams.roomType === roomType?._id}
+                    onChange={() => handleRoomTypeChange(roomType?._id)}
                   />
                 }
                 label={roomType.title}
@@ -480,32 +507,19 @@ const SideFilter = (setFilterData, filterData) => {
         <div>
           <h5>Vacation Escapes</h5>
           {propertyType.map((item, index) => (
-            <div key={index} style={{ marginBottom: "-10px" }}>
+            <div key={index}>
               <FormControlLabel
                 control={
-                  // <Radio
-                  //   color="error"
-                  //   sx={{ padding: "2px", marginLeft: "10px" }}
-                  //   checked={currentSearchParams.hotelType
-                  //     ?.split(",")
-                  //     ?.includes(item.title)}
-                  //   onChange={() => handlePropertyType(item.title)}
-                  // />
-                  <RadioGroup
-                    sx={{ marginLeft: "10px" }}
-                    aria-labelledby="demo-controlled-radio-buttons-group"
-                    name="controlled-radio-buttons-group"
-                    value={selectedPropertyType}
-                    onChange={(e) => handlePropertyType(e.target.value)}
-                  >
-                    <FormControlLabel
-                      value={item.title}
-                      control={<Radio />}
-                      label={item.title}
-                    />
-                  </RadioGroup>
+                  <Radio
+                    color="error"
+                    name="propertyType"
+                    size="small"
+                    sx={{ padding: "2px", marginLeft: "10px" }}
+                    checked={currentSearchParams.hotelType === item?._id}
+                    onChange={() => handlePropertyType(item?._id)}
+                  />
                 }
-                // label={item.title}
+                label={item?.title}
               />
             </div>
           ))}
@@ -521,6 +535,10 @@ const SideFilter = (setFilterData, filterData) => {
                 control={
                   <Checkbox
                     color="error"
+                    checked={currentSearchParams.amenities
+                      ?.split(",")
+                      .includes(item?._id)}
+                    onChange={() => handleChangeAmenities(item?._id)}
                     sx={{ padding: "2px", marginLeft: "10px" }}
                   />
                 }

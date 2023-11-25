@@ -15,11 +15,10 @@ import style from "./HotelList.module.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { WaitLoader } from "../../Components/Elements/WaitLoader";
 import HotelListBack from "../../images/HotelListBack.jpg";
-import { useAuthContext } from "../../context/userAuthContext";
 import { useEffect } from "react";
-import { useState } from "react";
 import Skeleton from "react-loading-skeleton";
-import { current } from "@reduxjs/toolkit";
+import { useDispatch, useSelector } from "react-redux";
+import { GetAlltheRoomTypes } from "../../store/actions/roomCategoriesAction";
 
 const HotelList = ({
   hotels,
@@ -30,13 +29,14 @@ const HotelList = ({
   setPagination,
 }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const AllRoomsData = useSelector((state) => state.GetAllRoomTypReducer);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = new URLSearchParams(document.location.search);
 
   // State to keep track of the selected rating filter
-  const [selectedRatingFilter, setSelectedRatingFilter] =
-    React.useState("popularity");
 
   const currentSearchParams = Object.fromEntries(searchQuery?.entries());
 
@@ -61,46 +61,59 @@ const HotelList = ({
   };
 
   // Hotel PriceManagement
-  const PriceManagement = (hotelData) => {
-    const report = {};
-    hotelData?.rooms?.forEach((element) => {
-      report[element?.roomType?._id] = {
-        price: element?.price,
-        title: element?.roomType?.title,
-      };
-    });
-    const result = {};
-    if (currentSearchParams.roomType !== undefined) {
-      const newData = {
-        price: report[currentSearchParams.roomType]?.price,
-        title: report[currentSearchParams.roomType]?.title,
-      };
-      Object.assign(result, newData);
+  // const PriceManagement = (hotelData) => {
+  //   const report = {};
+  //   hotelData?.rooms?.forEach((element) => {
+  //     report[element?.roomType?._id] = {
+  //       price: element?.price,
+  //       title: element?.roomType?.title,
+  //     };
+  //   });
+  //   const result = {};
+  //   if (currentSearchParams.roomType !== undefined) {
+  //     const newData = {
+  //       price: report[currentSearchParams.roomType]?.price,
+  //       title: report[currentSearchParams.roomType]?.title,
+  //     };
+  //     Object.assign(result, newData);
+  //   } else {
+  //     if (
+  //       currentSearchParams.sort === "l2h" ||
+  //       currentSearchParams.sort === "h2l"
+  //     ) {
+  //       if (currentSearchParams.sort === "l2h") {
+  //         const roomListPriceList = Object.values(report);
+  //         const minPrice = roomListPriceList.sort(
+  //           (a, b) => a?.price - b?.price
+  //         );
+  //         Object.assign(result, minPrice[0]);
+  //       } else {
+  //         const roomListPriceList = Object.values(report);
+  //         const minPrice = roomListPriceList.sort(
+  //           (a, b) => b?.price - a?.price
+  //         );
+  //         Object.assign(result, minPrice[0]);
+  //       }
+  //     } else {
+  //       const roomListPriceList = Object.values(report);
+  //       const minPrice = roomListPriceList.sort((a, b) => a?.price - b?.price);
+  //       Object.assign(result, minPrice[0]);
+  //     }
+  //   }
+  //   return result;
+  // };
+  const setPrice = (roomData) => {
+    let price;
+    if (currentSearchParams.sort === "l2h") {
+      const minPrice = roomData?.rooms?.sort((a, b) => a?.price - b?.price);
+      price = minPrice[0].price;
+    } else if (currentSearchParams.sort === "h2l") {
+      const minPrice = roomData?.rooms?.sort((a, b) => b?.price - a?.price);
+      price = minPrice[0].price;
     } else {
-      if (
-        currentSearchParams.sort === "l2h" ||
-        currentSearchParams.sort === "h2l"
-      ) {
-        if (currentSearchParams.sort === "l2h") {
-          const roomListPriceList = Object.values(report);
-          const minPrice = roomListPriceList.sort(
-            (a, b) => a?.price - b?.price
-          );
-          Object.assign(result, minPrice[0]);
-        } else {
-          const roomListPriceList = Object.values(report);
-          const minPrice = roomListPriceList.sort(
-            (a, b) => b?.price - a?.price
-          );
-          Object.assign(result, minPrice[0]);
-        }
-      } else {
-        const roomListPriceList = Object.values(report);
-        const minPrice = roomListPriceList.sort((a, b) => a?.price - b?.price);
-        Object.assign(result, minPrice[0]);
-      }
+      price = roomData?.rooms[0]?.price;
     }
-    return result;
+    return price;
   };
 
   // Check the value in localStorage
@@ -129,7 +142,9 @@ const HotelList = ({
       {/* First hotel card */}
       <Grid sx={{ margin: "10px 0px" }} container>
         <Grid item xs={12}>
-          <Typography variant="h3" fontWeight={700}>Welcome To Hotelio, Your Travel Partner</Typography>
+          <Typography variant="h3" fontWeight={700}>
+            Welcome To Hotelio, Your Travel Partner
+          </Typography>
         </Grid>
         <Grid
           item
@@ -267,16 +282,26 @@ const HotelList = ({
                   lg={5}
                   xl={5}
                 >
-                  <div className="px-3 pt-2">
-                    <div className="d-flex align-items-center">
-                      <h4>
-                        {items.hotelName} ({items?.hotelType?.title})
-                      </h4>
+                  <div className="px-3">
+                    <div className="d-flex align-items-start pb-4 flex-column">
+                      <h4>{items?.hotelName}</h4>
+                      <h5 className="fw-bold fs-6 text-danger">
+                        {items?.hotelType?.title}
+                      </h5>
                     </div>
-                    <p>
-                      {items.locality}, {items.city}, {items.country}
-                    </p>
-                    <h6>{items.zipCode}</h6>
+                    <h6>
+                      {items?.locality} ,{items?.city} &nbsp;,{items?.state}
+                    </h6>
+
+                    <div>
+                      <h5 className="fs-6 fw-bold py-2">
+                        {
+                          AllRoomsData?.data?.find(
+                            (x) => x._id === items?.rooms[0]?.roomType
+                          ).title
+                        }
+                      </h5>
+                    </div>
                     <div>
                       {items?.rooms[0]?.roomType?.amenties?.map(
                         (item, index) => (
@@ -296,12 +321,14 @@ const HotelList = ({
                     <div className="d-flex align-items-center">
                       <Rating
                         name="read-only"
-                        value={items.hotelRatings}
+                        value={items?.hotelRatings}
                         readOnly
                       />
                       <h6>
                         <b>{items?.hotelRatings || ""}</b>&nbsp; |{" "}
-                        <span className="px-2">233 (reviews)</span>
+                        <span className="px-2 text-success fw-bold">
+                          233 (reviews)
+                        </span>
                       </h6>
                     </div>
                   </div>
@@ -352,7 +379,7 @@ const HotelList = ({
                       className={`align-items-center p-2 ${style.BookingCardColor} ${style.mobflex}`}
                     >
                       <h4>
-                        {PriceManagement(items).price} &nbsp;
+                        {setPrice(items)} &nbsp;
                         <span>
                           <del>{items?.rooms[0]?.prevPrice}</del>
                         </span>

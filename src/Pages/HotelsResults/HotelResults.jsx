@@ -15,6 +15,7 @@ import MobileHeader from "../../Components/MobileComponent/MobileHeader";
 import MobileFooter from "../../Components/MobileComponent/MobileFooter";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { GetAlltheRoomTypes } from "../../store/actions/roomCategoriesAction";
 
 const HotelResults = () => {
   const searchParams = new URLSearchParams(document.location.search);
@@ -108,12 +109,12 @@ const HotelResults = () => {
         setLoader(true);
         const decodedUriComponent = decodeURIComponent(params);
         const response = await axios.get(
-          `${API_URL}/hotel/search?${decodedUriComponent}`
+          `${API_URL}/hotel/search-it?${decodedUriComponent}`
         );
         if (response.status === 200) {
           // setHotels(response.data.data);
-          setTotalPages(response.data.totalCount);
-          FilterhotelsData(response.data.data, pagination);
+          setTotalPages(response?.data?.data[0]?.pagination[0]?.counts);
+          FilterhotelsData(response.data?.data[0]?.data, pagination);
           window.localStorage.setItem(
             "search",
             encodeURIComponent(decodedUriComponent)
@@ -152,10 +153,13 @@ const HotelResults = () => {
     };
   }, [navigate]);
 
+  React.useEffect(() => {
+    dispatch(GetAlltheRoomTypes());
+  }, []);
+
   // -------------------------------------------------------------------------------------------------------------------------
   return (
     <div>
-
       <Helmet>
         {/* Cononical tag:-  */}
         <link rel="canonical" href="https://www.hoteliorooms.com" />

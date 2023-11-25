@@ -219,7 +219,6 @@ const Detail = ({ data }) => {
                 src={Welcome}
                 alt="welcome"
               />
-
               <div
                 className=""
                 style={{
@@ -457,25 +456,25 @@ const Detail = ({ data }) => {
                     currentSearchParams.checkIn,
                     currentSearchParams.checkOut
                   ) && (
-                      <div
-                        style={{
-                          cursor: "not-allowed",
-                          display: "grid",
-                          placeItems: "center",
-                          position: "absolute",
-                          background: "#ffffffba",
-                          zIndex: "1000",
-                          width: "100%",
-                          height: "100%",
-                        }}
-                      >
-                        <div>
-                          <Typography variant="h6" color="error" fontWeight={800}>
-                            Room Not Available
-                          </Typography>
-                        </div>
+                    <div
+                      style={{
+                        cursor: "not-allowed",
+                        display: "grid",
+                        placeItems: "center",
+                        position: "absolute",
+                        background: "#ffffffba",
+                        zIndex: "1000",
+                        width: "100%",
+                        height: "100%",
+                      }}
+                    >
+                      <div>
+                        <Typography variant="h6" color="error" fontWeight={800}>
+                          Room Not Available
+                        </Typography>
                       </div>
-                    )}
+                    </div>
+                  )}
                   <Grid container spacing={1}>
                     {/* <Grid
                       item
