@@ -50,7 +50,7 @@ const Footer = () => {
   const generateListItems = () => {
     return locations.map((location, index) => (
       <li key={index} >
-        <span style={{ cursor: 'pointer' }} onClick={() => navigate('/searchedhotels')}>
+        <span style={{ cursor: 'pointer' }} onClick={() => navigate('/:city')}>
           {location} <AiFillCaretRight />
         </span>
       </li>
@@ -63,9 +63,9 @@ const Footer = () => {
     <footer
       className={`pt-4 pb-4 text-white  container-fluid ${style.footerBanner}`}
     >
-      {/* <div className={`container-fluid ${style.mobremove}`}>
+      <div className={`container-fluid ${style.mobremove}`}>
         <h4>Hotelio Rooms</h4>
-        <Grid container py={2} spacing={2}>
+        <Grid sx={{ color: '#ffb000', fontWeight: '700' }} container py={2} spacing={2}>
           <Grid item xs={2}>
             <ul>
               {generateListItems()}
@@ -98,7 +98,7 @@ const Footer = () => {
           </Grid>
         </Grid>
         <hr />
-      </div> */}
+      </div>
       <div className="container-fluid">
         <div
           className={`row  ${isXtraSmallScreen ? "text-start ms-2" : "text-start"
