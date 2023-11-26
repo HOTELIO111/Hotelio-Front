@@ -90,9 +90,9 @@ figcaption {
   width: 50%;
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   display: none;
-}
+} */
 
 .grid-item {
   float: left;
