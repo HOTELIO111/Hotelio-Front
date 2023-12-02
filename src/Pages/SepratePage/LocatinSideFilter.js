@@ -188,8 +188,6 @@ const LocatinSideFilter = ({ handleFilterChange, filter, setFilter }) => {
     navigate(`/searchedhotels?${urlsearchParams}`);
   };
 
-
-
   useEffect(() => {
     if (placeData) {
       setChangePlaceSearch({
@@ -408,7 +406,7 @@ const LocatinSideFilter = ({ handleFilterChange, filter, setFilter }) => {
           disableSwap
         />
       </Grid>
-      <Grid item sm={12} paddingX={1}>
+      {/* <Grid item sm={12} paddingX={1}>
         <h6>Area ( in Km )</h6>
         <Slider
           defaultValue={50}
@@ -421,7 +419,7 @@ const LocatinSideFilter = ({ handleFilterChange, filter, setFilter }) => {
           valueLabelDisplay="auto"
           valueLabelFormat={(value) => `${value} Km`}
         />
-      </Grid>
+      </Grid> */}
       <Grid item xs={12}>
         <div>
           <h5>Hotelio Collection</h5>
