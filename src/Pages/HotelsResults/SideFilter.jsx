@@ -471,7 +471,7 @@ const SideFilter = (setFilterData, filterData) => {
           disableSwap
         />
       </Grid>
-      <Grid item sm={12} paddingX={1}>
+      {/* <Grid item sm={12} paddingX={1}>
         <h6>Area ( in Km )</h6>
         <Slider
           defaultValue={50}
@@ -482,7 +482,7 @@ const SideFilter = (setFilterData, filterData) => {
           valueLabelDisplay="auto"
           valueLabelFormat={(value) => `${value} Km`}
         />
-      </Grid>
+      </Grid> */}
       <Grid item xs={12}>
         <div>
           <h5>Hotelio Collection</h5>
