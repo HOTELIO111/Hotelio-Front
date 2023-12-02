@@ -232,9 +232,9 @@ const Detail = ({ data }) => {
                 >
                   {/* ------------------------------------------------------ Map the Hotel Ammenities list (function defined upper side ) ------------------------------------------------- */}
                   {AllAmentitesAndFacilities(data?.rooms)
-                    ?.allAmentiesFacilities?.slice(0, 15)
+                    ?.allAmentiesFacilities?.slice(0, 10)
                     ?.map((item, index) => (
-                      <div className="customChip" key={index}>
+                      <div className="customChip " key={index}>
                         {item}
                       </div>
                     ))}
