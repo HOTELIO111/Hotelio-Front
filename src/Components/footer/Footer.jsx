@@ -86,53 +86,44 @@ const Footer = () => {
     >
       <div className={`container-fluid ${style.mobremove}`}>
         <h4>Hotelio Rooms</h4>
-        <div className={style.locationFooter}>
+        {/* <div className={style.locationFooter}>
           {allLocation?.data?.data?.map((item, index) => (
-            <h4
-              onClick={() => HandleLocationSearch(item)}
-              style={{ fontSize: "16px", cursor: "pointer" }}
-            >
-              {item?.endpoint}
-            </h4>
+            <li key={index}>
+              <span style={{ cursor: "pointer" }} onClick={() => HandleLocationSearch(item)}>
+                {item?.endpoint} <AiFillCaretRight />
+              </span>
+            </li>
+
           ))}
-        </div>
-        {/* <Grid
+        </div> */}
+        <Grid
           sx={{ color: "#ffb000", fontWeight: "700" }}
           container
           py={2}
           spacing={2}
         >
-          <Grid item xs={2}>
-            <ul>{generateListItems()}</ul>
-          </Grid>
-          <Grid item xs={2}>
-            <ul>{generateListItems()}</ul>
-          </Grid>
-          <Grid item xs={2}>
-            <ul>{generateListItems()}</ul>
-          </Grid>
-          <Grid item xs={2}>
-            <ul>{generateListItems()}</ul>
-          </Grid>
-          <Grid item xs={2}>
-            <ul>{generateListItems()}</ul>
-          </Grid>
-          <Grid item xs={2}>
-            <ul>{generateListItems()}</ul>
-          </Grid>
-        </Grid> */}
+          {allLocation?.data?.data?.map((item, index) => (
+            <Grid item xs={3}>
+              <ul>
+                <li key={index}>
+                  <span style={{ cursor: "pointer" }} onClick={() => HandleLocationSearch(item)}>
+                    {item?.endpoint} <AiFillCaretRight />
+                  </span>
+                </li>
+              </ul>
+            </Grid>
+          ))}
+        </Grid>
         <hr />
       </div>
       <div className="container-fluid">
         <div
-          className={`row  ${
-            isXtraSmallScreen ? "text-start ms-2" : "text-start"
-          } `}
+          className={`row  ${isXtraSmallScreen ? "text-start ms-2" : "text-start"
+            } `}
         >
           <div
-            className={`${
-              isXtraSmallScreen ? "ps-4" : ""
-            } my-1 col-lg-4 col-xl-4 col-sm-12`}
+            className={`${isXtraSmallScreen ? "ps-4" : ""
+              } my-1 col-lg-4 col-xl-4 col-sm-12`}
           >
             <h5 className="text-uppercase" style={{ fontSize: "20px" }}>
               About Us
@@ -164,9 +155,8 @@ const Footer = () => {
           </div>
 
           <div
-            className={`col-lg-5 ${
-              isXtraSmallScreen ? "ps-4" : ""
-            } my-1 col-xl-5 col-sm-12`}
+            className={`col-lg-5 ${isXtraSmallScreen ? "ps-4" : ""
+              } my-1 col-xl-5 col-sm-12`}
           >
             <div className="row">
               <div className=" col-lg-6 col-xl-6 col-xs-12">
@@ -231,9 +221,8 @@ const Footer = () => {
                 </h4>
                 <ul className={`${style.fList} mt-4`}>
                   <li
-                    className={` ${style.fListItem} ${
-                      isXtraSmallScreen ? "text-center" : "text-start"
-                    }`}
+                    className={` ${style.fListItem} ${isXtraSmallScreen ? "text-center" : "text-start"
+                      }`}
                   >
                     <Link to="/" className="d-flex justify-content-start">
                       <SavingsIcon className="me-2" /> Budget Hotel
@@ -257,9 +246,8 @@ const Footer = () => {
           </div>
 
           <div
-            className={`col-lg-3 ${
-              isXtraSmallScreen ? "ps-4" : ""
-            } my-1 col-xl-3 col-sm-12`}
+            className={`col-lg-3 ${isXtraSmallScreen ? "ps-4" : ""
+              } my-1 col-xl-3 col-sm-12`}
           >
             <h4 className="text-uppercase" style={{ fontSize: "20px" }}>
               Contact Us
@@ -301,9 +289,8 @@ const Footer = () => {
 
           <div className="row m-0">
             <div
-              className={`${style.footersec5}  ${
-                isXtraSmallScreen ? "text-center" : "text-start"
-              }  col-xl-3 col-md-12 col-12 `}
+              className={`${style.footersec5}  ${isXtraSmallScreen ? "text-center" : "text-start"
+                }  col-xl-3 col-md-12 col-12 `}
             >
               {/* <InstagramIcon className={`mx-1 fs-1  ${style.insta} `} />
               <FacebookIcon className={`mx-1 fs-1 ${style.facebook}`} />

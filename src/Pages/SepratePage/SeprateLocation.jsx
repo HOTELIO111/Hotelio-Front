@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
 import Navbar from "../../Components/Navbar/Navbar";
 import Footer from "../../Components/footer/Footer";
 import {
@@ -33,7 +32,7 @@ import HotelsCard from "./HotelsCard";
 import LocatinSideFilter from "./LocatinSideFilter";
 import { useSearch } from "../../context/useSearch";
 import instance from "../../store/_utils";
-import { ClockLoader } from "react-spinners";
+import NoData from '../../images/Search.gif'
 import {
   ClockWaitLoader,
   WaitLoader,
@@ -231,13 +230,17 @@ const SeprateLocation = () => {
                   filter={filter}
                 />
               ) : (
-                <img
-                  src="https://www.sunflowerhospital.in/assets/img/bg/404-error-dribbble-800x600.gif"
-                  alt="404notfound"
-                  width={350}
-                  height={500}
-                  style={{ marginLeft: "10px" }}
-                />
+                <Box sx={{ width: '100%', textAlign: 'center' }} >
+                  <img
+                    src={NoData}
+                    alt="404notfound"
+                    // width={150}
+                    // height={350}
+                    style={{ marginLeft: "10px", width: '500px' }}
+                  />
+                  <Typography variant="h3">Oops!... no results found</Typography>
+                  <Typography variant="h6">We're working on this location...</Typography>
+                </Box>
               )}
 
               <Box sx={{ m: 1.5, p: 1 }}>
@@ -307,7 +310,7 @@ const SeprateLocation = () => {
         </Grid>
       </Container>
       {isMobile ? <MobileFooter /> : <Footer />}
-    </div>
+    </div >
   );
 };
 
