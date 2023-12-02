@@ -3,6 +3,7 @@ import { API_URL } from "../config";
 import { useState } from "react";
 import axios from "axios";
 import { geocodeByAddress } from "react-google-places-autocomplete";
+import instance from "../store/_utils";
 
 const searchContext = createContext();
 
@@ -51,6 +52,67 @@ const SearchProvider = ({ children }) => {
     fetchData();
   }, [selectedPlace]);
 
+  const GetLocationData = async (endpoint, filter, currentSearchParams) => {
+    let newFilter = {};
+
+    if (filter !== null) {
+      if (filter.price && filter?.price[0] !== null) {
+        newFilter.priceMin = filter?.price[0];
+      }
+
+      if (filter.price && filter?.price[1] !== null) {
+        newFilter.priceMax = filter?.price[1];
+      }
+
+      if (filter.roomType !== undefined) {
+        newFilter.roomType = filter?.roomType;
+      }
+
+      if (filter.hotelType !== undefined) {
+        newFilter.hotelType = filter?.hotelType;
+      }
+
+      if (filter.amenities && filter.amenities.length > 0) {
+        newFilter.amenities = filter?.amenities.join(",");
+      }
+
+      if (filter?.payment !== undefined) {
+        newFilter.payment = filter?.payment === "Pay at Hotel" ? true : false;
+      }
+    }
+
+    let urlParams = {
+      page: currentSearchParams?.page ? currentSearchParams?.page : 1,
+      priceMin: currentSearchParams?.priceMin
+        ? currentSearchParams?.priceMin
+        : 0,
+      priceMax: currentSearchParams?.priceMax
+        ? currentSearchParams?.priceMax
+        : 20000,
+      pageSize: 20,
+      endpoint: endpoint,
+      sort: currentSearchParams?.sort
+        ? currentSearchParams?.sort
+        : "popularity",
+      ...(currentSearchParams ? currentSearchParams : {}),
+    };
+
+    const searchParams = new URLSearchParams(urlParams).toString();
+
+    try {
+      const response = await instance.get(`/hotel/search-loc?${searchParams}`);
+
+      if (response.status === 200) {
+        return { error: false, data: response?.data?.data, url: endpoint };
+      }
+    } catch (error) {
+      console.error(error);
+      return { error: true, message: error.message };
+    }
+  };
+
+
+
   return (
     <searchContext.Provider
       value={{
@@ -60,6 +122,7 @@ const SearchProvider = ({ children }) => {
         selectedPlace,
         setSelectedPlace,
         placeData,
+        GetLocationData,
       }}
     >
       {children}

@@ -36,6 +36,8 @@ import { useCollections } from "../../context/useStateManager";
 import { useSearch } from "../../context/useSearch";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import GoogleTranslate from "../GoogleTranslate";
+import { useDispatch, useSelector } from "react-redux";
+import { GetPopularLocationAction } from "../../store/actions/locationsActions";
 
 const Navbar = ({ list }) => {
   // Locatio Asked function
@@ -60,6 +62,7 @@ const Navbar = ({ list }) => {
   // Popover Material UI Code
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [openOptions, setOpenOptions] = useState(false);
@@ -215,6 +218,7 @@ const Navbar = ({ list }) => {
 
   useEffect(() => {
     GetAllCities();
+
   }, []);
 
   // ---------------------------------city get api
@@ -250,59 +254,6 @@ const Navbar = ({ list }) => {
   const MarginMobile = {
     marginTop: "-112px",
   };
-
-  // // ==================================== Google Web Translator  ===================================================
-  // const googleTranslateElementInit = () => {
-  //   new window.google.translate.TranslateElement(
-  //     {
-  //       pageLanguage: "en",
-  //       autoDisplay: false,
-  //     },
-  //     "google_translate_element"
-  //   );
-  // };
-  // useEffect(() => {
-  //   var addScript = document.createElement("script");
-  //   addScript.setAttribute(
-  //     "src",
-  //     "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
-  //   );
-  //   document.body.appendChild(addScript);
-  //   window.googleTranslateElementInit = googleTranslateElementInit;
-  // }, []);
-
-  // // ========================================= Google Web Translator= ================================================
-
-  // ------------------------------------Get The google autocomlete location --------------------------------------------------
-  // const autoCompleteRef = useRef();
-  // const inputRef = useRef();
-
-  // useEffect(() => {
-  //   try {
-  //     const options = {
-  //       types: ["geocode"],
-  //       componentRestrictions: { country: "in" },
-  //       fields: ["formatted_address", "geometry"],
-  //     };
-
-  //     autoCompleteRef.current = new window.google.maps.places.Autocomplete(
-  //       inputRef.current,
-  //       options
-  //     );
-
-  //     autoCompleteRef.current.addListener("place_changed", () => {
-  //       const place = autoCompleteRef.current.getPlace();
-  //       setSlectedCity(place.formatted_address);
-  //       // Get latitude and longitude
-  //       const { lat, lng } = place.geometry.location;
-  //       let longitude = lng();
-  //       let latitude = lat();
-  //       setGeoLoc({ longitude: longitude, latitude: latitude });
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, []);
 
   return (
     <div>

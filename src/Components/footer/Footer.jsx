@@ -12,52 +12,73 @@ import PermPhoneMsgIcon from "@mui/icons-material/PermPhoneMsg";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import PolicyIcon from "@mui/icons-material/Policy";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
-import TtyIcon from '@mui/icons-material/Tty';
-import SendIcon from '@mui/icons-material/Send';
+import TtyIcon from "@mui/icons-material/Tty";
+import SendIcon from "@mui/icons-material/Send";
 import Applestore from "../../images/apple.png";
 import Playstore from "../../images/playstored.png";
 import { AiFillCaretRight } from "react-icons/ai";
-import SavingsIcon from '@mui/icons-material/Savings';
-import FilterVintageIcon from '@mui/icons-material/FilterVintage';
-import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
-import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
+import SavingsIcon from "@mui/icons-material/Savings";
+import FilterVintageIcon from "@mui/icons-material/FilterVintage";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
+import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import LocalPhoneRoundedIcon from "@mui/icons-material/LocalPhoneRounded";
-import VideoCameraFrontIcon from '@mui/icons-material/VideoCameraFront';
-import VISALOGO from '../../images/VISALogo.webp'
-import MASTERCARDLOGO from '../../images/MasterCardLogo.webp'
-import UPILOGO from '../../images/UPILogo.webp'
-import RUPAYLOGO from '../../images/RUPAYLogo.webp'
+import VideoCameraFrontIcon from "@mui/icons-material/VideoCameraFront";
+import VISALOGO from "../../images/VISALogo.webp";
+import MASTERCARDLOGO from "../../images/MasterCardLogo.webp";
+import UPILOGO from "../../images/UPILogo.webp";
+import RUPAYLOGO from "../../images/RUPAYLogo.webp";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { GetPopularLocationAction } from "../../store/actions/locationsActions";
+import { useSearch } from "../../context/useSearch";
 
 const Footer = () => {
   const isXtraSmallScreen = useMediaQuery("(max-width:320px)");
+  const { GetLocationData } = useSearch();
+  const allLocation = useSelector(
+    (state) => state.GetALlPopularLocationReducer
+  );
+  const dispatch = useDispatch();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const locations = [
-    'Hotelio near me',
-    'Hotelio in Manali',
-    'Hotelio in Nanital',
-    'Hotelio in Mount Abu',
-    'Hotelio in Agra',
-    'Hotelio in Agra',
-    'Hotelio in Agra',
-    'Hotelio in Agra',
-    'Hotelio in Agra',
-    'Hotelio in Agra',
+    "Hotelio near me",
+    "Hotelio in Manali",
+    "Hotelio in Nanital",
+    "Hotelio in Mount Abu",
+    "Hotelio in Agra",
+    "Hotelio in Agra",
+    "Hotelio in Agra",
+    "Hotelio in Agra",
+    "Hotelio in Agra",
+    "Hotelio in Agra",
     // Add more locations here...
   ];
 
   const generateListItems = () => {
     return locations.map((location, index) => (
-      <li key={index} >
-        <span style={{ cursor: 'pointer' }} onClick={() => navigate('/:city')}>
+      <li key={index}>
+        <span style={{ cursor: "pointer" }} onClick={() => navigate("/:city")}>
           {location} <AiFillCaretRight />
         </span>
       </li>
     ));
   };
 
-
+  const HandleLocationSearch = async (item) => {
+    // const data = await GetLocationData(
+    //   1,
+    //   item?.location?.coordinates[1],
+    //   item?.location?.coordinates[0],
+    //   item?.address,
+    //   item?.endpoint
+    // );
+    navigate(`/${item?.endpoint}`, { state: item });
+  };
+  useEffect(() => {
+    dispatch(GetPopularLocationAction());
+  }, []);
 
   return (
     <footer
@@ -65,64 +86,87 @@ const Footer = () => {
     >
       <div className={`container-fluid ${style.mobremove}`}>
         <h4>Hotelio Rooms</h4>
-        <Grid sx={{ color: '#ffb000', fontWeight: '700' }} container py={2} spacing={2}>
+        <div className={style.locationFooter}>
+          {allLocation?.data?.data?.map((item, index) => (
+            <h4
+              onClick={() => HandleLocationSearch(item)}
+              style={{ fontSize: "16px", cursor: "pointer" }}
+            >
+              {item?.endpoint}
+            </h4>
+          ))}
+        </div>
+        {/* <Grid
+          sx={{ color: "#ffb000", fontWeight: "700" }}
+          container
+          py={2}
+          spacing={2}
+        >
           <Grid item xs={2}>
-            <ul>
-              {generateListItems()}
-            </ul>
+            <ul>{generateListItems()}</ul>
           </Grid>
           <Grid item xs={2}>
-            <ul>
-              {generateListItems()}
-            </ul>
+            <ul>{generateListItems()}</ul>
           </Grid>
           <Grid item xs={2}>
-            <ul>
-              {generateListItems()}
-            </ul>
+            <ul>{generateListItems()}</ul>
           </Grid>
           <Grid item xs={2}>
-            <ul>
-              {generateListItems()}
-            </ul>
+            <ul>{generateListItems()}</ul>
           </Grid>
           <Grid item xs={2}>
-            <ul>
-              {generateListItems()}
-            </ul>
+            <ul>{generateListItems()}</ul>
           </Grid>
           <Grid item xs={2}>
-            <ul>
-              {generateListItems()}
-            </ul>
+            <ul>{generateListItems()}</ul>
           </Grid>
-        </Grid>
+        </Grid> */}
         <hr />
       </div>
       <div className="container-fluid">
         <div
-          className={`row  ${isXtraSmallScreen ? "text-start ms-2" : "text-start"
-            } `}
+          className={`row  ${
+            isXtraSmallScreen ? "text-start ms-2" : "text-start"
+          } `}
         >
           <div
-            className={`${isXtraSmallScreen ? "ps-4" : ""
-              } my-1 col-lg-4 col-xl-4 col-sm-12`}
+            className={`${
+              isXtraSmallScreen ? "ps-4" : ""
+            } my-1 col-lg-4 col-xl-4 col-sm-12`}
           >
             <h5 className="text-uppercase" style={{ fontSize: "20px" }}>
               About Us
             </h5>
             <p className="mt-4 text-white">
-              India's leading online booking platform, revolutionizes the way travelers find and book accommodations. With our user-friendly app and website, we bring easy and comfortable stays to your fingertips. Explore our vast network of premium hotels, budget-friendly options, and authentic homestays. As India's first AI-enabled platform, we prioritize your comfort and provide hassle-free check-ins.
+              India's leading online booking platform, revolutionizes the way
+              travelers find and book accommodations. With our user-friendly app
+              and website, we bring easy and comfortable stays to your
+              fingertips. Explore our vast network of premium hotels,
+              budget-friendly options, and authentic homestays. As India's first
+              AI-enabled platform, we prioritize your comfort and provide
+              hassle-free check-ins.
             </p>
-            <div style={{ borderRadius: '8px', backgroundColor: 'rgba(255, 255, 255, 0.236)' }} className="border w-100 d-flex justify-content-end">
-              <input className="w-100 bg-transparent border-0 p-1" type="text" />
-              <Button variant='text'><SendIcon /></Button>
+            <div
+              style={{
+                borderRadius: "8px",
+                backgroundColor: "rgba(255, 255, 255, 0.236)",
+              }}
+              className="border w-100 d-flex justify-content-end"
+            >
+              <input
+                className="w-100 bg-transparent border-0 p-1"
+                type="text"
+              />
+              <Button variant="text">
+                <SendIcon />
+              </Button>
             </div>
           </div>
 
           <div
-            className={`col-lg-5 ${isXtraSmallScreen ? "ps-4" : ""
-              } my-1 col-xl-5 col-sm-12`}
+            className={`col-lg-5 ${
+              isXtraSmallScreen ? "ps-4" : ""
+            } my-1 col-xl-5 col-sm-12`}
           >
             <div className="row">
               <div className=" col-lg-6 col-xl-6 col-xs-12">
@@ -138,7 +182,10 @@ const Footer = () => {
                     </Link>
                   </li>
                   <li className={style.fListItem}>
-                    <Link to="/contact" className="d-flex justify-content-start">
+                    <Link
+                      to="/contact"
+                      className="d-flex justify-content-start"
+                    >
                       <PermPhoneMsgIcon className="me-2" />
                       <span className="fs-6">Contact Us</span>
                     </Link>
@@ -150,13 +197,19 @@ const Footer = () => {
                     </Link>
                   </li>
                   <li className={style.fListItem}>
-                    <Link to="/privacy" className="d-flex justify-content-start">
+                    <Link
+                      to="/privacy"
+                      className="d-flex justify-content-start"
+                    >
                       <PolicyIcon className="me-2" />
                       <span className="fs-6">Privacy & Policy</span>
                     </Link>
                   </li>
                   <li className={style.fListItem}>
-                    <Link to="/terms-condition" className="d-flex justify-content-start">
+                    <Link
+                      to="/terms-condition"
+                      className="d-flex justify-content-start"
+                    >
                       <VerifiedUserIcon className="me-2" />
                       <span className="fs-6">Terms & Condition</span>
                     </Link>
@@ -177,7 +230,11 @@ const Footer = () => {
                   Room Categories
                 </h4>
                 <ul className={`${style.fList} mt-4`}>
-                  <li className={` ${style.fListItem} ${isXtraSmallScreen ? "text-center" : "text-start"}`}>
+                  <li
+                    className={` ${style.fListItem} ${
+                      isXtraSmallScreen ? "text-center" : "text-start"
+                    }`}
+                  >
                     <Link to="/" className="d-flex justify-content-start">
                       <SavingsIcon className="me-2" /> Budget Hotel
                     </Link>
@@ -200,8 +257,9 @@ const Footer = () => {
           </div>
 
           <div
-            className={`col-lg-3 ${isXtraSmallScreen ? "ps-4" : ""
-              } my-1 col-xl-3 col-sm-12`}
+            className={`col-lg-3 ${
+              isXtraSmallScreen ? "ps-4" : ""
+            } my-1 col-xl-3 col-sm-12`}
           >
             <h4 className="text-uppercase" style={{ fontSize: "20px" }}>
               Contact Us
@@ -243,8 +301,9 @@ const Footer = () => {
 
           <div className="row m-0">
             <div
-              className={`${style.footersec5}  ${isXtraSmallScreen ? "text-center" : "text-start"
-                }  col-xl-3 col-md-12 col-12 `}
+              className={`${style.footersec5}  ${
+                isXtraSmallScreen ? "text-center" : "text-start"
+              }  col-xl-3 col-md-12 col-12 `}
             >
               {/* <InstagramIcon className={`mx-1 fs-1  ${style.insta} `} />
               <FacebookIcon className={`mx-1 fs-1 ${style.facebook}`} />
@@ -265,15 +324,26 @@ const Footer = () => {
                 />
               </div>
             </div>
-            <div className="col-xl-6 col-md-12 col-12"
-              style={{ fontSize: "20px", display: 'grid', placeItems: 'center' }}
+            <div
+              className="col-xl-6 col-md-12 col-12"
+              style={{
+                fontSize: "20px",
+                display: "grid",
+                placeItems: "center",
+              }}
             >
               © 2023 Hotelio is owned by Houda Carjour Tourism Pvt Ltd
-              <small style={{ color: '#FFB000', fontWeight: '600' }}>Designed & Developed By Trickle Solutions</small>
+              <small style={{ color: "#FFB000", fontWeight: "600" }}>
+                Designed & Developed By Trickle Solutions
+              </small>
             </div>
             <div
               className={`col-xl-3 col-md-12 col-12`}
-              style={{ fontSize: "20px", display: 'grid', placeItems: 'center' }}
+              style={{
+                fontSize: "20px",
+                display: "grid",
+                placeItems: "center",
+              }}
             >
               <div className={` ${style.acceptPaymentStyle}`}>
                 <img src={VISALOGO} alt="VISALOGO" />

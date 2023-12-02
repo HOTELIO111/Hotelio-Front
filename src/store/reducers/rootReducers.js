@@ -5,12 +5,14 @@ import {
   GetAgentLoginReducer,
 } from "../reducers/agentReducers";
 import { GetAllRoomTypReducer } from "./roomCategoriesReducers";
+import { GetALlPopularLocationReducer } from "./locationsReducers";
 
 const rootReducers = combineReducers({
   GetSearchedHotelsReducers,
   GetAgentSignupReducer,
   GetAgentLoginReducer,
   GetAllRoomTypReducer,
+  GetALlPopularLocationReducer,
 });
 
 export default rootReducers;

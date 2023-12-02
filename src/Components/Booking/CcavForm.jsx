@@ -38,7 +38,7 @@ function CcavForm({ click }) {
           <tr>
             <td>Order Id</td>
             <td>
-              <input type="text" name="order_id" value="" />
+              <input type="text" name="order_id" value="1234" />
             </td>
           </tr>
           <tr>

@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import { createContext, useContext } from "react";
 import instance from "../store/_utils";
+import { useEffect } from "react";
+import dayjs from "dayjs";
 
 const useStateManager = createContext();
 
@@ -57,6 +59,15 @@ const StateManagerProvider = ({ children }) => {
 
     window.location.href = targetURL;
   };
+
+  const dateFormat = "YYYY/MM/DD";
+
+  useEffect(() => {
+    const today = dayjs().format(dateFormat);
+    const tomorrow = dayjs().add(1, "day").format(dateFormat);
+
+    setCheckInCheckOut([dayjs(today, dateFormat), dayjs(tomorrow, dateFormat)]);
+  }, []);
 
   return (
     <useStateManager.Provider
