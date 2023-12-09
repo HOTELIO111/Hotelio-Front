@@ -19,6 +19,8 @@ import { useEffect } from "react";
 import Skeleton from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
 import { GetAlltheRoomTypes } from "../../store/actions/roomCategoriesAction";
+import { useCollections } from "../../context/useStateManager";
+import { convertDatesToUTC } from "../../Utilis/_fuctions";
 
 const HotelsCard = ({
   hotels,
@@ -32,7 +34,11 @@ const HotelsCard = ({
 }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
 
+  const currentSearchParams = Object.fromEntries(searchParams.entries());
+
+  const { checkInCheckOut, setCheckInCheckOut } = useCollections();
   const AllRoomsData = useSelector((state) => state.GetAllRoomTypReducer);
 
   //   const [searchParams, setSearchParams] = useSearchParams();
@@ -61,6 +67,23 @@ const HotelsCard = ({
   //   const handleRatingFilterChange = (event) => {
   //     updateSearchQuery({ sort: event.target.value });
   //   };
+  const queryString = (currentSearchParams, checkInCheckOut) => {
+    const url = {
+      checkIn:
+        currentSearchParams?.checkIn ||
+        new Date(checkInCheckOut[0]?.["$d"]).toISOString(),
+      checkOut:
+        currentSearchParams?.checkOut ||
+        new Date(checkInCheckOut[1]?.["$d"]).toISOString(),
+      totalRooms: currentSearchParams?.totalRooms || 1,
+      totalGuest: currentSearchParams?.totalGuest || 1,
+    };
+
+    return new URLSearchParams({
+      ...url,
+      ...currentSearchParams,
+    }).toString();
+  };
 
   const setPrice = (roomData) => {
     let price;
@@ -300,7 +323,12 @@ const HotelsCard = ({
                         <Button
                           onClick={() => {
                             if (loggedIn) {
-                              navigate(`/searchedhotel/${items._id}`);
+                              navigate(
+                                `/searchedhotel/${items._id}?${queryString(
+                                  currentSearchParams,
+                                  checkInCheckOut
+                                )}`
+                              );
                             } else {
                               navigate("/signin");
                             }
@@ -318,7 +346,12 @@ const HotelsCard = ({
                           sx={{ borderRadius: 5 }}
                           color="error"
                           onClick={() =>
-                            navigate(`/searchedhotel/${items._id}`)
+                            navigate(
+                              `/searchedhotel/${items._id}?${queryString(
+                                currentSearchParams,
+                                checkInCheckOut
+                              )}`
+                            )
                           }
                         >
                           View Hotel

@@ -10,10 +10,26 @@ import axios from "axios";
 import { API_URL } from "../../config";
 import { useEffect } from "react";
 import PageLoader from "../../Utilis/PageLoader";
+import { useBooking } from "../../context/useBooking";
 
 const BookingSteps = () => {
   const location = useLocation();
   const [loader, setLoader] = useState(false);
+  const searchQuery = new URLSearchParams(document.location.search);
+  const {
+    coupon,
+    setCoupon,
+    userBookingDetails,
+    setUserBookingDetails,
+    finalBookingData,
+    setFinalBookingData,
+    Gst,
+    setGst,
+    GenerateBookingId,
+    calculateAmount,
+  } = useBooking();
+
+  const currentSearchParam = Object.fromEntries(searchQuery?.entries());
 
   const [data, setData] = useState(null);
   const [roomData, setRoomData] = useState(null);
@@ -65,12 +81,13 @@ const BookingSteps = () => {
       }
     };
     GetHoteldata();
-  }, [location.search]);
+  }, [hotelId]);
   return (
     <div
       style={isMobile ? { padding: "5px" } : { padding: "20px" }}
       className="multi-step-form"
     >
+      <button onClick={() => GenerateBookingId()}>Book Now</button>
       <PageLoader loading={loader} />
       <div className="my-2">
         {currentStep > 1 && (
@@ -97,7 +114,7 @@ const BookingSteps = () => {
       </div>
 
       {/* Render the form content based on the current step */}
-      {currentStep === 1 && (
+      {/* {currentStep === 1 && (
         <StepOne
           hotelData={data}
           roomData={roomData}
@@ -105,7 +122,7 @@ const BookingSteps = () => {
           setFormData={setFormData}
           handleFormData={handleFormData}
         />
-      )}
+      )} */}
       {currentStep === 2 && (
         <StepTwo
           hotelData={data}
