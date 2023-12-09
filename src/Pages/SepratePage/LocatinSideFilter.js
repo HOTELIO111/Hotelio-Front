@@ -40,28 +40,6 @@ const LocatinSideFilter = ({ handleFilterChange, filter, setFilter }) => {
   const [selectedGuest, setselectedGuest] = useState(parseInt(1));
   const [selectedRoom, setselectedRoom] = useState(parseInt(1));
 
-  // update the location search query
-  const HandleUpdateLocationQuery = async (
-    location,
-    checkIn,
-    checkOut,
-    totalRooms,
-    totalGuests,
-    lng,
-    lat
-  ) => {
-    const data = {
-      location: location,
-      checkIn: convertDatesToUTC(checkInCheckOut)[0],
-      checkOut: convertDatesToUTC(checkInCheckOut)[1],
-      totalRooms: totalRooms,
-      totalGuest: totalGuests,
-      lng: lng,
-      lat: lat,
-    };
-    await updateSearchQuery(data);
-    await getSearchHotel(searchParams);
-  };
   // -------------------------- MOdal controllers-----------------------------
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -72,13 +50,6 @@ const LocatinSideFilter = ({ handleFilterChange, filter, setFilter }) => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
-  useEffect(() => {
-    if (selectedPlace) {
-      console.log(placeData);
-      // handleFilterChange({});
-    }
-  }, [selectedPlace]);
 
   //--------------------end Modal contorllers  -----------------------
 
@@ -175,17 +146,29 @@ const LocatinSideFilter = ({ handleFilterChange, filter, setFilter }) => {
   const [changePlaceSearch, setChangePlaceSearch] = useState({});
 
   const HandlePlaceSearch = () => {
-    const querySearch = {
-      ...changePlaceSearch,
-      ...currentSearchParams,
-      checkIn: convertDatesToUTC(checkInCheckOut)[0],
-      checkOut: convertDatesToUTC(checkInCheckOut)[1],
-      totalRooms: selectedRoom,
-      totalGuest: selectedGuest,
-      sort: currentSearchParams.sort ? currentSearchParams.sort : "popularity",
-    };
-    const urlsearchParams = new URLSearchParams(querySearch).toString();
-    navigate(`/searchedhotels?${urlsearchParams}`);
+    if (changePlaceSearch.location) {
+      const querySearch = {
+        ...changePlaceSearch,
+        ...currentSearchParams,
+        checkIn: new Date(checkInCheckOut[0]?.$d).toISOString(),
+        checkOut: new Date(checkInCheckOut[1]?.$d).toISOString(),
+        totalRooms: selectedRoom,
+        totalGuest: selectedGuest,
+        sort: currentSearchParams.sort
+          ? currentSearchParams.sort
+          : "popularity",
+      };
+      const urlsearchParams = new URLSearchParams(querySearch).toString();
+      navigate(`/searchedhotels?${urlsearchParams}`);
+    } else {
+      const querySearch = {
+        checkIn: new Date(checkInCheckOut[0]?.$d).toISOString(),
+        checkOut: new Date(checkInCheckOut[1]?.$d).toISOString(),
+        totalRooms: selectedRoom,
+        totalGuest: selectedGuest,
+      };
+      setSearchParams({ ...currentSearchParams, ...querySearch });
+    }
   };
 
   useEffect(() => {

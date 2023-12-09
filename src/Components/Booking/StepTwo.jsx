@@ -33,6 +33,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuthContext } from "../../context/userAuthContext";
 import moment from "moment/moment";
 import BookingInfo from "./BookingInfo";
+import { useBooking } from "../../context/useBooking";
 
 const StepTwo = ({
   hotelData,
@@ -41,17 +42,20 @@ const StepTwo = ({
   setFormData,
   handleFormData,
 }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const {
+    coupon,
+    setCoupon,
+    userBookingDetails,
+    setUserBookingDetails,
+    finalBookingData,
+    setFinalBookingData,
+    Gst,
+    setGst,
+  } = useBooking();
   const searchQuery = new URLSearchParams(document.location.search);
 
   const currentSearchParam = Object.fromEntries(searchQuery?.entries());
-  const { currentUser, setCurrentUser } = useAuthContext();
-  // const [formData, setFormData] = useState({});
-  const navigate = useNavigate();
-
-  // const handleFormData = (e) => {
-  //   setFormData({ ...formData, [e.target.name]: e.target.value });
-  // };
+  const { currentUser } = useAuthContext();
 
   const style = {
     position: "absolute",
@@ -68,99 +72,43 @@ const StepTwo = ({
   };
 
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  // const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [changeSelection, setChangeSelection] = useState(false);
+  // const [changeSelection, setChangeSelection] = useState(false);
   const [selectedValue, setSelectedValue] = useState("myself");
-  const [show, setHide] = useState(false);
+  // const [show, setHide] = useState(false);
   const handleRadioChange = (event) => {
     setSelectedValue(event.target.value);
   };
 
-  const [selectedGuest, setselectedGuest] = useState(1);
-  const [selectedRoom, setselectedRoom] = useState(1);
-
-  const Guestincrement = () => {
-    if (selectedRoom) {
-      if (selectedGuest < selectedRoom * 4) {
-        setselectedGuest(selectedGuest + 1);
-      } else {
-        if (selectedGuest === 32) {
-          window.alert("Maximum guests and rooms reached");
-        } else {
-          setselectedGuest(selectedGuest + 1);
-          if (selectedGuest % 4 === 0) {
-            setselectedRoom(selectedRoom + 1);
-            window.alert("Selected room increased to " + (selectedRoom + 1));
-          }
-        }
-      }
-    }
-  };
-
-  const Guestdecrement = () => {
-    if (selectedGuest > 1) {
-      setselectedGuest(selectedGuest - 1);
-    }
-  };
-
-  const Roomincrement = () => {
-    if (selectedRoom < 8) {
-      setselectedRoom(selectedRoom + 1);
-    }
-  };
-
-  const Roomdecrement = () => {
-    if (selectedRoom > 1) {
-      setselectedRoom(selectedRoom - 1);
-    }
-  };
-
-  const handleChangeCredentials = () => {
-    const lastQuerySearched = sessionStorage.getItem("search");
-    const decoded = decodeURIComponent(lastQuerySearched);
-    // navigate(`/searchedhotels?${decoded}`);
-    navigate("/");
-  };
-
-  // GuestIncrement or decrement
-  const RoomIncDec = (query) => {
-    if (query === "inc") {
-      setSearchParams({
-        totalRooms: parseInt(searchQuery.get("totalRooms")) + 1,
-      });
-    }
-  };
-
-  // Total LengthOFStay
-  const totalLengthOfStay = (checkIn, checkOut) => {
-    const newCheckIn = new Date(checkIn);
-    const newCheckOut = new Date(checkOut);
-
-    // Calculate the time difference in milliseconds
-    const timeDifference = newCheckOut.getTime() - newCheckIn.getTime();
-
-    // Convert the time difference from milliseconds to days
-    const totalDays = timeDifference / (1000 * 3600 * 24);
-
-    // Return the total number of days
-    return totalDays;
-  };
-
-  const calculateDiscount = (originalAmount, discountPercent, parameter) => {
-    const discountAmount = (originalAmount * discountPercent) / 100;
-    const discountedAmount = originalAmount - discountAmount;
-
-    return {
-      originalAmount: originalAmount,
-      discountAmount: discountAmount,
-      discountedAmount: discountedAmount,
-    };
-  };
+  useEffect(() => {
+    setUserBookingDetails((prevDetails) => ({
+      ...prevDetails,
+      dateOfBooking: new Date(Date.now()).toISOString(),
+      customer: currentUser || prevDetails.customer,
+      hotel: hotelData || prevDetails.hotel,
+      room: roomData || prevDetails.room,
+      guest: formData || prevDetails.guest,
+      bookingDate: {
+        checkIn: currentSearchParam.checkIn || prevDetails.bookingDate.checkIn,
+        checkOut:
+          currentSearchParam.checkOut || prevDetails.bookingDate.checkOut,
+      },
+      numberOfRooms: currentSearchParam.totalRooms || prevDetails.numberOfRooms,
+      numberOfGuests: {
+        adults:
+          currentSearchParam.totalGuest || prevDetails.numberOfGuests.adults,
+      },
+    }));
+  }, [currentUser, hotelData, roomData, formData, currentSearchParam]);
 
   useEffect(() => {
     if (selectedValue === "myself") {
-      setFormData({ ...currentUser });
+      setFormData({
+        name: currentUser?.name,
+        email: currentUser?.email,
+        mobileNo: currentUser?.mobileNo,
+      });
     } else {
       setFormData({
         name: "",
@@ -349,3 +297,84 @@ const StepTwo = ({
 };
 
 export default StepTwo;
+
+// const [selectedGuest, setselectedGuest] = useState(1);
+// const [selectedRoom, setselectedRoom] = useState(1);
+
+// const Guestincrement = () => {
+//   if (selectedRoom) {
+//     if (selectedGuest < selectedRoom * 4) {
+//       setselectedGuest(selectedGuest + 1);
+//     } else {
+//       if (selectedGuest === 32) {
+//         window.alert("Maximum guests and rooms reached");
+//       } else {
+//         setselectedGuest(selectedGuest + 1);
+//         if (selectedGuest % 4 === 0) {
+//           setselectedRoom(selectedRoom + 1);
+//           window.alert("Selected room increased to " + (selectedRoom + 1));
+//         }
+//       }
+//     }
+//   }
+// };
+
+// const Guestdecrement = () => {
+//   if (selectedGuest > 1) {
+//     setselectedGuest(selectedGuest - 1);
+//   }
+// };
+
+// const Roomincrement = () => {
+//   if (selectedRoom < 8) {
+//     setselectedRoom(selectedRoom + 1);
+//   }
+// };
+
+// const Roomdecrement = () => {
+//   if (selectedRoom > 1) {
+//     setselectedRoom(selectedRoom - 1);
+//   }
+// };
+
+// const handleChangeCredentials = () => {
+//   const lastQuerySearched = sessionStorage.getItem("search");
+//   const decoded = decodeURIComponent(lastQuerySearched);
+//   // navigate(`/searchedhotels?${decoded}`);
+//   navigate("/");
+// };
+
+// // GuestIncrement or decrement
+// const RoomIncDec = (query) => {
+//   if (query === "inc") {
+//     setSearchParams({
+//       totalRooms: parseInt(searchQuery.get("totalRooms")) + 1,
+//     });
+//   }
+// };
+
+// // Total LengthOFStay
+// const totalLengthOfStay = (checkIn, checkOut) => {
+//   const newCheckIn = new Date(checkIn);
+//   const newCheckOut = new Date(checkOut);
+
+//   // Calculate the time difference in milliseconds
+//   const timeDifference = newCheckOut.getTime() - newCheckIn.getTime();
+
+//   // Convert the time difference from milliseconds to days
+//   const totalDays = timeDifference / (1000 * 3600 * 24);
+
+//   // Return the total number of days
+//   return totalDays;
+// };
+
+// const calculateDiscount = (originalAmount, discountPercent, parameter) => {
+//   const discountAmount = (originalAmount * discountPercent) / 100;
+//   const discountedAmount = originalAmount - discountAmount;
+
+//   return {
+//     originalAmount: originalAmount,
+//     discountAmount: discountAmount,
+//     discountedAmount: discountedAmount,
+//   };
+// };

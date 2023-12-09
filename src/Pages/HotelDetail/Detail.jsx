@@ -258,7 +258,7 @@ const Detail = ({ data }) => {
             frameborder="0"
             className={`w-100 mt-2 ${style.mapBox}`}
             style={{ borderRadius: "5px" }}
-            src={decodeURIComponent(data?.hotelMapLink).toString()}
+            src={decodeURIComponent(data?.hotelMapLink)}
             allowfullscreen
           ></iframe>
         </Grid>

@@ -1,7 +1,69 @@
 import React from "react";
 import { API_URL } from "../../config";
+import { useBooking } from "../../context/useBooking";
+import { LoadingButton } from "@mui/lab";
+import { useAuthContext } from "../../context/userAuthContext";
 
-function CcavForm({ click }) {
+function CcavForm({ BOOKINGDATA, BILL, roomData }) {
+  const searchQuery = new URLSearchParams(document.location.search);
+  const { currentUser } = useAuthContext();
+
+  const currentSearchParam = Object.fromEntries(searchQuery?.entries());
+  const checkIn = currentSearchParam.checkIn;
+  const checkOut = currentSearchParam.checkOut;
+  const qunatityRooms = currentSearchParam.totalRooms;
+  const totalGuest = currentSearchParam.totalGuest;
+  const priceOfaRoom = roomData?.price;
+  const { userBookingDetails, BillingCalculate, CreatePreBooking } =
+    useBooking();
+  const calculate = BillingCalculate(
+    priceOfaRoom,
+    null,
+    qunatityRooms,
+    12,
+    checkIn,
+    checkOut,
+    currentUser
+  );
+
+  const HandleCheckOutPayment = async (BOOKINGDATA, BILL) => {
+    const formData = {
+      room: BOOKINGDATA?.room?._id,
+      hotel: BOOKINGDATA?.hotel?._id,
+      guest: {
+        name: BOOKINGDATA?.guest?.name,
+        email: BOOKINGDATA?.guest?.email,
+        mobileNo: BOOKINGDATA?.guest?.mobileNo,
+      },
+      bookingDate: {
+        checkIn: BOOKINGDATA?.bookingDate?.checkIn,
+        checkOut: BOOKINGDATA?.bookingDate?.checkOut,
+      },
+      amount: BILL?._totalAmountToPaid?.value,
+      dateOfBooking: BOOKINGDATA?.dateOfBooking,
+      additionalCharges: {
+        gst: BILL?.gstAmount,
+        serviceFee: BILL?.serviceFee,
+      },
+      promoCode: BILL?.CouponName,
+      discountInfo: [
+        BILL?._totalDiscount?.sub?.map((item) => ({
+          type: item.head,
+          rate: item.value,
+        })),
+      ],
+      numberOfGuests: {
+        adults: parseInt(BOOKINGDATA?.numberOfGuests?.adults),
+      },
+      numberOfRooms: BOOKINGDATA?.numberOfRooms,
+      bookingSource: "Website",
+      customer: BOOKINGDATA?.customer?._id,
+    };
+
+    const PreBookingResponse = await CreatePreBooking(formData);
+    ////----- - - - -- - - - Prebooking api check krke booking id genreate then yaha aao  ----------------------------
+  };
+
   return (
     <div>
       <form
@@ -9,20 +71,20 @@ function CcavForm({ click }) {
         name="customerData"
         action={`${API_URL}/ccav/ccavRequestHandler`}
       >
-        <table width="40%" height="100" border="1" align="center">
+        <table width="100%" border="1" align="center">
           <caption>
             <font size="4" color="blue">
               <b>Integration Kit</b>
             </font>
           </caption>
         </table>
-        <table width="40%" height="100" border="1" align="center">
+        <table width="100%" height="100" border="1" align="center">
           <tr>
             <td>Parameter Name:</td>
             <td>Parameter Value:</td>
           </tr>
           <tr>
-            <td colSpan="2">Compulsory information</td>
+            <td colspan="2">Compulsory information</td>
           </tr>
           <tr>
             <td>Merchant Id</td>
@@ -79,47 +141,77 @@ function CcavForm({ click }) {
               <input type="text" name="language" id="language" value="EN" />
             </td>
           </tr>
-          <tr colSpan="2">Billing information(optional):</tr>
+          <tr>
+            <td colspan="2">Billing information(optional):</td>
+          </tr>
           <tr>
             <td>Billing Name</td>
             <td>
-              <input type="text" name="billing_name" value="Peter" />
+              <input
+                type="text"
+                name="billing_name"
+                value={BOOKINGDATA?.guest?.name}
+              />
             </td>
           </tr>
           <tr>
             <td>Billing Address:</td>
             <td>
-              <input type="text" name="billing_address" value="Santacruz" />
+              <input
+                type="text"
+                name="billing_address"
+                value={BOOKINGDATA?.hotel?.address}
+              />
             </td>
           </tr>
           <tr>
             <td>Billing City:</td>
             <td>
-              <input type="text" name="billing_city" value="Mumbai" />
+              <input
+                type="text"
+                name="billing_city"
+                value={BOOKINGDATA?.hotel?.city}
+              />
             </td>
           </tr>
           <tr>
             <td>Billing State:</td>
             <td>
-              <input type="text" name="billing_state" value="MH" />
+              <input
+                type="text"
+                name="billing_state"
+                value={BOOKINGDATA?.hotel?.state}
+              />
             </td>
           </tr>
           <tr>
             <td>Billing Zip:</td>
             <td>
-              <input type="text" name="billing_zip" value="400054" />
+              <input
+                type="text"
+                name="billing_zip"
+                value={BOOKINGDATA?.hotel?.zipCode}
+              />
             </td>
           </tr>
           <tr>
             <td>Billing Country:</td>
             <td>
-              <input type="text" name="billing_country" value="India" />
+              <input
+                type="text"
+                name="billing_country"
+                value={BOOKINGDATA?.hotel?.country}
+              />
             </td>
           </tr>
           <tr>
             <td>Billing Tel:</td>
             <td>
-              <input type="text" name="billing_tel" value="9876543210" />
+              <input
+                type="text"
+                name="billing_tel"
+                value={BOOKINGDATA?.customer?.mobileNo}
+              />
             </td>
           </tr>
           <tr>
@@ -128,11 +220,13 @@ function CcavForm({ click }) {
               <input
                 type="text"
                 name="billing_email"
-                value="testing@domain.com"
+                value={BOOKINGDATA?.customer?.email}
               />
             </td>
           </tr>
-          <tr colSpan="2">Shipping information(optional):</tr>
+          <tr>
+            <td colspan="2">Shipping information(optional):</td>
+          </tr>
           <tr>
             <td>Shipping Name</td>
             <td>
@@ -234,16 +328,30 @@ function CcavForm({ click }) {
           <tr>
             <td>Customer Id:</td>
             <td>
-              <input type="text" name="customer_identifier" value="" />
+              <input
+                type="text"
+                name="customer_identifier"
+                value={BOOKINGDATA?.customer?._id}
+              />
             </td>
           </tr>
           <tr>
             <td></td>
             <td>
-              <input type="submit" id="checkoutClick" value="Checkout" />
+              <input type="submit" value="Checkout" />
             </td>
           </tr>
         </table>
+        <LoadingButton
+          fullWidth
+          // loading={true}
+          onClick={() => HandleCheckOutPayment(userBookingDetails, calculate)}
+          color="error"
+          sx={{ padding: "1rem 0rem" }}
+          variant="contained"
+        >
+          CheckOut
+        </LoadingButton>
       </form>
     </div>
   );

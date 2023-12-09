@@ -17,13 +17,28 @@ import {
   calculateThePrice,
   totalLengthOfStay,
 } from "../../Utilis/_fuctions";
+import { useBooking } from "../../context/useBooking";
+import { useAuthContext } from "../../context/userAuthContext";
 
 const BookingInfo = ({ hotelData, roomData, currentSearchParam }) => {
+  const {
+    coupon,
+    setCoupon,
+    userBookingDetails,
+    setUserBookingDetails,
+    finalBookingData,
+    setFinalBookingData,
+    Gst,
+    setGst,
+    calculateAmount,
+    BillingCalculate,
+  } = useBooking();
   const navigate = useNavigate();
   const [show, setHide] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const [open, setOpen] = React.useState(false);
-  const handleClose = () => setOpen(false);
+  const { currentUser } = useAuthContext();
+  const [details, setDetails] = useState(false);
+  const ShowDetails = () => setDetails((prev) => !prev);
+  // const handleOpen = () => setOpen(true);
 
   const handleChangeCredentials = () => {
     const lastQuerySearched = window.localStorage.getItem("search");
@@ -38,6 +53,16 @@ const BookingInfo = ({ hotelData, roomData, currentSearchParam }) => {
   const totalGuest = currentSearchParam.totalGuest;
   const priceOfaRoom = roomData?.price;
   const totalDays = totalLengthOfStay(checkIn, checkOut);
+
+  const calculate = BillingCalculate(
+    priceOfaRoom,
+    null,
+    qunatityRooms,
+    12,
+    checkIn,
+    checkOut,
+    currentUser
+  );
 
   return (
     <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
@@ -54,16 +79,29 @@ const BookingInfo = ({ hotelData, roomData, currentSearchParam }) => {
             <Rating name="read-only" value={hotelData?.hotelRatings} readOnly />
           </Typography>
           <Typography sx={{ mb: 1.5 }} color="text-dark" fontWeight={700}>
-            {hotelData?.hotelName}(Resort)
+            {hotelData?.hotelName} ({hotelData?.hotelType?.title})
           </Typography>
           <Typography variant="body2">{hotelData?.address}</Typography>
           <div className="d-flex align-items-center">
             <Chip
-              label={"9.3"}
+              label={`${hotelData?.hotelRatings}`}
               sx={{ mr: 1, my: 1, background: "#ee2e24", color: "#ffd700" }}
             />{" "}
             5 · 233 reviews
           </div>
+          {/* {console.log(
+            numberOfRooms,
+            gstApplied,
+            priceWithGst,
+            _withPromocode,
+            roomAmount,
+            promocodeDiscount,
+            totalDay,
+            _promocode_percent,
+            perDayFinalPrice,
+            wallet_deduction,
+            final_amount
+          )} */}
           <Typography variant="body2">
             Swimming pool, Restaurant, WiFi, Parking
           </Typography>
@@ -76,7 +114,7 @@ const BookingInfo = ({ hotelData, roomData, currentSearchParam }) => {
               Your booking details
             </Typography>
 
-            <Typography
+            {/* <Typography
               onClick={handleOpen}
               sx={{ cursor: "pointer" }}
               color="#ee2e24"
@@ -84,7 +122,7 @@ const BookingInfo = ({ hotelData, roomData, currentSearchParam }) => {
               fontWeight={700}
             >
               Edit
-            </Typography>
+            </Typography> */}
           </div>
           <Grid container spacing={1}>
             <Grid item xs={6}>
@@ -117,10 +155,7 @@ const BookingInfo = ({ hotelData, roomData, currentSearchParam }) => {
             <Grid item xs={12}>
               <Typography variant="overline">Total length of stay:</Typography>
               <Typography variant="subtitle2">
-                {totalLengthOfStay(
-                  currentSearchParam?.checkIn,
-                  currentSearchParam?.checkOut
-                )}
+                {calculate?.totalDays}
                 &nbsp; night
               </Typography>
               <hr />
@@ -137,20 +172,11 @@ const BookingInfo = ({ hotelData, roomData, currentSearchParam }) => {
               <div>
                 <Typography variant="overline">Your selected</Typography>
                 <Typography variant="subtitle2">
-                  {qunatityRooms} {roomData?.roomType?.title} for {totalDays}{" "}
-                  Days
+                  {calculate?.totalrooms} {roomData?.roomType?.title} for{" "}
+                  {calculate?.totalDay} Days
                   <Typography variant="subtitle2">
-                    {currentSearchParam?.totalRooms} X {totalDays} X ₹
-                    {roomData?.price} = ₹{" "}
-                    {
-                      calculateThePrice(
-                        currentSearchParam,
-                        qunatityRooms,
-                        priceOfaRoom,
-                        totalDays,
-                        0.2
-                      ).GrossAmount
-                    }
+                    {calculate?.totalrooms} X {calculate?.totalDays} X ₹
+                    {calculate?.amount} = ₹ {calculate?._basePrice?.value}
                   </Typography>
                 </Typography>
               </div>
@@ -166,7 +192,7 @@ const BookingInfo = ({ hotelData, roomData, currentSearchParam }) => {
               {show ? (
                 <>
                   <Typography variant="overline">
-                    {qunatityRooms} x {roomData.roomType.title}
+                    {calculate.totalDays} x {roomData.roomType.title}
                   </Typography>
                   <Typography variant="caption" display="block">
                     {currentSearchParam.totalGuest} Guests
@@ -230,7 +256,11 @@ const BookingInfo = ({ hotelData, roomData, currentSearchParam }) => {
       </Card>
       <Card style={{ border: "2px solid #ee2e24" }}>
         <CardContent>
-          <Typography color="text-dark" fontWeight={700}>
+          <Typography
+            color="text-dark"
+            className="text-danger"
+            fontWeight={800}
+          >
             Your price summary
           </Typography>
           <div
@@ -238,23 +268,120 @@ const BookingInfo = ({ hotelData, roomData, currentSearchParam }) => {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
+              paddingTop: "0.5rem",
             }}
           >
-            <Typography variant="body2">Original price</Typography>
-            <Typography variant="caption">
-              ₹
-              {
-                calculateThePrice(
-                  currentSearchParam,
-                  qunatityRooms,
-                  priceOfaRoom,
-                  totalDays,
-                  0.2
-                ).GrossAmount
-              }
+            <Typography variant="body2" className="fw-bold ">
+              {calculate?._basePrice?.head}
+            </Typography>
+            <Typography variant="caption" className="fw-bold ">
+              ₹{calculate?._basePrice?.value}
             </Typography>
           </div>
+          <div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+              onClick={() => ShowDetails()}
+            >
+              <Typography variant="body2" className="fw-bold">
+                {calculate?._totalDiscount?.head}
+              </Typography>
+              <Typography variant="caption" className="fw-bold">
+                ₹{calculate?._totalDiscount?.value}
+              </Typography>
+            </div>
+            {details && (
+              <>
+                {calculate?._totalDiscount?.sub?.map((item, index) => (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography variant="body2" className="text-secondary">
+                      &emsp;-{item?.head}
+                    </Typography>
+                    <Typography variant="caption" className="text-secondary">
+                      +₹{item?.value}
+                    </Typography>
+                  </div>
+                ))}
+              </>
+            )}
+          </div>
           <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+            onClick={() => ShowDetails()}
+          >
+            <Typography variant="body2" className="fw-bold">
+              {calculate?._priceAfterDiscount?.head}
+            </Typography>
+            <Typography variant="caption" className="fw-bold">
+              ₹{calculate?._priceAfterDiscount?.value}
+            </Typography>
+          </div>
+          <div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+              onClick={() => ShowDetails()}
+            >
+              <Typography variant="body2" className="fw-bold">
+                {calculate?._taxesAndServiceFee?.head}
+              </Typography>
+              <Typography variant="caption" className="fw-bold">
+                ₹{calculate?._taxesAndServiceFee?.value}
+              </Typography>
+            </div>
+            {details && (
+              <>
+                {calculate?._taxesAndServiceFee?.sub?.map((item, index) => (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography variant="body2" className="text-secondary">
+                      &emsp;-{item?.head}
+                    </Typography>
+                    <Typography variant="caption" className="text-secondary">
+                      +₹{item?.value}
+                    </Typography>
+                  </div>
+                ))}
+              </>
+            )}
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="body2" className="fw-bold">
+              {calculate?._totalAmountToPaid?.head}
+            </Typography>
+            <Typography variant="caption" className="fw-bold">
+              ₹{calculate?._totalAmountToPaid?.value}
+            </Typography>
+          </div>
+          {/* <div
             style={{
               display: "flex",
               justifyContent: "space-between",
@@ -273,7 +400,7 @@ const BookingInfo = ({ hotelData, roomData, currentSearchParam }) => {
                 ).discountAmount
               }
             </Typography>
-          </div>
+          </div> */}
 
           <Typography variant="caption">
             You're getting a discount because, for a limited time, this property
@@ -289,51 +416,31 @@ const BookingInfo = ({ hotelData, roomData, currentSearchParam }) => {
             padding: "20px",
           }}
         >
-          <Typography fontWeight={600} variant="h5">
-            Price
+          <Typography
+            fontWeight={600}
+            variant="h5"
+            fontSize={18}
+            className="text-danger"
+          >
+            {calculate?._totalAmountToPaid?.head}
           </Typography>
           <div className="text-right">
             <Typography color="error" variant="h6">
-              <del>
-                {" "}
-                {
-                  calculateThePrice(
-                    currentSearchParam,
-                    qunatityRooms,
-                    priceOfaRoom,
-                    totalDays,
-                    0.2
-                  ).GrossAmount
-                }
-              </del>
+              <del>₹&nbsp;{calculate?._basePrice?.value}</del>
             </Typography>
-            <Typography fontWeight={700} variant="h5">
-              {
-                calculateThePrice(
-                  currentSearchParam,
-                  qunatityRooms,
-                  priceOfaRoom,
-                  totalDays,
-                  0.2
-                ).NetAmount
-              }
+            <Typography fontWeight={700} variant="h4">
+              ₹&nbsp;{calculate?._totalAmountToPaid?.value}
             </Typography>
             <Typography variant="caption">
-              + ₹{" "}
-              {
-                calculateThePrice(
-                  currentSearchParam,
-                  qunatityRooms,
-                  priceOfaRoom,
-                  totalDays,
-                  0.2
-                ).GstAmount
-              }
-              taxes and charges
+              Great Choice! You are saving{" "}
+              <span className="text-danger">
+                ₹&nbsp;{calculate?._totalDiscount?.value}
+              </span>
+              &nbsp; with your booking
             </Typography>
           </div>
         </div>
-        <CardContent>
+        {/* <CardContent>
           <Typography color="text-dark" fontWeight={700}>
             Price information
           </Typography>
@@ -352,7 +459,7 @@ const BookingInfo = ({ hotelData, roomData, currentSearchParam }) => {
             <Typography variant="body2">Goods & services tax</Typography>
             <Typography variant="caption">₹ 201.60</Typography>
           </div>
-        </CardContent>
+        </CardContent> */}
       </Card>
     </Grid>
   );

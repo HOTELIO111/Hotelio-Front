@@ -37,7 +37,7 @@ const HotelCover = ({ data }) => {
                     mouseTracking
                     autoPlay
                     infinite
-                    items={data?.hotelImages.map((item, index) => {
+                    items={data?.hotelImages?.map((item, index) => {
                         return (
                             <div className="item mx-1 w-100" data-value={index}>
                                 <img style={{ height: '400px', width: '100%' }} src={item} alt="hotelimg" />
