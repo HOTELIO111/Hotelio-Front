@@ -76,10 +76,10 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
           >
 
             <Grid container spacing={1}>
-              <Grid item lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: 'hidden' }} >
+              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: 'hidden' }} >
                 <Typography>Merchant Id</Typography>
               </Grid>
-              <Grid item lg={8}>
+              <Grid item xs={12} lg={8}>
                 <TextField
                   sx={{ width: '100%', visibility: 'hidden' }}
                   variant="outlined"
@@ -92,10 +92,10 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                 />
               </Grid>
               <Skeleton animation="wave" duration={1} variant="rectangular" height={16} width="100%" />
-              <Grid item lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
+              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
                 <Typography>Order Id</Typography>
               </Grid>
-              <Grid item lg={8}>
+              <Grid item xs={12} lg={8}>
                 <TextField
                   sx={{ width: '100%', visibility: '' }}
                   variant="outlined"
@@ -111,10 +111,10 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                 />
               </Grid>
               <Skeleton animation="wave" duration={1} variant="rectangular" height={16} width="100%" />
-              <Grid item lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
+              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
                 <Typography>Currency</Typography>
               </Grid>
-              <Grid item lg={8}>
+              <Grid item xs={12} lg={8}>
                 <TextField
                   sx={{ width: '100%', visibility: '' }}
                   variant="outlined"
@@ -129,10 +129,10 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   }}
                 />
               </Grid>
-              <Grid item lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
+              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
                 <Typography>Amount</Typography>
               </Grid>
-              <Grid item lg={8}>
+              <Grid item xs={12} lg={8}>
                 <TextField
                   sx={{ width: '100%', visibility: '' }}
                   variant="outlined"
@@ -147,10 +147,10 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   }}
                 />
               </Grid>
-              <Grid item lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: 'hidden' }} >
+              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: 'hidden' }} >
                 <Typography>Redirect Url</Typography>
               </Grid>
-              <Grid item lg={8}>
+              <Grid item xs={12} lg={8}>
                 <TextField
                   sx={{ width: '100%', visibility: 'hidden' }}
                   variant="outlined"
@@ -161,10 +161,10 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   required
                 />
               </Grid>
-              <Grid item lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: 'hidden' }} >
+              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: 'hidden' }} >
                 <Typography>Cancel Url</Typography>
               </Grid>
-              <Grid item lg={8}>
+              <Grid item xs={12} lg={8}>
                 <TextField
                   sx={{ width: '100%', visibility: 'hidden' }}
                   variant="outlined"
@@ -175,10 +175,10 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   required
                 />
               </Grid>
-              <Grid item lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
+              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
                 <Typography>Language</Typography>
               </Grid>
-              <Grid item lg={8}>
+              <Grid item xs={12} lg={8}>
                 <TextField
                   sx={{ width: '100%', visibility: '' }}
                   variant="outlined"
@@ -190,10 +190,10 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   required
                 />
               </Grid>
-              <Grid item lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
+              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
                 <Typography>Billing Name <span className="text-danger">*</span></Typography>
               </Grid>
-              <Grid item lg={8}>
+              <Grid item xs={12} lg={8}>
                 <TextField
                   sx={{ width: '100%', visibility: '' }}
                   variant="outlined"
@@ -204,10 +204,10 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   required
                 />
               </Grid>
-              <Grid item lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
+              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
                 <Typography>Billing Address:</Typography>
               </Grid>
-              <Grid item lg={8}>
+              <Grid item xs={12} lg={8}>
                 <TextField
                   sx={{ width: '100%', visibility: '' }}
                   variant="outlined"
@@ -217,10 +217,10 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   placeholder="Billing Address:"
                 />
               </Grid>
-              <Grid item lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
+              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
                 <Typography>Billing City:</Typography>
               </Grid>
-              <Grid item lg={8}>
+              <Grid item xs={12} lg={8}>
                 <TextField
                   sx={{ width: '100%', visibility: '' }}
                   variant="outlined"
@@ -230,10 +230,10 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   placeholder="Billing City:"
                 />
               </Grid>
-              <Grid item lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
+              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
                 <Typography>Billing State:</Typography>
               </Grid>
-              <Grid item lg={8}>
+              <Grid item xs={12} lg={8}>
                 <TextField
                   sx={{ width: '100%', visibility: '' }}
                   variant="outlined"
@@ -243,23 +243,23 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   placeholder="Billing State:"
                 />
               </Grid>
-              <Grid item lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
+              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
                 <Typography>Billing Zip:</Typography>
               </Grid>
-              <Grid item lg={8}>
+              <Grid item xs={12} lg={8}>
                 <TextField
                   sx={{ width: '100%', visibility: '' }}
                   variant="outlined"
                   margin="normal"
                   name="billing_zip"
-                    value={BOOKINGDATA?.hotel?.zipCode}
+                  value={BOOKINGDATA?.hotel?.zipCode}
                   placeholder="Billing Zip:"
                 />
               </Grid>
-              <Grid item lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
+              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
                 <Typography>Billing Country:</Typography>
               </Grid>
-              <Grid item lg={8}>
+              <Grid item xs={12} lg={8}>
                 <TextField
                   sx={{ width: '100%', visibility: '' }}
                   variant="outlined"
@@ -269,10 +269,10 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   placeholder="Billing Country:"
                 />
               </Grid>
-              <Grid item lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
+              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
                 <Typography>Billing Tel<span className="text-danger">*</span>:</Typography>
               </Grid>
-              <Grid item lg={8}>
+              <Grid item xs={12} lg={8}>
                 <TextField
                   sx={{ width: '100%', visibility: '' }}
                   variant="outlined"
@@ -283,10 +283,10 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   required
                 />
               </Grid>
-              <Grid item lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
+              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
                 <Typography>Billing Email<span className="text-danger">*</span>:</Typography>
               </Grid>
-              <Grid item lg={8}>
+              <Grid item xs={12} lg={8}>
                 <TextField
                   sx={{ width: '100%', visibility: '' }}
                   variant="outlined"
@@ -297,10 +297,10 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   required
                 />
               </Grid>
-              <Grid item lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
+              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
                 <Typography>Promo Code:</Typography>
               </Grid>
-              <Grid item lg={8}>
+              <Grid item xs={12} lg={8}>
                 <TextField
                   sx={{ width: '100%', visibility: '' }}
                   variant="outlined"
@@ -310,10 +310,10 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   placeholder="Promo code"
                 />
               </Grid>
-              <Grid item lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
+              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
                 <Typography>Customer Id:</Typography>
               </Grid>
-              <Grid item lg={8}>
+              <Grid item xs={12} lg={8}>
                 <TextField
                   sx={{ width: '100%', visibility: '' }}
                   variant="outlined"
@@ -324,6 +324,19 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   placeholder="Customer Id:"
                   required
                 />
+              </Grid>
+              <Grid item xs={12} lg={12} p={1}>
+                <LoadingButton
+                  fullWidth
+                  // loading={true}
+                  type="submit"
+                  onClick={() => HandleCheckOutPayment(userBookingDetails, calculate)}
+                  color="error"
+                  sx={{ padding: "1rem 0rem", borderRadius: '27px', margin: 1 }}
+                  variant="contained"
+                >
+                  CheckOut
+                </LoadingButton>
               </Grid>
             </Grid>
 
@@ -591,17 +604,6 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                 </td>
               </tr>
             </table> */}
-            <LoadingButton
-              fullWidth
-              // loading={true}
-              type="submit"
-              onClick={() => HandleCheckOutPayment(userBookingDetails, calculate)}
-              color="error"
-              sx={{ padding: "1rem 0rem", borderRadius: '27px' }}
-              variant="contained"
-            >
-              CheckOut
-            </LoadingButton>
           </form>
         </Card>
       </Box>
