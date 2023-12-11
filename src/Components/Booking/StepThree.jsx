@@ -8,6 +8,7 @@ import { calculateThePrice } from "../../Utilis/_fuctions";
 import CcavForm from "./CcavForm";
 import { useBooking } from "../../context/useBooking";
 import { useAuthContext } from "../../context/userAuthContext";
+import Skeleton from "react-loading-skeleton";
 
 const StepThree = ({ hotelData, roomData, formData }) => {
   const {
@@ -45,7 +46,8 @@ const StepThree = ({ hotelData, roomData, formData }) => {
   // const currentDate = new Date.now();
   // credentials ----------------------------
 
-  const [activeTab, setActiveTab] = useState("payOnline"); // Initialize the active tab state
+  const [activeTab, setActiveTab] = useState(null); // Initialize the active tab state
+  const [loading, setLoading] = useState(false)
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -127,6 +129,81 @@ const StepThree = ({ hotelData, roomData, formData }) => {
     currentUser
   );
 
+  useEffect(() => {
+    const delay = 10000; // Set the delay in milliseconds
+
+    const timeoutId = setTimeout(() => {
+      // Set the state to indicate that the delay has elapsed
+      setLoading(true);
+    }, delay);
+
+    // Cleanup function to clear the timeout in case the component unmounts
+    return () => clearTimeout(timeoutId);
+  }, []); // Empty dependency array to run the effect only once when the component mounts
+
+  // Conditionally render component A or B based on the delayElapsed state
+  const renderContent = () => {
+    if (loading) {
+      return <CcavForm
+        BOOKINGDATA={userBookingDetails}
+        BILL={BillingCalculate}
+        roomData={roomData}
+      />;
+    } else {
+      return <Grid container>
+        <Grid item xs={4}>
+          <Skeleton
+            width="100%"
+            height={40}
+            duration={2}
+            style={{ backgroundColor: "#ddd" }}
+          />
+        </Grid>
+        <Grid item xs={8}>
+          <Skeleton
+            width="100%"
+            height={40}
+            duration={2}
+            style={{ backgroundColor: "#ddd" }}
+          />
+        </Grid>
+        <Grid item xs={4}>
+          <Skeleton
+            width="100%"
+            height={40}
+            duration={2}
+            style={{ backgroundColor: "#ddd" }}
+          />
+        </Grid>
+        <Grid item xs={8}>
+          <Skeleton
+            width="100%"
+            height={40}
+            duration={2}
+            style={{ backgroundColor: "#ddd" }}
+          />
+        </Grid>
+        <Grid item xs={4}>
+          <Skeleton
+            width="100%"
+            height={40}
+            duration={2}
+            style={{ backgroundColor: "#ddd" }}
+          />
+        </Grid>
+        <Grid item xs={8}>
+          <Skeleton
+            width="100%"
+            height={40}
+            duration={2}
+            style={{ backgroundColor: "#ddd" }}
+          />
+        </Grid>
+      </Grid>;
+    }
+  };
+
+
   return (
     <div className="container p-2">
       <Grid container spacing={2}>
@@ -202,7 +279,7 @@ const StepThree = ({ hotelData, roomData, formData }) => {
                   size="small"
                   variant="contained"
                   color="error"
-                  onClick={() => makePayment()}
+                  onClick={() => handleTabChange("payOnline")}
                 >
                   Pay Online &emsp;
                   <span style={{ color: "#ff0" }}>
@@ -228,11 +305,10 @@ const StepThree = ({ hotelData, roomData, formData }) => {
               </Typography>
             </div>
           )}
-          <CcavForm
-            BOOKINGDATA={userBookingDetails}
-            BILL={BillingCalculate}
-            roomData={roomData}
-          />
+
+          {activeTab === 'payOnline' &&
+            renderContent() 
+          }
         </Grid>
       </Grid>
     </div>

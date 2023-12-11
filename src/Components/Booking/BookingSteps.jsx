@@ -96,7 +96,7 @@ const BookingSteps = () => {
           </Button>
         )}
         {currentStep < 3 && (
-          <Button variant="contained" className="mx-2" onClick={nextStep}>
+          <Button variant="contained" color="error" className="mx-2" onClick={nextStep}>
             Next
           </Button>
         )}
@@ -143,12 +143,12 @@ const BookingSteps = () => {
       )}
       <div className="my-2">
         {currentStep > 1 && (
-          <Button variant="outlined" onClick={prevStep}>
+          <Button variant="outlined" color="error" onClick={prevStep}>
             {currentStep === 3 ? "Back" : "Back"}
           </Button>
         )}
         {currentStep < 3 && (
-          <Button variant="contained" className="mx-2" onClick={nextStep}>
+          <Button variant="contained" color="error" className="mx-2" onClick={nextStep}>
             Next
           </Button>
         )}
