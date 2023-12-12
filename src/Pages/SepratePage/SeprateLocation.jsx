@@ -251,13 +251,13 @@ const SeprateLocation = () => {
                 <Typography variant="h5" pb={2} fontWeight={800}>
                   Questions and Answers
                 </Typography>
-                <TextField
+                {/* <TextField
                   placeholder="search"
                   fullWidth
                   value={searchFaq}
                   onChange={(e) => setSearchFaq(e.target.value)}
                   sx={{ padding: "1rem 0px" }}
-                />
+                /> */}
                 <Typography>
                   Showing 1 - {urlData?.faq?.length} of {urlData?.faq?.length}
                 </Typography>

@@ -31,6 +31,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { GetPopularLocationAction } from "../../store/actions/locationsActions";
 import { useSearch } from "../../context/useSearch";
+import { MdHomeWork } from "react-icons/md";
+import { BsFillBuildingsFill } from "react-icons/bs";
+import { HiBuildingOffice2 } from "react-icons/hi2";
+
+
 
 const Footer = () => {
   const isXtraSmallScreen = useMediaQuery("(max-width:320px)");
@@ -225,9 +230,6 @@ const Footer = () => {
                       }`}
                   >
                     <Link to="/" className="d-flex justify-content-start">
-                      <SavingsIcon className="me-2" /> Budget Hotel
-                    </Link>
-                    <Link to="/" className="d-flex justify-content-start">
                       <FilterVintageIcon className="me-2" /> Classic Room
                     </Link>
                     <Link to="/" className="d-flex justify-content-start">
@@ -238,6 +240,15 @@ const Footer = () => {
                     </Link>
                     <Link to="/" className="d-flex justify-content-start">
                       <VideoCameraFrontIcon className="me-2" /> Suites
+                    </Link>
+                    <Link to="/" className="d-flex justify-content-start">
+                      <MdHomeWork className="me-2" /> Hotelio Home Stay
+                    </Link>
+                    <Link to="/" className="d-flex justify-content-start">
+                      <HiBuildingOffice2 className="me-2" /> Hotelio Premium
+                    </Link>
+                    <Link to="/" className="d-flex justify-content-start">
+                      <BsFillBuildingsFill className="me-2" /> Hotelio Budget
                     </Link>
                   </li>
                 </ul>
