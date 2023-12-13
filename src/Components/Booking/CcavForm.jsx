@@ -7,6 +7,16 @@ import { Box, Card, Grid, InputLabel, TextField, Typography } from "@mui/materia
 import Skeleton from "react-loading-skeleton";
 
 function CcavForm({ BOOKINGDATA, BILL, roomData }) {
+
+
+  const inputStyle = {
+    border: 'none',
+    borderBottom: '0px solid #000', // Optional: Add a bottom border for better visibility
+    outline: 'none', // Remove the default focus outline
+    color: '#ee2e24',
+    textTransform: 'capitalize'
+  };
+
   const searchQuery = new URLSearchParams(document.location.search);
   const { currentUser } = useAuthContext();
   const currentSearchParam = Object.fromEntries(searchQuery?.entries());
@@ -76,255 +86,277 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
           >
 
             <Grid container spacing={1}>
-              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: 'hidden' }} >
-                <Typography>Merchant Id</Typography>
+              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
+                <Typography variant='h6' >Billing Name <span className="text-danger">*</span></Typography>
               </Grid>
-              <Grid item xs={12} lg={8}>
-                <TextField
-                  sx={{ width: '100%', visibility: 'hidden' }}
-                  variant="outlined"
-                  margin="normal"
-                  name="merchant_id"
-                  id="merchant_id"
-                  value="2779245"
-                  placeholder="Merchant Id"
-                  required
-                />
-              </Grid>
-              <Skeleton animation="wave" duration={1} variant="rectangular" height={16} width="100%" />
-              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
-                <Typography>Order Id</Typography>
-              </Grid>
-              <Grid item xs={12} lg={8}>
-                <TextField
-                  sx={{ width: '100%', visibility: '' }}
-                  variant="outlined"
-                  margin="normal"
-                  name="order_id"
-                  // disabled
-                  value="12345"
-                  placeholder="Order Id"
-                  required
-                  InputProps={{
-                    readOnly: true,
-                  }}
-                />
-              </Grid>
-              <Skeleton animation="wave" duration={1} variant="rectangular" height={16} width="100%" />
-              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
-                <Typography>Currency</Typography>
-              </Grid>
-              <Grid item xs={12} lg={8}>
-                <TextField
-                  sx={{ width: '100%', visibility: '' }}
-                  variant="outlined"
-                  margin="normal"
-                  name="currency"
-                  // disabled
-                  value="INR"
-                  placeholder="Currency"
-                  required
-                  InputProps={{
-                    readOnly: true,
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
-                <Typography>Amount</Typography>
-              </Grid>
-              <Grid item xs={12} lg={8}>
-                <TextField
-                  sx={{ width: '100%', visibility: '' }}
-                  variant="outlined"
-                  margin="normal"
-                  name="amount"
-                  // disabled
-                  value="1.00"
-                  placeholder="Amount"
-                  required
-                  InputProps={{
-                    readOnly: true,
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: 'hidden' }} >
-                <Typography>Redirect Url</Typography>
-              </Grid>
-              <Grid item xs={12} lg={8}>
-                <TextField
-                  sx={{ width: '100%', visibility: 'hidden' }}
-                  variant="outlined"
-                  margin="normal"
-                  name="redirect_url"
-                  value={`${API_URL}/ccav/ccavResponseHandler`}
-                  placeholder="Redirect Url"
-                  required
-                />
-              </Grid>
-              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: 'hidden' }} >
-                <Typography>Cancel Url</Typography>
-              </Grid>
-              <Grid item xs={12} lg={8}>
-                <TextField
-                  sx={{ width: '100%', visibility: 'hidden' }}
-                  variant="outlined"
-                  margin="normal"
-                  name="cancel_url"
-                  value={`${API_URL}/ccav/ccavResponseHandler`}
-                  placeholder="Cancel Url"
-                  required
-                />
-              </Grid>
-              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
-                <Typography>Language</Typography>
-              </Grid>
-              <Grid item xs={12} lg={8}>
-                <TextField
-                  sx={{ width: '100%', visibility: '' }}
-                  variant="outlined"
-                  margin="normal"
-                  name="language"
-                  id="language"
-                  value="EN"
-                  placeholder="Language"
-                  required
-                />
-              </Grid>
-              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
-                <Typography>Billing Name <span className="text-danger">*</span></Typography>
-              </Grid>
-              <Grid item xs={12} lg={8}>
-                <TextField
-                  sx={{ width: '100%', visibility: '' }}
-                  variant="outlined"
-                  margin="normal"
+              <Grid item xs={12} lg={8} sx={{ borderBottom: '1px solid #ee2e24' }}>
+
+                <input
+                  type="text"
+                  style={inputStyle}
                   name="billing_name"
                   value={BOOKINGDATA?.guest?.name}
                   placeholder="Billing Name"
-                  required
+                  readOnly
                 />
+
               </Grid>
-              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
-                <Typography>Billing Address:</Typography>
+
+              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
+                <Typography variant='h6' >Billing Address:</Typography>
               </Grid>
-              <Grid item xs={12} lg={8}>
-                <TextField
-                  sx={{ width: '100%', visibility: '' }}
-                  variant="outlined"
+              <Grid item xs={12} lg={8} sx={{ borderBottom: '1px solid #ee2e24' }}>
+
+                <input
+                  type="text"
+                  style={inputStyle}
                   margin="normal"
                   name="billing_address"
                   value={BOOKINGDATA?.hotel?.address}
                   placeholder="Billing Address:"
+                  readOnly
                 />
+
               </Grid>
-              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
-                <Typography>Billing City:</Typography>
+              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
+                <Typography variant='h6' >Promo Code:</Typography>
               </Grid>
-              <Grid item xs={12} lg={8}>
-                <TextField
-                  sx={{ width: '100%', visibility: '' }}
-                  variant="outlined"
-                  margin="normal"
-                  name="billing_city"
-                  value={BOOKINGDATA?.hotel?.city}
-                  placeholder="Billing City:"
-                />
-              </Grid>
-              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
-                <Typography>Billing State:</Typography>
-              </Grid>
-              <Grid item xs={12} lg={8}>
-                <TextField
-                  sx={{ width: '100%', visibility: '' }}
-                  variant="outlined"
-                  margin="normal"
-                  name="billing_state"
-                  value={BOOKINGDATA?.hotel?.state}
-                  placeholder="Billing State:"
-                />
-              </Grid>
-              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
-                <Typography>Billing Zip:</Typography>
-              </Grid>
-              <Grid item xs={12} lg={8}>
-                <TextField
-                  sx={{ width: '100%', visibility: '' }}
-                  variant="outlined"
-                  margin="normal"
-                  name="billing_zip"
-                  value={BOOKINGDATA?.hotel?.zipCode}
-                  placeholder="Billing Zip:"
-                />
-              </Grid>
-              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
-                <Typography>Billing Country:</Typography>
-              </Grid>
-              <Grid item xs={12} lg={8}>
-                <TextField
-                  sx={{ width: '100%', visibility: '' }}
-                  variant="outlined"
-                  margin="normal"
-                  name="billing_country"
-                  value={BOOKINGDATA?.hotel?.country}
-                  placeholder="Billing Country:"
-                />
-              </Grid>
-              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
-                <Typography>Billing Tel<span className="text-danger">*</span>:</Typography>
-              </Grid>
-              <Grid item xs={12} lg={8}>
-                <TextField
-                  sx={{ width: '100%', visibility: '' }}
-                  variant="outlined"
-                  margin="normal"
-                  name="billing_tel"
-                  value={BOOKINGDATA?.customer?.mobileNo}
-                  placeholder="Billing Tel:"
-                  required
-                />
-              </Grid>
-              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
-                <Typography>Billing Email<span className="text-danger">*</span>:</Typography>
-              </Grid>
-              <Grid item xs={12} lg={8}>
-                <TextField
-                  sx={{ width: '100%', visibility: '' }}
-                  variant="outlined"
-                  margin="normal"
-                  name="billing_email"
-                  value={BOOKINGDATA?.customer?.email}
-                  placeholder="Billing Email:"
-                  required
-                />
-              </Grid>
-              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
-                <Typography>Promo Code:</Typography>
-              </Grid>
-              <Grid item xs={12} lg={8}>
-                <TextField
-                  sx={{ width: '100%', visibility: '' }}
-                  variant="outlined"
+              <Grid item xs={12} lg={8} sx={{ borderBottom: '1px solid #ee2e24' }}>
+
+
+                <input
+                  type="text"
+                  style={inputStyle}
                   margin="normal"
                   name="promo_code"
                   value=""
                   placeholder="Promo code"
+                  readOnly
                 />
+
               </Grid>
-              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: '' }} >
-                <Typography>Customer Id:</Typography>
+              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
+                <Typography variant='h6' >Customer Id:</Typography>
               </Grid>
-              <Grid item xs={12} lg={8}>
-                <TextField
-                  sx={{ width: '100%', visibility: '' }}
-                  variant="outlined"
+              <Grid item xs={12} lg={8} sx={{ borderBottom: '1px solid #ee2e24' }}>
+                <input
+                  type="text"
+                  style={inputStyle}
                   margin="normal"
-                  disabled
                   name="customer_identifier"
                   value={BOOKINGDATA?.customer?._id}
                   placeholder="Customer Id:"
-                  required
+                  readOnly
+                />
+
+              </Grid>
+              <Box sx={{ display: 'none' }}>
+                <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: 'hidden' }} >
+                  <Typography variant='h6' >Merchant Id</Typography>
+                </Grid>
+                <Grid item xs={12} lg={8}>
+
+                  <TextField
+                    sx={{ width: '100%', visibility: 'hidden' }}
+                    variant="standard"
+                    margin="normal"
+                    name="merchant_id"
+                    id="merchant_id"
+                    value="2779245"
+                    placeholder="Merchant Id"
+                    required
+                  />
+                </Grid>
+              </Box>
+              <Grid item xs={12} lg={3} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
+                <Typography variant='h6' >Order Id</Typography>
+              </Grid>
+              <Grid item xs={12} lg={3} sx={{ borderBottom: '1px solid #ee2e24' }}>
+                <input
+                  type="text"
+                  style={inputStyle}
+                  name="order_id"
+                  value="12345"
+                  placeholder="Order Id"
+                  readOnly
                 />
               </Grid>
+              <Grid item xs={12} lg={3} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
+                <Typography variant='h6' >Currency</Typography>
+              </Grid>
+              <Grid item xs={12} lg={3} sx={{ borderBottom: '1px solid #ee2e24' }}>
+
+                <input
+                  type="text"
+                  style={inputStyle}
+                  name="currency"
+                  value="INR"
+                  placeholder="Currency"
+                  readOnly
+                />
+
+              </Grid>
+              <Grid item xs={12} lg={3} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
+                <Typography variant='h6' >Amount</Typography>
+              </Grid>
+              <Grid item xs={12} lg={3} sx={{ borderBottom: '1px solid #ee2e24' }}>
+
+                <input
+                  type="text"
+                  style={inputStyle}
+                  name="amount"
+                  value="1.00"
+                  placeholder="Amount"
+                  readOnly
+                />
+
+              </Grid>
+              <Box sx={{ display: 'none' }}>
+                <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: 'hidden' }} >
+                  <Typography variant='h6' >Redirect Url</Typography>
+                </Grid>
+                <Grid item xs={12} lg={8}>
+
+                  <input
+                    type="text"
+                    style={inputStyle}
+                    name="redirect_url"
+                    value={`${API_URL}/ccav/ccavResponseHandler`}
+                    placeholder="Redirect Url"
+                    readOnly
+                  />
+                </Grid>
+                <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: 'hidden' }} >
+                  <Typography variant='h6' >Cancel Url</Typography>
+                </Grid>
+                <Grid item xs={12} lg={8}>
+
+                  <input
+                    type="text"
+                    style={inputStyle}
+                    name="cancel_url"
+                    value={`${API_URL}/ccav/ccavResponseHandler`}
+                    placeholder="Cancel Url"
+                    readOnly
+                  />
+
+                </Grid>
+              </Box>
+              <Grid item xs={12} lg={3} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
+                <Typography variant='h6' >Language</Typography>
+              </Grid>
+              <Grid item xs={12} lg={3} sx={{ borderBottom: '1px solid #ee2e24' }}>
+
+
+                <input
+                  type="text"
+                  style={inputStyle}
+                  name="language"
+                  id="language"
+                  value="EN"
+                  placeholder="Language"
+                  readOnly
+                />
+
+              </Grid>
+              <Grid item xs={12} lg={3} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
+                <Typography variant='h6' >Billing City:</Typography>
+              </Grid>
+              <Grid item xs={12} lg={3} sx={{ borderBottom: '1px solid #ee2e24' }}>
+
+
+                <input
+                  type="text"
+                  style={inputStyle}
+                  margin="normal"
+                  name="billing_city"
+                  value={BOOKINGDATA?.hotel?.city}
+                  placeholder="Billing City:"
+                  readOnly
+                />
+
+              </Grid>
+              <Grid item xs={12} lg={3} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
+                <Typography variant='h6' >Billing State:</Typography>
+              </Grid>
+              <Grid item xs={12} lg={3} sx={{ borderBottom: '1px solid #ee2e24' }}>
+
+                <input
+                  type="text"
+                  style={inputStyle}
+                  margin="normal"
+                  name="billing_state"
+                  value={BOOKINGDATA?.hotel?.state}
+                  placeholder="Billing State:"
+                  readOnly
+                />
+
+              </Grid>
+              <Grid item xs={12} lg={3} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
+                <Typography variant='h6' >Billing Zip:</Typography>
+              </Grid>
+              <Grid item xs={12} lg={3} sx={{ borderBottom: '1px solid #ee2e24' }}>
+
+                <input
+                  type="text"
+                  style={inputStyle}
+                  margin="normal"
+                  name="billing_zip"
+                  value={BOOKINGDATA?.hotel?.zipCode}
+                  placeholder="Billing Zip:"
+                  readOnly
+                />
+
+              </Grid>
+              <Grid item xs={12} lg={3} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
+                <Typography variant='h6' >Billing Country:</Typography>
+              </Grid>
+              <Grid item xs={12} lg={3} sx={{ borderBottom: '1px solid #ee2e24' }}>
+
+                <input
+                  type="text"
+                  style={inputStyle}
+                  margin="normal"
+                  name="billing_country"
+                  value={BOOKINGDATA?.hotel?.country}
+                  placeholder="Billing Country:"
+                  readOnly
+                />
+
+              </Grid>
+              <Grid item xs={12} lg={3} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
+                <Typography variant='h6' >Billing Tel<span className="text-danger">*</span>:</Typography>
+              </Grid>
+              <Grid item xs={12} lg={3} sx={{ borderBottom: '1px solid #ee2e24' }}>
+
+                <input
+                  type="text"
+                  style={inputStyle}
+                  margin="normal"
+                  name="billing_tel"
+                  value={BOOKINGDATA?.customer?.mobileNo}
+                  placeholder="Billing Tel:"
+                  readOnly
+                />
+
+              </Grid>
+              <Grid item xs={12} lg={3} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
+                <Typography variant='h6' >Billing Email<span className="text-danger">*</span>:</Typography>
+              </Grid>
+              <Grid item xs={12} lg={3} sx={{ borderBottom: '1px solid #ee2e24' }}>
+
+                <input
+                  type="text"
+                  style={inputStyle}
+                  margin="normal"
+                  name="billing_email"
+                  value={BOOKINGDATA?.customer?.email}
+                  placeholder="Billing Email:"
+                  readOnly
+                />
+
+              </Grid>
+
               <Grid item xs={12} lg={12} p={1}>
                 <LoadingButton
                   fullWidth
