@@ -34,6 +34,7 @@ import { useAuthContext } from "../../context/userAuthContext";
 import moment from "moment/moment";
 import BookingInfo from "./BookingInfo";
 import { useBooking } from "../../context/useBooking";
+import HotelDetail from "./HotelioOffer";
 
 const StepTwo = ({
   hotelData,
@@ -245,7 +246,12 @@ const StepTwo = ({
               </FormControl>
             </CardContent>
           </Card>
-          <Card style={{ border: "2px solid #ee2e24" }} className="w-100 my-2">
+
+          <HotelDetail
+            hotelData={hotelData}
+          />
+
+          <Card style={{ border: "2px solid #ee2e24" }} className="w-100">
             <CardContent>
               <Typography sx={{ mb: 1.5 }} color="text-dark" fontWeight={700}>
                 {roomData?.roomType?.title}

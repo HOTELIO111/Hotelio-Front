@@ -3,7 +3,7 @@ import "./BookingSteps.css"; // Import your CSS file for styling
 import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
-import { Button } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import axios from "axios";
@@ -87,9 +87,9 @@ const BookingSteps = () => {
       style={isMobile ? { padding: "5px" } : { padding: "20px" }}
       className="multi-step-form"
     >
-      <button onClick={() => GenerateBookingId()}>Book Now</button>
+      {/* <button onClick={() => GenerateBookingId()}>Book Now</button> */}
       <PageLoader loading={loader} />
-      <div className="my-2">
+      {/* <div className="my-2">
         {currentStep > 1 && (
           <Button variant="outlined" onClick={prevStep}>
             {currentStep === 3 ? "Back" : "Back"}
@@ -100,7 +100,7 @@ const BookingSteps = () => {
             Next
           </Button>
         )}
-      </div>
+      </div> */}
       <div className="stepper">
         <div className={`step ${currentStep === 1 ? "active" : "active"}`}>
           Your selection
@@ -142,7 +142,23 @@ const BookingSteps = () => {
         />
       )}
       <div className="my-2">
-        {currentStep > 1 && (
+        <Grid container spacing={2}>
+          {currentStep > 1 && (
+            <Grid item xs={4}>
+              <Button fullWidth variant="outlined" sx={{ borderRadius: '27px', padding: 1 }} color="error" onClick={prevStep}>
+                {currentStep === 3 ? "Back" : "Back"}
+              </Button>
+            </Grid>
+          )}
+          {currentStep < 3 && (
+            <Grid item xs={8}>
+              <Button fullWidth variant="contained" sx={{ borderRadius: '27px', padding: 1 }} color="error" className="mx-2" onClick={nextStep}>
+                Next
+              </Button>
+            </Grid>
+          )}
+        </Grid>
+        {/* {currentStep > 1 && (
           <Button variant="outlined" color="error" onClick={prevStep}>
             {currentStep === 3 ? "Back" : "Back"}
           </Button>
@@ -151,7 +167,7 @@ const BookingSteps = () => {
           <Button variant="contained" color="error" className="mx-2" onClick={nextStep}>
             Next
           </Button>
-        )}
+        )} */}
       </div>
     </div>
   );

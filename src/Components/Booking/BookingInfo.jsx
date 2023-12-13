@@ -1,4 +1,5 @@
 import {
+  Box,
   Card,
   CardContent,
   Chip,
@@ -89,25 +90,12 @@ const BookingInfo = ({ hotelData, roomData, currentSearchParam }) => {
             />{" "}
             5 · 233 reviews
           </div>
-          {/* {console.log(
-            numberOfRooms,
-            gstApplied,
-            priceWithGst,
-            _withPromocode,
-            roomAmount,
-            promocodeDiscount,
-            totalDay,
-            _promocode_percent,
-            perDayFinalPrice,
-            wallet_deduction,
-            final_amount
-          )} */}
           <Typography variant="body2">
             Swimming pool, Restaurant, WiFi, Parking
           </Typography>
         </CardContent>
       </Card>
-      <Card style={{ border: "2px solid #ee2e24" }} className="w-100 mt-2 my-1">
+      <Card style={{ border: "2px solid #ee2e24" }} className="w-100 mb-1">
         <CardContent>
           <div className="d-flex justify-content-between align-items-center">
             <Typography color="text-dark" variant="h6" fontWeight={700}>
@@ -411,7 +399,7 @@ const BookingInfo = ({ hotelData, roomData, currentSearchParam }) => {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            alignItems: "center",
+            alignItems: "start",
             background: "#ebf3ff",
             padding: "20px",
           }}
@@ -425,12 +413,14 @@ const BookingInfo = ({ hotelData, roomData, currentSearchParam }) => {
             {calculate?._totalAmountToPaid?.head}
           </Typography>
           <div className="text-right">
-            <Typography color="error" variant="h6">
-              <del>₹&nbsp;{calculate?._basePrice?.value}</del>
-            </Typography>
-            <Typography fontWeight={700} variant="h4">
-              ₹&nbsp;{calculate?._totalAmountToPaid?.value}
-            </Typography>
+            <Box sx={{ display: 'flex', gap: 2 }}>
+              <Typography color="error" variant="h4">
+                <del>₹&nbsp;{calculate?._basePrice?.value}</del>
+              </Typography>
+              <Typography fontWeight={700} variant="h4">
+                ₹&nbsp;{calculate?._totalAmountToPaid?.value}
+              </Typography>
+            </Box>
             <Typography variant="caption">
               Great Choice! You are saving{" "}
               <span className="text-danger">
