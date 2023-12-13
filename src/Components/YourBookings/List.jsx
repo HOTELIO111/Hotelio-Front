@@ -161,7 +161,7 @@ export default function List() {
             {
                 HotelBookedData.map((item) => {
                     return (
-                        <Grid container spacing={0} marginTop={1} key={item.id}>
+                        <Grid container spacing={0} my={1} key={item.id} sx={{ boxShadow: '10px 10px 34px 0px rgba(0,0,0,0.15)' }}>
                             <Grid item xs={12} lg={4}>
                                 <img
                                     style={{ borderRadius: '5px 0px 0px 0px', width: '100%', maxHeight: '250px', objectFit: 'cover', minHeight: '250px' }}
