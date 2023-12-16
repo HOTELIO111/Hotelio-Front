@@ -644,3 +644,28 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
 }
 
 export default CcavForm;
+
+
+
+// Merchant Id ( Hidden)
+// Order Id ( Show After OnClick )
+// Currency 
+// Amount 
+// RedirectUrl ( Hidden)
+// Cancel Url ( Hidden )
+// Language
+
+
+
+// Billing
+
+// - Name 
+// Address ( Optional )
+// Tel 
+// Email 
+
+
+
+// Marchent all ( Hidden ) 
+// Promocode 
+// CustomerId 
