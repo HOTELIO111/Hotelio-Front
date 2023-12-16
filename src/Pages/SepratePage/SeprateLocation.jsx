@@ -32,11 +32,9 @@ import HotelsCard from "./HotelsCard";
 import LocatinSideFilter from "./LocatinSideFilter";
 import { useSearch } from "../../context/useSearch";
 import instance from "../../store/_utils";
-import NoData from '../../images/Search.gif'
-import {
-  ClockWaitLoader,
-  WaitLoader,
-} from "../../Components/Elements/WaitLoader";
+import NoData from "../../images/Search.gif";
+import { ClockWaitLoader } from "../../Components/Elements/WaitLoader";
+import parse from "html-react-parser";
 
 const SeprateLocation = () => {
   const { city } = useParams();
@@ -76,7 +74,7 @@ const SeprateLocation = () => {
   const navigate = useNavigate();
 
   const handleBackButton = () => {
-    navigate("/"); // Navigate to the desired route without a page reload
+    navigate("/");
   };
 
   const ReadMoreAndReadLess = ({ str }) => {
@@ -195,14 +193,20 @@ const SeprateLocation = () => {
     GetLocationData(city);
   }, [city]);
 
+  // const metaData = parse(urlData?.meta);
+
   // -------------------------------------------------------------------------------------------------------------------------
   return (
     <div>
       <Helmet>
         {/* Cononical tag:-  */}
+        <title>{urlData?.title}</title>
+        <div dangerouslySetInnerHTML={{ __html: urlData?.meta }}></div>
+        {/* {parse(urlData?.meta)} */}
         <link rel="canonical" href="https://www.hoteliorooms.com" />
       </Helmet>
 
+      {/* {console.log(metaData)} */}
       {isMobile ? <MobileHeader /> : <Navbar />}
       <Container
         sx={isMobile ? { marginBottom: 7 } : { marginTop: 11 }}
@@ -230,16 +234,20 @@ const SeprateLocation = () => {
                   filter={filter}
                 />
               ) : (
-                <Box sx={{ width: '100%', textAlign: 'center' }} >
+                <Box sx={{ width: "100%", textAlign: "center" }}>
                   <img
                     src={NoData}
                     alt="404notfound"
                     // width={150}
                     // height={350}
-                    style={{ marginLeft: "10px", width: '500px' }}
+                    style={{ marginLeft: "10px", width: "500px" }}
                   />
-                  <Typography variant="h3">Oops!... no results found</Typography>
-                  <Typography variant="h6">We're working on this location...</Typography>
+                  <Typography variant="h3">
+                    Oops!... no results found
+                  </Typography>
+                  <Typography variant="h6">
+                    We're working on this location...
+                  </Typography>
                 </Box>
               )}
 
@@ -310,7 +318,7 @@ const SeprateLocation = () => {
         </Grid>
       </Container>
       {isMobile ? <MobileFooter /> : <Footer />}
-    </div >
+    </div>
   );
 };
 
