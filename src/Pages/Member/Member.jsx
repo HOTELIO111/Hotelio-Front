@@ -132,7 +132,7 @@ const Member = () => {
           </Grid>
         </Grid>
       </section>
-      <section
+      {/* <section
         className={`${style.MemberBackground}`}
         style={{ backgroundSize: 'cover', backgroundPosition: 'bottom', backgroundAttachment: 'fixed' }}
       >
@@ -178,7 +178,7 @@ const Member = () => {
             </div>
           </Grid>
         </Grid>
-      </section>
+      </section> */}
       <section>
         <Container>
           <Grid container padding={5} spacing={1}>
@@ -194,7 +194,7 @@ const Member = () => {
             <Grid item xs={4} className="text-center d-flex flex-column align-items-center text-primary">
               <MapsHomeWorkTwoToneIcon sx={{ fontSize: 50 }} />
               <Typography variant={isMobile ? 'subtitle1' : 'h3'} fontWeight={600}>800 +</Typography>
-              <Typography variant={isMobile ? 'caption' : 'subtitle2'}>Cities and Towns</Typography>
+              <Typography variant={isMobile ? 'caption' : 'subtitle2'}>Cities</Typography>
             </Grid>
             <Grid item xs={4} className="text-center d-flex flex-column align-items-center text-primary">
               <ApartmentTwoToneIcon sx={{ fontSize: 50 }} />

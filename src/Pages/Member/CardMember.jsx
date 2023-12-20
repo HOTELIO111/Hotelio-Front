@@ -39,7 +39,7 @@ const CardMember = () => {
       <Grid item xs={12} lg={7} xl={7} xxl={7} style={{ display: 'grid', placeItems: 'center' }}>
         <div className="animate__animated animate__bounceInDown text-center">
           <img src={HoteliLogo} style={{ height: '250px', width: '450px' }} className={isMobile ? 'w-100 h-25' : ''} alt="logo" />
-          <Typography fontWeight={800} color={"white"} variant={isMobile ? 'h6' : 'h4'} > "Grow your <span style={{ color: '#ee2e24' }}><i>Business</i> <TrendingUpIcon fontSize="large" /></span> and make your <span style={{ color: '#ee2e24' }}><b>profit double</b> <KeyboardDoubleArrowUpIcon fontSize="large" /> </span>"</Typography>
+          <Typography fontWeight={800} color={"white"} variant={isMobile ? 'h6' : 'h5'} > "Grow your <span style={{ color: '#ee2e24' }}><i>Business</i> <TrendingUpIcon fontSize="large" /></span> and make your <span style={{ color: '#ee2e24' }}><b>profit double</b> <KeyboardDoubleArrowUpIcon fontSize="large" /> </span>"</Typography>
         </div>
       </Grid>
 

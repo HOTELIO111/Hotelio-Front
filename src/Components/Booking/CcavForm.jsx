@@ -205,7 +205,7 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   type="text"
                   style={inputStyle}
                   name="amount"
-                  value="1.00"
+                  value="500.00"
                   placeholder="Amount"
                   readOnly
                 />

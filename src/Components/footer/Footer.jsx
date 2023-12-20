@@ -287,10 +287,18 @@ const Footer = () => {
             <div
               className={`${isXtraSmallScreen ? "text-center" : "text-start"}`}
             >
-              <InstagramIcon className={`mx-1 fs-1  ${style.insta} `} />
-              <FacebookIcon className={`mx-1 fs-1 ${style.facebook}`} />
-              <TwitterIcon className={`mx-1 fs-1 ${style.tweeter}`} />
-              <LinkedInIcon className={`mx-1 fs-1 ${style.linkedin}`} />
+              <Link target="_blank" to={'https://www.instagram.com/hoteliorooms/?utm_source=ig_web_button_share_sheet&igshid=OGQ5ZDc2ODk2ZA=='}>
+                <InstagramIcon className={`mx-1 fs-1  ${style.insta} `} />
+              </Link>
+              <Link target="_blank" to={'https://www.facebook.com/hoteliorooms?mibextid=JRoKGi-'}>
+                <FacebookIcon className={`mx-1 fs-1 ${style.facebook}`} />
+              </Link>
+              <Link target="_blank">
+                <TwitterIcon className={`mx-1 fs-1 ${style.tweeter}`} />
+              </Link>
+              <Link target="_blank" to={'https://www.linkedin.com/company/hoteliorooms/'}>
+                <LinkedInIcon className={`mx-1 fs-1 ${style.linkedin}`} />
+              </Link>
             </div>
           </div>
 
