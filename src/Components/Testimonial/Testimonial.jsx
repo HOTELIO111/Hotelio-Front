@@ -71,7 +71,7 @@ const Testimonial = () => {
                 />
                 <div>
                     <Typography variant="subtitle1">John Doe</Typography>
-                    <Rating value={5} readOnly />
+                    <Rating value={3} readOnly />
                 </div>
             </div>
             <Typography sx={{ fontFamily: 'Baloo 2 sansSerif' }} variant="body1" className={classes.testimonialText}>
@@ -87,8 +87,8 @@ const Testimonial = () => {
                     className={classes.testimonialAvatar}
                 />
                 <div>
-                    <Typography variant="subtitle1">John Doe</Typography>
-                    <Rating value={5} readOnly />
+                    <Typography variant="subtitle1">Sourabh Verma</Typography>
+                    <Rating value={4} readOnly />
                 </div>
             </div>
             <Typography sx={{ fontFamily: 'Baloo 2 sansSerif' }} variant="body1" className={classes.testimonialText}>
@@ -104,12 +104,12 @@ const Testimonial = () => {
                     className={classes.testimonialAvatar}
                 />
                 <div>
-                    <Typography variant="subtitle1">John Doe</Typography>
+                    <Typography variant="subtitle1">Sourav R</Typography>
                     <Rating value={5} readOnly />
                 </div>
             </div>
             <Typography sx={{ fontFamily: 'Baloo 2 sansSerif' }} variant="body1" className={classes.testimonialText}>
-                "The hotel staff provided exceptional service during our stay. The room was clean and comfortable, and the amenities were top-notch. The staff went above and beyond to make sure we had a wonderful experience. We will definitely be staying here again!"
+                "Excellent host, clean and comfortable place to stay. Very close to the beach too! Saurabh helped us throughout the stay, with various bookings and recommendations. Highly recommended!"
             </Typography>
         </div>,
         // Slide 4
@@ -121,12 +121,14 @@ const Testimonial = () => {
                     className={classes.testimonialAvatar}
                 />
                 <div>
-                    <Typography variant="subtitle1">John Doe</Typography>
+                    <Typography variant="subtitle1">Vihang Pathakji</Typography>
                     <Rating value={5} readOnly />
                 </div>
             </div>
             <Typography sx={{ fontFamily: 'Baloo 2 san' }} variant="body1" className={classes.testimonialText}>
-                "The hotel staff provided exceptional service during our stay. The room was clean and comfortable, and the amenities were top-notch. The staff went above and beyond to make sure we had a wonderful experience. We will definitely be staying here again!"
+                "Great place, rooms were kept very clean nd hygienic.
+                Host were helpful in each nd every possible way. Beach is around 30 to 40 secs away from guesthouse.
+                Overall it deserves 5 star for hospitality"
             </Typography>
         </div>
     ];

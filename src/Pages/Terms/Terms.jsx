@@ -2,6 +2,8 @@ import React from 'react';
 import Navbar from '../../Components/Navbar/Navbar';
 import style from '../Terms/Terms.module.css'
 import Footer from '../../Components/footer/Footer';
+import DecorImage from '../../images/DecorImage.png'
+
 
 const Terms = () => {
     const termsList = [
@@ -35,7 +37,7 @@ const Terms = () => {
             >
                 <h1>Hotelio Terms & Services</h1>
             </div>
-            <div className='container'>
+            <div className='container' style={{ background: `linear-gradient(37deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.4290966386554622) 100%),url(${DecorImage})` }}>
                 <h4 className='py-3'><b>Terms Of Use</b></h4>
                 <p className='py-2'>
                     By registering on, signing into, or using the Hotelio Platform, you (“you” or “User”) agree to the terms herein (this “Agreement”):

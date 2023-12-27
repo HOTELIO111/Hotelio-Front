@@ -75,7 +75,6 @@ const Home = (props) => {
 
         <div className={` ${style.homeContainer} container text-center`}>
 
-
           <h2
             className={` text-dark ${style.homeTitle}  fw-bold pb-4 ${isXtraSmallScreen ? "fs-4" : "fs-3"
               }`}

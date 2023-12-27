@@ -2,6 +2,8 @@ import React from 'react';
 import Navbar from '../../Components/Navbar/Navbar';
 import style from './Privacy.module.css'
 import Footer from '../../Components/footer/Footer';
+import DecorImage from '../../images/DecorImage.png'
+
 
 const Privacy = () => {
 
@@ -15,7 +17,7 @@ const Privacy = () => {
             >
                 <h1>Hotelio Privacy & Policy</h1>
             </div>
-            <div className='container'>
+            <div className='container' style={{ background: `linear-gradient(37deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.4290966386554622) 100%),url(${DecorImage})` }}>
                 <h4 className='py-3'><b>HotelioRooms Privacy Notice</b></h4>
                 <p className='py-2'>
                     HotelioRooms is committed to protecting your information. This privacy notice provides details about the information we collect about you, how we use it and how we protect it. It also explains your rights and how to contact us if you have questions about how we use your information.
