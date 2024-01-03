@@ -34,7 +34,6 @@ import { useSearch } from "../../context/useSearch";
 import instance from "../../store/_utils";
 import NoData from "../../images/Search.gif";
 import { ClockWaitLoader } from "../../Components/Elements/WaitLoader";
-// import parse from "html-react-parser";
 
 const SeprateLocation = () => {
   const { city } = useParams();
