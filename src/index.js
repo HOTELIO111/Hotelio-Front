@@ -33,14 +33,14 @@ root.render(
           <AuthProvider>
             <BookingProvider>
               <OfferProvider>
-                <BrowserRouter>
-                  <ThemeProvider theme={customTheme}>
-                    <Provider store={store}>
-                      <CssBaseline />
-                      <App />
-                    </Provider>
-                  </ThemeProvider>
-                </BrowserRouter>
+              <BrowserRouter>
+                <ThemeProvider theme={customTheme}>
+                  <Provider store={store}>
+                    <CssBaseline />
+                    <App />
+                  </Provider>
+                </ThemeProvider>
+              </BrowserRouter>
               </OfferProvider>
             </BookingProvider>
           </AuthProvider>
