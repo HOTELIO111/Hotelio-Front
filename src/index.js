@@ -14,6 +14,7 @@ import { createMuiTheme, ThemeProvider } from "@mui/material/styles";
 import { BookingProvider } from "./context/useBooking";
 import CssBaseline from "@mui/material/CssBaseline";
 import { StateManagerProvider } from "./context/useStateManager";
+import OfferProvider from "./context/useOffers";
 const customTheme = createMuiTheme({
   typography: {
     fontFamily: "Baloo 2",
@@ -31,14 +32,16 @@ root.render(
         <SearchProvider>
           <AuthProvider>
             <BookingProvider>
-              <BrowserRouter>
-                <ThemeProvider theme={customTheme}>
-                  <Provider store={store}>
-                    <CssBaseline />
-                    <App />
-                  </Provider>
-                </ThemeProvider>
-              </BrowserRouter>
+              <OfferProvider>
+                <BrowserRouter>
+                  <ThemeProvider theme={customTheme}>
+                    <Provider store={store}>
+                      <CssBaseline />
+                      <App />
+                    </Provider>
+                  </ThemeProvider>
+                </BrowserRouter>
+              </OfferProvider>
             </BookingProvider>
           </AuthProvider>
         </SearchProvider>

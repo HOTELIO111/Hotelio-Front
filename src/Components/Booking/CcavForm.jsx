@@ -3,18 +3,23 @@ import { API_URL } from "../../config";
 import { useBooking } from "../../context/useBooking";
 import { LoadingButton } from "@mui/lab";
 import { useAuthContext } from "../../context/userAuthContext";
-import { Box, Card, Grid, InputLabel, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  Grid,
+  InputLabel,
+  TextField,
+  Typography,
+} from "@mui/material";
 import Skeleton from "react-loading-skeleton";
 
 function CcavForm({ BOOKINGDATA, BILL, roomData }) {
-
-
   const inputStyle = {
-    border: 'none',
-    borderBottom: '0px solid #000', // Optional: Add a bottom border for better visibility
-    outline: 'none', // Remove the default focus outline
-    color: '#ee2e24',
-    textTransform: 'capitalize'
+    border: "none",
+    borderBottom: "0px solid #000", // Optional: Add a bottom border for better visibility
+    outline: "none", // Remove the default focus outline
+    color: "#ee2e24",
+    textTransform: "capitalize",
   };
 
   const searchQuery = new URLSearchParams(document.location.search);
@@ -78,19 +83,33 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
   return (
     <div>
       <Box>
-        <Card sx={{ p: 2, borderRadius: 2, border: '2px solid #ee2e24' }}>
+        <Card sx={{ p: 2, borderRadius: 2, border: "2px solid #ee2e24" }}>
           <form
             method="POST"
             name="customerData"
             action={`${API_URL}/ccav/ccavRequestHandler`}
           >
-
             <Grid container spacing={1}>
-              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
-                <Typography variant='h6' >Billing Name <span className="text-danger">*</span></Typography>
+              <Grid
+                item
+                xs={12}
+                lg={4}
+                sx={{
+                  display: "grid",
+                  alignItems: "center",
+                  borderBottom: "1px solid #ee2e24",
+                }}
+              >
+                <Typography variant="h6">
+                  Billing Name <span className="text-danger">*</span>
+                </Typography>
               </Grid>
-              <Grid item xs={12} lg={8} sx={{ borderBottom: '1px solid #ee2e24' }}>
-
+              <Grid
+                item
+                xs={12}
+                lg={8}
+                sx={{ borderBottom: "1px solid #ee2e24" }}
+              >
                 <input
                   type="text"
                   style={inputStyle}
@@ -99,14 +118,26 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   placeholder="Billing Name"
                   readOnly
                 />
-
               </Grid>
 
-              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
-                <Typography variant='h6' >Billing Address:</Typography>
+              <Grid
+                item
+                xs={12}
+                lg={4}
+                sx={{
+                  display: "grid",
+                  alignItems: "center",
+                  borderBottom: "1px solid #ee2e24",
+                }}
+              >
+                <Typography variant="h6">Billing Address:</Typography>
               </Grid>
-              <Grid item xs={12} lg={8} sx={{ borderBottom: '1px solid #ee2e24' }}>
-
+              <Grid
+                item
+                xs={12}
+                lg={8}
+                sx={{ borderBottom: "1px solid #ee2e24" }}
+              >
                 <input
                   type="text"
                   style={inputStyle}
@@ -116,14 +147,25 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   placeholder="Billing Address:"
                   readOnly
                 />
-
               </Grid>
-              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
-                <Typography variant='h6' >Promo Code:</Typography>
+              <Grid
+                item
+                xs={12}
+                lg={4}
+                sx={{
+                  display: "grid",
+                  alignItems: "center",
+                  borderBottom: "1px solid #ee2e24",
+                }}
+              >
+                <Typography variant="h6">Promo Code:</Typography>
               </Grid>
-              <Grid item xs={12} lg={8} sx={{ borderBottom: '1px solid #ee2e24' }}>
-
-
+              <Grid
+                item
+                xs={12}
+                lg={8}
+                sx={{ borderBottom: "1px solid #ee2e24" }}
+              >
                 <input
                   type="text"
                   style={inputStyle}
@@ -133,12 +175,25 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   placeholder="Promo code"
                   readOnly
                 />
-
               </Grid>
-              <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
-                <Typography variant='h6' >Customer Id:</Typography>
+              <Grid
+                item
+                xs={12}
+                lg={4}
+                sx={{
+                  display: "grid",
+                  alignItems: "center",
+                  borderBottom: "1px solid #ee2e24",
+                }}
+              >
+                <Typography variant="h6">Customer Id:</Typography>
               </Grid>
-              <Grid item xs={12} lg={8} sx={{ borderBottom: '1px solid #ee2e24' }}>
+              <Grid
+                item
+                xs={12}
+                lg={8}
+                sx={{ borderBottom: "1px solid #ee2e24" }}
+              >
                 <input
                   type="text"
                   style={inputStyle}
@@ -148,16 +203,23 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   placeholder="Customer Id:"
                   readOnly
                 />
-
               </Grid>
-              <Box sx={{ display: 'none' }}>
-                <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: 'hidden' }} >
-                  <Typography variant='h6' >Merchant Id</Typography>
+              <Box sx={{ display: "none" }}>
+                <Grid
+                  item
+                  xs={12}
+                  lg={4}
+                  sx={{
+                    display: "grid",
+                    alignItems: "center",
+                    visibility: "hidden",
+                  }}
+                >
+                  <Typography variant="h6">Merchant Id</Typography>
                 </Grid>
                 <Grid item xs={12} lg={8}>
-
                   <TextField
-                    sx={{ width: '100%', visibility: 'hidden' }}
+                    sx={{ width: "100%", visibility: "hidden" }}
                     variant="standard"
                     margin="normal"
                     name="merchant_id"
@@ -168,10 +230,24 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   />
                 </Grid>
               </Box>
-              <Grid item xs={12} lg={3} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
-                <Typography variant='h6' >Order Id</Typography>
+              <Grid
+                item
+                xs={12}
+                lg={3}
+                sx={{
+                  display: "grid",
+                  alignItems: "center",
+                  borderBottom: "1px solid #ee2e24",
+                }}
+              >
+                <Typography variant="h6">Order Id</Typography>
               </Grid>
-              <Grid item xs={12} lg={3} sx={{ borderBottom: '1px solid #ee2e24' }}>
+              <Grid
+                item
+                xs={12}
+                lg={3}
+                sx={{ borderBottom: "1px solid #ee2e24" }}
+              >
                 <input
                   type="text"
                   style={inputStyle}
@@ -181,11 +257,24 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   readOnly
                 />
               </Grid>
-              <Grid item xs={12} lg={3} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
-                <Typography variant='h6' >Currency</Typography>
+              <Grid
+                item
+                xs={12}
+                lg={3}
+                sx={{
+                  display: "grid",
+                  alignItems: "center",
+                  borderBottom: "1px solid #ee2e24",
+                }}
+              >
+                <Typography variant="h6">Currency</Typography>
               </Grid>
-              <Grid item xs={12} lg={3} sx={{ borderBottom: '1px solid #ee2e24' }}>
-
+              <Grid
+                item
+                xs={12}
+                lg={3}
+                sx={{ borderBottom: "1px solid #ee2e24" }}
+              >
                 <input
                   type="text"
                   style={inputStyle}
@@ -194,13 +283,25 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   placeholder="Currency"
                   readOnly
                 />
-
               </Grid>
-              <Grid item xs={12} lg={3} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
-                <Typography variant='h6' >Amount</Typography>
+              <Grid
+                item
+                xs={12}
+                lg={3}
+                sx={{
+                  display: "grid",
+                  alignItems: "center",
+                  borderBottom: "1px solid #ee2e24",
+                }}
+              >
+                <Typography variant="h6">Amount</Typography>
               </Grid>
-              <Grid item xs={12} lg={3} sx={{ borderBottom: '1px solid #ee2e24' }}>
-
+              <Grid
+                item
+                xs={12}
+                lg={3}
+                sx={{ borderBottom: "1px solid #ee2e24" }}
+              >
                 <input
                   type="text"
                   style={inputStyle}
@@ -209,14 +310,21 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   placeholder="Amount"
                   readOnly
                 />
-
               </Grid>
-              <Box sx={{ display: 'none' }}>
-                <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: 'hidden' }} >
-                  <Typography variant='h6' >Redirect Url</Typography>
+              <Box sx={{ display: "none" }}>
+                <Grid
+                  item
+                  xs={12}
+                  lg={4}
+                  sx={{
+                    display: "grid",
+                    alignItems: "center",
+                    visibility: "hidden",
+                  }}
+                >
+                  <Typography variant="h6">Redirect Url</Typography>
                 </Grid>
                 <Grid item xs={12} lg={8}>
-
                   <input
                     type="text"
                     style={inputStyle}
@@ -226,11 +334,19 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                     readOnly
                   />
                 </Grid>
-                <Grid item xs={12} lg={4} sx={{ display: 'grid', alignItems: 'center', visibility: 'hidden' }} >
-                  <Typography variant='h6' >Cancel Url</Typography>
+                <Grid
+                  item
+                  xs={12}
+                  lg={4}
+                  sx={{
+                    display: "grid",
+                    alignItems: "center",
+                    visibility: "hidden",
+                  }}
+                >
+                  <Typography variant="h6">Cancel Url</Typography>
                 </Grid>
                 <Grid item xs={12} lg={8}>
-
                   <input
                     type="text"
                     style={inputStyle}
@@ -239,15 +355,26 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                     placeholder="Cancel Url"
                     readOnly
                   />
-
                 </Grid>
               </Box>
-              <Grid item xs={12} lg={3} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
-                <Typography variant='h6' >Language</Typography>
+              <Grid
+                item
+                xs={12}
+                lg={3}
+                sx={{
+                  display: "grid",
+                  alignItems: "center",
+                  borderBottom: "1px solid #ee2e24",
+                }}
+              >
+                <Typography variant="h6">Language</Typography>
               </Grid>
-              <Grid item xs={12} lg={3} sx={{ borderBottom: '1px solid #ee2e24' }}>
-
-
+              <Grid
+                item
+                xs={12}
+                lg={3}
+                sx={{ borderBottom: "1px solid #ee2e24" }}
+              >
                 <input
                   type="text"
                   style={inputStyle}
@@ -257,14 +384,25 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   placeholder="Language"
                   readOnly
                 />
-
               </Grid>
-              <Grid item xs={12} lg={3} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
-                <Typography variant='h6' >Billing City:</Typography>
+              <Grid
+                item
+                xs={12}
+                lg={3}
+                sx={{
+                  display: "grid",
+                  alignItems: "center",
+                  borderBottom: "1px solid #ee2e24",
+                }}
+              >
+                <Typography variant="h6">Billing City:</Typography>
               </Grid>
-              <Grid item xs={12} lg={3} sx={{ borderBottom: '1px solid #ee2e24' }}>
-
-
+              <Grid
+                item
+                xs={12}
+                lg={3}
+                sx={{ borderBottom: "1px solid #ee2e24" }}
+              >
                 <input
                   type="text"
                   style={inputStyle}
@@ -274,13 +412,25 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   placeholder="Billing City:"
                   readOnly
                 />
-
               </Grid>
-              <Grid item xs={12} lg={3} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
-                <Typography variant='h6' >Billing State:</Typography>
+              <Grid
+                item
+                xs={12}
+                lg={3}
+                sx={{
+                  display: "grid",
+                  alignItems: "center",
+                  borderBottom: "1px solid #ee2e24",
+                }}
+              >
+                <Typography variant="h6">Billing State:</Typography>
               </Grid>
-              <Grid item xs={12} lg={3} sx={{ borderBottom: '1px solid #ee2e24' }}>
-
+              <Grid
+                item
+                xs={12}
+                lg={3}
+                sx={{ borderBottom: "1px solid #ee2e24" }}
+              >
                 <input
                   type="text"
                   style={inputStyle}
@@ -290,13 +440,25 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   placeholder="Billing State:"
                   readOnly
                 />
-
               </Grid>
-              <Grid item xs={12} lg={3} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
-                <Typography variant='h6' >Billing Zip:</Typography>
+              <Grid
+                item
+                xs={12}
+                lg={3}
+                sx={{
+                  display: "grid",
+                  alignItems: "center",
+                  borderBottom: "1px solid #ee2e24",
+                }}
+              >
+                <Typography variant="h6">Billing Zip:</Typography>
               </Grid>
-              <Grid item xs={12} lg={3} sx={{ borderBottom: '1px solid #ee2e24' }}>
-
+              <Grid
+                item
+                xs={12}
+                lg={3}
+                sx={{ borderBottom: "1px solid #ee2e24" }}
+              >
                 <input
                   type="text"
                   style={inputStyle}
@@ -306,13 +468,25 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   placeholder="Billing Zip:"
                   readOnly
                 />
-
               </Grid>
-              <Grid item xs={12} lg={3} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
-                <Typography variant='h6' >Billing Country:</Typography>
+              <Grid
+                item
+                xs={12}
+                lg={3}
+                sx={{
+                  display: "grid",
+                  alignItems: "center",
+                  borderBottom: "1px solid #ee2e24",
+                }}
+              >
+                <Typography variant="h6">Billing Country:</Typography>
               </Grid>
-              <Grid item xs={12} lg={3} sx={{ borderBottom: '1px solid #ee2e24' }}>
-
+              <Grid
+                item
+                xs={12}
+                lg={3}
+                sx={{ borderBottom: "1px solid #ee2e24" }}
+              >
                 <input
                   type="text"
                   style={inputStyle}
@@ -322,13 +496,27 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   placeholder="Billing Country:"
                   readOnly
                 />
-
               </Grid>
-              <Grid item xs={12} lg={3} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
-                <Typography variant='h6' >Billing Tel<span className="text-danger">*</span>:</Typography>
+              <Grid
+                item
+                xs={12}
+                lg={3}
+                sx={{
+                  display: "grid",
+                  alignItems: "center",
+                  borderBottom: "1px solid #ee2e24",
+                }}
+              >
+                <Typography variant="h6">
+                  Billing Tel<span className="text-danger">*</span>:
+                </Typography>
               </Grid>
-              <Grid item xs={12} lg={3} sx={{ borderBottom: '1px solid #ee2e24' }}>
-
+              <Grid
+                item
+                xs={12}
+                lg={3}
+                sx={{ borderBottom: "1px solid #ee2e24" }}
+              >
                 <input
                   type="text"
                   style={inputStyle}
@@ -338,13 +526,27 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   placeholder="Billing Tel:"
                   readOnly
                 />
-
               </Grid>
-              <Grid item xs={12} lg={3} sx={{ display: 'grid', alignItems: 'center', borderBottom: '1px solid #ee2e24' }} >
-                <Typography variant='h6' >Billing Email<span className="text-danger">*</span>:</Typography>
+              <Grid
+                item
+                xs={12}
+                lg={3}
+                sx={{
+                  display: "grid",
+                  alignItems: "center",
+                  borderBottom: "1px solid #ee2e24",
+                }}
+              >
+                <Typography variant="h6">
+                  Billing Email<span className="text-danger">*</span>:
+                </Typography>
               </Grid>
-              <Grid item xs={12} lg={3} sx={{ borderBottom: '1px solid #ee2e24' }}>
-
+              <Grid
+                item
+                xs={12}
+                lg={3}
+                sx={{ borderBottom: "1px solid #ee2e24" }}
+              >
                 <input
                   type="text"
                   style={inputStyle}
@@ -354,7 +556,14 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   placeholder="Billing Email:"
                   readOnly
                 />
-
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                lg={3}
+                sx={{ borderBottom: "1px solid #ee2e24" }}
+              >
+                <input type="text" name="merchant_param1" value="part-pay" />
               </Grid>
 
               <Grid item xs={12} lg={12} p={1}>
@@ -362,9 +571,11 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   fullWidth
                   // loading={true}
                   type="submit"
-                  onClick={() => HandleCheckOutPayment(userBookingDetails, calculate)}
+                  onClick={() =>
+                    HandleCheckOutPayment(userBookingDetails, calculate)
+                  }
                   color="error"
-                  sx={{ padding: "1rem 0rem", borderRadius: '27px', margin: 1 }}
+                  sx={{ padding: "1rem 0rem", borderRadius: "27px", margin: 1 }}
                   variant="contained"
                 >
                   CheckOut
@@ -645,27 +856,21 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
 
 export default CcavForm;
 
-
-
 // Merchant Id ( Hidden)
 // Order Id ( Show After OnClick )
-// Currency 
-// Amount 
+// Currency
+// Amount
 // RedirectUrl ( Hidden)
 // Cancel Url ( Hidden )
 // Language
 
-
-
 // Billing
 
-// - Name 
+// - Name
 // Address ( Optional )
-// Tel 
-// Email 
+// Tel
+// Email
 
-
-
-// Marchent all ( Hidden ) 
-// Promocode 
-// CustomerId 
+// Marchent all ( Hidden )
+// Promocode
+// CustomerId
