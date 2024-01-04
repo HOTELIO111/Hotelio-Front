@@ -11,33 +11,19 @@ import { API_URL } from "../../config";
 import { useEffect } from "react";
 import PageLoader from "../../Utilis/PageLoader";
 import { useBooking } from "../../context/useBooking";
+import { useDispatch, useSelector } from "react-redux";
+import { GetSingleHotel } from "../../store/actions/hotelActions";
 
 const BookingSteps = () => {
   const location = useLocation();
   const [loader, setLoader] = useState(false);
   const searchQuery = new URLSearchParams(document.location.search);
-  const {
-    coupon,
-    setCoupon,
-    userBookingDetails,
-    setUserBookingDetails,
-    finalBookingData,
-    setFinalBookingData,
-    Gst,
-    setGst,
-    GenerateBookingId,
-    calculateAmount,
-  } = useBooking();
+
 
   const currentSearchParam = Object.fromEntries(searchQuery?.entries());
 
-  const [data, setData] = useState(null);
-  const [roomData, setRoomData] = useState(null);
   const [formData, setFormData] = useState({});
   const decoded = decodeURIComponent(location.search);
-
-  const hotelId = new URLSearchParams(decoded).get("hid");
-  const roomId = new URLSearchParams(decoded).get("rid");
 
   const [currentStep, setCurrentStep] = useState(2);
 
@@ -46,6 +32,7 @@ const BookingSteps = () => {
   };
 
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   const nextStep = () => {
     setCurrentStep(currentStep + 1);
@@ -60,28 +47,7 @@ const BookingSteps = () => {
     }
   };
 
-  useEffect(() => {
-    const GetHoteldata = async () => {
-      try {
-        setLoader(true);
-        const response = await axios.get(
-          API_URL + `/hotel/hoteldetails/${hotelId}`
-        );
-        if (response.status === 200) {
-          setData(response.data.data);
-          const roomData = response?.data?.data?.rooms?.find(
-            (x) => x._id === roomId
-          );
-          setRoomData(roomData);
-          setLoader(false);
-        }
-      } catch (error) {
-        console.log(error);
-        setLoader(false);
-      }
-    };
-    GetHoteldata();
-  }, [hotelId]);
+
   return (
     <div
       style={isMobile ? { padding: "5px" } : { padding: "20px" }}
@@ -125,8 +91,6 @@ const BookingSteps = () => {
       )} */}
       {currentStep === 2 && (
         <StepTwo
-          hotelData={data}
-          roomData={roomData}
           formData={formData}
           setFormData={setFormData}
           handleFormData={handleFormData}
@@ -134,8 +98,6 @@ const BookingSteps = () => {
       )}
       {currentStep === 3 && (
         <StepThree
-          hotelData={data}
-          roomData={roomData}
           formData={formData}
           setFormData={setFormData}
           handleFormData={handleFormData}

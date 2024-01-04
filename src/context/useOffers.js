@@ -1,9 +1,11 @@
-import { createContext, useContext } from "react";
+
+import { createContext, useContext, useState } from "react";
 import instance from "../store/_utils";
 
 const OffersContext = createContext();
 
 const OfferProvider = ({ children }) => {
+  const [GetOffer, SetGetOffer] = useState(null);
 
   const CustomerOffers = async ({ hotelId, roomId }) => {
     try {
@@ -11,8 +13,8 @@ const OfferProvider = ({ children }) => {
         `/offers/get-offers/hotel?hotelid=${hotelId}&roomid=${roomId}&validFor=customer`
       );
       if (response.status === 200) {
-        console.log(response.data);
-        return response.data;
+        // console.log(response.data);
+        SetGetOffer(response.data);
       }
     } catch (error) {
       console.log(error);
@@ -21,9 +23,7 @@ const OfferProvider = ({ children }) => {
   };
 
   return (
-    <OffersContext.Provider
-      value={CustomerOffers}
-    >
+    <OffersContext.Provider value={{ GetOffer, CustomerOffers }}>
       {children}
     </OffersContext.Provider>
   );

@@ -29,34 +29,38 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import Dates from "../date/Date";
 import { Check } from "@mui/icons-material";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuthContext } from "../../context/userAuthContext";
 import moment from "moment/moment";
 import BookingInfo from "./BookingInfo";
 import { useBooking } from "../../context/useBooking";
 import HotelDetail from "./HotelioOffer";
+import { useDispatch, useSelector } from "react-redux";
+import { GetSingleHotel } from "../../store/actions/hotelActions";
 
 const StepTwo = ({
-  hotelData,
-  roomData,
   formData,
   setFormData,
   handleFormData,
 }) => {
   const {
-    coupon,
-    setCoupon,
     userBookingDetails,
     setUserBookingDetails,
-    finalBookingData,
-    setFinalBookingData,
-    Gst,
-    setGst,
   } = useBooking();
+  const location = useLocation()
   const searchQuery = new URLSearchParams(document.location.search);
+  const dispatch = useDispatch()
+  const decoded = decodeURIComponent(location.search);
 
+
+  const hotelId = new URLSearchParams(decoded).get("hid");
+  const roomId = new URLSearchParams(decoded).get("rid");
   const currentSearchParam = Object.fromEntries(searchQuery?.entries());
   const { currentUser } = useAuthContext();
+  const HotelData = useSelector((state) => state.GetSingleHotelReducers)
+
+  const hotelData = HotelData?.data
+  const roomData = HotelData?.data?.rooms?.find((item) => item._id === roomId)
 
   const style = {
     position: "absolute",
@@ -83,25 +87,29 @@ const StepTwo = ({
   };
 
   useEffect(() => {
-    setUserBookingDetails((prevDetails) => ({
-      ...prevDetails,
-      dateOfBooking: new Date(Date.now()).toISOString(),
-      customer: currentUser || prevDetails.customer,
-      hotel: hotelData || prevDetails.hotel,
-      room: roomData || prevDetails.room,
-      guest: formData || prevDetails.guest,
-      bookingDate: {
-        checkIn: currentSearchParam.checkIn || prevDetails.bookingDate.checkIn,
-        checkOut:
-          currentSearchParam.checkOut || prevDetails.bookingDate.checkOut,
-      },
-      numberOfRooms: currentSearchParam.totalRooms || prevDetails.numberOfRooms,
-      numberOfGuests: {
-        adults:
-          currentSearchParam.totalGuest || prevDetails.numberOfGuests.adults,
-      },
-    }));
-  }, [currentUser, hotelData, roomData, formData, currentSearchParam]);
+    if (currentUser && hotelData && roomData && currentSearchParam && formData) {
+      setUserBookingDetails((prevDetails) => ({
+        ...prevDetails,
+        dateOfBooking: new Date(Date.now()).toISOString(),
+        customer: currentUser || prevDetails.customer,
+        hotel: hotelData || prevDetails.hotel,
+        room: roomData || prevDetails.room,
+        guest: formData || prevDetails.guest,
+        bookingDate: {
+          checkIn: currentSearchParam.checkIn || prevDetails.bookingDate.checkIn,
+          checkOut:
+            currentSearchParam.checkOut || prevDetails.bookingDate.checkOut,
+        },
+        numberOfRooms: currentSearchParam.totalRooms || prevDetails.numberOfRooms,
+        numberOfGuests: {
+          adults:
+            currentSearchParam.totalGuest || prevDetails.numberOfGuests.adults,
+        },
+      }));
+    }
+
+
+  }, []);
 
   useEffect(() => {
     if (selectedValue === "myself") {
@@ -119,6 +127,12 @@ const StepTwo = ({
     }
   }, [selectedValue]);
 
+  useEffect(() => {
+    if (hotelId) {
+      dispatch(GetSingleHotel(hotelId))
+    }
+  }, [hotelId])
+
   return (
     <div className="container p-2">
       <Modal
@@ -129,6 +143,7 @@ const StepTwo = ({
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+
           <Dates />
           <div className="my-2 d-flex justify-content-between">
             <Button variant="contained">Submit</Button>
@@ -142,6 +157,7 @@ const StepTwo = ({
         <Grid item xs={12} sm={12} md={6} lg={8} xl={8}>
           <Card style={{ border: "2px solid #ee2e24" }} className="w-100">
             <CardContent>
+              {console.log(userBookingDetails)}
               <Typography sx={{ mb: 1.5 }} color="text-dark" fontWeight={700}>
                 Enter your details
               </Typography>

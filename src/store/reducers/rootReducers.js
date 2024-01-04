@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { GetSearchedHotelsReducers } from "./hotelReducers";
+import { GetSearchedHotelsReducers, GetSingleHotelReducers } from "./hotelReducers";
 import {
   GetAgentSignupReducer,
   GetAgentLoginReducer,
@@ -13,6 +13,7 @@ const rootReducers = combineReducers({
   GetAgentLoginReducer,
   GetAllRoomTypReducer,
   GetALlPopularLocationReducer,
+  GetSingleHotelReducers
 });
 
 export default rootReducers;
