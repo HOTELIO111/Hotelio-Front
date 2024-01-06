@@ -17,7 +17,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import PropTypes from "prop-types";
 import Welcome from "../../images/Welcome.png";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import NetworkWifiIcon from "@mui/icons-material/NetworkWifi";
 import LocalParkingIcon from "@mui/icons-material/LocalParking";
 import FoodBankIcon from "@mui/icons-material/FoodBank";
@@ -35,13 +35,13 @@ const Detail = ({ data }) => {
   const { searchParams, setSearchParams } = useSearchParams();
   const searchQuery = new URLSearchParams(document.location.search);
   const currentSearchParams = Object.fromEntries(searchQuery?.entries());
-
-  const bookingQueries = new URLSearchParams({
+  const SearchParams = {
     checkIn: currentSearchParams.checkIn,
     checkOut: currentSearchParams.checkOut,
     totalRooms: currentSearchParams.totalRooms,
     totalGuest: currentSearchParams.totalGuest,
-  }).toString();
+  }
+  const bookingQueries = new URLSearchParams(SearchParams).toString();
 
   // arrage room listing
   const ArrangeRoomList = (rooms) => {
@@ -200,6 +200,20 @@ const Detail = ({ data }) => {
       console.error("Error retrieving place details:", status);
     }
   }
+
+  const HandleNavigations = (hotelid, roomid, bookingQueries) => {
+    const query = new URLSearchParams({
+      hid: hotelid?._id,
+      rid: roomid?._id,
+    }).toString();
+    if (loggedIn) {
+      window.localStorage.setItem('search', JSON.stringify({ hid: hotelid._id, rid: roomid._id, ...SearchParams }))
+      return `/booking?${query}&${bookingQueries}`
+    } else {
+      return `/signin`
+    }
+  }
+
   //  Implement the review and ratings  ===========================================================================================================
   // ==============================================================================================================================================
   return (
@@ -456,25 +470,25 @@ const Detail = ({ data }) => {
                     currentSearchParams.checkIn,
                     currentSearchParams.checkOut
                   ) && (
-                    <div
-                      style={{
-                        cursor: "not-allowed",
-                        display: "grid",
-                        placeItems: "center",
-                        position: "absolute",
-                        background: "#ffffffba",
-                        zIndex: "1000",
-                        width: "100%",
-                        height: "100%",
-                      }}
-                    >
-                      <div>
-                        <Typography variant="h6" color="error" fontWeight={800}>
-                          Room Not Available
-                        </Typography>
+                      <div
+                        style={{
+                          cursor: "not-allowed",
+                          display: "grid",
+                          placeItems: "center",
+                          position: "absolute",
+                          background: "#ffffffba",
+                          zIndex: "1000",
+                          width: "100%",
+                          height: "100%",
+                        }}
+                      >
+                        <div>
+                          <Typography variant="h6" color="error" fontWeight={800}>
+                            Room Not Available
+                          </Typography>
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
                   <Grid container spacing={1}>
                     {/* <Grid
                       item
@@ -609,22 +623,12 @@ const Detail = ({ data }) => {
                       <div className="text-center">
                         <Button
                           // onClick={() => navigate("/booking")}
-                          onClick={() => {
-                            if (loggedIn) {
-                              const query = new URLSearchParams({
-                                hid: data?._id,
-                                rid: item?._id,
-                              }).toString();
-                              navigate(`/booking?${query}&${bookingQueries}`);
-                            } else {
-                              navigate("/signin");
-                            }
-                          }}
+
                           variant="contained"
                           sx={{ borderRadius: "50px" }}
                           color="error"
                         >
-                          Book Now
+                          <Link target="_blank" to={HandleNavigations(data, item, bookingQueries)}>Book Now</Link>
                         </Button>
                       </div>
                     </Grid>
@@ -734,7 +738,7 @@ const Detail = ({ data }) => {
           </div>
         </Grid>
       </Grid>
-    </div>
+    </div >
   );
 };
 

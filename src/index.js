@@ -31,18 +31,18 @@ root.render(
       <StateManagerProvider>
         <SearchProvider>
           <AuthProvider>
-            <BookingProvider>
-              <OfferProvider>
+            <OfferProvider>
               <BrowserRouter>
                 <ThemeProvider theme={customTheme}>
                   <Provider store={store}>
                     <CssBaseline />
-                    <App />
+                    <BookingProvider>
+                      <App />
+                    </BookingProvider>
                   </Provider>
                 </ThemeProvider>
               </BrowserRouter>
-              </OfferProvider>
-            </BookingProvider>
+            </OfferProvider>
           </AuthProvider>
         </SearchProvider>
       </StateManagerProvider>
