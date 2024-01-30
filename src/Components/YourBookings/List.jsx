@@ -107,7 +107,6 @@ export default function List() {
                             }}
                         />
 
-                        {console.log(valueOfMoney)}
                     </div>
                     <div className='py-2'>
                         <Typography component="legend">Cleanliness</Typography>

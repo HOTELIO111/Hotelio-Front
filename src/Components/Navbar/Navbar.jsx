@@ -443,8 +443,10 @@ const Navbar = ({ list }) => {
                               display: "flex",
                               justifyContent: "center",
                               alignItems: "center",
+                              gap: '5px'
                             }}
                           >
+                            <img style={{ width: '50px', borderRadius: '100%', border:'2px solid #ee2e24' }} src={currentUser?.avatar} alt="" />
                             <Button
                               id="demo-customized-button"
                               sx={{ color: "#EE2E24", fontWeight: '700', fontSize: '15px' }}
