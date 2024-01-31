@@ -9,7 +9,6 @@ const useStateManager = createContext();
 
 const StateManagerProvider = ({ children }) => {
   const [checkInCheckOut, setCheckInCheckOut] = useState([]);
-  const [formData, setFormData] = useState({});
 
   // Get the addressInfo from google
 
@@ -63,11 +62,6 @@ const StateManagerProvider = ({ children }) => {
 
   const dateFormat = "YYYY/MM/DD";
 
-
-  const handleFormData = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
   useEffect(() => {
     const today = dayjs().format(dateFormat);
     const tomorrow = dayjs().add(1, "day").format(dateFormat);
@@ -82,9 +76,6 @@ const StateManagerProvider = ({ children }) => {
         setCheckInCheckOut,
         GetPlaceInfo,
         handleCityClick,
-        formData,
-        setFormData,
-        handleFormData
       }}
     >
       {children}

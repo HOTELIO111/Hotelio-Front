@@ -26,11 +26,55 @@ const BookingProvider = ({ children }) => {
   };
 
   const [coupon, setCoupon] = useState();
-  const [Gst, setGst] = useState("18");
+  const [Gst, setGst] = useState("18%");
   const [userBookingDetails, setUserBookingDetails] = useState({});
   const [finalBookingData, setFinalBookingData] = useState({});
 
+  const calculateAmount = (
+    amount,
+    coupon,
+    totalrooms,
+    gst,
+    checkIn,
+    checkOut,
+    customer
+  ) => {
+    const totalDays = totalLengthOfStay(checkIn, checkOut);
+    const couponAmount =
+      coupon || Math.floor(Math.random() * (50 - 30 + 1)) + 30;
+    const totalRooms = totalrooms || 1;
+    const applyGst = gst || 18;
+    const roomPrice = amount;
+    let final_amount;
 
+    // calculation
+    const total = totalRooms * roomPrice * totalDays;
+    const priceWithGst = +(total * ((100 + applyGst) / 100)).toFixed(2);
+    const _withPromocode = +(priceWithGst * (couponAmount / 100)).toFixed(2);
+    const customerWalletAmount = customer?.wallet?.amount || 0; // Fix: Ensure customer?.wallet?.amount is defined
+
+    if (customerWalletAmount <= 100) {
+      final_amount = +(_withPromocode - 100).toFixed(2);
+    } else {
+      final_amount = +_withPromocode.toFixed(2);
+    }
+
+    const report = {
+      numberOfRooms: totalRooms, // Fix: Corrected typo in property name
+      gstApplied: applyGst,
+      net_amount: total,
+      priceWithGst: priceWithGst,
+      _withPromocode,
+      roomAmount: roomPrice,
+      _promocode_percent: `${couponAmount}%`,
+      promocodeDiscount: +(priceWithGst - _withPromocode).toFixed(2),
+      totalDay: totalDays,
+      perDayFinalPrice: +(_withPromocode / totalDays).toFixed(2),
+      wallet_deduction: customerWalletAmount >= 100 ? 100 : 0,
+      final_amount,
+    };
+    return report;
+  };
   const BillingCalculate = (
     amount,
     coupon,
@@ -134,9 +178,6 @@ const BookingProvider = ({ children }) => {
     }
   };
 
-
-
-
   return (
     <BookingContext.Provider
       value={{
@@ -152,7 +193,7 @@ const BookingProvider = ({ children }) => {
         BookingDetails,
         setBookingDetails,
         GenerateBookingId,
-
+        calculateAmount,
         BillingCalculate,
         CreatePreBooking,
       }}

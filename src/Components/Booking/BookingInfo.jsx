@@ -12,41 +12,46 @@ import React from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
+  calculateDiscount,
+  calculateThePrice,
   totalLengthOfStay,
 } from "../../Utilis/_fuctions";
 import { useBooking } from "../../context/useBooking";
 import { useAuthContext } from "../../context/userAuthContext";
 
-const BookingInfo = () => {
+const BookingInfo = ({ hotelData, roomData, currentSearchParam }) => {
   const {
+    coupon,
+    setCoupon,
+    userBookingDetails,
+    setUserBookingDetails,
+    finalBookingData,
+    setFinalBookingData,
+    Gst,
+    setGst,
+    calculateAmount,
     BillingCalculate,
   } = useBooking();
   const navigate = useNavigate();
   const [show, setHide] = useState(false);
-  const [searchParmas, setSearchParamas] = useSearchParams()
   const { currentUser } = useAuthContext();
   const [details, setDetails] = useState(false);
   const ShowDetails = () => setDetails((prev) => !prev);
-  const roomId = searchParmas.get('rid')
-  const HotelData = useSelector((state) => state.GetSingleHotelReducers);
-
-  const { data: hotelData } = HotelData || {};
-  const roomData = hotelData?.rooms?.find((item) => item._id === roomId);
-
+  // const handleOpen = () => setOpen(true);
 
   const handleChangeCredentials = () => {
     const lastQuerySearched = window.localStorage.getItem("search");
     const decoded = decodeURIComponent(lastQuerySearched);
+    // navigate(`/searchedhotels?${decoded}`);
     navigate("/");
   };
   //   credentials
-  const checkIn = searchParmas.get('checkIn');
-  const checkOut = searchParmas.get('checkOut');
-  const qunatityRooms = searchParmas.get('totalRooms');
-  const totalGuest = searchParmas.get('totalGuest');
+  const checkIn = currentSearchParam.checkIn;
+  const checkOut = currentSearchParam.checkOut;
+  const qunatityRooms = currentSearchParam.totalRooms;
+  const totalGuest = currentSearchParam.totalGuest;
   const priceOfaRoom = roomData?.price;
   const totalDays = totalLengthOfStay(checkIn, checkOut);
 
@@ -59,8 +64,6 @@ const BookingInfo = () => {
     checkOut,
     currentUser
   );
-
-
 
   return (
     <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
@@ -122,19 +125,19 @@ const BookingInfo = () => {
             </Grid>
             <Grid item xs={6} sx={{ borderRight: "1px solid #808080" }}>
               <Typography variant="subtitle2">
-                {moment(checkIn).format("ddd DD MMM YYYY")}
+                {moment(currentSearchParam.checkIn).format("ddd DD MMM YYYY")}
                 {/* Sat 26 Aug 2003 */}
               </Typography>
               <Typography variant="caption">
-                {moment(checkIn).format("hh:mm A")}
+                {moment(currentSearchParam.checkIn).format("hh:mm A")}
               </Typography>
             </Grid>
             <Grid item xs={6}>
               <Typography sx={{ pl: 1.5 }} variant="subtitle2">
-                {moment(checkOut).format("ddd DD MMM YYYY")}
+                {moment(currentSearchParam.checkOut).format("ddd DD MMM YYYY")}
               </Typography>
               <Typography sx={{ pl: 1.5 }} variant="caption">
-                {moment(checkOut).format("hh:mm A")}
+                {moment(currentSearchParam.checkOut).format("hh:mm A")}
               </Typography>
             </Grid>
             <Grid item xs={12}>
@@ -180,7 +183,7 @@ const BookingInfo = () => {
                     {calculate.totalDays} x {roomData.roomType.title}
                   </Typography>
                   <Typography variant="caption" display="block">
-                    {totalGuest} Guests
+                    {currentSearchParam.totalGuest} Guests
                   </Typography>
                   {/* <Typography variant="caption">
                     ₹{roomData?.price * parseInt(qunatityRooms)}
