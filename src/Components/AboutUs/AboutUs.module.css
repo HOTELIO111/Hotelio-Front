@@ -4,6 +4,7 @@
     background-color: #ff0000;
     border-radius: 5px;
     overflow: hidden;
+    border-bottom-left-radius: 150px;
     /* clip-path: polygon(0 0, 100% 10%, 100% 85%, 0 100%); */
     width: 100%;
 }

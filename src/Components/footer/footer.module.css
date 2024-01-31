@@ -8,6 +8,7 @@
   background-position: center;
   background-repeat: repeat; */
   background-color: #ff0000;
+  border-top-right-radius: 150px !important;
 }
 
 .fLists {

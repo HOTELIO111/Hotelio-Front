@@ -155,7 +155,7 @@
 .header_area a.logo {
   /* background-image: url(../../images/bgrmv.png); */
   width: 180px;
-  height: 110px;
+  /* height: 110px; */
   display: inline-block;
   /* margin-top: 8px; */
 }

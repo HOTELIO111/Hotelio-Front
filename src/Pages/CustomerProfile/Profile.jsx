@@ -23,7 +23,7 @@ import { API_URL } from "../../config";
 const Profile = () => {
 
   const { sendOtp, otpResp, Loader, setLoader, currentUser, setCurrentUser } =
-  useAuthContext();
+    useAuthContext();
   // State variables
   const [profiledetailUpdate, setprofiledetailUpdate] = useState(false);
   const [updateEmail, setUpdateEmail] = useState(false);
@@ -35,12 +35,11 @@ const Profile = () => {
   const handeleEmailUpdate = () => setUpdateEmail(false);
 
 
-  const [imageFile, setImageFile] = useState(null);
 
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
 
-    if (file && currentUser) {
+    if (file) {
       try {
         const formData = new FormData();
         formData.append('file', file);
@@ -51,14 +50,18 @@ const Profile = () => {
         // Handle the response as needed
         console.log('File uploaded successfully:', response.data.fileName);
 
-        const userId = currentUser?._id; 
+        const userId = currentUser?._id;
         const avatarUploadResponse = await axios.post(`${API_URL}/api/upload/avatar/${userId}`, {
           avatar: response.data.fileName,
         });
 
-        setImageFile(response.data.fileName);
 
         console.log('Avatar uploaded successfully:', avatarUploadResponse.data);
+
+        setCurrentUser({
+          ...currentUser,
+          avatar: response.data.fileName,
+        });
 
       } catch (error) {
         console.error('An error occurred while uploading the file:', error);
