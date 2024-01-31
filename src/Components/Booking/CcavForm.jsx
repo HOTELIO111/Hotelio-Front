@@ -306,7 +306,7 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   type="text"
                   style={inputStyle}
                   name="amount"
-                  value="500.00"
+                  value="1.00"
                   placeholder="Amount"
                   readOnly
                 />
@@ -556,14 +556,6 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   placeholder="Billing Email:"
                   readOnly
                 />
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                lg={3}
-                sx={{ borderBottom: "1px solid #ee2e24" }}
-              >
-                <input type="text" name="merchant_param1" value="part-pay" />
               </Grid>
 
               <Grid item xs={12} lg={12} p={1}>

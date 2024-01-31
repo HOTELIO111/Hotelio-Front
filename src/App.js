@@ -123,7 +123,7 @@ function App() {
         <Route path="/hoteliomember" element={<Member />} />
         <Route path="/JoinOurNetwork" element={<JoinOurNetwork />} />
         <Route path="/Refund" element={<Refund />} />
-        <Route path="/Payment_success" element={<SuccessPage />} />
+        <Route path="/Transaction_Status" element={<SuccessPage />} />
         <Route path="/Payment_failed" element={<FailedPage />} />
         <Route path="/allCities" element={<AllCities />} />
         <Route path='/:city' element={<SeprateLocation />} />
