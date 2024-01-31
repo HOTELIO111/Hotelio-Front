@@ -22,7 +22,6 @@ import { useMediaQuery } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import HotelioLogo from "../../images/HotelioLogo.png";
 import DomainAddIcon from "@mui/icons-material/DomainAdd";
-import { BsFillBuildingsFill } from "react-icons/bs";
 import KeyIcon from "@mui/icons-material/Key";
 import Swal from "sweetalert2";
 import QuickFilterNav from "../../Pages/QuickFilterNav/QuickFilterNav";
@@ -35,9 +34,7 @@ import { convertDatesToUTC } from "../../Utilis/_fuctions";
 import { useCollections } from "../../context/useStateManager";
 import { useSearch } from "../../context/useSearch";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
-import GoogleTranslate from "../GoogleTranslate";
 import { useDispatch, useSelector } from "react-redux";
-import { GetPopularLocationAction } from "../../store/actions/locationsActions";
 
 const Navbar = ({ list }) => {
   // Locatio Asked function
@@ -62,7 +59,6 @@ const Navbar = ({ list }) => {
   // Popover Material UI Code
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [openOptions, setOpenOptions] = useState(false);
@@ -203,8 +199,6 @@ const Navbar = ({ list }) => {
   // Search Filter
   // ----------------------------------------- get the all cities
   const [citites, setCities] = useState(null);
-  const [selectedCity, setSlectedCity] = useState(null);
-  const [geoLoc, setGeoLoc] = useState({ longitude: "", latitude: "" });
   const GetAllCities = async () => {
     try {
       const response = await axios.get(`${API_URL}/hotel/get/city`);
@@ -221,7 +215,6 @@ const Navbar = ({ list }) => {
 
   }, []);
 
-  // ---------------------------------city get api
 
   // ---------------------------------search the hotel -------------------------------------------------------------------------
   const searchData = {
@@ -362,8 +355,8 @@ const Navbar = ({ list }) => {
                         </NavLink>
                       </li>
                       {/* <li style={{ listStyle: 'none' }}>
-  <NavLink to="/contact">+91 (811)55 10050</NavLink>
-  </li> */}
+                        <NavLink to="/contact">+91 (811)55 10050</NavLink>
+                      </li> */}
 
                       {!currentUser ? (
                         <>
@@ -443,8 +436,10 @@ const Navbar = ({ list }) => {
                               display: "flex",
                               justifyContent: "center",
                               alignItems: "center",
+                              gap: '5px'
                             }}
                           >
+                            {currentUser?.avatar && <img style={{ width: '50px', height: '50px', borderRadius: '100%', border: '2px solid #ee2e24' }} src={currentUser?.avatar} alt="profile" />}
                             <Button
                               id="demo-customized-button"
                               sx={{ color: "#EE2E24", fontWeight: '700', fontSize: '15px' }}
@@ -553,6 +548,8 @@ const Navbar = ({ list }) => {
           </div>
         </div>
       </header>
+      {/* ----------------------------------------------Banner Section---------------------------------------------------------- */}
+
 
       {list && (
         <>

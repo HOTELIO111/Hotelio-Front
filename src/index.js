@@ -10,12 +10,12 @@ import { GOOGLE_OAUTH_CLIENT_ID } from "./config";
 import { SearchProvider } from "./context/useSearch";
 import { Provider } from "react-redux";
 import store from "./store/store";
-import { createMuiTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { BookingProvider } from "./context/useBooking";
 import CssBaseline from "@mui/material/CssBaseline";
 import { StateManagerProvider } from "./context/useStateManager";
 import OfferProvider from "./context/useOffers";
-const customTheme = createMuiTheme({
+const customTheme = createTheme({
   typography: {
     fontFamily: "Baloo 2",
   },
@@ -31,18 +31,16 @@ root.render(
       <StateManagerProvider>
         <SearchProvider>
           <AuthProvider>
-            <OfferProvider>
+            <BookingProvider>
               <BrowserRouter>
                 <ThemeProvider theme={customTheme}>
-                  <Provider store={store}>
-                    <CssBaseline />
-                    <BookingProvider>
+                    <Provider store={store}>
+                      <CssBaseline />
                       <App />
-                    </BookingProvider>
-                  </Provider>
+                    </Provider>
                 </ThemeProvider>
               </BrowserRouter>
-            </OfferProvider>
+            </BookingProvider>
           </AuthProvider>
         </SearchProvider>
       </StateManagerProvider>

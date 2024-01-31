@@ -17,8 +17,13 @@ import PasswordUpdateModal from "./PasswordUpdateModal";
 import moment from "moment/moment";
 import { isMobile } from "react-device-detect";
 import BorderColorIcon from '@mui/icons-material/BorderColor';
+import axios from "axios";
+import { API_URL } from "../../config";
 
 const Profile = () => {
+
+  const { sendOtp, otpResp, Loader, setLoader, currentUser, setCurrentUser } =
+  useAuthContext();
   // State variables
   const [profiledetailUpdate, setprofiledetailUpdate] = useState(false);
   const [updateEmail, setUpdateEmail] = useState(false);
@@ -31,17 +36,41 @@ const Profile = () => {
 
 
   const [imageFile, setImageFile] = useState(null);
-  const handleImageChange = (e) => {
+
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
-    setImageFile(file);
+
+    if (file && currentUser) {
+      try {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        // Make the API call using axios
+        const response = await axios.post(`${API_URL}/util/upload/file/directly?fileName=${file.name}`, formData);
+
+        // Handle the response as needed
+        console.log('File uploaded successfully:', response.data.fileName);
+
+        const userId = currentUser?._id; 
+        const avatarUploadResponse = await axios.post(`${API_URL}/api/upload/avatar/${userId}`, {
+          avatar: response.data.fileName,
+        });
+
+        setImageFile(response.data.fileName);
+
+        console.log('Avatar uploaded successfully:', avatarUploadResponse.data);
+
+      } catch (error) {
+        console.error('An error occurred while uploading the file:', error);
+      }
+    }
+
+    // Update state with the selected file
   };
 
 
   // Password update modal handlers
   const handlePasswordUpdateOpen = () => setPasswordUpdateOpen(true);
-
-  const { sendOtp, otpResp, Loader, setLoader, currentUser, setCurrentUser } =
-    useAuthContext();
 
   const sendNewOtp = (number) => {
     sendOtp(number).then(() => {
@@ -50,6 +79,8 @@ const Profile = () => {
       }
     });
   };
+
+
   // sendOtpFunction
   // const sendOtpToNumber = async () => {
   //   try {
@@ -151,7 +182,7 @@ const Profile = () => {
 
               <div className={`${style.image}`} style={{ maxWidth: '100%', position: 'relative' }}>
                 <img
-                  src={imageFile ? URL.createObjectURL(imageFile) : "https://i.postimg.cc/bryMmCQB/profile-image.jpg"}
+                  src={currentUser?.avatar || "https://i.postimg.cc/bryMmCQB/profile-image.jpg"}
                   alt="Profile Image"
                 />
                 <div style={{ position: 'absolute', left: '60%', transform: 'translateX(-50%)', bottom: 0 }}>
