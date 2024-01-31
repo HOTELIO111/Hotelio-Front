@@ -34,32 +34,4 @@ const GetSearchedHotelsReducers = (state = initialState, action) => {
   }
 };
 
-const GetSingleHotelReducers = (state = initialState, action) => {
-  switch (action.type) {
-    case constant.GET_SINGLEHOTEL_API_LOADING:
-      return {
-        ...state,
-        isLoading: true,
-      };
-    case constant.GET_SINGLEHOTEL_API_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        data: action.payload,
-        isSuccess: true,
-      };
-    case constant.GET_SINGLEHOTEL_API_ERROR:
-      return {
-        ...state,
-        isLoading: false,
-        isSuccess: false,
-        isError: true,
-      };
-
-    default:
-      return state;
-  }
-};
-
-
-export { GetSearchedHotelsReducers, GetSingleHotelReducers };
+export { GetSearchedHotelsReducers };

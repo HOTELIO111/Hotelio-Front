@@ -18,20 +18,6 @@ export const GetSearchedHotel = (query) => {
   };
 };
 
-export const GetSingleHotel = (hotelid) => {
-  return async (dispatch) => {
-    dispatch({ type: constant.GET_SINGLEHOTEL_API_LOADING })
-    try {
-      const response = await instance.get(`/hotel/hoteldetails/${hotelid}`)
-      if (response.status === 200) {
-        dispatch({ type: constant.GET_SINGLEHOTEL_API_SUCCESS, payload: response.data.data })
-      }
-    } catch (error) {
-      dispatch({ type: constant.GET_SINGLEHOTEL_API_ERROR })
-    }
-  }
-}
-
 
 
 // 

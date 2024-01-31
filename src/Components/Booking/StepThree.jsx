@@ -2,16 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Button, Grid, Typography } from "@mui/material";
 import OrderSucessfully from "../../images/OrderSucessfully.gif";
 import "./BookingSteps.css";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import BookingInfo from "./BookingInfo";
 import { calculateThePrice } from "../../Utilis/_fuctions";
 import CcavForm from "./CcavForm";
 import { useBooking } from "../../context/useBooking";
 import { useAuthContext } from "../../context/userAuthContext";
 import Skeleton from "react-loading-skeleton";
-import { useSelector } from "react-redux";
 
-const StepThree = ({ formData }) => {
+const StepThree = ({ hotelData, roomData, formData }) => {
   const {
     coupon,
     setCoupon,
@@ -24,16 +23,6 @@ const StepThree = ({ formData }) => {
     calculateAmount,
     BillingCalculate,
   } = useBooking();
-  const location = useLocation()
-
-  const decoded = decodeURIComponent(location.search);
-
-  const roomId = new URLSearchParams(decoded).get("rid");
-  const HotelData = useSelector((state) => state.GetSingleHotelReducers)
-
-  const hotelData = HotelData?.data
-  const roomData = HotelData?.data?.rooms?.find((item) => item._id === roomId)
-
 
   const searchQuery = new URLSearchParams(document.location.search);
   const { currentUser } = useAuthContext();
@@ -139,8 +128,6 @@ const StepThree = ({ formData }) => {
     checkOut,
     currentUser
   );
-
-
 
   useEffect(() => {
     const delay = 10000; // Set the delay in milliseconds
@@ -320,7 +307,7 @@ const StepThree = ({ formData }) => {
           )}
 
           {activeTab === 'payOnline' &&
-            renderContent()
+            renderContent() 
           }
         </Grid>
       </Grid>
