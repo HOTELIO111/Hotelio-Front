@@ -12,51 +12,36 @@ import {
   Modal,
   Radio,
   RadioGroup,
-  Rating,
   TextField,
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import CoffeeIcon from "@mui/icons-material/Coffee";
-import DoDisturbIcon from "@mui/icons-material/DoDisturb";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
-import VapingRoomsIcon from "@mui/icons-material/VapingRooms";
-import Tooltip from "@mui/material/Tooltip/Tooltip";
 import PersonIcon from "@mui/icons-material/Person";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
 import Dates from "../date/Date";
 import { Check } from "@mui/icons-material";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useAuthContext } from "../../context/userAuthContext";
-import moment from "moment/moment";
 import BookingInfo from "./BookingInfo";
-import { useBooking } from "../../context/useBooking";
+
 import HotelDetail from "./HotelioOffer";
+import { useDispatch, useSelector } from "react-redux";
+import { useCollections } from "../../context/useStateManager";
+import { GetBookingOffers } from "../../store/actions/OfferActions";
+import { GetBookingRegister } from "../../store/actions/BookingAction";
+import { useBooking } from "../../context/useBooking";
 
-const StepTwo = ({
-  hotelData,
-  roomData,
-  formData,
-  setFormData,
-  handleFormData,
-}) => {
-  const {
-    coupon,
-    setCoupon,
-    userBookingDetails,
-    setUserBookingDetails,
-    finalBookingData,
-    setFinalBookingData,
-    Gst,
-    setGst,
-  } = useBooking();
-  const searchQuery = new URLSearchParams(document.location.search);
+const StepTwo = () => {
 
-  const currentSearchParam = Object.fromEntries(searchQuery?.entries());
+  const [searchParmas, setSearchParamas] = useSearchParams()
+  const dispatch = useDispatch()
+  const { formData, handleFormData, setFormData } = useCollections();
+  const roomId = searchParmas.get('rid')
+  const { Gst, coupon } = useBooking()
   const { currentUser } = useAuthContext();
+  const HotelData = useSelector((state) => state.GetSingleHotelReducers);
+
+  const { data: hotelData } = HotelData || {};
+  const roomData = hotelData?.rooms?.find((item) => item._id === roomId);
 
   const style = {
     position: "absolute",
@@ -73,55 +58,76 @@ const StepTwo = ({
   };
 
   const [open, setOpen] = React.useState(false);
-  // const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  // const [changeSelection, setChangeSelection] = useState(false);
   const [selectedValue, setSelectedValue] = useState("myself");
-  // const [show, setHide] = useState(false);
   const handleRadioChange = (event) => {
     setSelectedValue(event.target.value);
   };
 
-  useEffect(() => {
-    setUserBookingDetails((prevDetails) => ({
-      ...prevDetails,
-      dateOfBooking: new Date(Date.now()).toISOString(),
-      customer: currentUser || prevDetails.customer,
-      hotel: hotelData || prevDetails.hotel,
-      room: roomData || prevDetails.room,
-      guest: formData || prevDetails.guest,
+  const [searchBookingInfo, setSearchBookingInfo] = useState(JSON.parse(window.localStorage.getItem('search')))
+
+  const HandleBookingCreate = ({ hotel, room, formdata, searchBookingInfo, customer, gst, discounts }) => {
+    const currentDate = new Date().toISOString();
+
+    const bookingObject = {
+      room: room?._id,
+      hotel: hotel?._id,
+      guest: formdata,
       bookingDate: {
-        checkIn: currentSearchParam.checkIn || prevDetails.bookingDate.checkIn,
-        checkOut:
-          currentSearchParam.checkOut || prevDetails.bookingDate.checkOut,
+        checkIn: searchBookingInfo?.checkIn,
+        checkOut: searchBookingInfo?.checkOut
       },
-      numberOfRooms: currentSearchParam.totalRooms || prevDetails.numberOfRooms,
+      amount: room?.price,
+      dateOfBooking: currentDate,
       numberOfGuests: {
-        adults:
-          currentSearchParam.totalGuest || prevDetails.numberOfGuests.adults,
+        adults: searchBookingInfo?.totalGuest
       },
-    }));
-  }, [currentUser, hotelData, roomData, formData, currentSearchParam]);
+      numberOfRooms: searchBookingInfo?.totalRooms,
+      bookingSource: "website",
+      customer: customer?._id,
+      additionalCharges: {
+        gst: gst,
+      },
+      specialRequests: "*",
+      discountInfo: discounts?.map((item) => ({ name: item.code, amount: item.amount }))
+    };
+
+    // Store the bookingObject in sessionStorage
+    return bookingObject
+  };
 
   useEffect(() => {
-    if (selectedValue === "myself") {
-      setFormData({
-        name: currentUser?.name,
-        email: currentUser?.email,
-        mobileNo: currentUser?.mobileNo,
-      });
-    } else {
-      setFormData({
-        name: "",
-        email: "",
-        mobileNo: "",
-      });
+
+    const data = HandleBookingCreate({
+      hotel: hotelData,
+      room: roomData,
+      customer: currentUser,
+      searchBookingInfo: searchBookingInfo,
+      gst: Gst,
+      formdata: formData,
+      discounts: [{ code: "WELCOME200", amount: 200 }],
+    });
+    sessionStorage.setItem('bookingObject', JSON.stringify(data));
+  }, [formData]);
+
+
+  useEffect(() => {
+    if (searchBookingInfo.hid && searchBookingInfo.rid) {
+      dispatch(GetBookingOffers(searchBookingInfo.hid, searchBookingInfo.rid, "customer"))
     }
-  }, [selectedValue]);
+  }, [searchBookingInfo])
+
+
+  useEffect(() => {
+    if (currentUser) {
+      setFormData({ name: currentUser?.name, email: currentUser.email, mobileNo: currentUser?.mobileNo })
+    }
+  }, [currentUser])
+
 
   return (
     <div className="container p-2">
-      <Modal
+      {/* <Modal
         sx={{ zIndex: "1000" }}
         open={open}
         onClose={handleClose}
@@ -129,6 +135,7 @@ const StepTwo = ({
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+
           <Dates />
           <div className="my-2 d-flex justify-content-between">
             <Button variant="contained">Submit</Button>
@@ -137,7 +144,7 @@ const StepTwo = ({
             </Button>
           </div>
         </Box>
-      </Modal>
+      </Modal> */}
       <Grid container spacing={2}>
         <Grid item xs={12} sm={12} md={6} lg={8} xl={8}>
           <Card style={{ border: "2px solid #ee2e24" }} className="w-100">
@@ -176,6 +183,19 @@ const StepTwo = ({
                     onChange={handleFormData}
                     variant="outlined"
                   />
+
+                  <TextField
+                    InputProps={{ className: "custom-input" }}
+                    id="outlined-basic"
+                    label="Contact No. *"
+                    value={formData.mobileNo || ''}
+                    name="mobileNo"
+                    onChange={handleFormData}
+                    margin="normal"
+                    variant="outlined"
+                  />
+
+                  {/* <Button onClick={() => HandleBookingCreate({ hotel: hotelData, room: roomData, searchBookingInfo: searchBookingInfo, formdata: formData, discounts: [{ name: "WELCOME200", amount: 200 }], customer: currentUser, gst: Gst })}>test</Button> */}
                 </div>
               ) : (
                 <div>
@@ -206,7 +226,7 @@ const StepTwo = ({
                     InputProps={{ className: "custom-input" }}
                     id="outlined-basic"
                     label="Contact No. *"
-                    value={formData.mobileNo || ""}
+                    value={formData.mobileNo || ''}
                     name="mobileNo"
                     onChange={handleFormData}
                     margin="normal"
@@ -248,7 +268,6 @@ const StepTwo = ({
           </Card>
 
           <HotelDetail
-            hotelData={hotelData}
           />
 
           <Card style={{ border: "2px solid #ee2e24" }} className="w-100">
@@ -293,9 +312,6 @@ const StepTwo = ({
           </Card>
         </Grid>
         <BookingInfo
-          currentSearchParam={currentSearchParam}
-          hotelData={hotelData}
-          roomData={roomData}
         />
       </Grid>
     </div>
@@ -303,84 +319,3 @@ const StepTwo = ({
 };
 
 export default StepTwo;
-
-// const [selectedGuest, setselectedGuest] = useState(1);
-// const [selectedRoom, setselectedRoom] = useState(1);
-
-// const Guestincrement = () => {
-//   if (selectedRoom) {
-//     if (selectedGuest < selectedRoom * 4) {
-//       setselectedGuest(selectedGuest + 1);
-//     } else {
-//       if (selectedGuest === 32) {
-//         window.alert("Maximum guests and rooms reached");
-//       } else {
-//         setselectedGuest(selectedGuest + 1);
-//         if (selectedGuest % 4 === 0) {
-//           setselectedRoom(selectedRoom + 1);
-//           window.alert("Selected room increased to " + (selectedRoom + 1));
-//         }
-//       }
-//     }
-//   }
-// };
-
-// const Guestdecrement = () => {
-//   if (selectedGuest > 1) {
-//     setselectedGuest(selectedGuest - 1);
-//   }
-// };
-
-// const Roomincrement = () => {
-//   if (selectedRoom < 8) {
-//     setselectedRoom(selectedRoom + 1);
-//   }
-// };
-
-// const Roomdecrement = () => {
-//   if (selectedRoom > 1) {
-//     setselectedRoom(selectedRoom - 1);
-//   }
-// };
-
-// const handleChangeCredentials = () => {
-//   const lastQuerySearched = sessionStorage.getItem("search");
-//   const decoded = decodeURIComponent(lastQuerySearched);
-//   // navigate(`/searchedhotels?${decoded}`);
-//   navigate("/");
-// };
-
-// // GuestIncrement or decrement
-// const RoomIncDec = (query) => {
-//   if (query === "inc") {
-//     setSearchParams({
-//       totalRooms: parseInt(searchQuery.get("totalRooms")) + 1,
-//     });
-//   }
-// };
-
-// // Total LengthOFStay
-// const totalLengthOfStay = (checkIn, checkOut) => {
-//   const newCheckIn = new Date(checkIn);
-//   const newCheckOut = new Date(checkOut);
-
-//   // Calculate the time difference in milliseconds
-//   const timeDifference = newCheckOut.getTime() - newCheckIn.getTime();
-
-//   // Convert the time difference from milliseconds to days
-//   const totalDays = timeDifference / (1000 * 3600 * 24);
-
-//   // Return the total number of days
-//   return totalDays;
-// };
-
-// const calculateDiscount = (originalAmount, discountPercent, parameter) => {
-//   const discountAmount = (originalAmount * discountPercent) / 100;
-//   const discountedAmount = originalAmount - discountAmount;
-
-//   return {
-//     originalAmount: originalAmount,
-//     discountAmount: discountAmount,
-//     discountedAmount: discountedAmount,
-//   };
-// };
