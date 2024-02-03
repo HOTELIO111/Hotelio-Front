@@ -26,7 +26,7 @@ const BookingProvider = ({ children }) => {
   };
 
   const [coupon, setCoupon] = useState();
-  const [Gst, setGst] = useState("18%");
+  const [Gst, setGst] = useState("18");
   const [userBookingDetails, setUserBookingDetails] = useState({});
   const [finalBookingData, setFinalBookingData] = useState({});
 
