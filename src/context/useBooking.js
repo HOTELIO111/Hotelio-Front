@@ -5,23 +5,28 @@ import { API_URL } from "../config";
 import { useState } from "react";
 import { totalLengthOfStay } from "../Utilis/_fuctions";
 import instance from "../store/_utils";
+import Swal from "sweetalert2";
 
 const BookingContext = createContext();
 
 const BookingProvider = ({ children }) => {
   const [BookingDetails, setBookingDetails] = useState(null);
 
+
+
   const CreateBooking = async (formData) => {
     try {
-      const response = await axios.post(
-        API_URL + "/hotel/book/create",
-        formData
-      );
+      const response = await instance.post("/hotel/book/create/pre-booking", formData)
       if (response.status === 200) {
-        setBookingDetails(response.data.data);
+        setBookingDetails(response.data.message.data)
+        return { error: false, status: 200 }
       }
     } catch (error) {
-      console.log(error);
+      if (error.response && error.response.status === 404) {
+        return { error: true, status: 404 }
+      } else {
+        return { error: true, message: error.message }
+      }
     }
   };
 
@@ -177,6 +182,9 @@ const BookingProvider = ({ children }) => {
       return error;
     }
   };
+
+
+
 
   return (
     <BookingContext.Provider

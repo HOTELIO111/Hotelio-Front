@@ -1,8 +1,8 @@
+
 import instance from '../_utils'
 import * as constant from './../constants/BookingConstant'
 
 export const GetBookingRegister = (formdata) => {
-    console.log(formdata)
     return async (dispatch) => {
         dispatch({ type: constant.CREATE_BOOKING_API_LOADING })
         try {

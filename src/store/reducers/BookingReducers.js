@@ -5,7 +5,6 @@ const initialValues = {
     loading: true,
     error: false,
     data: null,
-    success: false
 }
 
 const GetBookingRegisterReducer = (state = initialValues, action) => {
@@ -15,14 +14,13 @@ const GetBookingRegisterReducer = (state = initialValues, action) => {
                 ...state,
                 loading: true,
                 error: false,
-                success: false,
             }
+
         case constant.CREATE_BOOKING_API_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 error: false,
-                success: true,
                 data: action.payload
             }
         case constant.CREATE_BOOKING_API_ERROR:
@@ -30,7 +28,6 @@ const GetBookingRegisterReducer = (state = initialValues, action) => {
                 ...state,
                 loading: false,
                 error: true,
-                success: false
             }
 
         default:

@@ -105,9 +105,8 @@ const StepTwo = () => {
       formdata: formData,
       discounts: [{ code: "WELCOME200", amount: 200 }],
     });
-    console.log(formData)
     sessionStorage.setItem('bookingObject', JSON.stringify(data));
-  }, [hotelData, roomData, currentUser, searchBookingInfo, Gst, formData]);
+  }, [hotelData, roomData, currentUser, searchBookingInfo, Gst, formData.email, formData.name, formData.mobileNo]);
 
 
   useEffect(() => {
@@ -162,34 +161,40 @@ const StepTwo = () => {
                   <TextField
                     InputProps={{ className: "custom-input" }}
                     id="outlined-basic"
-                    label="Full Name *"
+                    label="Full Name"
                     margin="normal"
                     name="name"
                     value={formData.name || ""}
                     onChange={handleFormData}
                     variant="outlined"
+                    required
+                    helperText={formData.name === undefined ? 'Please fill your email' : ''}
                   />
 
                   <TextField
                     InputProps={{ className: "custom-input" }}
                     id="outlined-basic"
-                    label="Email *"
+                    label="Email"
                     margin="normal"
                     name="email"
                     value={formData.email || ""}
                     onChange={handleFormData}
                     variant="outlined"
+                    required
+                    error
+                    helperText={formData.email === undefined ? 'Please fill your email' : ''}
                   />
-
                   <TextField
                     InputProps={{ className: "custom-input" }}
                     id="outlined-basic"
-                    label="Contact No. *"
+                    label="Contact No."
                     value={formData.mobileNo || ''}
                     name="mobileNo"
                     onChange={handleFormData}
                     margin="normal"
                     variant="outlined"
+                    required
+                    helperText={formData.mobileNo === undefined ? 'Please fill your email' : ''}
                   />
 
                   {/* <Button onClick={() => HandleBookingCreate({ hotel: hotelData, room: roomData, searchBookingInfo: searchBookingInfo, formdata: formData, discounts: [{ name: "WELCOME200", amount: 200 }], customer: currentUser, gst: Gst })}>test</Button> */}
@@ -199,41 +204,41 @@ const StepTwo = () => {
                   <TextField
                     InputProps={{ className: "custom-input" }}
                     id="outlined-basic"
-                    label="Full Name *"
+                    label="Full Name"
                     margin="normal"
                     value={formData.name || ""}
                     name="name"
                     onChange={handleFormData}
                     variant="outlined"
+                    required
                   />
                   <TextField
                     InputProps={{ className: "custom-input" }}
                     id="outlined-basic"
-                    label="Email *"
+                    label="Email"
                     margin="normal"
                     value={formData.email || ""}
                     name="email"
                     onChange={handleFormData}
                     sx={{ ml: 1 }}
                     variant="outlined"
+                    required
                   />
                   <br />
 
                   <TextField
                     InputProps={{ className: "custom-input" }}
                     id="outlined-basic"
-                    label="Contact No. *"
+                    label="Contact No."
                     value={formData.mobileNo || ''}
                     name="mobileNo"
                     onChange={handleFormData}
                     margin="normal"
                     variant="outlined"
+                    required
                   />
                 </div>
               )}
-              <Typography variant="caption" display="block">
-                Confirmation email goes to this address
-              </Typography>
 
               <Typography
                 sx={{ mt: 1.5, mb: 1.5 }}
@@ -297,7 +302,7 @@ const StepTwo = () => {
                 }}
                 gutterBottom
               >
-                Guests:{" "}
+                Guests Allowed:{" "}
                 {[...Array(roomData?.roomType?.personAllowed)]?.map(
                   (item, index) => (
                     <PersonIcon key={index} />
