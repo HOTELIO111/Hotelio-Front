@@ -19,7 +19,6 @@ export const GetSearchedHotel = (query) => {
 };
 
 export const GetSingleHotel = (hotelid) => {
-  console.log(hotelid)
   return async (dispatch) => {
     dispatch({ type: constant.GET_SINGLEHOTEL_API_LOADING })
     try {

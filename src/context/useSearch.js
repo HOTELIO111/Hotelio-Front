@@ -29,7 +29,6 @@ const SearchProvider = ({ children }) => {
       try {
         if (selectedPlace !== null) {
           const result = await geocodeByAddress(selectedPlace?.label);
-          console.log(result);
 
           const { lat, lng } = result[0].geometry.location;
           const latitude = lat();
@@ -41,8 +40,6 @@ const SearchProvider = ({ children }) => {
             longitude,
             address: selectedPlace?.label,
           });
-
-          console.log(placeData);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
