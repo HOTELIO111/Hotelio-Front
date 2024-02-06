@@ -10,6 +10,7 @@ const useStateManager = createContext();
 const StateManagerProvider = ({ children }) => {
   const [checkInCheckOut, setCheckInCheckOut] = useState([]);
   const [formData, setFormData] = useState({});
+  const [applicableOffer, setApplicableOffer] = useState(null)
 
   // Get the addressInfo from google
 
@@ -84,6 +85,8 @@ const StateManagerProvider = ({ children }) => {
         handleCityClick,
         formData,
         setFormData,
+        applicableOffer,
+        setApplicableOffer,
         handleFormData
       }}
     >

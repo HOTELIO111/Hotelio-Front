@@ -18,6 +18,7 @@ export const GetSearchedHotel = (query) => {
   };
 };
 
+
 export const GetSingleHotel = (hotelid) => {
   return async (dispatch) => {
     dispatch({ type: constant.GET_SINGLEHOTEL_API_LOADING })
@@ -32,6 +33,19 @@ export const GetSingleHotel = (hotelid) => {
   }
 }
 
-
+export const GetHotelBillCalculation = (billingQuery) => {
+  console.log(billingQuery)
+  return async (dispatch) => {
+    dispatch({ type: constant.GET_HotelBillCalculation_API_LOADING })
+    try {
+      const response = await instance.get(`/hotel/book/calculate/bill?${billingQuery}`)
+      if (response.status === 200) {
+        dispatch({ type: constant.GET_HotelBillCalculation_API_SUCCESS, payload: response.data })
+      }
+    } catch (error) {
+      dispatch({ type: constant.GET_HotelBillCalculation_API_ERROR })
+    }
+  }
+}
 
 // 

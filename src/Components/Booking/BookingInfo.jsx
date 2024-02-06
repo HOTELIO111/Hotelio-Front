@@ -8,17 +8,19 @@ import {
   Typography,
 } from "@mui/material";
 import moment from "moment";
-import React from "react";
+import React, { useEffect } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   totalLengthOfStay,
 } from "../../Utilis/_fuctions";
 import { useBooking } from "../../context/useBooking";
 import { useAuthContext } from "../../context/userAuthContext";
+import { GetHotelBillCalculation } from "../../store/actions/hotelActions";
+import { useCollections } from "../../context/useStateManager";
 
 const BookingInfo = () => {
   const {
@@ -28,13 +30,15 @@ const BookingInfo = () => {
   const [show, setHide] = useState(false);
   const [searchParmas, setSearchParamas] = useSearchParams()
   const { currentUser } = useAuthContext();
+  const dispatch = useDispatch()
   const [details, setDetails] = useState(false);
   const ShowDetails = () => setDetails((prev) => !prev);
-  const roomId = searchParmas.get('rid')
   const HotelData = useSelector((state) => state.GetSingleHotelReducers);
-
+  const calculate = useSelector((state) => state.GetHotelBillCalculationReducers?.data?.data);
+  const roomId = searchParmas.get('rid')
   const { data: hotelData } = HotelData || {};
   const roomData = hotelData?.rooms?.find((item) => item._id === roomId);
+  const { applicableOffer } = useCollections();
 
 
   const handleChangeCredentials = () => {
@@ -45,20 +49,39 @@ const BookingInfo = () => {
   //   credentials
   const checkIn = searchParmas.get('checkIn');
   const checkOut = searchParmas.get('checkOut');
-  const qunatityRooms = searchParmas.get('totalRooms');
+  const totalRooms = searchParmas.get('totalRooms');
   const totalGuest = searchParmas.get('totalGuest');
   const priceOfaRoom = roomData?.price;
+  const customer = currentUser._id
   const totalDays = totalLengthOfStay(checkIn, checkOut);
 
-  const calculate = BillingCalculate(
-    priceOfaRoom,
-    null,
-    qunatityRooms,
-    12,
-    checkIn,
-    checkOut,
-    currentUser
-  );
+  // const calculate = BillingCalculate(
+  //   priceOfaRoom,
+  //   null,
+  //   qunatityRooms,
+  //   12,
+  //   checkIn,
+  //   checkOut,
+  //   currentUser
+  // );
+  useEffect(() => {
+
+    let queryParams = {
+      checkIn: searchParmas.get('checkIn'),
+      totalRooms: searchParmas.get('totalRooms'),
+      totalGuest: searchParmas.get('totalGuest'),
+      roomid: searchParmas.get('rid'),
+      customer: currentUser._id,
+      checkOut: searchParmas.get('checkOut'),
+    };
+    if (applicableOffer) {
+      queryParams.OfferId = applicableOffer
+    }
+
+    const billingQuery = new URLSearchParams(queryParams).toString()
+
+    dispatch(GetHotelBillCalculation(billingQuery));
+  }, [searchParmas, applicableOffer, currentUser, dispatch]);
 
 
 
@@ -140,7 +163,7 @@ const BookingInfo = () => {
             <Grid item xs={12}>
               <Typography variant="overline">Total length of stay:</Typography>
               <Typography variant="subtitle2">
-                {calculate?.totalDays}
+                {totalDays}
                 &nbsp; night
               </Typography>
               <hr />
@@ -157,11 +180,11 @@ const BookingInfo = () => {
               <div>
                 <Typography variant="overline">Your selected</Typography>
                 <Typography variant="subtitle2">
-                  {calculate?.totalrooms} {roomData?.roomType?.title} for{" "}
-                  {calculate?.totalDay} Days
+                  {totalRooms} {roomData?.roomType?.title} for{" "}
+                  {totalDays} Days
                   <Typography variant="subtitle2">
-                    {calculate?.totalrooms} X {calculate?.totalDays} X ₹
-                    {calculate?.amount} = ₹ {calculate?._basePrice?.value}
+                    {totalRooms} X {totalDays} X ₹
+                    {priceOfaRoom} = ₹ {totalRooms * totalDays * priceOfaRoom}
                   </Typography>
                 </Typography>
               </div>
@@ -177,14 +200,11 @@ const BookingInfo = () => {
               {show ? (
                 <>
                   <Typography variant="overline">
-                    {calculate.totalDays} x {roomData.roomType.title}
+                    {totalDays} x {roomData.roomType.title}
                   </Typography>
                   <Typography variant="caption" display="block">
                     {totalGuest} Guests
                   </Typography>
-                  {/* <Typography variant="caption">
-                    ₹{roomData?.price * parseInt(qunatityRooms)}
-                  </Typography> */}
                 </>
               ) : null}
 
@@ -241,13 +261,23 @@ const BookingInfo = () => {
       </Card>
       <Card style={{ border: "2px solid #ee2e24" }}>
         <CardContent>
-          <Typography
-            color="text-dark"
-            className="text-danger"
-            fontWeight={800}
-          >
-            Your price summary
-          </Typography>
+          <Box display={'flex'} justifyContent={'space-between'}>
+
+            <Typography
+              className="text-danger"
+              fontWeight={800}
+            >
+              Your price summary
+            </Typography>
+            <Typography
+              color="primary"
+              fontWeight={500}
+              sx={{ cursor: 'pointer' }}
+              onClick={() => ShowDetails()}
+            >
+              View Full Breakup
+            </Typography>
+          </Box>
           <div
             style={{
               display: "flex",
@@ -257,10 +287,10 @@ const BookingInfo = () => {
             }}
           >
             <Typography variant="body2" className="fw-bold ">
-              {calculate?._basePrice?.head}
+              Base Price ( {totalRooms} room X {totalDays} night )
             </Typography>
             <Typography variant="caption" className="fw-bold ">
-              ₹{calculate?._basePrice?.value}
+              ₹{Math.ceil(calculate?.BasePrice)}
             </Typography>
           </div>
           <div>
@@ -270,19 +300,19 @@ const BookingInfo = () => {
                 justifyContent: "space-between",
                 alignItems: "center",
               }}
-              onClick={() => ShowDetails()}
             >
               <Typography variant="body2" className="fw-bold">
-                {calculate?._totalDiscount?.head}
+                Total Discount
               </Typography>
               <Typography variant="caption" className="fw-bold">
-                ₹{calculate?._totalDiscount?.value}
+                ₹{Math.ceil(calculate?.discountedAmount)}
               </Typography>
             </div>
             {details && (
               <>
-                {calculate?._totalDiscount?.sub?.map((item, index) => (
+                {calculate?.totalDiscount?.map((item, index) => (
                   <div
+                    key={index}
                     style={{
                       display: "flex",
                       justifyContent: "space-between",
@@ -290,10 +320,10 @@ const BookingInfo = () => {
                     }}
                   >
                     <Typography variant="body2" className="text-secondary">
-                      &emsp;-{item?.head}
+                      &emsp;-{item?.type}
                     </Typography>
                     <Typography variant="caption" className="text-secondary">
-                      +₹{item?.value}
+                      +₹{Math.ceil(item?.amount)}
                     </Typography>
                   </div>
                 ))}
@@ -309,10 +339,10 @@ const BookingInfo = () => {
             onClick={() => ShowDetails()}
           >
             <Typography variant="body2" className="fw-bold">
-              {calculate?._priceAfterDiscount?.head}
+              Price after Discount
             </Typography>
             <Typography variant="caption" className="fw-bold">
-              ₹{calculate?._priceAfterDiscount?.value}
+              ₹ {Math.ceil(calculate?.priceAfterDiscount)}
             </Typography>
           </div>
           <div>
@@ -325,16 +355,17 @@ const BookingInfo = () => {
               onClick={() => ShowDetails()}
             >
               <Typography variant="body2" className="fw-bold">
-                {calculate?._taxesAndServiceFee?.head}
+                Taxes & Service Fees
               </Typography>
               <Typography variant="caption" className="fw-bold">
-                ₹{calculate?._taxesAndServiceFee?.value}
+                ₹{Math.ceil(calculate?.totalTaxAndServiceAmount)}
               </Typography>
             </div>
             {details && (
               <>
-                {calculate?._taxesAndServiceFee?.sub?.map((item, index) => (
+                {calculate?.taxAndServices?.map((item, index) => (
                   <div
+                    key={index}
                     style={{
                       display: "flex",
                       justifyContent: "space-between",
@@ -342,10 +373,11 @@ const BookingInfo = () => {
                     }}
                   >
                     <Typography variant="body2" className="text-secondary">
-                      &emsp;-{item?.head}
+                      &emsp;-{item?.type}
                     </Typography>
                     <Typography variant="caption" className="text-secondary">
-                      +₹{item?.value}
+
+                      +₹{Math.ceil(item?.amount)}
                     </Typography>
                   </div>
                 ))}
@@ -360,10 +392,10 @@ const BookingInfo = () => {
             }}
           >
             <Typography variant="body2" className="fw-bold">
-              {calculate?._totalAmountToPaid?.head}
+              Total Amount to be paid
             </Typography>
             <Typography variant="caption" className="fw-bold">
-              ₹{calculate?._totalAmountToPaid?.value}
+              ₹ {Math.ceil(calculate?.totalAmountToPay)}
             </Typography>
           </div>
           {/* <div
@@ -407,21 +439,21 @@ const BookingInfo = () => {
             fontSize={18}
             className="text-danger"
           >
-            {calculate?._totalAmountToPaid?.head}
+            Total Amount to be paid
           </Typography>
           <div className="text-right">
             <Box sx={{ display: 'flex', gap: 2 }}>
               <Typography color="error" variant="h4">
-                <del>₹&nbsp;{calculate?._basePrice?.value}</del>
+                <del>₹&nbsp;{calculate?.BasePrice}</del>
               </Typography>
               <Typography fontWeight={700} variant="h4">
-                ₹&nbsp;{calculate?._totalAmountToPaid?.value}
+                ₹&nbsp;{Math.ceil(calculate?.totalAmountToPay)}
               </Typography>
             </Box>
             <Typography variant="caption">
               Great Choice! You are saving{" "}
               <span className="text-danger">
-                ₹&nbsp;{calculate?._totalDiscount?.value}
+                ₹&nbsp;{Math.ceil(calculate?.discountedAmount)}
               </span>
               &nbsp; with your booking
             </Typography>
