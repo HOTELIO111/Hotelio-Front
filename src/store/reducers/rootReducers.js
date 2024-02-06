@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { GetSearchedHotelsReducers, GetSingleHotelReducers,GetHotelBillCalculationReducers } from "./hotelReducers";
+import { GetSearchedHotelsReducers, GetSingleHotelReducers, GetHotelBillCalculationReducers } from "./hotelReducers";
 import {
   GetAgentSignupReducer,
   GetAgentLoginReducer,
@@ -8,6 +8,7 @@ import { GetAllRoomTypReducer } from "./roomCategoriesReducers";
 import { GetALlPopularLocationReducer } from "./locationsReducers";
 import { GetBookingOffersReducers } from "./OffersReducers";
 import { GetBookingRegisterReducer } from "./BookingReducers";
+import { GetBookingHistoryReducers } from "./BookingHistoryReducers"
 
 const rootReducers = combineReducers({
   GetSearchedHotelsReducers,
@@ -18,7 +19,8 @@ const rootReducers = combineReducers({
   GetBookingOffersReducers,
   GetBookingRegisterReducer,
   GetSingleHotelReducers,
-  GetHotelBillCalculationReducers
+  GetHotelBillCalculationReducers,
+  GetBookingHistoryReducers
 });
 
 export default rootReducers;

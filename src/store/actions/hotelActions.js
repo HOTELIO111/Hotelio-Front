@@ -34,7 +34,6 @@ export const GetSingleHotel = (hotelid) => {
 }
 
 export const GetHotelBillCalculation = (billingQuery) => {
-  console.log(billingQuery)
   return async (dispatch) => {
     dispatch({ type: constant.GET_HotelBillCalculation_API_LOADING })
     try {

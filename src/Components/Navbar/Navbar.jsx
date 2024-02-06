@@ -489,7 +489,7 @@ const Navbar = ({ list }) => {
                                   className="text-dark"
                                   to="/YourBooking"
                                 >
-                                  My Booking
+                                  Booking History
                                 </NavLink>
                               </MenuItem>
                               <MenuItem
