@@ -108,9 +108,9 @@ const Footer = () => {
           spacing={2}
         >
           {allLocation?.data?.data?.map((item, index) => (
-            <Grid item xs={3}>
+            <Grid key={index} item xs={3}>
               <ul>
-                <li key={index}>
+                <li>
                   <span style={{ cursor: "pointer" }} onClick={() => HandleLocationSearch(item)}>
                     {item?.endpoint} <AiFillCaretRight />
                   </span>

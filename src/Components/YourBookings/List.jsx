@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Card, CardActions, CardContent, Container, IconButton, Modal, Rating, TextareaAutosize, Typography } from '@mui/material';
 import { isMobile } from 'react-device-detect';
+import { useSelector } from 'react-redux';
 
 
 export default function List() {
@@ -11,6 +12,8 @@ export default function List() {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const BookingData = useSelector((state) => state.GetBookingRegisterReducer);
+
 
     const HotelBookedData = [
         {

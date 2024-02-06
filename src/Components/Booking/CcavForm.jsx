@@ -46,6 +46,12 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
     const formData = {
       room: BOOKINGDATA?.room?._id,
       hotel: BOOKINGDATA?.hotel?._id,
+      billing_address: document.querySelector('input[name="billing_address"]').value || '',
+      billing_city: document.querySelector('input[name="billing_city"]').value || '',
+      billing_state: document.querySelector('input[name="billing_state"]').value || '',
+      billing_zip: document.querySelector('input[name="billing_zip"]').value || '',
+      billing_country: document.querySelector('input[name="billing_country"]').value || '',
+      merchant_param1: document.querySelector('input[name="merchant_param1"]').value || 'Part Pay',
       guest: {
         name: BOOKINGDATA?.guest?.name,
         email: BOOKINGDATA?.guest?.email,
@@ -83,7 +89,7 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
   return (
     <div>
       <Box>
-        <Card sx={{ p: 2, borderRadius: 2, border: "2px solid #ee2e24" }}>
+        <Card sx={{ p: 2, borderRadius: 2, border: "2px solid #ee2e24", background: 'linear-gradient(338deg, rgba(243,200,198,1) 35%, rgba(255,255,255,1) 100%)' }}>
           <form
             method="POST"
             name="customerData"
@@ -143,9 +149,7 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   style={inputStyle}
                   margin="normal"
                   name="billing_address"
-                  value={BOOKINGDATA?.hotel?.address}
-                  placeholder="Billing Address:"
-                  readOnly
+                  placeholder="Enter Billing Address"
                 />
               </Grid>
               <Grid
@@ -199,7 +203,7 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   style={inputStyle}
                   margin="normal"
                   name="customer_identifier"
-                  value={BOOKINGDATA?.customer?._id}
+                  value={BOOKINGDATA?.customer}
                   placeholder="Customer Id:"
                   readOnly
                 />
@@ -252,7 +256,7 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   type="text"
                   style={inputStyle}
                   name="order_id"
-                  value="12345"
+                  value={BOOKINGDATA?.bookingId}
                   placeholder="Order Id"
                   readOnly
                 />
@@ -408,9 +412,7 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   style={inputStyle}
                   margin="normal"
                   name="billing_city"
-                  value={BOOKINGDATA?.hotel?.city}
-                  placeholder="Billing City:"
-                  readOnly
+                  placeholder="Enter Billing City"
                 />
               </Grid>
               <Grid
@@ -436,9 +438,7 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   style={inputStyle}
                   margin="normal"
                   name="billing_state"
-                  value={BOOKINGDATA?.hotel?.state}
-                  placeholder="Billing State:"
-                  readOnly
+                  placeholder="Enter Billing State"
                 />
               </Grid>
               <Grid
@@ -464,9 +464,7 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   style={inputStyle}
                   margin="normal"
                   name="billing_zip"
-                  value={BOOKINGDATA?.hotel?.zipCode}
-                  placeholder="Billing Zip:"
-                  readOnly
+                  placeholder="Enter Billing Zip"
                 />
               </Grid>
               <Grid
@@ -492,9 +490,7 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   style={inputStyle}
                   margin="normal"
                   name="billing_country"
-                  value={BOOKINGDATA?.hotel?.country}
-                  placeholder="Billing Country:"
-                  readOnly
+                  placeholder="Enter Billing Country"
                 />
               </Grid>
               <Grid
@@ -508,7 +504,7 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                 }}
               >
                 <Typography variant="h6">
-                  Billing Tel<span className="text-danger">*</span>:
+                  Billing Mobile No.<span className="text-danger">*</span>:
                 </Typography>
               </Grid>
               <Grid
@@ -522,8 +518,8 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   style={inputStyle}
                   margin="normal"
                   name="billing_tel"
-                  value={BOOKINGDATA?.customer?.mobileNo}
-                  placeholder="Billing Tel:"
+                  value={BOOKINGDATA?.guest?.mobileNo}
+                  placeholder="Enter Mobile No."
                   readOnly
                 />
               </Grid>
@@ -552,9 +548,8 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   style={inputStyle}
                   margin="normal"
                   name="billing_email"
-                  value={BOOKINGDATA?.customer?.email}
                   placeholder="Billing Email:"
-                  readOnly
+                  value={BOOKINGDATA?.guest?.email}
                 />
               </Grid>
 
@@ -574,6 +569,12 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                 </LoadingButton>
               </Grid>
             </Grid>
+            <input
+              type="text"
+              name="merchant_param1"
+              value="Part Pay"
+              style={{ visibility: 'hidden', display: 'none' }}
+            />
 
             {/* <table width="100%" height="100" border="1" align="center">
               <tr>

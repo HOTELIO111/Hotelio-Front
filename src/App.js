@@ -39,6 +39,7 @@ import TravelProfile from "./Pages/Travel Partner Pages/TravelProfile";
 import AllCities from "./Pages/AllCities/AllCities";
 import CcavForm from "./Components/Booking/CcavForm";
 import SeprateLocation from './Pages/SepratePage/SeprateLocation'
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const { currentUser } = useAuthContext();
@@ -81,6 +82,7 @@ function App() {
 
   return (
     <div
+
       style={
         isMobile
           ? {
@@ -92,10 +94,12 @@ function App() {
           : {}
       }
     >
+
       <script type="application/ld+json">
         {JSON.stringify(hotelioroomsStructuredData)}
       </script>
       <Routes>
+
         <Route path="*" element={<PageNotFound />} />
         <Route path="/search" element={<SearchBar />} />
         <Route path="/signup" element={<PublicRoute Component={Signup} />} />
@@ -140,7 +144,7 @@ function App() {
         <Route path="/Travel-Partner-Home" element={<TravelHome />} />
         <Route path="/Travel-Partner-Profile" element={<TravelProfile />} />
       </Routes>
-    </div>
+    </div >
   );
 }
 
