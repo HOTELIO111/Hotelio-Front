@@ -12,7 +12,7 @@ const HotelioOffer = () => {
     };
 
     return (
-        <Card style={{ border: '2px solid #ee2e24' }} className="w-100 my-1">
+        <Card style={{ border: '2px solid #ee2e24', background: applicableOffer ? '#CDFADB' : 'initial' }} className="w-100 my-1" >
             <CardContent>
                 <FormControl>
                     <Typography sx={{ mb: 1.5 }} color="text-dark" fontWeight={700} id="demo-radio-buttons-group-label">
@@ -24,7 +24,7 @@ const HotelioOffer = () => {
                             name="radio-buttons-group"
                             sx={{ ml: 1 }}
                             value={applicableOffer}
-                            
+
                             // defaultValue={offerData?.data?.[0]?.item?._id}
                             onChange={handleOfferChange}
                         >
@@ -35,7 +35,7 @@ const HotelioOffer = () => {
                     )}
                 </FormControl>
             </CardContent>
-        </Card>
+        </Card >
     );
 };
 

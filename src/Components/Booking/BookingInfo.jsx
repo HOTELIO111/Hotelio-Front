@@ -320,10 +320,11 @@ const BookingInfo = () => {
                     }}
                   >
                     <Typography variant="body2" className="text-secondary">
-                      &emsp;-{item?.type}
+                      {/* &emsp;-{item?.type || 'No offer applied'} */}
+                      &emsp;{item?.type ? `-${item?.type}` : 'No offer applied'}
                     </Typography>
                     <Typography variant="caption" className="text-secondary">
-                      +₹{Math.ceil(item?.amount)}
+                      {item?.amount ? `+₹${Math.ceil(item?.amount)}` : null}
                     </Typography>
                   </div>
                 ))}
