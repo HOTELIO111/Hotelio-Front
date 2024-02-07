@@ -124,7 +124,7 @@ const StepTwo = () => {
 
 
   return (
-    <div className="container p-2">
+    <div className="p-2">
       {/* <Modal
         sx={{ zIndex: "1000" }}
         open={open}
@@ -157,48 +157,122 @@ const StepTwo = () => {
               </Alert>
 
               {selectedValue === "myself" ? (
-                <div style={{ display: 'flex', gap: '5px' }}>
-                  <TextField
-                    InputProps={{ className: "custom-input" }}
-                    id="outlined-basic"
-                    label="Full Name"
-                    margin="normal"
-                    name="name"
-                    value={formData.name || ""}
-                    onChange={handleFormData}
-                    variant="outlined"
-                    required
-                    helperText={formData.name === undefined ? 'Please fill your email' : ''}
-                  />
+                <div>
+                  <div style={{ display: 'flex', gap: '5px', justifyContent: 'space-between' }}>
+                    <TextField
+                      InputProps={{ className: 'custom-input' }}
+                      id="outlined-basic"
+                      label="Full Name"
+                      margin="normal"
+                      name="name"
+                      value={formData.name || ''}
+                      onChange={handleFormData}
+                      variant="outlined"
+                      required
+                      helperText={formData.name === undefined ? 'Please fill your name' : ''}
+                    />
+
+                    <TextField
+                      InputProps={{ className: 'custom-input' }}
+                      id="outlined-basic"
+                      label="Email"
+                      margin="normal"
+                      name="email"
+                      value={formData.email || ''}
+                      onChange={handleFormData}
+                      variant="outlined"
+                      required
+                      error={formData.email === undefined}
+                      helperText={formData.email === undefined ? 'Please fill your email' : ''}
+                    />
+
+                    <TextField
+                      InputProps={{ className: 'custom-input' }}
+                      id="outlined-basic"
+                      label="Contact No."
+                      value={formData.mobileNo || ''}
+                      name="mobileNo"
+                      onChange={handleFormData}
+                      margin="normal"
+                      variant="outlined"
+                      required
+                      helperText={formData.mobileNo === undefined ? 'Please fill your contact number' : ''}
+                    />
+                  </div>
 
                   <TextField
-                    InputProps={{ className: "custom-input" }}
+                    InputProps={{ className: 'custom-input' }}
                     id="outlined-basic"
-                    label="Email"
+                    label="Address"
                     margin="normal"
-                    name="email"
-                    value={formData.email || ""}
+                    name="address"
+                    value={formData.address || ''}
                     onChange={handleFormData}
                     variant="outlined"
+                    className="w-100"
                     required
-                    error
-                    helperText={formData.email === undefined ? 'Please fill your email' : ''}
-                  />
-                  <TextField
-                    InputProps={{ className: "custom-input" }}
-                    id="outlined-basic"
-                    label="Contact No."
-                    value={formData.mobileNo || ''}
-                    name="mobileNo"
-                    onChange={handleFormData}
-                    margin="normal"
-                    variant="outlined"
-                    required
-                    helperText={formData.mobileNo === undefined ? 'Please fill your email' : ''}
+                    error={formData.address === undefined}
+                    helperText={formData.address === undefined ? 'Please fill your address' : ''}
                   />
 
-                  {/* <Button onClick={() => HandleBookingCreate({ hotel: hotelData, room: roomData, searchBookingInfo: searchBookingInfo, formdata: formData, discounts: [{ name: "WELCOME200", amount: 200 }], customer: currentUser, gst: Gst })}>test</Button> */}
+                  <div style={{ display: 'flex', gap: '5px', justifyContent: 'space-around' }}>
+                    <TextField
+                      InputProps={{ className: 'custom-input' }}
+                      id="outlined-basic"
+                      label="City"
+                      margin="normal"
+                      name="city"
+                      value={formData.city || ''}
+                      onChange={handleFormData}
+                      variant="outlined"
+                      required
+                      helperText={formData.city === undefined ? 'Please fill your city' : ''}
+                    />
+
+                    <TextField
+                      InputProps={{ className: 'custom-input' }}
+                      id="outlined-basic"
+                      label="State"
+                      margin="normal"
+                      name="state"
+                      value={formData.state || ''}
+                      onChange={handleFormData}
+                      variant="outlined"
+                      required
+                      error={formData.state === undefined}
+                      helperText={formData.state === undefined ? 'Please fill your state' : ''}
+                    />
+
+                    <TextField
+                      InputProps={{ className: 'custom-input' }}
+                      id="outlined-basic"
+                      label="Zip / Pin Code"
+                      value={formData.zip || ''}
+                      name="zip"
+                      onChange={handleFormData}
+                      margin="normal"
+                      variant="outlined"
+                      required
+                      error={formData.zip === undefined}
+                      helperText={formData.zip === undefined ? 'Please fill your zip/pin code' : ''}
+                    />
+
+                    <TextField
+                      InputProps={{ className: 'custom-input' }}
+                      id="outlined-basic"
+                      label="Country"
+                      value={formData.country || ''}
+                      name="country"
+                      onChange={handleFormData}
+                      margin="normal"
+                      variant="outlined"
+                      required
+                      error={formData.country === undefined}
+                      helperText={formData.country === undefined ? 'Please fill your country' : ''}
+                    />
+                  </div>
                 </div>
+
               ) : (
                 <div style={{ display: 'flex', gap: '5px' }}>
                   <TextField

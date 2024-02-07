@@ -86,19 +86,22 @@ const BookingInfo = () => {
 
 
   return (
-    <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
+    <Grid item sm={12} md={6} lg={4} xl={4}>
       <Card style={{ border: "2px solid #ee2e24" }} className="w-100 mb-1">
         <CardContent>
-          <Typography
-            display={"flex"}
-            alignItems={"center"}
-            sx={{ fontSize: 14 }}
-            color="text.secondary"
-            gutterBottom
-          >
-            Hotel{" "}
-            <Rating name="read-only" value={hotelData?.hotelRatings} readOnly />
-          </Typography>
+          {hotelData?.hotelRatings !== undefined && (
+            <Typography
+              display={"flex"}
+              alignItems={"center"}
+              sx={{ fontSize: 14 }}
+              color="text.secondary"
+              gutterBottom
+            >
+              Hotel{" "}
+              <Rating name="read-only" value={hotelData.hotelRatings} readOnly />
+            </Typography>
+          )}
+
           <Typography sx={{ mb: 1.5 }} color="text-dark" fontWeight={700}>
             {hotelData?.hotelName} ({hotelData?.hotelType?.title})
           </Typography>

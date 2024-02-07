@@ -85,7 +85,7 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
     const PreBookingResponse = await CreatePreBooking(formData);
     ////----- - - - -- - - - Prebooking api check krke booking id genreate then yaha aao  ----------------------------
   };
-
+  console.log(BOOKINGDATA)
   return (
     <div>
       <Box>

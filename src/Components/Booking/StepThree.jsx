@@ -42,7 +42,7 @@ const StepThree = () => {
   const totalDays = totalLengthOfStay(checkIn, checkOut);
   // const currentDate = new Date.now();
   // credentials ----------------------------
-
+  console.log(formData)
   const [timeRemaining, setTimeRemaining] = useState(moment.duration(10, "minutes"));
 
   useEffect(() => {
@@ -77,7 +77,7 @@ const StepThree = () => {
 
 
   return (
-    <div className="container p-2">
+    <div className="p-2">
       <Grid container spacing={2}>
         <BookingInfo />
         <Grid item sm={12} md={6} lg={8} xl={8}>

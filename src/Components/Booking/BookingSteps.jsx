@@ -43,9 +43,15 @@ const BookingSteps = () => {
         return;
       }
 
-      const isConfirmed = window.confirm('Do you want to proceed?');
+      const swalResult = await Swal.fire({
+        icon: "question",
+        title: "All Information is correct?",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+      });
 
-      if (!isConfirmed) {
+      if (!swalResult.isConfirmed) {
         return;
       }
 

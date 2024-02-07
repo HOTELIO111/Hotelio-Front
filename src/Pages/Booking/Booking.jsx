@@ -10,7 +10,7 @@ const Booking = () => {
     return (
         <>
             {isMobile ? <MobileHeader /> : <Navbar />}
-            <div style={isMobile ? { marginTop: '5px', marginBottom: '50px' } : { marginTop: '80px', marginBottom: '20px' }} className='container'>
+            <div style={isMobile ? { marginTop: '5px', marginBottom: '50px' } : { marginTop: '80px' }} >
                 <BookingSteps />
             </div>
             {isMobile ? <MobileFooter /> : <Footer />}
