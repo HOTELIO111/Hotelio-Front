@@ -44,8 +44,8 @@ const BookingSteps = () => {
       }
 
       const swalResult = await Swal.fire({
-        icon: "question",
-        title: "All Information is correct?",
+        icon: "info",
+        title: "Are you sure with this information",
         showCancelButton: true,
         confirmButtonText: "Yes",
         cancelButtonText: "No",

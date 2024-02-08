@@ -157,8 +157,8 @@ const StepTwo = () => {
               </Alert>
 
               {selectedValue === "myself" ? (
-                <div>
-                  <div style={{ display: 'flex', gap: '5px', justifyContent: 'space-between' }}>
+                <Grid container spacing={1}>
+                  <Grid item sm={4}>
                     <TextField
                       InputProps={{ className: 'custom-input' }}
                       id="outlined-basic"
@@ -171,7 +171,8 @@ const StepTwo = () => {
                       required
                       helperText={formData.name === undefined ? 'Please fill your name' : ''}
                     />
-
+                  </Grid>
+                  <Grid item sm={4}>
                     <TextField
                       InputProps={{ className: 'custom-input' }}
                       id="outlined-basic"
@@ -185,7 +186,8 @@ const StepTwo = () => {
                       error={formData.email === undefined}
                       helperText={formData.email === undefined ? 'Please fill your email' : ''}
                     />
-
+                  </Grid>
+                  <Grid item sm={4}>
                     <TextField
                       InputProps={{ className: 'custom-input' }}
                       id="outlined-basic"
@@ -198,24 +200,24 @@ const StepTwo = () => {
                       required
                       helperText={formData.mobileNo === undefined ? 'Please fill your contact number' : ''}
                     />
-                  </div>
-
-                  <TextField
-                    InputProps={{ className: 'custom-input' }}
-                    id="outlined-basic"
-                    label="Address"
-                    margin="normal"
-                    name="address"
-                    value={formData.address || ''}
-                    onChange={handleFormData}
-                    variant="outlined"
-                    className="w-100"
-                    required
-                    error={formData.address === undefined}
-                    helperText={formData.address === undefined ? 'Please fill your address' : ''}
-                  />
-
-                  <div style={{ display: 'flex', gap: '5px', justifyContent: 'space-around' }}>
+                  </Grid>
+                  <Grid item sm={8}>
+                    <TextField
+                      InputProps={{ className: 'custom-input' }}
+                      id="outlined-basic"
+                      label="Address"
+                      margin="normal"
+                      name="address"
+                      value={formData.address || ''}
+                      onChange={handleFormData}
+                      variant="outlined"
+                      className="w-100"
+                      required
+                      error={formData.address === undefined}
+                      helperText={formData.address === undefined ? 'Please fill your address' : ''}
+                    />
+                  </Grid>
+                  <Grid item sm={4}>
                     <TextField
                       InputProps={{ className: 'custom-input' }}
                       id="outlined-basic"
@@ -228,7 +230,8 @@ const StepTwo = () => {
                       required
                       helperText={formData.city === undefined ? 'Please fill your city' : ''}
                     />
-
+                  </Grid>
+                  <Grid item sm={4}>
                     <TextField
                       InputProps={{ className: 'custom-input' }}
                       id="outlined-basic"
@@ -242,7 +245,8 @@ const StepTwo = () => {
                       error={formData.state === undefined}
                       helperText={formData.state === undefined ? 'Please fill your state' : ''}
                     />
-
+                  </Grid>
+                  <Grid item sm={4}>
                     <TextField
                       InputProps={{ className: 'custom-input' }}
                       id="outlined-basic"
@@ -256,7 +260,8 @@ const StepTwo = () => {
                       error={formData.zip === undefined}
                       helperText={formData.zip === undefined ? 'Please fill your zip/pin code' : ''}
                     />
-
+                  </Grid>
+                  <Grid item sm={4}>
                     <TextField
                       InputProps={{ className: 'custom-input' }}
                       id="outlined-basic"
@@ -270,9 +275,8 @@ const StepTwo = () => {
                       error={formData.country === undefined}
                       helperText={formData.country === undefined ? 'Please fill your country' : ''}
                     />
-                  </div>
-                </div>
-
+                  </Grid>
+                </Grid>
               ) : (
                 <div style={{ display: 'flex', gap: '5px' }}>
                   <TextField
