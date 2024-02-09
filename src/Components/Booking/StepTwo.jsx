@@ -399,16 +399,15 @@ const StepTwo = () => {
               </Typography>
 
               <Box className="d-flex flex-wrap gap-2">
-                {console.log(roomData)}
                 {roomData?.roomType?.amenties?.map((item, index) => (
-                  <div>
+                  <div key={index}>
                     <Check />
                     {item?.title}
                   </div>
                 ))}
-                
+
                 {roomData?.roomType?.includeFacilities?.map((item, index) => (
-                  <div>
+                  <div key={index}>
                     <Check />
                     {item.title}
                   </div>
@@ -416,40 +415,40 @@ const StepTwo = () => {
               </Box>
               <Box display={"flex"} justifyContent={'space-between'} alignItems={'center'} mt={2} >
 
-              <Typography
-                display={"flex"}
-                alignItems={"center"}
-                sx={{
-                  fontSize: 14,
-                  fontWeight: 800,
+                <Typography
+                  display={"flex"}
+                  alignItems={"center"}
+                  sx={{
+                    fontSize: 14,
+                    fontWeight: 800,
 
-                }}
-                gutterBottom
-              >
-                No Of Guests:{" "}
-                {[...Array(totalGuest)]?.map(
-                  (item, index) => (
-                    <PersonIcon key={index} />
-                  )
-                )}
-              </Typography>
-              <Typography
-                display={"flex"}
-                alignItems={"center"}
-                sx={{
-                  fontSize: 14,
-                  fontWeight: 800,
-              
-                }}
-                gutterBottom
-              >
-                Guests Allowed: {" "}
-                {[...Array(roomData?.roomType?.personAllowed)]?.map(
-                  (item, index) => (
-                    <PersonIcon key={index} />
-                  )
-                )} / Per Room
-              </Typography>
+                  }}
+                  gutterBottom
+                >
+                  No Of Guests:{" "}
+                  {[...Array(totalGuest)]?.map(
+                    (item, index) => (
+                      <PersonIcon key={index} />
+                    )
+                  )}
+                </Typography>
+                <Typography
+                  display={"flex"}
+                  alignItems={"center"}
+                  sx={{
+                    fontSize: 14,
+                    fontWeight: 800,
+
+                  }}
+                  gutterBottom
+                >
+                  Guests Allowed: {" "}
+                  {[...Array(roomData?.roomType?.personAllowed)]?.map(
+                    (item, index) => (
+                      <PersonIcon key={index} />
+                    )
+                  )} / Per Room
+                </Typography>
               </Box>
             </CardContent>
           </Card>

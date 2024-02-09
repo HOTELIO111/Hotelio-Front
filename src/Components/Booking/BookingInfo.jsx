@@ -14,15 +14,13 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  totalLengthOfStay,
-} from "../../Utilis/_fuctions";
+import { totalLengthOfStay } from "../../Utilis/_fuctions";
 import { useAuthContext } from "../../context/userAuthContext";
 import { GetHotelBillCalculation } from "../../store/actions/hotelActions";
 import { useCollections } from "../../context/useStateManager";
 
 const BookingInfo = () => {
- 
+
   const navigate = useNavigate();
   const [show, setHide] = useState(false);
   const [searchParmas, setSearchParamas] = useSearchParams()
@@ -341,14 +339,12 @@ const BookingInfo = () => {
             is offering reduced rates on some rooms that match your search.
           </Typography>
         </CardContent>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "start",
-            background: "#ebf3ff",
-            padding: "20px",
-          }}
+        <Box
+          bgcolor={'#ebf3ff'}
+          p={2}
+          display={'flex'}
+          justifyContent={'space-between'}
+          alignItems={'center'}
         >
           <Typography
             fontWeight={600}
@@ -358,24 +354,17 @@ const BookingInfo = () => {
           >
             Total Amount to be paid
           </Typography>
-          <div className="text-right">
-            <Box sx={{ display: 'flex', gap: 2 }}>
-              <Typography color="error" variant="h4">
-                <del>₹&nbsp;{calculate?.BasePrice}</del>
-              </Typography>
-              <Typography fontWeight={700} variant="h4">
-                ₹&nbsp;{Math.ceil(calculate?.totalAmountToPay)}
-              </Typography>
-            </Box>
-            <Typography variant="caption">
-              Great Choice! You are saving{" "}
-              <span className="text-danger">
-                ₹&nbsp;{Math.ceil(calculate?.discountedAmount)}
-              </span>
-              &nbsp; with your booking
-            </Typography>
-          </div>
-        </div>
+          <Typography textAlign={'center'} fontWeight={700} variant="h4">
+            ₹&nbsp;{Math.ceil(calculate?.totalAmountToPay)}
+          </Typography>
+        </Box>
+        <Box p={2} >
+          <Typography variant="body1">
+            Great Choice! You are saving
+            <em className="text-danger" > ₹&nbsp;{Math.ceil(calculate?.discountedAmount)}&nbsp; </em>
+            with your booking
+          </Typography>
+        </Box>
       </Card>
     </Grid>
   );

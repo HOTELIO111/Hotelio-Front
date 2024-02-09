@@ -23,7 +23,6 @@ export default function List() {
         dispatch(GetBookingHistoryAction(currentUser?._id));
     }, [currentUser])
 
-    console.log(BookingData?.data?.data)
 
     const totalLengthOfStay = (checkIn, checkOut) => {
         const newCheckIn = new Date(checkIn);
@@ -75,7 +74,6 @@ export default function List() {
         const [cleanliness, setcleanliness] = React.useState(1);
         const [comfort, setcomfort] = React.useState(1);
         const [overallReview, setoverallReview] = React.useState(1);
-
         return (
             <Modal
                 open={open}
@@ -165,9 +163,12 @@ export default function List() {
                                 <Card sx={{ display: 'flex', borderRadius: '0px 5px 0px 0px', height: '100%' }}>
                                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                                         <CardContent sx={{ flex: '1 0 auto' }}>
-                                            <Typography component="div" variant="h5">
-                                                {item?.hotel?.[0]?.hotelName}
-                                            </Typography>
+                                            <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+                                                <Typography component="div" variant="h5">
+                                                    {item?.hotel?.[0]?.hotelName}
+                                                </Typography>
+                                                {/* <Timer initialTime={time} /> */}
+                                            </Box>
                                             <Typography component="div" variant="p">
                                                 {item?.hotel?.[0]?.reviews.length} ({item?.hotel?.[0]?.reviews.length} reviews)
                                             </Typography>

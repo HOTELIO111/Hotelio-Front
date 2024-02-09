@@ -46,11 +46,11 @@ function CcavForm({ BOOKINGDATA, BILL, roomData, DATAA }) {
     const formData = {
       room: BOOKINGDATA?.room?._id,
       hotel: BOOKINGDATA?.hotel?._id,
-      billing_address: DATAA.address,
-      billing_city: DATAA,
-      billing_state: DATAA,
-      billing_zip: DATAA,
-      billing_country: DATAA,
+      billing_address: DATAA?.address,
+      billing_city: DATAA?.city,
+      billing_state: DATAA?.state,
+      billing_zip: DATAA?.zip,
+      billing_country: DATAA?.country,
       merchant_param1: document.querySelector('input[name="merchant_param1"]').value || 'Part Pay',
       guest: {
         name: BOOKINGDATA?.guest?.name,
@@ -567,6 +567,7 @@ function CcavForm({ BOOKINGDATA, BILL, roomData, DATAA }) {
                 <LoadingButton
                   fullWidth
                   // loading={true}
+                  id="FormfillDone"
                   type="submit"
                   onClick={() =>
                     HandleCheckOutPayment(userBookingDetails, calculate)

@@ -19,7 +19,6 @@ const BookingProvider = ({ children }) => {
       const response = await instance.post("/hotel/book/create/pre-booking", formData)
       if (response.status === 200) {
         setBookingDetails(response.data.data)
-        console.log(response.data)
         return { error: false, status: 200 }
       }
     } catch (error) {

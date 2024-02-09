@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Box, Grid, Tooltip, Typography } from "@mui/material";
 import "./BookingSteps.css";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import BookingInfo from "./BookingInfo";
 import CcavForm from "./CcavForm";
 import { useBooking } from "../../context/useBooking";
 import { useSelector } from "react-redux";
 import { useCollections } from "../../context/useStateManager";
-import moment from "moment/moment";
+import Countdown from "react-countdown";
 
 const StepThree = () => {
 
@@ -20,37 +20,21 @@ const StepThree = () => {
   const userBookingDetails = BookingDetails;
   const calculate = useSelector((state) => state.GetHotelBillCalculationReducers?.data?.data);
   const { formData } = useCollections();
-  // Calculate the total night stay
-  const totalLengthOfStay = (checkIn, checkOut) => {
-    const newCheckIn = new Date(checkIn);
-    const newCheckOut = new Date(checkOut);
-    const timeDifference = newCheckOut.getTime() - newCheckIn.getTime();
-    const totalDays = timeDifference / (1000 * 3600 * 24);
-    return totalDays;
+
+ 
+  const Completionist = () => <span>You are good to go!</span>;
+
+  // Renderer callback with condition
+  const renderer = ({ hours, minutes, seconds, completed }) => {
+    if (completed) {
+      // Render a completed state
+      return document.getElementById('FormfillDone').click();
+    } else {
+      // Render a countdown
+      return <Typography variant="h6" gutterBottom className="text-warning fw-bolder">Timer: {minutes}:{seconds}</Typography>;
+    }
   };
-  //   credentials
-  // credentials ----------------------------
-  const [timeRemaining, setTimeRemaining] = useState(moment.duration(10, "minutes"));
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      // Decrease the remaining time by 1 second
-      setTimeRemaining((prevTime) => moment.duration(prevTime - 1000));
-
-      // Check if the timer has reached zero
-      if (timeRemaining <= 0) {
-        clearInterval(intervalId);
-        // Perform any action when the timer reaches zero
-        console.log("Timer reached zero!");
-        // navigate('/YourBooking')
-      }
-    }, 1000);
-
-    // Clean up the interval on component unmount
-    return () => clearInterval(intervalId);
-  }, [timeRemaining]);
-
-  const formattedTime = moment.utc(timeRemaining.asMilliseconds()).format("mm:ss");
 
   return (
     <div className="p-2">
@@ -97,13 +81,15 @@ const StepThree = () => {
                   >
                     {userBookingDetails?.bookingStatus}
                   </Typography>
-                  <Typography
+                  {/* <Typography
                     variant="h6"
                     gutterBottom
                     className="text-warning fw-bolder"
-                  >
-                    Timer: {formattedTime}
-                  </Typography>
+                  > */}
+                  {/* </Typography> */}
+                  <Countdown date={Date.now(userBookingDetails?.createdAt) + 300000}
+                    renderer={renderer}
+                  />
                 </Box>
                 <Box p={1} >
                   <Typography
