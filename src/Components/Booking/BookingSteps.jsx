@@ -55,6 +55,8 @@ const BookingSteps = () => {
         return;
       }
 
+      // Booking Create API
+
       const booking = await CreateBooking(bookingObject);
 
       if (booking.error === false) {
@@ -142,15 +144,15 @@ const BookingSteps = () => {
         <Grid container spacing={2}>
           {currentStep > 1 && (
             <Grid item xs={4}>
-              {currentStep === 3 ? null :
+              {currentStep === 2 || 3 ? null :
                 <Button fullWidth variant="contained" size="large" color="error" sx={{ clipPath: 'polygon(95% 0%, 100% 50%, 95% 100%, 0% 100%, 5% 50%, 0% 0%)', boxShadow: 'rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset' }} onClick={prevStep}>
                   {currentStep === 3 ? "Back" : "Back"}
                 </Button>}
             </Grid>
           )}
           {currentStep < 3 && (
-            <Grid item xs={8}>
-              <Button fullWidth variant="contained" sx={{ clipPath: 'polygon(95% 0%, 100% 50%, 95% 100%, 0% 100%, 5% 50%, 0% 0%)', boxShadow: 'rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset' }} size="large" color="error" className="mx-2" onClick={() => nextStep(bookingObject)}>
+            <Grid item xs={12}>
+              <Button fullWidth variant="contained" sx={{ clipPath: 'polygon(95% 0%, 100% 50%, 95% 100%, 0% 100%, 2% 50%, 0% 0%)', boxShadow: 'rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset' }} size="large" color="error" className="mx-2" onClick={() => nextStep(bookingObject)}>
                 continue
               </Button>
             </Grid>

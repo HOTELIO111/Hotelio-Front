@@ -1,15 +1,11 @@
 import {
   Alert,
   Box,
-  Button,
   Card,
   CardContent,
-  Chip,
   FormControl,
   FormControlLabel,
   Grid,
-  IconButton,
-  Modal,
   Radio,
   RadioGroup,
   TextField,
@@ -17,7 +13,6 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import PersonIcon from "@mui/icons-material/Person";
-import Dates from "../date/Date";
 import { Check } from "@mui/icons-material";
 import { useSearchParams } from "react-router-dom";
 import { useAuthContext } from "../../context/userAuthContext";
@@ -27,7 +22,6 @@ import HotelDetail from "./HotelioOffer";
 import { useDispatch, useSelector } from "react-redux";
 import { useCollections } from "../../context/useStateManager";
 import { GetBookingOffers } from "../../store/actions/OfferActions";
-import { GetBookingRegister } from "../../store/actions/BookingAction";
 import { useBooking } from "../../context/useBooking";
 
 const StepTwo = () => {
@@ -36,28 +30,14 @@ const StepTwo = () => {
   const dispatch = useDispatch()
   const { formData, handleFormData, setFormData } = useCollections();
   const roomId = searchParmas.get('rid')
-  const { Gst, coupon } = useBooking()
+  const totalGuest = searchParmas.get('totalGuest');
+  const { Gst } = useBooking()
   const { currentUser } = useAuthContext();
   const HotelData = useSelector((state) => state.GetSingleHotelReducers);
   const { data: hotelData } = HotelData || {};
   const roomData = hotelData?.rooms?.find((item) => item._id === roomId);
 
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 500,
-    bgcolor: "background.paper",
-    border: "2px solid #fff",
-    boxShadow: 24,
-    p: 2,
-    textAlign: "center",
-    borderRadius: "8px",
-  };
 
-  const [open, setOpen] = React.useState(false);
-  const handleClose = () => setOpen(false);
   const [selectedValue, setSelectedValue] = useState("myself");
   const handleRadioChange = (event) => {
     setSelectedValue(event.target.value);
@@ -125,24 +105,6 @@ const StepTwo = () => {
 
   return (
     <div className="p-2">
-      {/* <Modal
-        sx={{ zIndex: "1000" }}
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-
-          <Dates />
-          <div className="my-2 d-flex justify-content-between">
-            <Button variant="contained">Submit</Button>
-            <Button sx={{ ml: 1 }} onClick={handleClose} variant="outlined">
-              Cancel
-            </Button>
-          </div>
-        </Box>
-      </Modal> */}
       <Grid container spacing={2}>
         <Grid item xs={12} sm={12} md={6} lg={8} xl={8}>
           <Card style={{ border: "2px solid #ee2e24" }} className="w-100">
@@ -150,7 +112,7 @@ const StepTwo = () => {
               <Typography sx={{ mb: 1.5 }} color="text-dark" fontWeight={700}>
                 Enter your details
               </Typography>
-              <Alert severity="success" color="info">
+              <Alert severity="success" variant="filled" color="info">
                 {selectedValue === "myself"
                   ? "Almost done! Just fill the * required info"
                   : "Just fill guest details"}
@@ -160,12 +122,132 @@ const StepTwo = () => {
                 <Grid container spacing={1}>
                   <Grid item sm={4}>
                     <TextField
+                      id="outlined-basic"
+                      label="Full Name"
+                      margin="normal"
+                      className="w-100"
+                      name="name"
+                      value={formData.name || ''}
+                      onChange={handleFormData}
+                      variant="outlined"
+                      required
+                      helperText={formData.name === undefined ? 'Please fill your name' : ''}
+                    />
+                  </Grid>
+                  <Grid item sm={4}>
+                    <TextField
+                      id="outlined-basic"
+                      label="Email"
+                      margin="normal"
+                      className="w-100"
+                      name="email"
+                      value={formData.email || ''}
+                      onChange={handleFormData}
+                      variant="outlined"
+                      required
+                      error={formData.email === undefined}
+                      helperText={formData.email === undefined ? 'Please fill your email' : ''}
+                    />
+                  </Grid>
+                  <Grid item sm={4}>
+                    <TextField
+                      id="outlined-basic"
+                      label="Contact No."
+                      className="w-100"
+                      value={formData.mobileNo || ''}
+                      name="mobileNo"
+                      onChange={handleFormData}
+                      margin="normal"
+                      variant="outlined"
+                      required
+                      helperText={formData.mobileNo === undefined ? 'Please fill your contact number' : ''}
+                    />
+                  </Grid>
+                  <Grid item sm={8}>
+                    <TextField
+                      id="outlined-basic"
+                      label="Address"
+                      margin="normal"
+                      className="w-100"
+                      name="address"
+                      value={formData.address || ''}
+                      onChange={handleFormData}
+                      variant="outlined"
+                      required
+                      error={formData.address === undefined}
+                      helperText={formData.address === undefined ? 'Please fill your address' : ''}
+                    />
+                  </Grid>
+                  <Grid item sm={4}>
+                    <TextField
+                      id="outlined-basic"
+                      label="City"
+                      margin="normal"
+                      className="w-100"
+                      name="city"
+                      value={formData.city || ''}
+                      onChange={handleFormData}
+                      variant="outlined"
+                      required
+                      helperText={formData.city === undefined ? 'Please fill your city' : ''}
+                    />
+                  </Grid>
+                  <Grid item sm={4}>
+                    <TextField
+                      id="outlined-basic"
+                      label="State"
+                      margin="normal"
+                      className="w-100"
+                      name="state"
+                      value={formData.state || ''}
+                      onChange={handleFormData}
+                      variant="outlined"
+                      required
+                      error={formData.state === undefined}
+                      helperText={formData.state === undefined ? 'Please fill your state' : ''}
+                    />
+                  </Grid>
+                  <Grid item sm={4}>
+                    <TextField
+                      id="outlined-basic"
+                      label="Zip / Pin Code"
+                      value={formData.zip || ''}
+                      name="zip"
+                      className="w-100"
+                      onChange={handleFormData}
+                      margin="normal"
+                      variant="outlined"
+                      required
+                      error={formData.zip === undefined}
+                      helperText={formData.zip === undefined ? 'Please fill your zip/pin code' : ''}
+                    />
+                  </Grid>
+                  <Grid item sm={4}>
+                    <TextField
+                      id="outlined-basic"
+                      label="Country"
+                      value={formData.country || ''}
+                      name="country"
+                      className="w-100"
+                      onChange={handleFormData}
+                      margin="normal"
+                      variant="outlined"
+                      required
+                      error={formData.country === undefined}
+                      helperText={formData.country === undefined ? 'Please fill your country' : ''}
+                    />
+                  </Grid>
+                </Grid>
+              ) : (
+                <Grid container spacing={1}>
+                  <Grid item sm={4}>
+                    <TextField
                       InputProps={{ className: 'custom-input' }}
                       id="outlined-basic"
                       label="Full Name"
                       margin="normal"
                       name="name"
-                      value={formData.name || ''}
+                      value={'' || formData.name}
                       onChange={handleFormData}
                       variant="outlined"
                       required
@@ -277,45 +359,6 @@ const StepTwo = () => {
                     />
                   </Grid>
                 </Grid>
-              ) : (
-                <div style={{ display: 'flex', gap: '5px' }}>
-                  <TextField
-                    InputProps={{ className: "custom-input" }}
-                    id="outlined-basic"
-                    label="Full Name"
-                    margin="normal"
-                    value={formData.name || ""}
-                    name="name"
-                    onChange={handleFormData}
-                    variant="outlined"
-                    required
-                  />
-                  <TextField
-                    InputProps={{ className: "custom-input" }}
-                    id="outlined-basic"
-                    label="Email"
-                    margin="normal"
-                    value={formData.email || ""}
-                    name="email"
-                    onChange={handleFormData}
-                    sx={{ ml: 1 }}
-                    variant="outlined"
-                    required
-                  />
-                  <br />
-
-                  <TextField
-                    InputProps={{ className: "custom-input" }}
-                    id="outlined-basic"
-                    label="Contact No."
-                    value={formData.mobileNo || ''}
-                    name="mobileNo"
-                    onChange={handleFormData}
-                    margin="normal"
-                    variant="outlined"
-                    required
-                  />
-                </div>
               )}
 
               <Typography
@@ -356,12 +399,14 @@ const StepTwo = () => {
               </Typography>
 
               <Box className="d-flex flex-wrap gap-2">
+                {console.log(roomData)}
                 {roomData?.roomType?.amenties?.map((item, index) => (
                   <div>
                     <Check />
                     {item?.title}
                   </div>
                 ))}
+                
                 {roomData?.roomType?.includeFacilities?.map((item, index) => (
                   <div>
                     <Check />
@@ -369,24 +414,43 @@ const StepTwo = () => {
                   </div>
                 ))}
               </Box>
+              <Box display={"flex"} justifyContent={'space-between'} alignItems={'center'} mt={2} >
+
               <Typography
                 display={"flex"}
                 alignItems={"center"}
                 sx={{
                   fontSize: 14,
                   fontWeight: 800,
-                  pl: 1.5,
-                  marginTop: "1rem",
+
                 }}
                 gutterBottom
               >
-                Guests Allowed:{" "}
-                {[...Array(roomData?.roomType?.personAllowed)]?.map(
+                No Of Guests:{" "}
+                {[...Array(totalGuest)]?.map(
                   (item, index) => (
                     <PersonIcon key={index} />
                   )
                 )}
               </Typography>
+              <Typography
+                display={"flex"}
+                alignItems={"center"}
+                sx={{
+                  fontSize: 14,
+                  fontWeight: 800,
+              
+                }}
+                gutterBottom
+              >
+                Guests Allowed: {" "}
+                {[...Array(roomData?.roomType?.personAllowed)]?.map(
+                  (item, index) => (
+                    <PersonIcon key={index} />
+                  )
+                )} / Per Room
+              </Typography>
+              </Box>
             </CardContent>
           </Card>
         </Grid>

@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import Skeleton from "react-loading-skeleton";
 
-function CcavForm({ BOOKINGDATA, BILL, roomData }) {
+function CcavForm({ BOOKINGDATA, BILL, roomData, DATAA }) {
   const inputStyle = {
     border: "none",
     borderBottom: "0px solid #000", // Optional: Add a bottom border for better visibility
@@ -42,15 +42,15 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
     currentUser
   );
 
-  const HandleCheckOutPayment = async (BOOKINGDATA, BILL) => {
+  const HandleCheckOutPayment = async (BOOKINGDATA, BILL, DATAA) => {
     const formData = {
       room: BOOKINGDATA?.room?._id,
       hotel: BOOKINGDATA?.hotel?._id,
-      billing_address: document.querySelector('input[name="billing_address"]').value || '',
-      billing_city: document.querySelector('input[name="billing_city"]').value || '',
-      billing_state: document.querySelector('input[name="billing_state"]').value || '',
-      billing_zip: document.querySelector('input[name="billing_zip"]').value || '',
-      billing_country: document.querySelector('input[name="billing_country"]').value || '',
+      billing_address: DATAA.address,
+      billing_city: DATAA,
+      billing_state: DATAA,
+      billing_zip: DATAA,
+      billing_country: DATAA,
       merchant_param1: document.querySelector('input[name="merchant_param1"]').value || 'Part Pay',
       guest: {
         name: BOOKINGDATA?.guest?.name,
@@ -85,6 +85,7 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
     const PreBookingResponse = await CreatePreBooking(formData);
     ////----- - - - -- - - - Prebooking api check krke booking id genreate then yaha aao  ----------------------------
   };
+
   return (
     <div>
       <Box>
@@ -148,7 +149,9 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   style={inputStyle}
                   margin="normal"
                   name="billing_address"
+                  value={DATAA?.address}
                   placeholder="Enter Billing Address"
+                  readOnly
                 />
               </Grid>
               <Grid
@@ -412,6 +415,8 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   margin="normal"
                   name="billing_city"
                   placeholder="Enter Billing City"
+                  value={DATAA?.city}
+                  readOnly
                 />
               </Grid>
               <Grid
@@ -437,7 +442,9 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   style={inputStyle}
                   margin="normal"
                   name="billing_state"
+                  value={DATAA?.state}
                   placeholder="Enter Billing State"
+                  readOnly
                 />
               </Grid>
               <Grid
@@ -463,7 +470,9 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   style={inputStyle}
                   margin="normal"
                   name="billing_zip"
+                  value={DATAA?.zip}
                   placeholder="Enter Billing Zip"
+                  readOnly
                 />
               </Grid>
               <Grid
@@ -489,7 +498,9 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   style={inputStyle}
                   margin="normal"
                   name="billing_country"
+                  value={DATAA?.country}
                   placeholder="Enter Billing Country"
+                  readOnly
                 />
               </Grid>
               <Grid
