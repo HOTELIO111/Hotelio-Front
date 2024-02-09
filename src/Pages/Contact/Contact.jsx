@@ -11,6 +11,7 @@ import TtyIcon from '@mui/icons-material/Tty';
 import HotelioLogo from '../../images/HotelioLogo.png'
 import Swal from "sweetalert2";
 import { GetHotelioContact } from "../../store/actions/HotelioContactAction";
+import { toast } from "react-toastify";
 
 const Contact = () => {
 
@@ -61,8 +62,13 @@ const Contact = () => {
       title: "Thank You!",
       text: "Your request has been sent to the Hotelio team. We will connect with you soon.",
       icon: "success"
+    })
+    setFormData({
+      name: '',
+      email: '',
+      mobileNo: '',
+      disc: '',
     });
-    setFormData()
   };
 
   return (
@@ -144,6 +150,7 @@ const Contact = () => {
                     <TextField
                       label="Mobile No"
                       name="mobileNo"
+                      type="number"
                       value={formData.mobileNo}
                       onChange={handleInputChange}
                       fullWidth
