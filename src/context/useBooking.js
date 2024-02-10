@@ -13,7 +13,6 @@ const BookingProvider = ({ children }) => {
   const [BookingDetails, setBookingDetails] = useState(null);
 
 
-
   const CreateBooking = async (formData) => {
     try {
       const response = await instance.post("/hotel/book/create/pre-booking", formData)
