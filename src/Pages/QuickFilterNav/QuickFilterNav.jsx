@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import HotelBudget from "../../images/HotelInBudget.png";
-import PrimeHotel from "../../images/PrimeHotel.png";
-import HomeStay from "../../images/HomeStay.png";
 import HotelBudgetTwo from "../../images/HotelInBudgetTwo.webp";
 import PrimeHotelTwo from "../../images/PrimeHotelTwo.webp";
 import HomeStayTwo from "../../images/HomeStayTwo.webp";
@@ -9,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import style from "./QuickFilterNav.module.css";
 import { Card, CardContent, Grid } from "@mui/material";
 
-const QuickFilterNav = ({ setSelectedCategory, selectedCategory }) => {
+const QuickFilterNav = () => {
   const navigate = useNavigate();
   const [geoLoc, setGeoLoc] = useState(
     JSON.parse(window.localStorage.getItem("location"))
@@ -29,7 +26,7 @@ const QuickFilterNav = ({ setSelectedCategory, selectedCategory }) => {
       sort: "popularity",
     };
     const queryString = new URLSearchParams(searchData).toString();
-    navigate(`/searchedhotels?${queryString}`);
+    navigate(`/searched-hotels?${queryString}`);
   };
 
   //   useEffect(() => {

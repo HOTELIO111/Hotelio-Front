@@ -5,13 +5,21 @@ import HoteliLogo from '../../images/HotelioLogo.png'
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import { isMobile } from "react-device-detect";
+import Atropos from 'atropos/react';
+import { useDispatch } from "react-redux";
+import { GetHotelioEnquiry } from "../../store/actions/EnquiryAction";
+import Swal from "sweetalert2";
 
 const CardMember = () => {
+
+  const dispatch = useDispatch()
+
   const [formData, setFormData] = useState({
     name: "",
     company: "",
     email: "",
-    mobile: "",
+    mobileNo: "",
+    city: ""
   });
 
   const handleInputChange = (event) => {
@@ -24,22 +32,45 @@ const CardMember = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Handle form submission here, e.g., sending data to a server
-    console.log(formData);
+    dispatch(GetHotelioEnquiry(formData))
+    Swal.fire({
+      title: "Thank You!",
+      text: "Your request has been sent to the Hotelio team. We will connect with you soon.",
+      icon: "success"
+    })
+    setFormData({
+      name: "",
+      company: "",
+      email: "",
+      mobileNo: "",
+      city: ""
+    });
   };
 
   return (
     <Grid sx={{ borderTop: '2px solid #ee2e24' }} container spacing={2} padding={2} pb={12}>
       <Grid paddingTop={0} item xs={12}>
-        <div className={isMobile ? 'text-center text-white border-top border-bottom' : 'text-center text-white border-top border-bottom m-4 mx-5 py-4'}>
-          <Typography variant={isMobile ? 'h6' : 'h4'} fontWeight={800}><span style={{ color: '#ee2e24' }} ><b>Hotelio Business</b></span> is a corporate hotel booking solution by <span style={{ color: '#ee2e24' }} ><b>Hotelio</b></span></Typography>
+        <div className={isMobile ? 'text-center text-white border-top border-bottom ' : 'text-center text-white border-top border-bottom my-2 mx-5'}>
+          <Typography variant={isMobile ? 'body2' : 'h4'} fontWeight={800}>
+            <svg style={{ width: '100%', height: "80px" }}>
+              <text x="50%" y="50%" dy=".35em" text-anchor="middle">
+                Hotelio Business is a corporate hotel booking solution by Hotelio
+              </text>
+            </svg>
+          </Typography>
         </div>
       </Grid>
 
       <Grid item xs={12} lg={7} xl={7} xxl={7} style={{ display: 'grid', placeItems: 'center' }}>
         <div className="animate__animated animate__bounceInDown text-center">
-          <img src={HoteliLogo} style={{ height: '250px', width: '450px' }} className={isMobile ? 'w-100 h-25' : ''} alt="logo" />
-          <Typography fontWeight={800} color={"white"} variant={isMobile ? 'h6' : 'h5'} > "Grow your <span style={{ color: '#ee2e24' }}><i>Business</i> <TrendingUpIcon fontSize="large" /></span> and make your <span style={{ color: '#ee2e24' }}><b>profit double</b> <KeyboardDoubleArrowUpIcon fontSize="large" /> </span>"</Typography>
+          <Atropos
+            activeOffset={40}
+            shadow={false}
+          >
+            <img src={HoteliLogo} style={{ height: '250px', width: '450px' }} className={isMobile ? 'w-100 h-25' : ''} alt="logo" />
+            <Typography fontWeight={800} color={"white"} variant={isMobile ? 'h6' : 'h5'} > "Grow your <span style={{ color: '#ee2e24' }}><i>Business</i> <TrendingUpIcon fontSize="large" /></span> and make your <span style={{ color: '#ee2e24' }}><b>profit double</b> <KeyboardDoubleArrowUpIcon fontSize="large" /> </span>"</Typography>
+          </Atropos>
+
         </div>
       </Grid>
 
@@ -51,6 +82,7 @@ const CardMember = () => {
             fullWidth
             id="name"
             name="name"
+            type="text"
             label="Name"
             value={formData.name}
             onChange={handleInputChange}
@@ -63,8 +95,22 @@ const CardMember = () => {
             fullWidth
             id="company"
             name="company"
-            label="Company"
+            type="text"
+            label="Hotel Name"
             value={formData.company}
+            onChange={handleInputChange}
+            variant="outlined"
+            margin="normal"
+          />
+
+          {/* City input */}
+          <TextField
+            fullWidth
+            id="city"
+            type="text"
+            name="city"
+            label="Enter city"
+            value={formData.city}
             onChange={handleInputChange}
             variant="outlined"
             margin="normal"
@@ -75,6 +121,7 @@ const CardMember = () => {
             fullWidth
             id="email"
             name="email"
+            type="email"
             label="Email address"
             value={formData.email}
             onChange={handleInputChange}
@@ -86,10 +133,16 @@ const CardMember = () => {
           <TextField
             fullWidth
             id="mobile"
-            name="mobile"
+            name="mobileNo"
             label="Mobile Number"
-            value={formData.mobile}
-            onChange={handleInputChange}
+            type="number"
+            value={formData.mobileNo}
+            onChange={(e) => {
+              const enteredValue = e.target.value.replace(/\D/g, '');
+              if (enteredValue.length <= 10) {
+                handleInputChange(e);
+              }
+            }}
             variant="outlined"
             margin="normal"
           />

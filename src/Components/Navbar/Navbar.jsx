@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./navbar.module.css";
 import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import $ from "jquery";
@@ -34,7 +34,6 @@ import { convertDatesToUTC } from "../../Utilis/_fuctions";
 import { useCollections } from "../../context/useStateManager";
 import { useSearch } from "../../context/useSearch";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
-import { useDispatch, useSelector } from "react-redux";
 
 const Navbar = ({ list }) => {
   // Locatio Asked function
@@ -241,7 +240,7 @@ const Navbar = ({ list }) => {
     if (manageRoom[0].guest === 0)
       return window.alert("please select the room and guest ");
     const queryString = new URLSearchParams(searchData).toString();
-    navigate(`/searchedhotels?${queryString}`);
+    navigate(`/searched-hotels?${queryString}`);
   };
 
   const MarginMobile = {
@@ -316,7 +315,7 @@ const Navbar = ({ list }) => {
                         }}
                       >
                         <NavLink
-                          to="/about"
+                          to="/about-us"
                           className={`${!list ? "text-dark" : ""}`}
                         >
                           {/* {console.log(GetPlaceInfo('chennai')) */}
@@ -333,7 +332,7 @@ const Navbar = ({ list }) => {
                       >
                         <NavLink
                           target="_blank"
-                          to="/hoteliomember"
+                          to="/hotelio-member"
                           className={`${!list ? "text-dark" : ""}`}
                         >
                           <BsFillBuildingsFill /> Become a Hotelio Partner
@@ -487,7 +486,7 @@ const Navbar = ({ list }) => {
                               >
                                 <NavLink
                                   className="text-dark"
-                                  to="/YourBooking"
+                                  to="/booking-history"
                                 >
                                   Booking History
                                 </NavLink>
@@ -506,7 +505,7 @@ const Navbar = ({ list }) => {
                                 disableRipple
                                 sx={{ textAlign: "center" }}
                               >
-                                <NavLink className="text-dark" to="/about">
+                                <NavLink className="text-dark" to="/about-us">
                                   About Us
                                 </NavLink>
                               </MenuItem>
@@ -524,7 +523,7 @@ const Navbar = ({ list }) => {
                         <span className={style.main_white_button}></span>
                       </li>
                     </ul>
-                    <a
+                    <div
                       className={`${style.menu_trigger} ${menuOpen ? style.active : ""
                         }`}
                       onClick={() => {
@@ -535,7 +534,7 @@ const Navbar = ({ list }) => {
                       }}
                     >
                       <span>Menu</span>
-                    </a>
+                    </div>
                   </div>
                 </div>
                 <div

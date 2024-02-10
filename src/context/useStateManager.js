@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState } from "react";
 import { createContext, useContext } from "react";
 import instance from "../store/_utils";
@@ -38,7 +37,7 @@ const StateManagerProvider = ({ children }) => {
   const handleCityClick = async (city) => {
     const checkIn = new Date();
     const checkOut = new Date(checkIn.getTime() + 24 * 60 * 60 * 1000);
-    const { geometry, location, data } = await GetPlaceInfo(city);
+    const { geometry, location} = await GetPlaceInfo(city);
 
     // Construct the search data
     const searchData = {
@@ -57,7 +56,7 @@ const StateManagerProvider = ({ children }) => {
 
     // Construct the URL with query parameters
     const queryParams = new URLSearchParams(searchData);
-    const targetURL = `/searchedhotels?${queryParams.toString()}`;
+    const targetURL = `/searched-hotels?${queryParams.toString()}`;
 
     window.location.href = targetURL;
   };

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
@@ -14,7 +14,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { BookingProvider } from "./context/useBooking";
 import CssBaseline from "@mui/material/CssBaseline";
 import { StateManagerProvider } from "./context/useStateManager";
-import OfferProvider from "./context/useOffers";
+import 'atropos/css'
 const customTheme = createTheme({
   typography: {
     fontFamily: "Baloo 2",

@@ -111,7 +111,7 @@ export default function MobileFooter() {
                         }
                         {
                             currentUser &&
-                                <li style={{ borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate('/YourBooking')} ><FeaturedPlayListIcon sx={{ mr: 2 }} /> My Booking</Typography></li>
+                                <li style={{ borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate('/booking-history')} ><FeaturedPlayListIcon sx={{ mr: 2 }} /> My Booking</Typography></li>
                         }
                         <li style={{ borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate('/About_Us')} ><InfoRoundedIcon sx={{ mr: 2 }} /> About Us</Typography></li>
                         <li style={{ borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate('/Contact_Us')} ><PermPhoneMsgRoundedIcon sx={{ mr: 2 }} /> Contact Us</Typography></li>

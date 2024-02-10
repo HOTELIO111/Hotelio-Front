@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Autocomplete, Button, FormControl, Grid, IconButton, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Button, FormControl, Grid, IconButton} from '@mui/material';
 import MobileFooter from './MobileFooter';
 import Premiumcard from './Premiumcard';
 import MobileSlider from './MobileSlider';
@@ -10,8 +10,6 @@ import { Offcanvas } from 'react-bootstrap';
 import MainBannerMob from '../../images/MainBannerMob.jpg'
 import { LoadingButton } from '@mui/lab';
 import { Helmet } from 'react-helmet';
-import axios from 'axios';
-import { API_URL } from '../../config';
 import { useNavigate } from 'react-router-dom';
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -21,23 +19,23 @@ const MobileNav = () => {
 
     const navigate = useNavigate();
     const [manageRoom, setManageRoom] = useState([{ room: 1, guest: 1 }]);
-    const [citites, setCities] = useState(null);
+    // const [citites, setCities] = useState(null);
     const [selectedCity, setSlectedCity] = useState(null);
     const [geoLoc, setGeoLoc] = useState({ longitude: "", latitude: "" });
-    const GetAllCities = async () => {
-        try {
-            const response = await axios.get(`${API_URL}/hotel/get/city`);
-            if (response.status === 200) {
-                setCities(response.data.data);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    // const GetAllCities = async () => {
+    //     try {
+    //         const response = await axios.get(`${API_URL}/hotel/get/city`);
+    //         if (response.status === 200) {
+    //             setCities(response.data.data);
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
 
-    useEffect(() => {
-        GetAllCities();
-    }, []);
+    // useEffect(() => {
+    //     GetAllCities();
+    // }, []);
 
     const searchData = {
         // location: selectedCity,
@@ -56,7 +54,7 @@ const MobileNav = () => {
         if (manageRoom[0].guest === 0)
             return window.alert("please select the room and guest ");
         const queryString = new URLSearchParams(searchData).toString();
-        navigate(`/searchedhotels?${queryString}`);
+        navigate(`/searched-hotels?${queryString}`);
     };
 
     const autoCompleteRef = useRef();
@@ -89,12 +87,6 @@ const MobileNav = () => {
             console.log(error);
         }
     }, []);
-
-    const top100Films = [
-        { label: 'The Shawshank Redemption' },
-        { label: 'The Godfather' },
-        { label: 'The Godfather: Part II' },
-    ]
 
     const [show, setShow] = useState(false);
 

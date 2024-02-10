@@ -5,38 +5,26 @@ import {
   Slider,
   Typography,
   Radio,
-  RadioGroup,
 } from "@mui/material";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useAuthContext } from "../../context/userAuthContext";
 import { useEffect } from "react";
 import MobileDate from "../../Components/MobileComponent/MobileDate";
 import { LoadingButton } from "@mui/lab";
 import GlobalModal from "../../Components/Global/GlobalModal";
-import { convertDatesFromUTC, convertDatesToUTC } from "../../Utilis/_fuctions";
 import { useCollections } from "../../context/useStateManager";
 import { useSearch } from "../../context/useSearch";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 
 const LocatinSideFilter = ({ handleFilterChange, filter, setFilter }) => {
   const { city } = useParams();
-  const [priceRange, setPriceRange] = useState([0, 20000]);
   const { roomType, amenities, propertyType } = useAuthContext();
-  const [selectedRoomTypes, setSelectedRoomTypes] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const currentSearchParams = Object.fromEntries(searchParams.entries());
-
-  const { getSearchHotel } = useSearch();
   const navigate = useNavigate();
-
-  const [selectedLocations, setSelectedLocations] = useState(
-    currentSearchParams.location
-  );
   const { checkInCheckOut, setCheckInCheckOut } = useCollections();
-
   const { placeData, selectedPlace, setSelectedPlace } = useSearch();
-
   const [selectedGuest, setselectedGuest] = useState(parseInt(1));
   const [selectedRoom, setselectedRoom] = useState(parseInt(1));
 
@@ -66,14 +54,6 @@ const LocatinSideFilter = ({ handleFilterChange, filter, setFilter }) => {
     textAlign: "left",
   };
 
-  // to update the query search value
-  const updateSearchQuery = async ({ ...args }) => {
-    const updatedSearchParams = {
-      ...currentSearchParams,
-      ...args,
-    };
-    setSearchParams(new URLSearchParams(updatedSearchParams));
-  };
 
   // update the rest location data here
 
@@ -159,7 +139,7 @@ const LocatinSideFilter = ({ handleFilterChange, filter, setFilter }) => {
           : "popularity",
       };
       const urlsearchParams = new URLSearchParams(querySearch).toString();
-      navigate(`/searchedhotels?${urlsearchParams}`);
+      navigate(`/searched-hotels?${urlsearchParams}`);
     } else {
       const querySearch = {
         checkIn: new Date(checkInCheckOut[0]?.$d).toISOString(),
@@ -180,11 +160,11 @@ const LocatinSideFilter = ({ handleFilterChange, filter, setFilter }) => {
         lng: placeData?.longitude,
       });
     }
-  }, [placeData]);
+  }, [placeData, changePlaceSearch]);
 
   useEffect(() => {
     setSearchParams({ totalRooms: selectedRoom, totalGuest: selectedGuest });
-  }, [selectedGuest, selectedRoom]);
+  }, [selectedGuest, selectedRoom, setSearchParams]);
 
   return (
     <Grid
@@ -443,7 +423,7 @@ const LocatinSideFilter = ({ handleFilterChange, filter, setFilter }) => {
                       handleFilterChange(e.target.name, item?._id)
                     }
                     sx={{ padding: "2px", marginLeft: "10px" }}
-                    // checked={currentSearchParams.hotelType === item?._id}
+                  // checked={currentSearchParams.hotelType === item?._id}
                   />
                 }
                 label={item?.title}

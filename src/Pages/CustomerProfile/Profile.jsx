@@ -22,7 +22,7 @@ import { API_URL } from "../../config";
 
 const Profile = () => {
 
-  const { sendOtp, otpResp, Loader, setLoader, currentUser, setCurrentUser } =
+  const { sendOtp, otpResp, Loader, currentUser, setCurrentUser } =
     useAuthContext();
   // State variables
   const [profiledetailUpdate, setprofiledetailUpdate] = useState(false);
@@ -186,7 +186,7 @@ const Profile = () => {
               <div className={`${style.image}`} style={{ maxWidth: '100%', position: 'relative' }}>
                 <img
                   src={currentUser?.avatar || "https://i.postimg.cc/bryMmCQB/profile-image.jpg"}
-                  alt="Profile Image"
+                  alt="ProfileImage"
                 />
                 <div style={{ position: 'absolute', left: '60%', transform: 'translateX(-50%)', bottom: 0 }}>
                   <IconButton onClick={() => document.getElementById('clickMe').click()} variant='text'><BorderColorIcon color='dark' /></IconButton>
