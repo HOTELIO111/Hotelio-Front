@@ -474,7 +474,7 @@ const Navbar = ({ list }) => {
                               >
                                 <NavLink
                                   className="text-dark"
-                                  to={`/CustomerProfile/${currentUser._id}`}
+                                  to={`/customer-profile/${currentUser._id}`}
                                 >
                                   My Profile
                                 </NavLink>

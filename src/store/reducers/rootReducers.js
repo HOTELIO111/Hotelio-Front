@@ -10,6 +10,7 @@ import { GetBookingOffersReducers } from "./OffersReducers";
 import { GetBookingRegisterReducer } from "./BookingReducers";
 import { GetBookingHistoryReducers } from "./BookingHistoryReducers"
 import {GetContactUsReducer} from "./ContactUsReducers"
+import {GetHotelioReviewReducer} from "./HotelioReviewReducer"
 
 const rootReducers = combineReducers({
   GetSearchedHotelsReducers,
@@ -22,7 +23,8 @@ const rootReducers = combineReducers({
   GetSingleHotelReducers,
   GetHotelBillCalculationReducers,
   GetBookingHistoryReducers,
-  GetContactUsReducer
+  GetContactUsReducer,
+  GetHotelioReviewReducer
 });
 
 export default rootReducers;

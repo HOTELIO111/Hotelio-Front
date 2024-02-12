@@ -3,7 +3,6 @@ import instance from '../_utils'
 import * as constant from './../constants/BookingHistoryConstants'
 
 export const GetBookingHistoryAction = (customerid) => {
-    console.log(customerid)
     return async (dispatch) => {
         dispatch({ type: constant.CREATE_BOOKINGHISTORY_API_LOADING })
         try {

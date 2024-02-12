@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Swal from 'sweetalert2';
 import Grid from '@mui/material/Grid';
+import Skeleton from "react-loading-skeleton";
 import { useDispatch, useSelector } from 'react-redux';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useAuthContext } from "../../context/userAuthContext";
@@ -149,185 +150,237 @@ export default function List() {
             </Typography>
             <ReviewModal />
             {
-                BookingData?.data?.data?.map((item, index) => {
-                    return (
-                        <Grid container spacing={0} my={1} key={index} sx={{ boxShadow: '10px 10px 34px 0px rgba(0,0,0,0.15)' }}>
-                            <Grid item xs={12} lg={4}>
-                                <img
-                                    style={{ borderRadius: '5px 0px 0px 0px', width: '100%', maxHeight: '250px', objectFit: 'cover', minHeight: '250px' }}
-                                    src={item?.hotel?.[0]?.hotelCoverImg}
-                                    alt="hotel"
-                                />
-                            </Grid>
-                            <Grid item xs={12} lg={8}>
-                                <Card sx={{ display: 'flex', borderRadius: '0px 5px 0px 0px', height: '100%' }}>
-                                    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                                        <CardContent sx={{ flex: '1 0 auto' }}>
-                                            <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-                                                <Typography component="div" variant="h5">
-                                                    {item?.hotel?.[0]?.hotelName}
+                BookingData?.data ?
+                    BookingData?.data?.data?.map((item, index) => {
+                        return (
+                            <Grid container spacing={0} my={1} key={index} sx={{ boxShadow: '10px 10px 34px 0px rgba(0,0,0,0.15)' }}>
+                                <Grid item xs={12} lg={4}>
+                                    <img
+                                        style={{ borderRadius: '5px 0px 0px 0px', width: '100%', maxHeight: '250px', objectFit: 'cover', minHeight: '250px' }}
+                                        src={item?.hotel?.[0]?.hotelCoverImg}
+                                        alt="hotel"
+                                    />
+                                </Grid>
+                                <Grid item xs={12} lg={8}>
+                                    <Card sx={{ display: 'flex', borderRadius: '0px 5px 0px 0px', height: '100%' }}>
+                                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                                            <CardContent sx={{ flex: '1 0 auto' }}>
+                                                <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+                                                    <Typography component="div" variant="h5">
+                                                        {item?.hotel?.[0]?.hotelName}
+                                                    </Typography>
+                                                    {/* <Timer initialTime={time} /> */}
+                                                </Box>
+                                                <Typography component="div" variant="p">
+                                                    {item?.hotel?.[0]?.reviews.length} ({item?.hotel?.[0]?.reviews.length} reviews)
                                                 </Typography>
-                                                {/* <Timer initialTime={time} /> */}
+                                                <Rating name="read-only" value={item?.hotel?.[0]?.hotelRatings} readOnly />
+                                            </CardContent>
+                                            <Box sx={{ pl: 1, pb: 1 }}>
+                                                {item?.hotel?.[0]?.discription && (
+                                                    <span>
+                                                        {item?.hotel[0]?.discription.substring(0, 200)}...
+                                                    </span>
+                                                )}
+                                                <CardActions>
+                                                    <Grid spacing={1} container>
+                                                        <Grid item xs={12} lg={6} xl={6}>
+                                                            <div>
+                                                                <Button color='error' href={`/searchedhotel/${item?.hotel?.[0]?._id}`} variant="contained" size="medium">View Hotel</Button>
+                                                                <Button onClick={AlertBox} sx={{ ml: 1 }} variant="outlined" color="error" size="medium">Cancel</Button>
+                                                            </div>
+                                                        </Grid>
+                                                        <Grid item xs={12} lg={6} xl={6} sx={{ display: 'flex', justifyContent: 'end' }}>
+                                                            <Button variant="contained" color='error' onClick={handleOpen} size="medium">Share review</Button>
+                                                        </Grid>
+                                                    </Grid>
+
+                                                </CardActions>
                                             </Box>
-                                            <Typography component="div" variant="p">
-                                                {item?.hotel?.[0]?.reviews.length} ({item?.hotel?.[0]?.reviews.length} reviews)
-                                            </Typography>
-                                            <Rating name="read-only" value={item?.hotel?.[0]?.hotelRatings} readOnly />
-                                        </CardContent>
-                                        <Box sx={{ pl: 1, pb: 1 }}>
-                                            {item?.hotel?.[0]?.discription && (
-                                                <span>
-                                                    {item?.hotel[0]?.discription.substring(0, 200)}...
-                                                </span>
-                                            )}
-                                            <CardActions>
-                                                <Grid spacing={1} container>
-                                                    <Grid item xs={12} lg={6} xl={6}>
-                                                        <div>
-                                                            <Button color='error' href={`/searchedhotel/${item?.hotel?.[0]?._id}`} variant="contained" size="medium">View Hotel</Button>
-                                                            <Button onClick={AlertBox} sx={{ ml: 1 }} variant="outlined" color="error" size="medium">Cancel</Button>
+                                        </Box>
+                                    </Card>
+                                </Grid>
+                                <Grid sx={{ borderTop: '2px solid #ee2e24' }} item xs={12} sm={12}>
+                                    <Accordion sx={{ borderRadius: '0px' }}>
+                                        <AccordionSummary
+                                            expandIcon={<ExpandMoreIcon />}
+                                            aria-controls="panel1a-content"
+                                            id="panel1a-header"
+                                        >
+                                            <Button variant="contained" color='error' size="medium">Check Details</Button>
+                                        </AccordionSummary>
+                                        <AccordionDetails>
+                                            <Card sx={{ bgcolor: 'transparent', boxShadow: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset', borderRadius: '15px' }} className="p-1">
+
+                                                <Grid spacing={2} p={1} container>
+                                                    <Grid item xs={12} lg={6}>
+                                                        <div className="d-flex align-items-center border-bottom">
+                                                            <Typography fontWeight={700} variant="p">
+                                                                BOOKING ID :
+                                                            </Typography>
+                                                            <Typography fontWeight={800} sx={{ pl: 2.5 }} variant="h6">
+                                                                {item?.bookingId}
+                                                            </Typography>
                                                         </div>
                                                     </Grid>
-                                                    <Grid item xs={12} lg={6} xl={6} sx={{ display: 'flex', justifyContent: 'end' }}>
-                                                        <Button variant="contained" color='error' onClick={handleOpen} size="medium">Share review</Button>
+                                                    <Grid item xs={12} lg={6}>
+                                                        <div className="d-flex align-items-center border-bottom">
+                                                            <Typography fontWeight={700} variant="p">
+                                                                BOOKING DATE & TIME :
+                                                            </Typography>
+                                                            <Typography sx={{ pl: 2.5 }} variant="h6">
+                                                                {moment(item?.dateOfBooking).format('DD-MM-YYYY, h:mm a')}
+                                                            </Typography>
+                                                        </div>
                                                     </Grid>
+                                                    <Grid item xs={12} lg={6}>
+                                                        <div className="d-flex align-items-center  border-bottom">
+                                                            <Typography fontWeight={700} variant="p">
+                                                                CHECK IN :
+                                                            </Typography>
+                                                            <Typography sx={{ pl: 2.5 }} variant="h6">
+                                                                {moment(item?.bookingDate?.checkIn).format('DD-MM-YYYY, h:mm a')}
+                                                            </Typography>
+                                                        </div>
+                                                    </Grid>
+                                                    <Grid item xs={12} lg={6}>
+                                                        <div className="d-flex align-items-center  border-bottom">
+                                                            <Typography fontWeight={700} variant="p">
+                                                                CHECK OUT :
+                                                            </Typography>
+                                                            <Typography sx={{ pl: 2.5 }} variant="h6">
+                                                                {moment(item?.bookingDate?.checkOut).format('DD-MM-YYYY, h:mm a')}
+                                                            </Typography>
+                                                        </div>
+                                                    </Grid>
+                                                    <Grid item xs={12} lg={6}>
+                                                        <div className="d-flex align-items-center  border-bottom">
+                                                            <Typography fontWeight={700} variant="p">
+                                                                NO OF DAYS & NIGHT :
+                                                            </Typography>
+                                                            <Typography sx={{ pl: 2.5 }} variant="h6">
+                                                                {totalLengthOfStay(item?.bookingDate?.checkIn, item?.bookingDate?.checkOut)} NIGHT
+                                                            </Typography>
+                                                        </div>
+                                                    </Grid>
+                                                    <Grid item xs={12} lg={6}>
+                                                        <div className="d-flex align-items-center  border-bottom">
+                                                            <Typography fontWeight={700} variant="p">
+                                                                NO OF GUEST :
+                                                            </Typography>
+                                                            <Typography sx={{ pl: 2.5 }} variant="h6">
+                                                                {item?.numberOfGuests?.adults} Guest, {item?.numberOfRooms} Room
+                                                            </Typography>
+                                                        </div>
+                                                    </Grid>
+                                                    <Grid item xs={12} lg={6}>
+                                                        <div className="d-flex align-items-center border-bottom">
+                                                            <Typography fontWeight={700} variant="p">
+                                                                TXN ID :
+                                                            </Typography>
+                                                            <Typography sx={{ pl: 2.5 }} variant="h6">
+                                                                NA
+                                                            </Typography>
+                                                        </div>
+                                                    </Grid>
+                                                    <Grid item xs={12} lg={6}>
+                                                        <div className="d-flex align-items-center  border-bottom">
+                                                            <Typography fontWeight={700} variant="p">
+                                                                BOOKING STATUS :
+                                                            </Typography>
+                                                            <Typography sx={{ pl: 2.5 }} variant="h6">
+                                                                {item?.bookingStatus}
+                                                            </Typography>
+                                                        </div>
+                                                    </Grid>
+                                                    <Grid item xs={12} lg={6}>
+                                                        <div className="d-flex align-items-center">
+                                                            <Typography fontWeight={700} variant="p">
+                                                                PAYMENT METHOD :
+                                                            </Typography>
+                                                            <Typography sx={{ pl: 2 }} variant="h6">
+                                                                {item?.payment?.paymentType}
+                                                            </Typography>
+                                                        </div>
+                                                    </Grid>
+                                                    <Grid item xs={12} lg={6}>
+                                                        <div className="d-flex align-items-center">
+                                                            <Typography fontWeight={700} variant="p">
+                                                                PAID AMOUNT :
+                                                            </Typography>
+                                                            <Typography sx={{ pl: 2 }} variant="h6">
+                                                                {item?.payment?.payments && item.payment.payments.length === 0 ? (
+                                                                    <Button variant="contained" size='small' color="primary">
+                                                                        Pay Now
+                                                                    </Button>
+                                                                ) : (
+                                                                    item?.payment?.payments
+                                                                )}
+
+                                                            </Typography>
+                                                        </div>
+                                                    </Grid>
+
                                                 </Grid>
 
-                                            </CardActions>
-                                        </Box>
-                                    </Box>
-                                </Card>
+                                            </Card>
+                                        </AccordionDetails>
+                                    </Accordion>
+                                </Grid>
                             </Grid>
-                            <Grid sx={{ borderTop: '2px solid #ee2e24' }} item xs={12} sm={12}>
-                                <Accordion sx={{ borderRadius: '0px' }}>
-                                    <AccordionSummary
-                                        expandIcon={<ExpandMoreIcon />}
-                                        aria-controls="panel1a-content"
-                                        id="panel1a-header"
-                                    >
-                                        <Button variant="contained" color='error' size="medium">Check Details</Button>
-                                    </AccordionSummary>
-                                    <AccordionDetails>
-                                        <Card sx={{ bgcolor: 'transparent', boxShadow: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset', borderRadius: '15px' }} className="p-1">
-
-                                            <Grid spacing={2} p={1} container>
-                                                <Grid item xs={12} lg={6}>
-                                                    <div className="d-flex align-items-center border-bottom">
-                                                        <Typography fontWeight={700} variant="p">
-                                                            BOOKING ID :
-                                                        </Typography>
-                                                        <Typography fontWeight={800} sx={{ pl: 2.5 }} variant="h6">
-                                                            {item?.bookingId}
-                                                        </Typography>
-                                                    </div>
-                                                </Grid>
-                                                <Grid item xs={12} lg={6}>
-                                                    <div className="d-flex align-items-center border-bottom">
-                                                        <Typography fontWeight={700} variant="p">
-                                                            BOOKING DATE & TIME :
-                                                        </Typography>
-                                                        <Typography sx={{ pl: 2.5 }} variant="h6">
-                                                            {moment(item?.dateOfBooking).format('DD-MM-YYYY, h:mm a')}
-                                                        </Typography>
-                                                    </div>
-                                                </Grid>
-                                                <Grid item xs={12} lg={6}>
-                                                    <div className="d-flex align-items-center  border-bottom">
-                                                        <Typography fontWeight={700} variant="p">
-                                                            CHECK IN :
-                                                        </Typography>
-                                                        <Typography sx={{ pl: 2.5 }} variant="h6">
-                                                            {moment(item?.bookingDate?.checkIn).format('DD-MM-YYYY, h:mm a')}
-                                                        </Typography>
-                                                    </div>
-                                                </Grid>
-                                                <Grid item xs={12} lg={6}>
-                                                    <div className="d-flex align-items-center  border-bottom">
-                                                        <Typography fontWeight={700} variant="p">
-                                                            CHECK OUT :
-                                                        </Typography>
-                                                        <Typography sx={{ pl: 2.5 }} variant="h6">
-                                                            {moment(item?.bookingDate?.checkOut).format('DD-MM-YYYY, h:mm a')}
-                                                        </Typography>
-                                                    </div>
-                                                </Grid>
-                                                <Grid item xs={12} lg={6}>
-                                                    <div className="d-flex align-items-center  border-bottom">
-                                                        <Typography fontWeight={700} variant="p">
-                                                            NO OF DAYS & NIGHT :
-                                                        </Typography>
-                                                        <Typography sx={{ pl: 2.5 }} variant="h6">
-                                                            {totalLengthOfStay(item?.bookingDate?.checkIn, item?.bookingDate?.checkOut)} NIGHT
-                                                        </Typography>
-                                                    </div>
-                                                </Grid>
-                                                <Grid item xs={12} lg={6}>
-                                                    <div className="d-flex align-items-center  border-bottom">
-                                                        <Typography fontWeight={700} variant="p">
-                                                            NO OF GUEST :
-                                                        </Typography>
-                                                        <Typography sx={{ pl: 2.5 }} variant="h6">
-                                                            {item?.numberOfGuests?.adults} Guest, {item?.numberOfRooms} Room
-                                                        </Typography>
-                                                    </div>
-                                                </Grid>
-                                                <Grid item xs={12} lg={6}>
-                                                    <div className="d-flex align-items-center border-bottom">
-                                                        <Typography fontWeight={700} variant="p">
-                                                            TXN ID :
-                                                        </Typography>
-                                                        <Typography sx={{ pl: 2.5 }} variant="h6">
-                                                            NA
-                                                        </Typography>
-                                                    </div>
-                                                </Grid>
-                                                <Grid item xs={12} lg={6}>
-                                                    <div className="d-flex align-items-center  border-bottom">
-                                                        <Typography fontWeight={700} variant="p">
-                                                            BOOKING STATUS :
-                                                        </Typography>
-                                                        <Typography sx={{ pl: 2.5 }} variant="h6">
-                                                            {item?.bookingStatus}
-                                                        </Typography>
-                                                    </div>
-                                                </Grid>
-                                                <Grid item xs={12} lg={6}>
-                                                    <div className="d-flex align-items-center">
-                                                        <Typography fontWeight={700} variant="p">
-                                                            PAYMENT METHOD :
-                                                        </Typography>
-                                                        <Typography sx={{ pl: 2 }} variant="h6">
-                                                            {item?.payment?.paymentType}
-                                                        </Typography>
-                                                    </div>
-                                                </Grid>
-                                                <Grid item xs={12} lg={6}>
-                                                    <div className="d-flex align-items-center">
-                                                        <Typography fontWeight={700} variant="p">
-                                                            PAID AMOUNT :
-                                                        </Typography>
-                                                        <Typography sx={{ pl: 2 }} variant="h6">
-                                                            {item?.payment?.payments && item.payment.payments.length === 0 ? (
-                                                                <Button variant="contained" size='small' color="primary">
-                                                                    Pay Now
-                                                                </Button>
-                                                            ) : (
-                                                                item?.payment?.payments
-                                                            )}
-
-                                                        </Typography>
-                                                    </div>
-                                                </Grid>
-
-                                            </Grid>
-
-                                        </Card>
-                                    </AccordionDetails>
-                                </Accordion>
-                            </Grid>
+                        )
+                    }) : <Grid container my={1}>
+                        <Grid item xs={12} lg={6} xl={4}>
+                            <Skeleton
+                                duration={1}
+                                style={{
+                                    backgroundColor: "#ddd",
+                                    height: "250px",
+                                    width: "100%",
+                                }}
+                            />
                         </Grid>
-                    )
-                })
+                        <Grid item xs={12} lg={6} xl={8}>
+                            <div className="px-3 pt-2">
+                                <Skeleton
+                                    width="80%"
+                                    height={24}
+                                    duration={2}
+                                    style={{ backgroundColor: "#ddd" }}
+                                />
+                                <Skeleton
+                                    width="60%"
+                                    height={16}
+                                    duration={2}
+                                    style={{ backgroundColor: "#ddd" }}
+                                />
+                                <Skeleton
+                                    width="50%"
+                                    height={16}
+                                    duration={2}
+                                    style={{ backgroundColor: "#ddd" }}
+                                />
+                                <Skeleton
+                                    width="40%"
+                                    height={16}
+                                    duration={2}
+                                    style={{ backgroundColor: "#ddd" }}
+                                />
+                                <Skeleton
+                                    width="60%"
+                                    height={16}
+                                    duration={2}
+                                    style={{ backgroundColor: "#ddd" }}
+                                />
+                                <Skeleton
+                                    width="50%"
+                                    height={16}
+                                    duration={2}
+                                    style={{ backgroundColor: "#ddd" }}
+                                />
+                            </div>
+                        </Grid>
+                    </Grid>
             }
         </Container>
     );
