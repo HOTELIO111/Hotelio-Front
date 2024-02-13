@@ -7,13 +7,12 @@ import {
   Box,
   Card,
   Grid,
-  InputLabel,
   TextField,
   Typography,
 } from "@mui/material";
 import Skeleton from "react-loading-skeleton";
 
-function CcavForm({ BOOKINGDATA, BILL, roomData, DATAA }) {
+function CcavForm({ BOOKINGDATA, BILL, roomData, DATAA, actualPricetoPay }) {
   const inputStyle = {
     border: "none",
     borderBottom: "0px solid #000", // Optional: Add a bottom border for better visibility
@@ -312,7 +311,7 @@ function CcavForm({ BOOKINGDATA, BILL, roomData, DATAA }) {
                   type="text"
                   style={inputStyle}
                   name="amount"
-                  value="1.00"
+                  value={actualPricetoPay}
                   placeholder="Amount"
                   readOnly
                 />

@@ -91,9 +91,9 @@ const StepTwo = () => {
 
   useEffect(() => {
     if (searchBookingInfo.hid && searchBookingInfo.rid) {
-      dispatch(GetBookingOffers(searchBookingInfo.hid, searchBookingInfo.rid, "customer"))
+      dispatch(GetBookingOffers(searchBookingInfo.hid, searchBookingInfo.rid, "customer", roomData?.roomType?._id))
     }
-  }, [searchBookingInfo])
+  }, [searchBookingInfo, roomData])
 
 
   useEffect(() => {

@@ -245,7 +245,7 @@ export default function TravelBooking() {
                                                 <Grid spacing={1} container>
                                                     <Grid item xs={12} lg={6} xl={6}>
                                                         <div>
-                                                            <Button href={`/searchedhotel/${item._id}`} variant="contained" color="error" size="medium">View Hotel</Button>
+                                                            <Button href={`/searched-hotel/${item._id}`} variant="contained" color="error" size="medium">View Hotel</Button>
                                                             <Button onClick={AlertBox} sx={{ ml: 1 }} variant="outlined" color="error" size="medium">Cancel</Button>
                                                         </div>
                                                     </Grid>

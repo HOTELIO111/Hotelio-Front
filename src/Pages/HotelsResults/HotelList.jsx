@@ -347,7 +347,7 @@ const HotelList = ({
                           onClick={() => {
                             if (loggedIn) {
                               navigate(
-                                `/searchedhotel/${items._id}?${bookingQueries}`
+                                `/searched-hotel/${items._id}?${bookingQueries}`
                               );
                             } else {
                               navigate("/signin");
@@ -367,7 +367,7 @@ const HotelList = ({
                           color="error"
                           onClick={() =>
                             navigate(
-                              `/searchedhotel/${items._id}?${bookingQueries}`
+                              `/searched-hotel/${items._id}?${bookingQueries}`
                             )
                           }
                         >

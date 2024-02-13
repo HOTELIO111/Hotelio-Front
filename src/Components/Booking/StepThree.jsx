@@ -108,6 +108,7 @@ const StepThree = () => {
                 BILL={BillingCalculate}
                 roomData={roomData}
                 DATAA={formData}
+                actualPricetoPay={calculate?.totalAmountToPay}
               />
             </Grid>
           </Grid>
