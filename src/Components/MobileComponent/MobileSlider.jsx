@@ -8,6 +8,9 @@ const CardContainer = styled(Paper)`
   background: transparent !important;
   box-shadow: none !important;
   padding: '4px';
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const StyledCard = styled(Card)`

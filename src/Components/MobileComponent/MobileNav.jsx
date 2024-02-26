@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Button, FormControl, Grid, IconButton} from '@mui/material';
+import { Button, FormControl, Grid, IconButton } from '@mui/material';
 import MobileFooter from './MobileFooter';
 import Premiumcard from './Premiumcard';
 import MobileSlider from './MobileSlider';
@@ -149,7 +149,7 @@ const MobileNav = () => {
                     style={{
                         background: `url(${MainBannerMob})`,
                         backgroundPosition: 'center',
-                        height: '25vh',
+                        height: '100vh',
                         width: '100%',
                         display: 'flex',
                         justifyContent: 'center',

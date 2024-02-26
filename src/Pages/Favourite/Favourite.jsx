@@ -1,14 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { Card, CardContent, Grid, Typography } from '@mui/material';
 import MobileHeader from '../../Components/MobileComponent/MobileHeader';
 import MobileFooter from '../../Components/MobileComponent/MobileFooter';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import { useAuthContext } from '../../context/userAuthContext';
+import { GetAllFavouriteAction } from '../../store/actions/favouritAction';
 
 
 const Favourite = () => {
 
+    const { currentUser } = useAuthContext();
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(GetAllFavouriteAction(currentUser?._id))
+    }, [])
+
+
+    const FavouriteList = useSelector((state) => state.GetAllFavouriteReducer.data);
+    console.log(FavouriteList?.data[0]?.favourites)
 
     const FavouriteData = [
         {
@@ -63,6 +76,12 @@ const Favourite = () => {
     margin-bottom: 2%;
 `;
 
+    const truncateDescription = (description) => {
+        const words = description.split(' ');
+        const truncatedWords = words.slice(0, 10);
+        return truncatedWords.join(' ');
+    };
+
     return (
         <div>
             <MobileHeader />
@@ -76,24 +95,24 @@ const Favourite = () => {
             </div>
             <Grid container sx={{ mb: 10 }} spacing={1}>
                 {
-                    FavouriteData.map((card, index) => (
+                    FavouriteList?.data[0]?.favourites.map((card, index) => (
 
                         <Grid sx={{ padding: 0 }} item xs={6} md={6}>
                             <StyledCard key={index}>
 
                                 <CardContent>
-                                    <img src={card.image} className='rounded' alt={`Image ${index}`} />
+                                    <img src={card?.hotelCoverImg} className='rounded' alt={`Image ${index}`} />
                                     <div className="d-flex justify-content-between">
                                         <Typography variant="caption" display="block" gutterBottom>
-                                            {card.title}
+                                            {card?.hotelName}
                                         </Typography>
                                         <Typography variant="caption" display="block" gutterBottom>
-                                            {card.content}
+                                            ({card?.reviews.length}/5 rating)
                                         </Typography>
                                     </div>
                                     {/* <Typography variant='small'></Typography> */}
                                     <Typography variant="caption" display="block" gutterBottom>
-                                        {card.para}
+                                        {truncateDescription(card?.discription)}
                                     </Typography>
                                 </CardContent>
                             </StyledCard>

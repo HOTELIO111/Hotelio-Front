@@ -20,6 +20,9 @@ const CardContainer = styled(Paper)`
   overflow-x: auto;
   background: transparent !important;
   box-shadow: none !important;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const StyledCard = styled(Card)`

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Navbar from "../../Components/Navbar/Navbar";
 import Footer from "../../Components/footer/Footer";
-// import PropertyList from "../../Components/propertyList/PropertyList";
+import { useSelector } from 'react-redux';
 import style from "./home.module.css";
 import { Typography, useMediaQuery } from "@mui/material";
 import Process from "../../Components/Process/Process";
@@ -13,7 +13,10 @@ import MobileNav from "../../Components/MobileComponent/MobileNav";
 import FirstTimePopup from "../FirstTimePopup/FirstTimePopup";
 import { Helmet } from "react-helmet";
 
-const Home = (props) => {
+const Home = () => {
+
+  const HotelReview = useSelector((state) => state.GetHotelioReviewReducer.data);
+
   const isXtraSmallScreen = useMediaQuery("(max-width: 450px)");
   useEffect(() => {
     const hasSeenPopup = localStorage.getItem('hasSeenPopup');
@@ -93,8 +96,7 @@ const Home = (props) => {
           </Typography>
         </div>
 
-        <Testimonial />
-
+        {HotelReview?.data?.length > 0 ? <Testimonial /> : null}
         <Footer />
       </div>
     </>
