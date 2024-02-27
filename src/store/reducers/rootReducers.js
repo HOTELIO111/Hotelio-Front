@@ -6,11 +6,11 @@ import {
 } from "../reducers/agentReducers";
 import { GetAllRoomTypReducer } from "./roomCategoriesReducers";
 import { GetALlPopularLocationReducer } from "./locationsReducers";
-import { GetBookingOffersReducers } from "./OffersReducers";
+import { GetAllBookingOffersReducers, GetBookingOffersReducers } from "./OffersReducers";
 import { GetBookingRegisterReducer } from "./BookingReducers";
 import { GetBookingHistoryReducers } from "./BookingHistoryReducers"
-import {GetContactUsReducer} from "./ContactUsReducers"
-import {GetHotelioReviewReducer} from "./HotelioReviewReducer"
+import { GetContactUsReducer } from "./ContactUsReducers"
+import { GetHotelioReviewReducer } from "./HotelioReviewReducer"
 import { GetAllFavouriteReducer } from "./favouriteReducers";
 
 const rootReducers = combineReducers({
@@ -26,7 +26,8 @@ const rootReducers = combineReducers({
   GetBookingHistoryReducers,
   GetContactUsReducer,
   GetHotelioReviewReducer,
-  GetAllFavouriteReducer
+  GetAllFavouriteReducer,
+  GetAllBookingOffersReducers
 });
 
 export default rootReducers;

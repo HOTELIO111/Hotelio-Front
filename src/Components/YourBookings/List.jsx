@@ -212,7 +212,7 @@ export default function List() {
                                         <AccordionDetails>
                                             <Card sx={{ bgcolor: 'transparent', boxShadow: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset', borderRadius: '15px' }} className="p-1">
 
-                                                <Grid spacing={2} p={1} container>
+                                                <Grid spacing={1} p={1} container>
                                                     <Grid item xs={12} lg={6}>
                                                         <div className="d-flex align-items-center border-bottom">
                                                             <Typography fontWeight={700} variant="p">

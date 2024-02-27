@@ -17,3 +17,16 @@ export const GetBookingOffers = (hotelid, roomid, validFor, roomType) => {
     }
 }
 
+export const GetAllBookingOffers = () => {
+    return async (dispatch) => {
+        dispatch({ type: constant.GET_ALL_OFFER_API_LOADING })
+        try {
+            const response = await instance.get(`/offers/get-offers`)
+            if (response.status === 200) {
+                dispatch({ type: constant.GET_ALL_OFFER_API_SUCCESS, payload: response.data })
+            }
+        } catch (error) {
+            dispatch({ type: constant.GET_ALL_OFFER_API_ERROR })
+        }
+    }
+}

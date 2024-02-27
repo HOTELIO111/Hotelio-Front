@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Card, CardContent, Grid, Typography } from '@mui/material';
+import { Card, CardContent, Grid, Typography, CardMedia, Box } from '@mui/material';
 import MobileHeader from '../../Components/MobileComponent/MobileHeader';
 import MobileFooter from '../../Components/MobileComponent/MobileFooter';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
@@ -17,56 +17,11 @@ const Favourite = () => {
 
     useEffect(() => {
         dispatch(GetAllFavouriteAction(currentUser?._id))
-    }, [])
+    }, [currentUser])
 
 
     const FavouriteList = useSelector((state) => state.GetAllFavouriteReducer.data);
-    console.log(FavouriteList?.data[0]?.favourites)
 
-    const FavouriteData = [
-        {
-            id: 1,
-            title: 'Hotel',
-            para: 'Lorem ipsum dolor sit amet.',
-            content: '(4.1 rating)',
-            image: 'https://passionbuz.com/wp-content/uploads/2019/09/luxurious-hotels-in-the-world-TITANIC-MARDAN-PALACE-1024x683.jpg',
-        },
-        {
-            id: 2,
-            title: 'Hotel',
-            para: 'Lorem ipsum dolor sit amet.',
-            content: '(4.1 rating)',
-            image: 'https://passionbuz.com/wp-content/uploads/2019/09/luxurious-hotels-in-the-world-TITANIC-MARDAN-PALACE-1024x683.jpg',
-        },
-        {
-            id: 3,
-            title: 'Hotel',
-            para: 'Lorem ipsum dolor sit amet.',
-            content: '(4.1 rating)',
-            image: 'https://passionbuz.com/wp-content/uploads/2019/09/luxurious-hotels-in-the-world-TITANIC-MARDAN-PALACE-1024x683.jpg',
-        },
-        {
-            id: 4,
-            title: 'Hotel',
-            para: 'Lorem ipsum dolor sit amet.',
-            content: '(4.1 rating)',
-            image: 'https://passionbuz.com/wp-content/uploads/2019/09/luxurious-hotels-in-the-world-TITANIC-MARDAN-PALACE-1024x683.jpg',
-        },
-        {
-            id: 5,
-            title: 'Hotel',
-            para: 'Lorem ipsum dolor sit amet.',
-            content: '(4.1 rating)',
-            image: 'https://passionbuz.com/wp-content/uploads/2019/09/luxurious-hotels-in-the-world-TITANIC-MARDAN-PALACE-1024x683.jpg',
-        },
-        {
-            id: 6,
-            title: 'Hotel',
-            para: 'Lorem ipsum dolor sit amet.',
-            content: '(4.1 rating)',
-            image: 'https://passionbuz.com/wp-content/uploads/2019/09/luxurious-hotels-in-the-world-TITANIC-MARDAN-PALACE-1024x683.jpg',
-        },
-    ]
 
     const navigate = useNavigate()
 
@@ -78,22 +33,22 @@ const Favourite = () => {
 
     const truncateDescription = (description) => {
         const words = description.split(' ');
-        const truncatedWords = words.slice(0, 10);
+        const truncatedWords = words.slice(0, 5);
         return truncatedWords.join(' ');
     };
 
     return (
-        <div>
+        <Box>
             <MobileHeader />
-            <div className='d-flex align-items-center'>
+            <Box className='d-flex align-items-center'>
                 <KeyboardArrowLeftIcon onClick={() => navigate(-1)} />
-                <div className='d-flex justify-content-center w-100'>
+                <Box className='d-flex justify-content-center w-100'>
                     <Typography variant="h6" gutterBottom>
                         Favourite
                     </Typography>
-                </div>
-            </div>
-            <Grid container sx={{ mb: 10 }} spacing={1}>
+                </Box>
+            </Box>
+            <Grid container sx={{ mb: 10 }} p={1} spacing={1}>
                 {
                     FavouriteList?.data[0]?.favourites.map((card, index) => (
 
@@ -101,15 +56,21 @@ const Favourite = () => {
                             <StyledCard key={index}>
 
                                 <CardContent>
-                                    <img src={card?.hotelCoverImg} className='rounded' alt={`Image ${index}`} />
-                                    <div className="d-flex justify-content-between">
+                                    <CardMedia
+                                        sx={{ borderRadius: 2 }}
+                                        component="img"
+                                        height="100"
+                                        image={card?.hotelCoverImg}
+                                        alt={`Image ${index}`}
+                                    />
+                                    <Box className="d-flex justify-content-between mt-1">
                                         <Typography variant="caption" display="block" gutterBottom>
                                             {card?.hotelName}
                                         </Typography>
                                         <Typography variant="caption" display="block" gutterBottom>
                                             ({card?.reviews.length}/5 rating)
                                         </Typography>
-                                    </div>
+                                    </Box>
                                     {/* <Typography variant='small'></Typography> */}
                                     <Typography variant="caption" display="block" gutterBottom>
                                         {truncateDescription(card?.discription)}
@@ -120,10 +81,10 @@ const Favourite = () => {
                     ))
                 }
             </Grid>
-            <div>
+            <Box>
                 <MobileFooter />
-            </div>
-        </div>
+            </Box>
+        </Box>
     )
 }
 

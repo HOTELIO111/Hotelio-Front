@@ -86,6 +86,7 @@ function App() {
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             backgroundAttachment: "fixed",
+            height:'100vh'
           }
           : {}
       }

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Button, FormControl, Grid, IconButton } from '@mui/material';
+import { Button, FormControl, Grid, IconButton, Box, Typography } from '@mui/material';
 import MobileFooter from './MobileFooter';
 import Premiumcard from './Premiumcard';
 import MobileSlider from './MobileSlider';
@@ -144,21 +144,21 @@ const MobileNav = () => {
 
             </Helmet>
             <MobileHeader />
-            <div>
-                <div
+            <Box>
+                <Box
                     style={{
                         background: `url(${MainBannerMob})`,
                         backgroundPosition: 'center',
-                        height: '100vh',
+                        height: '25vh',
                         width: '100%',
                         display: 'flex',
                         justifyContent: 'center',
                         color: '#000'
                     }}
                 >
-                    <h1 className='mt-3' ><b>Welcome To Hotelio Rooms</b></h1>
-                </div>
-                <div className="w-100">
+                    <Typography variant="h5" mt={2} fontWeight={700} color="initial">Welcome To Hotelio Rooms</Typography>
+                </Box>
+                <Box className="w-100">
                     <div className="row">
                         <div className="col-lg-12">
                             <div
@@ -227,7 +227,7 @@ const MobileNav = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </Box>
                 <Grid container padding={1} spacing={2}>
                     <Grid item xs={12} paddingBottom={6}>
                         <div className='text-center'>
@@ -251,7 +251,7 @@ const MobileNav = () => {
                         <MobileFooter />
                     </Grid>
                 </Grid>
-            </div >
+            </Box >
         </>
     )
 }

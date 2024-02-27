@@ -45,7 +45,7 @@ export default function MobileFooter() {
         };
 
 
-        const playStoreLink = 'https://play.google.com/store/apps/details?id=your_app_package_name';
+        const playStoreLink = 'https://play.google.com/store/apps/details?id=com.hotelio_owner';
 
         const [isLoggedIn, setIsLoggedIn] = useState(false);
         const [currentUser, setCurrentUser] = useState(
@@ -107,7 +107,7 @@ export default function MobileFooter() {
                         <li style={{ borderBottom: '1px solid #ee2e24' }} className='py-2'><a href={playStoreLink} target="_blank" rel="noopener noreferrer"><Typography color={'error'} variant='h6'><PhoneAndroidRoundedIcon sx={{ mr: 2 }} /> Download App </Typography></a></li>
                         {
                             currentUser &&
-                                <li style={{ borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate(`/CustomerProfile/${currentUser._id}`)} ><PersonIcon sx={{ mr: 2 }} /> Profile</Typography></li>
+                                <li style={{ borderBottom: '1px solid #ee2e24' }} className='py-2'><Typography variant='h6' onClick={() => navigate(`/Customer-Profile/${currentUser?._id}`)} ><PersonIcon sx={{ mr: 2 }} /> Profile</Typography></li>
                         }
                         {
                             currentUser &&
