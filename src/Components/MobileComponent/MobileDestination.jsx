@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Card, CardContent, Typography, Paper, Button } from '@mui/material';
 import AllcitiesIcon from '../../images/AllcitiesIcon.jpg'
 import LocationIcon from '../../images/LocationIcon.png'

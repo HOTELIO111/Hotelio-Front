@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card, CardContent, Typography, Container, Paper } from '@mui/material';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux'
+import { useAuthContext } from '../../context/userAuthContext';
+import { GetAllRecommendationAction } from '../../store/actions/recommendedAction';
 
 const CardContainer = styled(Paper)`
   display: flex;
@@ -51,7 +54,19 @@ const cardData = [
     },
 ];
 
-const ScrollableCardList = () => {
+const MobileCollections = () => {
+
+    const { currentUser } = useAuthContext();
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(GetAllRecommendationAction(currentUser._id))
+    }, [currentUser])
+
+
+    const RecommededData = useSelector((state) => state.GetAllRecommendedReducer.data);
+
     return (
         <>
             <CardContainer className='my-4'>
@@ -81,4 +96,4 @@ const ScrollableCardList = () => {
     );
 };
 
-export default ScrollableCardList;
+export default MobileCollections;

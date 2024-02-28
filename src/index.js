@@ -26,26 +26,24 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 const CLIENT_ID = GOOGLE_OAUTH_CLIENT_ID;
 
 root.render(
-  <React.StrictMode>
-    <GoogleOAuthProvider clientId={CLIENT_ID}>
-      <StateManagerProvider>
-        <SearchProvider>
-          <AuthProvider>
-            <BookingProvider>
-              <BrowserRouter>
-                <ThemeProvider theme={customTheme}>
-                    <Provider store={store}>
-                      <CssBaseline />
-                      <App />
-                    </Provider>
-                </ThemeProvider>
-              </BrowserRouter>
-            </BookingProvider>
-          </AuthProvider>
-        </SearchProvider>
-      </StateManagerProvider>
-    </GoogleOAuthProvider>
-  </React.StrictMode>
+  <GoogleOAuthProvider clientId={CLIENT_ID}>
+    <StateManagerProvider>
+      <SearchProvider>
+        <AuthProvider>
+          <BookingProvider>
+            <BrowserRouter>
+              <ThemeProvider theme={customTheme}>
+                <Provider store={store}>
+                  <CssBaseline />
+                  <App />
+                </Provider>
+              </ThemeProvider>
+            </BrowserRouter>
+          </BookingProvider>
+        </AuthProvider>
+      </SearchProvider>
+    </StateManagerProvider>
+  </GoogleOAuthProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

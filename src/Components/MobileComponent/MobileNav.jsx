@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Button, FormControl, Grid, IconButton, Box, Typography } from '@mui/material';
 import MobileFooter from './MobileFooter';
 import Premiumcard from './Premiumcard';
-import MobileSlider from './MobileSlider';
 import MobileDestination from './MobileDestination';
 import MobileHeader from './MobileHeader';
 import MobileDate from './MobileDate';
@@ -13,6 +12,8 @@ import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import MobileCollections from './MobileCollections';
+import MobileRecommended from './MobileRecommended';
 
 const MobileNav = () => {
 
@@ -240,11 +241,11 @@ const MobileNav = () => {
 
                             <h5 style={{ borderRadius: '50px 0px 50px 0px', background: '#ee2e24' }} className='p-2 py-2 pl-4 text-white'><b>Our collection</b></h5>
 
-                            <MobileSlider />
+                            <MobileCollections />
 
                             <h5 style={{ borderRadius: '50px 0px 50px 0px', background: '#ee2e24' }} className='p-2 py-2 pl-4 text-white'><b>Recommendation</b></h5>
 
-                            <MobileSlider />
+                            <MobileRecommended />
                         </div>
                     </Grid>
                     <Grid item xs={12}>

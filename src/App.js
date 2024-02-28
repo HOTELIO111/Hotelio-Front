@@ -40,29 +40,26 @@ import SeprateLocation from './Pages/SepratePage/SeprateLocation'
 
 function App() {
 
-  useEffect(() => {
-    // Check if the browser supports geolocation
-    if ("geolocation" in navigator) {
-      // Ask for the user's location
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          // Store the user's location in state
-          window.localStorage.setItem(
-            "location",
-            JSON.stringify({
-              longitude: position.coords.longitude,
-              latitude: position.coords.latitude,
-            })
-          );
-        },
-        (error) => {
-          console.error("Error getting location:", error);
-        }
-      );
-    } else {
-      console.log("Geolocation is not available in this browser.");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if ("geolocation" in navigator) {
+  //     navigator?.geolocation.getCurrentPosition(
+  //       (position) => {
+  //         window.localStorage.setItem(
+  //           "location",
+  //           JSON.stringify({
+  //             longitude: position.coords.longitude,
+  //             latitude: position.coords.latitude,
+  //           })
+  //         );
+  //       },
+  //       (error) => {
+  //         console.error("Error getting location:", error);
+  //       }
+  //     );
+  //   } else {
+  //     console.log("Geolocation is not available in this browser.");
+  //   }
+  // }, []);
 
   const hotelioroomsStructuredData = {
     "@context": "https://schema.org/",
@@ -86,7 +83,7 @@ function App() {
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             backgroundAttachment: "fixed",
-            height:'100vh'
+            height: '100vh'
           }
           : {}
       }

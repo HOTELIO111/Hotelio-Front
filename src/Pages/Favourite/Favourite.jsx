@@ -33,7 +33,7 @@ const Favourite = () => {
 
     const truncateDescription = (description) => {
         const words = description.split(' ');
-        const truncatedWords = words.slice(0, 5);
+        const truncatedWords = words.slice(0, 6);
         return truncatedWords.join(' ');
     };
 
@@ -68,12 +68,12 @@ const Favourite = () => {
                                             {card?.hotelName}
                                         </Typography>
                                         <Typography variant="caption" display="block" gutterBottom>
-                                            ({card?.reviews.length}/5 rating)
+                                            ({card?.rating} rating)
                                         </Typography>
                                     </Box>
                                     {/* <Typography variant='small'></Typography> */}
                                     <Typography variant="caption" display="block" gutterBottom>
-                                        {truncateDescription(card?.discription)}
+                                        {truncateDescription(card?.discription)}...
                                     </Typography>
                                 </CardContent>
                             </StyledCard>

@@ -22,7 +22,7 @@ const MobileOffer = () => {
 
 
     const OfferData = useSelector((state) => state.GetAllBookingOffersReducers.data);
-    console.log(OfferData)
+    
     const FavouriteData = [
         {
             id: 1,
