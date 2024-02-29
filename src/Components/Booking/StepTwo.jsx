@@ -147,6 +147,7 @@ const StepTwo = () => {
                       required
                       error={formData.email === undefined}
                       helperText={formData.email === undefined ? 'Please fill your email' : ''}
+                      autoComplete="email"
                     />
                   </Grid>
                   <Grid item sm={4}>

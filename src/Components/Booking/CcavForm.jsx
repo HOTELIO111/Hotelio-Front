@@ -311,7 +311,8 @@ function CcavForm({ BOOKINGDATA, BILL, roomData, DATAA, actualPricetoPay }) {
                   type="text"
                   style={inputStyle}
                   name="amount"
-                  value={actualPricetoPay}
+                  value={"1"}
+                  // value={actualPricetoPay}
                   placeholder="Amount"
                   readOnly
                 />
@@ -562,7 +563,15 @@ function CcavForm({ BOOKINGDATA, BILL, roomData, DATAA, actualPricetoPay }) {
                 />
               </Grid>
 
-              <Grid item xs={12} lg={12} p={1}>
+              <Grid item xs={12} lg={6} p={1}>
+                <input
+                  type="submit"
+                  name="merchant_param1"
+                  value="Part Pay"
+                  style={{ padding: "1rem 0rem", borderRadius: "27px", margin: '1px' }}
+                />
+              </Grid>
+              <Grid item xs={12} lg={6} p={1}>
                 <LoadingButton
                   fullWidth
                   // loading={true}

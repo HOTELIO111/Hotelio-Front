@@ -33,7 +33,7 @@ const BookingSteps = () => {
         return;
       }
 
-      const { name, email, mobileNo } = formData;
+      let { name, email, mobileNo } = formData;
 
       if (!name || !email || !mobileNo) {
         Swal.fire({
@@ -54,12 +54,9 @@ const BookingSteps = () => {
       if (!swalResult.isConfirmed) {
         return;
       }
-
-      // Booking Create API
-
       const booking = await CreateBooking(bookingObject);
 
-      if (booking.error === false) {
+      if (!booking.error) {
         setCurrentStep(currentStep + 1);
       } else {
         handleBookingError(booking.error, booking.status);

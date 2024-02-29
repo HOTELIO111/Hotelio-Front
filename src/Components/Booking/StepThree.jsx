@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Box, Grid, Tooltip, Typography } from "@mui/material";
+import React from "react";
 import "./BookingSteps.css";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import BookingInfo from "./BookingInfo";
 import CcavForm from "./CcavForm";
-import { useBooking } from "../../context/useBooking";
-import { useSelector } from "react-redux";
-import { useCollections } from "../../context/useStateManager";
 import Countdown from "react-countdown";
+import BookingInfo from "./BookingInfo";
+import { useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
+import { useBooking } from "../../context/useBooking";
+import { Box, Grid, Tooltip, Typography } from "@mui/material";
+import { useCollections } from "../../context/useStateManager";
 
 const StepThree = () => {
 
@@ -21,11 +21,8 @@ const StepThree = () => {
   const calculate = useSelector((state) => state.GetHotelBillCalculationReducers?.data?.data);
   const { formData } = useCollections();
 
- 
-  const Completionist = () => <span>You are good to go!</span>;
-
   // Renderer callback with condition
-  const renderer = ({ hours, minutes, seconds, completed }) => {
+  const renderer = ({ minutes, seconds, completed }) => {
     if (completed) {
       // Render a completed state
       return document.getElementById('FormfillDone').click();
@@ -81,12 +78,6 @@ const StepThree = () => {
                   >
                     {userBookingDetails?.bookingStatus}
                   </Typography>
-                  {/* <Typography
-                    variant="h6"
-                    gutterBottom
-                    className="text-warning fw-bolder"
-                  > */}
-                  {/* </Typography> */}
                   <Countdown date={Date.now(userBookingDetails?.createdAt) + 300000}
                     renderer={renderer}
                   />
