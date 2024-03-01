@@ -30,7 +30,7 @@ const MobileRecommended = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(GetAllRecommendationAction(currentUser._id))
+        dispatch(GetAllRecommendationAction(currentUser?._id))
     }, [currentUser])
 
 
