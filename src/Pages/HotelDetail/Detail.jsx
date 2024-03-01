@@ -25,9 +25,9 @@ import { Carousel } from "react-responsive-carousel";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import "./Detail.css";
 
-const Detail = ({ data }) => {
+const Detail = ({ data, HotelioReview }) => {
   const navigate = useNavigate();
-
+  console.log(data)
   const { searchParams, setSearchParams } = useSearchParams();
   const searchQuery = new URLSearchParams(document.location.search);
   const currentSearchParams = Object.fromEntries(searchQuery?.entries());
@@ -298,34 +298,34 @@ const Detail = ({ data }) => {
                 <div className="d-flex justify-content-evenly align-items-center">
                   <div className="border">
                     <Typography className="bg-success text-center" variant="h5">
-                      4.5
+                      {data?.hotelRatings}
                     </Typography>
                     <Typography
                       className="bg-secondary text-nowrap p-1"
                       variant="p"
                     >
-                      14 Rating
+                      {HotelioReview?.reviews.length} Rating
                     </Typography>
                   </div>
                   <div
                     className="d-flex flex-column align-items-center"
                     style={{ maxHeight: "135px", width: 110 }}
                   >
-                    <CircularProgressWithLabel value={75} />
+                    <CircularProgressWithLabel value={HotelioReview?.valueOfMoney} />
                     <p className="fw-bold mt-1">Value of Money</p>
                   </div>
                   <div
                     className="d-flex flex-column align-items-center"
                     style={{ maxHeight: "135px", width: 100 }}
                   >
-                    <CircularProgressWithLabel value={80} />
+                    <CircularProgressWithLabel value={HotelioReview?.cleanliness} />
                     <p className="fw-bold mt-1">Cleanliness</p>
                   </div>
                   <div
                     className="d-flex flex-column align-items-center"
                     style={{ maxHeight: "135px", width: 100 }}
                   >
-                    <CircularProgressWithLabel value={90} />
+                    <CircularProgressWithLabel value={HotelioReview?.comfort} />
                     <p className="fw-bold mt-1">Comfort</p>
                   </div>
 
@@ -336,103 +336,42 @@ const Detail = ({ data }) => {
                     showStatus={false}
                     showIndicators={false}
                   >
-                    <div>
-                      <Card
-                        sx={{
-                          maxHeight: "134px",
-                          width: 400,
-                          p: 1,
-                          boxShadow:
-                            "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
-                          color: "#4d4d4d",
-                          marginLeft: "10px",
-                        }}
-                      >
+                    {
+                      HotelioReview?.reviews.map((item, index) => (
                         <div>
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Perspiciatis maxime officiis error id nesciunt
-                          quos officia.
+                          <Card
+                            key={index}
+                            sx={{
+                              maxHeight: "134px",
+                              width: 400,
+                              p: 1,
+                              boxShadow:
+                                "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
+                              color: "#4d4d4d",
+                              marginLeft: "10px",
+                            }}
+                          >
+                            <div>
+                              {item?.message}
+                            </div>
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "space-evenly",
+                                alignItems: "center",
+                                borderTop: "1px solid #ee2e24",
+                                borderBottom: "1px solid #ee2e24",
+                              }}
+                            >
+                              <Rating name="read-only" value={item?.ratings} readOnly />
+                              <Typography variant="subtitle2">
+                                {item?.customer[0]?.name}
+                              </Typography>
+                            </div>
+                          </Card>
                         </div>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-evenly",
-                            alignItems: "center",
-                            borderTop: "1px solid #ee2e24",
-                            borderBottom: "1px solid #ee2e24",
-                          }}
-                        >
-                          <Rating name="read-only" value={3} readOnly />
-                          <Typography variant="subtitle2">
-                            Adam Smith
-                          </Typography>
-                        </div>
-                      </Card>
-                    </div>
-                    <div>
-                      <Card
-                        sx={{
-                          maxHeight: "134px",
-                          width: 400,
-                          p: 1,
-                          boxShadow:
-                            "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
-                          color: "#4d4d4d",
-                        }}
-                      >
-                        <div>
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Perspiciatis maxime officiis error id nesciunt
-                          quos officia.
-                        </div>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-evenly",
-                            alignItems: "center",
-                            borderTop: "1px solid #ee2e24",
-                            borderBottom: "1px solid #ee2e24",
-                          }}
-                        >
-                          <Rating name="read-only" value={3} readOnly />
-                          <Typography variant="subtitle2">
-                            Adam Smith
-                          </Typography>
-                        </div>
-                      </Card>
-                    </div>
-                    <div>
-                      <Card
-                        sx={{
-                          maxHeight: "134px",
-                          width: 400,
-                          p: 1,
-                          boxShadow:
-                            "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
-                          color: "#4d4d4d",
-                        }}
-                      >
-                        <div>
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Perspiciatis maxime officiis error id nesciunt
-                          quos officia.
-                        </div>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-evenly",
-                            alignItems: "center",
-                            borderTop: "1px solid #ee2e24",
-                            borderBottom: "1px solid #ee2e24",
-                          }}
-                        >
-                          <Rating name="read-only" value={3} readOnly />
-                          <Typography variant="subtitle2">
-                            Adam Smith
-                          </Typography>
-                        </div>
-                      </Card>
-                    </div>
+                      ))
+                    }
                   </Carousel>
                 </div>
               </CardContent>

@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { Card, CardContent, Typography, Container, Paper } from '@mui/material';
+import { Card, CardContent, Typography, Paper } from '@mui/material';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux'
-import { useAuthContext } from '../../context/userAuthContext';
-import { GetAllRecommendationAction } from '../../store/actions/recommendedAction';
+import { GetAllCollectionAction } from '../../store/actions/hotelioCollectionActions';
+
+
 
 const CardContainer = styled(Paper)`
   display: flex;
@@ -21,71 +22,38 @@ const StyledCard = styled(Card)`
   margin: 4px;
 `;
 
-const cardData = [
-    {
-        title: 'Hotel',
-        para: 'Hotelio Homestay.',
-        content: '(4.1 rating)',
-        image: 'https://passionbuz.com/wp-content/uploads/2019/09/luxurious-hotels-in-the-world-TITANIC-MARDAN-PALACE-1024x683.jpg',
-    },
-    {
-        title: 'Hotel',
-        para: 'Hotelio Premium.',
-        content: '(4.2 rating)',
-        image: 'https://cliffshotelandspa.com/wp-content/uploads/2021/08/pismo_beach_hotels_1024x630_pool_gallery-1024x683-1.jpeg',
-    },
-    {
-        title: 'Hotel',
-        para: 'Hotelio Budget.',
-        content: '(4.1 rating)',
-        image: 'https://cliffshotelandspa.com/wp-content/uploads/2021/08/pismo_beach_hotels_1024x630_pool_gallery-1024x683-1.jpeg',
-    },
-    {
-        title: 'Hotel',
-        para: 'Hotelio Premium.',
-        content: '(4.4 rating)',
-        image: 'https://cliffshotelandspa.com/wp-content/uploads/2021/08/pismo_beach_hotels_1024x630_pool_gallery-1024x683-1.jpeg',
-    },
-    {
-        title: 'Hotel',
-        para: 'Hotelio Homestay.',
-        content: '(3.8 rating)',
-        image: 'https://cliffshotelandspa.com/wp-content/uploads/2021/08/pismo_beach_hotels_1024x630_pool_gallery-1024x683-1.jpeg',
-    },
-];
 
 const MobileCollections = () => {
 
-    const { currentUser } = useAuthContext();
 
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(GetAllRecommendationAction(currentUser._id))
-    }, [currentUser])
+        dispatch(GetAllCollectionAction())
+    }, [])
 
 
-    const RecommededData = useSelector((state) => state.GetAllRecommendedReducer.data);
+    const CollectionData = useSelector((state) => state.GetAllCollectionReducer.data);
 
     return (
         <>
             <CardContainer className='my-4'>
-                {cardData.map((card, index) => (
+                {CollectionData?.data?.map((card, index) => (
                     <StyledCard key={index}>
 
                         <CardContent>
-                            <img src={card.image} className='rounded' alt={`Image ${index}`} />
+                            <img height={100} src={card?.cover || 'https://assets-global.website-files.com/5c6d6c45eaa55f57c6367749/65045f093c166fdddb4a94a5_x-65045f0266217.webp'} className='rounded' alt={`Image ${index}`} />
                             <div className="d-flex justify-content-between py-2">
-                                <Typography variant="caption" display="block" gutterBottom>
-                                    {card.title}
+                                <Typography color={'#ee2e24'} variant="caption" display="block" gutterBottom>
+                                    Hotelio
                                 </Typography>
                                 <Typography variant="caption" display="block" gutterBottom>
-                                    {card.content}
+                                    ({card?.ratings || 0} rating)
                                 </Typography>
                             </div>
                             {/* <Typography variant='small'></Typography> */}
-                            <Typography variant="caption" display="block" gutterBottom>
-                                {card.para}
+                            <Typography variant="subtitle2" display="block" gutterBottom>
+                                {card?.title}
                             </Typography>
                         </CardContent>
                     </StyledCard>

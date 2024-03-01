@@ -8,6 +8,7 @@ import { useAuthContext } from "../../context/userAuthContext";
 import { GetBookingHistoryAction } from '../../store/actions/BookingHistoryAction';
 import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Card, CardActions, CardContent, Container, IconButton, Modal, Rating, TextareaAutosize, Typography } from '@mui/material';
 import moment from 'moment/moment';
+import { CreateHotelioReview } from '../../store/actions/HotelioReviewAction';
 
 
 export default function List() {
@@ -15,10 +16,22 @@ export default function List() {
     const dispatch = useDispatch()
     const { currentUser } = useAuthContext();
     const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
+    const [hotelId, setHotelId] = React.useState('')
+    const [bookingId, setBookingId] = React.useState('')
+    const [customerId, setCustomerId] = React.useState('')
+    const handleOpen = (hoteid, bookingid, customerid) => {
+        setOpen(true)
+        setHotelId(hoteid)
+        setBookingId(bookingid)
+        setCustomerId(customerid)
+    };
     const handleClose = () => setOpen(false);
     const BookingData = useSelector((state) => state.GetBookingHistoryReducers);
+    const reviewData = useSelector((state) => state.GetHotelioReviewReducer);
 
+    console.log(hotelId)
+    console.log(bookingId)
+    console.log(customerId)
 
     React.useEffect(() => {
         dispatch(GetBookingHistoryAction(currentUser?._id));
@@ -55,7 +68,90 @@ export default function List() {
     }
 
 
-    const ReviewModal = () => {
+    const handleRatingChange = (fieldName, newValue) => {
+        setFormData((prevData) => ({
+            ...prevData,
+            [fieldName]: newValue,
+        }));
+    };
+
+    const handleTextareaChange = (e) => {
+        e.preventDefault();
+        const { name, value } = e.target;
+
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
+
+
+    const [formData, setFormData] = React.useState({
+        message: "",
+        ratings: 0,
+        valueOfMoney: 0,
+        cleanliness: 0,
+        comfort: 0,
+        customer: '',
+        hotel: '',
+        booking: ''
+    })
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        const formDataToSend = {
+            message: formData.message,
+            ratings: formData.ratings,
+            valueOfMoney: formData.valueOfMoney,
+            cleanliness: formData.cleanliness,
+            comfort: formData.comfort,
+            customer: customerId,
+            hotel: hotelId,
+            booking: bookingId
+        };
+
+        console.log(formDataToSend)
+
+        try {
+            await dispatch(CreateHotelioReview(formDataToSend));
+
+            if (reviewData.data) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Hey! your review is captured',
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+
+                dispatch(GetBookingHistoryAction(currentUser._id));
+                handleClose()
+                setFormData({
+                    message: "",
+                    ratings: 0,
+                    valueOfMoney: 0,
+                    cleanliness: 0,
+                    comfort: 0,
+                    customer: '',
+                    hotel: '',
+                    booking: ""
+                })
+
+                // Handle success or navigate to another page
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Please try again.',
+                });
+            }
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            // Handle error, show a message or take appropriate action
+        }
+    };
+
+    const ReviewModal = ({ handleRatingChange, handleSubmit, formData, handleChange, setFormData }) => {
 
         const style = {
             position: 'absolute',
@@ -71,10 +167,7 @@ export default function List() {
             textAlign: 'center'
         }
 
-        const [valueOfMoney, setvalueOfMoney] = React.useState(1);
-        const [cleanliness, setcleanliness] = React.useState(1);
-        const [comfort, setcomfort] = React.useState(1);
-        const [overallReview, setoverallReview] = React.useState(1);
+
         return (
             <Modal
                 open={open}
@@ -83,60 +176,60 @@ export default function List() {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6">
-                        Please share your review
-                    </Typography>
-                    <hr />
-                    <div className='py-2'>
-                        <Typography component="legend">Value of Money</Typography>
-                        <Rating
-                            name="simple-controlled"
-                            size="large"
-                            value={valueOfMoney}
-                            onChange={(event, newValue) => {
-                                setvalueOfMoney(newValue);
-                            }}
-                        />
+                    <form onSubmit={handleSubmit}>
+                        <Typography id="modal-modal-title" variant="h6">
+                            Please share your review
+                        </Typography>
+                        <hr />
+                        <div className='py-2'>
+                            <Typography component="legend">Value of Money</Typography>
+                            <Rating
+                                name="valueOfMoney"
+                                size="large"
+                                value={formData.valueOfMoney}
+                                onChange={(event, newValue) => handleRatingChange('valueOfMoney', newValue)}
+                            />
 
-                    </div>
-                    <div className='py-2'>
-                        <Typography component="legend">Cleanliness</Typography>
-                        <Rating
-                            name="simple-controlled"
-                            size="large"
-                            value={cleanliness}
-                            onChange={(event, newValue) => {
-                                setcleanliness(newValue);
-                            }}
-                        />
-                    </div>
-                    <div className='py-2'>
-                        <Typography component="legend">Comfort</Typography>
-                        <Rating
-                            name="simple-controlled"
-                            size="large"
-                            value={comfort}
-                            onChange={(event, newValue) => {
-                                setcomfort(newValue);
-                            }}
-                        />
-                    </div>
-                    <div className='py-2'>
-                        <Typography component="legend">Overall Review</Typography>
-                        <Rating
-                            name="simple-controlled"
-                            size="large"
-                            value={overallReview}
-                            onChange={(event, newValue) => {
-                                setoverallReview(newValue);
-                            }}
-                        />
-                    </div>
-                    <div className='py-2'>
-                        <Typography component="legend"> Write your Review </Typography>
-                        <textarea className='border p-1' cols={50} rows={5} />
-                    </div>
-                    <Button variant="contained" onClick={handleClose} color="primary" size="medium">Share</Button>
+                        </div>
+                        <div className='py-2'>
+                            <Typography component="legend">Cleanliness</Typography>
+                            <Rating
+                                name="cleanliness"
+                                size="large"
+                                value={formData.cleanliness}
+                                onChange={(event, newValue) => handleRatingChange('cleanliness', newValue)}
+                            />
+                        </div>
+                        <div className='py-2'>
+                            <Typography component="legend">Comfort</Typography>
+                            <Rating
+                                name="comfort"
+                                size="large"
+                                value={formData.comfort}
+                                onChange={(event, newValue) => handleRatingChange('comfort', newValue)}
+                            />
+                        </div>
+                        <div className='py-2'>
+                            <Typography component="legend">Overall Review</Typography>
+                            <Rating
+                                name="ratings"
+                                size="large"
+                                value={formData.ratings}
+                                onChange={(event, newValue) => handleRatingChange('ratings', newValue)}
+                            />
+                        </div>
+                        <div className='py-2'>
+                            <Typography component="legend"> Write your Review </Typography>
+                            <textarea
+                                name='message'
+                                value={formData.message}
+                                onChange={handleTextareaChange}
+                                className='border p-1' cols={50} rows={5} />
+                        </div>
+                        <div className="d-flex justify"></div>
+                        <Button variant="contained" type='submit' color="primary" size="medium">Share</Button>
+                    </form>
+
                 </Box>
             </Modal>
         )
@@ -148,7 +241,7 @@ export default function List() {
             <Typography py={3} component="div" fontWeight={600} variant="h4">
                 Booking History
             </Typography>
-            <ReviewModal />
+            <ReviewModal handleRatingChange={handleRatingChange} handleSubmit={handleSubmit} formData={formData} handleTextareaChange={handleTextareaChange} setFormData={setFormData} />
             {
                 BookingData?.data ?
                     BookingData?.data?.data?.map((item, index) => {
@@ -191,7 +284,7 @@ export default function List() {
                                                             </div>
                                                         </Grid>
                                                         <Grid item xs={12} lg={6} xl={6} sx={{ display: 'flex', justifyContent: 'end' }}>
-                                                            <Button variant="contained" color='error' onClick={handleOpen} size="medium">Share review</Button>
+                                                            <Button variant="contained" color='error' onClick={() => handleOpen(item.hotel[0]._id, item._id, item.customer)} size="medium">Share review</Button>
                                                         </Grid>
                                                     </Grid>
 

@@ -1,18 +1,16 @@
 import { combineReducers } from "redux";
 import { GetSearchedHotelsReducers, GetSingleHotelReducers, GetHotelBillCalculationReducers } from "./hotelReducers";
-import {
-  GetAgentSignupReducer,
-  GetAgentLoginReducer,
-} from "../reducers/agentReducers";
+import { GetAgentSignupReducer, GetAgentLoginReducer, } from "../reducers/agentReducers";
 import { GetAllRoomTypReducer } from "./roomCategoriesReducers";
 import { GetALlPopularLocationReducer } from "./locationsReducers";
 import { GetAllBookingOffersReducers, GetBookingOffersReducers } from "./OffersReducers";
 import { GetBookingRegisterReducer } from "./BookingReducers";
 import { GetBookingHistoryReducers } from "./BookingHistoryReducers"
 import { GetContactUsReducer } from "./ContactUsReducers"
-import { GetHotelioReviewReducer } from "./HotelioReviewReducer"
+import { GetHotelioReviewReducer, GetHotelioSingleReviewReducer } from "./HotelioReviewReducer"
 import { GetAllFavouriteReducer } from "./favouriteReducers";
 import { GetAllRecommendedReducer } from "./recommendedReducers";
+import { GetAllCollectionReducer } from "./hotelioCollectionReducers";
 
 const rootReducers = combineReducers({
   GetSearchedHotelsReducers,
@@ -27,9 +25,11 @@ const rootReducers = combineReducers({
   GetBookingHistoryReducers,
   GetContactUsReducer,
   GetHotelioReviewReducer,
+  GetHotelioSingleReviewReducer,
   GetAllFavouriteReducer,
   GetAllBookingOffersReducers,
-  GetAllRecommendedReducer
+  GetAllRecommendedReducer,
+  GetAllCollectionReducer
 });
 
 export default rootReducers;
