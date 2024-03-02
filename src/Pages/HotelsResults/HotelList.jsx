@@ -18,6 +18,7 @@ import HotelListBack from "../../images/HotelListBack.jpg";
 import { useEffect } from "react";
 import Skeleton from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
+import { isMobile } from "react-device-detect";
 import { GetAlltheRoomTypes } from "../../store/actions/roomCategoriesAction";
 
 const HotelList = ({
@@ -142,7 +143,7 @@ const HotelList = ({
       {/* First hotel card */}
       <Grid sx={{ margin: "10px 0px" }} container>
         <Grid item xs={12}>
-          <Typography variant="h3" fontWeight={700}>
+          <Typography variant={isMobile ? 'h5' : 'h3'} fontWeight={isMobile ? 500 : 700}>
             Welcome To Hotelio, Your Travel Partner
           </Typography>
         </Grid>
@@ -298,7 +299,7 @@ const HotelList = ({
                         {
                           AllRoomsData?.data?.find(
                             (x) => x._id === items?.rooms[0]?.roomType
-                          ).title
+                          )?.title
                         }
                       </h5>
                     </div>

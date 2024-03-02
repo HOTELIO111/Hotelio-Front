@@ -215,7 +215,7 @@ const Navbar = ({ list }) => {
   }, []);
 
 
-  // ---------------------------------search the hotel -------------------------------------------------------------------------
+  // ---------------------------------search the hotel -----------------------------
   const searchData = {
     location: placeData?.address,
     lng: placeData?.longitude,

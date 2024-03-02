@@ -9,17 +9,55 @@ import { Offcanvas } from 'react-bootstrap';
 import MainBannerMob from '../../images/MainBannerMob.jpg'
 import { LoadingButton } from '@mui/lab';
 import { Helmet } from 'react-helmet';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import MobileCollections from './MobileCollections';
 import MobileRecommended from './MobileRecommended';
+import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import { useSearch } from '../../context/useSearch';
+import { useCollections } from '../../context/useStateManager';
+import { convertDatesToUTC } from '../../Utilis/_fuctions';
 
 const MobileNav = () => {
 
 
     const navigate = useNavigate();
+    const { selectedPlace, setSelectedPlace, placeData } = useSearch();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const currentSearchParams = Object.fromEntries(searchParams.entries());
+    const { checkInCheckOut, setCheckInCheckOut } = useCollections();
+    const [selectedGuest, setselectedGuest] = useState(1)
+    const [selectedRoom, setselectedRoom] = useState(1)
     const [manageRoom, setManageRoom] = useState([{ room: 1, guest: 1 }]);
+    const searchData = {
+        location: placeData?.address,
+        lng: placeData?.longitude,
+        lat: placeData?.latitude,
+        totalRooms: selectedRoom,
+        totalGuest: selectedGuest,
+        checkIn: convertDatesToUTC(checkInCheckOut)[0],
+        checkOut: convertDatesToUTC(checkInCheckOut)[1],
+        kmRadius: 20,
+        priceMin: 400,
+        priceMax: 20000,
+        sort: "popularity",
+
+    };
+
+    const SearchTheField = () => {
+        if (placeData?.address === undefined)
+            return window.alert("please Select the location");
+        if (!checkInCheckOut[0] && !checkInCheckOut[1]) {
+            return window.alert("please select the check-in And Check-out");
+        }
+        if (manageRoom[0].guest === 0)
+            return window.alert("please select the room and guest ");
+        const queryString = new URLSearchParams(searchData).toString();
+        navigate(`/searched-hotels?${queryString}`);
+    };
+
+
     // const [citites, setCities] = useState(null);
     const [selectedCity, setSlectedCity] = useState(null);
     const [geoLoc, setGeoLoc] = useState({ longitude: "", latitude: "" });
@@ -37,26 +75,6 @@ const MobileNav = () => {
     // useEffect(() => {
     //     GetAllCities();
     // }, []);
-
-    const searchData = {
-        // location: selectedCity,
-        lng: geoLoc?.longitude,
-        lat: geoLoc?.latitude,
-        // totalRooms: manageRoom.length,
-        kmRadius: 20,
-        priceMin: 400,
-        priceMax: 20000,
-        sort: "popularity",
-    };
-
-    const SearchTheField = () => {
-        if (selectedCity === null)
-            return window.alert("please Select the location");
-        if (manageRoom[0].guest === 0)
-            return window.alert("please select the room and guest ");
-        const queryString = new URLSearchParams(searchData).toString();
-        navigate(`/searched-hotels?${queryString}`);
-    };
 
     const autoCompleteRef = useRef();
     const inputRef = useRef();
@@ -107,12 +125,9 @@ const MobileNav = () => {
         textAlign: 'left'
     };
 
-    const [selectedGuest, setselectedGuest] = useState(1)
-    const [selectedRoom, setselectedRoom] = useState(1)
-
 
     const Guestincrement = () => {
-        if (selectedGuest < 4) {
+        if (selectedGuest < selectedRoom * 4) {
             setselectedGuest(selectedGuest + 1);
         }
     };
@@ -130,8 +145,19 @@ const MobileNav = () => {
     };
 
     const Roomdecrement = () => {
+        // Ensure there's at least one room
         if (selectedRoom > 1) {
-            setselectedRoom(selectedRoom - 1);
+            // Calculate the number of guests for the new room count
+            const newGuestCount = (selectedRoom - 1) * 4;
+
+            if (selectedGuest > newGuestCount) {
+                // Decrease both room count and guest count
+                setselectedRoom(selectedRoom - 1);
+                setselectedGuest(newGuestCount);
+            } else {
+                // Decrease room count only
+                setselectedRoom(selectedRoom - 1);
+            }
         }
     };
 
@@ -172,18 +198,59 @@ const MobileNav = () => {
                                     }
                                 }
                                 className='bg-white p-2 rounded'>
-                                <input
-                                    style={{
-                                        border: 'none',
-                                        outline: 'none',
-                                        borderBottom: '1px solid #000',
-                                        padding: '10px',
-                                        borderRadius: '0px'
-                                    }}
-                                    type="text" ref={inputRef} />
+                                <div className="w-100">
+                                    <GooglePlacesAutocomplete
+                                        onLoadFailed={(error) =>
+                                            console.error(
+                                                "Could not inject Google script",
+                                                error
+                                            )
+                                        }
+                                        placeholder="Enter location"
+                                        apiKey={process.env.REACT_APP_GOOGLE_API_KEY}
+                                        apiOptions={{
+                                            language: "en",
+                                            region: "in",
+                                            libraries: "places",
+                                        }}
+                                        selectProps={{
+                                            value: selectedPlace,
+                                            onChange: setSelectedPlace,
+                                            placeholder: "Enter Location",
+                                            styles: {
+                                                input: (provided) => ({
+                                                    ...provided,
+                                                    // padding: "px",
+                                                    border: "none",
+                                                    borderColor: "transparent",
+                                                }),
+                                                option: (provided) => ({
+                                                    ...provided,
+                                                    color: "#ee2e24",
+                                                    borderBottom: "1px solid gray",
+                                                    fontSize: "15px",
+                                                    fontWeight: "500",
+                                                }),
+                                                control: (provided) => ({
+                                                    ...provided,
+                                                    borderColor: "transparent",
+                                                    boxShadow: "none",
+                                                }),
+                                                menu: (provided) => ({
+                                                    ...provided,
+                                                    borderColor: "transparent",
+                                                    outlineColor: "transparent",
+                                                }),
+                                            },
+                                        }}
+                                    />
+                                </div>
                                 <Grid container spacing={1}>
                                     <Grid item xs={6}>
-                                        <MobileDate />
+                                        <MobileDate
+                                            setCheckInCheckOut={setCheckInCheckOut}
+                                            checkInCheckOut={checkInCheckOut}
+                                        />
                                     </Grid>
                                     <Grid item xs={6} className='d-flex'>
                                         <hr style={{ height: '50px', width: '1px', position: 'relative', left: '-4px', top: '-13px' }} />

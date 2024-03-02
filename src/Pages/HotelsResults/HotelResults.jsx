@@ -3,12 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import Navbar from "../../Components/Navbar/Navbar";
 import HotelList from "./HotelList";
 import Footer from "../../Components/footer/Footer";
-import { Container, Grid } from "@mui/material";
+import { Container, Grid, Drawer, Box, BottomNavigationAction, BottomNavigation, IconButton } from "@mui/material";
 import SideFilter from "./SideFilter";
 import axios from "axios";
 import { API_URL } from "../../config";
 import { useEffect } from "react";
 import { useState } from "react";
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import BottomFilter from "./BottomFilter";
 import { isMobile } from "react-device-detect";
 import MobileHeader from "../../Components/MobileComponent/MobileHeader";
@@ -35,6 +36,12 @@ const HotelResults = () => {
   const [loader, setLoader] = useState(false);
   const dispatch = useDispatch();
   const [pagination, setPagination] = useState(1);
+
+  const [open, setOpen] = React.useState(false);
+
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
 
   // to setthe price
 
@@ -172,6 +179,15 @@ const HotelResults = () => {
       >
         <Grid container spacing={1}>
           <Grid item xl={2} lg={2} xs={12}>
+            <Drawer open={open} onClose={toggleDrawer(false)}>
+              <Box>
+                <SideFilter
+                  hotels={hotels}
+                  setFilterData={setFilterData}
+                  filterData={filterData}
+                />
+              </Box>
+            </Drawer>
             <SideFilter
               hotels={hotels}
               setFilterData={setFilterData}
@@ -189,7 +205,22 @@ const HotelResults = () => {
             />
           </Grid>
           <Grid item xs={12} className="d-lg-none d-xl-none">
-            <BottomFilter />
+            <IconButton
+              sx={{
+                position: 'absolute',
+                width: '55px',
+                height: '55px',
+                right: '10px',
+                bottom: '80px',
+                zIndex: '1000',
+                borderRadius: '50px',
+                border: '1px solid #ee2e24',
+                bgcolor: '#ee2e24',
+                color: '#fff'
+              }}
+              aria-label="Filter" >
+              <FilterAltIcon />
+            </IconButton>
           </Grid>
         </Grid>
       </Container>
