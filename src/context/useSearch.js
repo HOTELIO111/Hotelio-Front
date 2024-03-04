@@ -12,7 +12,7 @@ const SearchProvider = ({ children }) => {
 
   const getSearchHotel = async (params) => {
     try {
-      const response = await axios.get(`${API_URL}/hotel/search?${params}`);
+      const response = await axios.get(`${API_URL}/hotel/search/hotels?${params}`);
       if (response.status === 200) {
         setHotels(response.data.data);
       }

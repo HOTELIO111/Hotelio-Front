@@ -174,20 +174,11 @@ const HotelResults = () => {
 
       {isMobile ? <MobileHeader /> : <Navbar />}
       <Container
-        sx={isMobile ? { marginBottom: 7 } : { marginTop: 11 }}
+        sx={isMobile ? { marginBottom: 7.5 } : { marginTop: 11 }}
         maxWidth="xl"
       >
         <Grid container spacing={1}>
-          <Grid item xl={2} lg={2} xs={12}>
-            <Drawer open={open} onClose={toggleDrawer(false)}>
-              <Box>
-                <SideFilter
-                  hotels={hotels}
-                  setFilterData={setFilterData}
-                  filterData={filterData}
-                />
-              </Box>
-            </Drawer>
+          <Grid item xl={2} lg={2} xs={0}>
             <SideFilter
               hotels={hotels}
               setFilterData={setFilterData}
@@ -204,7 +195,7 @@ const HotelResults = () => {
               location={searchParams.get("location")}
             />
           </Grid>
-          <Grid item xs={12} className="d-lg-none d-xl-none">
+          {/* <Grid item xs={12} className="d-lg-none d-xl-none">
             <IconButton
               sx={{
                 position: 'absolute',
@@ -221,7 +212,7 @@ const HotelResults = () => {
               aria-label="Filter" >
               <FilterAltIcon />
             </IconButton>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Container>
       {isMobile ? <MobileFooter /> : <Footer />}

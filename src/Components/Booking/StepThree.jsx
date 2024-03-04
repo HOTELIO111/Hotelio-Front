@@ -8,6 +8,7 @@ import { useSearchParams } from "react-router-dom";
 import { useBooking } from "../../context/useBooking";
 import { Box, Grid, Tooltip, Typography } from "@mui/material";
 import { useCollections } from "../../context/useStateManager";
+import { isMobile } from "react-device-detect";
 
 const StepThree = () => {
 
@@ -42,26 +43,21 @@ const StepThree = () => {
           <Grid container spacing={2} mb={2}>
             <Grid item sm={12}>
               <Box className='rounded' style={{
-                border: "2px solid #ee2e24",
-                background: 'linear-gradient(338deg, rgba(243,200,198,1) 35%, rgba(255,255,255,1) 100%)'
+                border: "2px solid #ee2e24"
               }}>
                 <Box
-                  style={{
-                    webkitTextStroke: ' 1px #ee2e24',
-                    webkitTextFillColor: 'white'
-                  }}
-                  display={'flex'} justifyContent={'space-between'} alignItems={'center'} p={1} className="fw-bolder">
-                  <Typography textTransform={'uppercase'} variant="h5" gutterBottom>
+                  display={'flex'} color={'#ee2e24'} flexDirection={isMobile ? 'column' : 'row'} justifyContent={'space-between'} alignItems={'center'} p={1} className="fw-bolder">
+                  <Typography fontWeight={600} variant="h5" gutterBottom>
                     {formData?.name}
                   </Typography>
-                  <Typography textTransform={'uppercase'} variant="h5" gutterBottom>
+                  <Typography fontWeight={600} variant="h5" gutterBottom>
                     {formData?.email}
                   </Typography>
-                  <Typography textTransform={'uppercase'} variant="h5" gutterBottom>
+                  <Typography fontWeight={600} variant="h5" gutterBottom>
                     {formData?.mobileNo}
                   </Typography>
                 </Box>
-                <Box display={'flex'} gap={5} justifyContent={'space-between'} alignItems={'center'} p={1} >
+                <Box display={'flex'} gap={isMobile ? 1 : 5} flexDirection={isMobile ? 'column' : 'row'} justifyContent={'space-between'} alignItems={'center'} p={1} >
 
                   <Typography
                     variant="h6"
@@ -86,7 +82,7 @@ const StepThree = () => {
                   <Typography
                     variant="h6"
                     gutterBottom
-                    className="text-danger fw-bolder text-center"
+                    className="text-danger fw-bolder"
                   >
                     Order ID <Tooltip title="Your Order Id"> <span style={{ fontFamily: 'sans-serif', color: '#74E291', textDecoration: 'underline' }}> {userBookingDetails?.bookingId}</span></Tooltip> has been generated, but the booking is pending. Please make the payment to confirm your booking.
                   </Typography>

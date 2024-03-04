@@ -222,39 +222,43 @@ const Detail = ({ data, HotelioReview }) => {
             <h4 className="py-3 text-dark">Description</h4>
             <Typography variant="p">{data?.discription || "NA"}</Typography>
           </div>
-          <hr />
-          <div className="px-2">
-            <h4 className="py-3 text-dark">Amenities & Facilities</h4>
-            <div className="d-flex align-items-center ">
-              <img
-                style={{ height: "250px", width: "250px" }}
-                src={Welcome}
-                alt="welcome"
-              />
-              <div
-                className=""
-                style={{
-                  maxWidth: "30vw",
-                  height: "30vh",
-                }}
-              >
-                <ul
-                  className="d-flex gap-2"
-                  style={{ display: "flex", flexWrap: "wrap" }}
-                >
-                  {/* ------------------------------------------------------ Map the Hotel Ammenities list (function defined upper side ) ------------------------------------------------- */}
-                  {AllAmentitesAndFacilities(data?.rooms)
-                    ?.allAmentiesFacilities?.slice(0, 10)
-                    ?.map((item, index) => (
-                      <div className="customChip " key={index}>
-                        {item}
-                      </div>
-                    ))}
-                </ul>
+          {
+            isMobile ? null : <>
+              <hr />
+              <div className="px-2">
+                <h4 className="py-3 text-dark">Amenities & Facilities</h4>
+                <div className="d-flex align-items-center ">
+                  <img
+                    style={{ height: "250px", width: "250px" }}
+                    src={Welcome}
+                    alt="welcome"
+                  />
+                  <div
+                    className=""
+                    style={{
+                      maxWidth: "30vw",
+                      height: "30vh",
+                    }}
+                  >
+                    <ul
+                      className="d-flex gap-2"
+                      style={{ display: "flex", flexWrap: "wrap" }}
+                    >
+                      {/* ------------------------------------------------------ Map the Hotel Ammenities list (function defined upper side ) ------------------------------------------------- */}
+                      {AllAmentitesAndFacilities(data?.rooms)
+                        ?.allAmentiesFacilities?.slice(0, 10)
+                        ?.map((item, index) => (
+                          <div className="customChip " key={index}>
+                            {item}
+                          </div>
+                        ))}
+                    </ul>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <hr />
+              <hr />
+            </>
+          }
         </Grid>
         <Grid
           sx={{ display: "grid", placeItems: "center" }}
@@ -427,26 +431,6 @@ const Detail = ({ data, HotelioReview }) => {
                       </div>
                     )}
                   <Grid container spacing={1}>
-                    {/* <Grid
-                      item
-                      xs={12}
-                      sx={{
-                        cursor: "not-allowed",
-                        display: "grid",
-                        placeItems: "center",
-                        position: "absolute",
-                        background: "#ffffffba",
-                        width: "1100px",
-                        marginTop: "5px",
-                        zIndex: "1200",
-                      }}
-                    >
-                      <div className="p-5">
-                        <Typography variant="h6" color="error" fontWeight={800}>
-                          Room Not Available
-                        </Typography>
-                      </div>
-                    </Grid> */}
                     <Grid
                       sx={
                         isMobile ? null : { borderRight: "2px solid #ee2e24" }
@@ -511,7 +495,7 @@ const Detail = ({ data, HotelioReview }) => {
                       xl={2}
                     >
                       {/* -------------------------------------------------Mapped the price of every room ---------------------------------------------------------- */}
-                      <div>
+                      <div className={isMobile ? 'px-2 text-center' : null}>
                         <Typography variant="h6">
                           ₹ {item.price}{" "}
                           <span className="text-secondary">
@@ -531,28 +515,31 @@ const Detail = ({ data, HotelioReview }) => {
                         </Typography>
                       </div>
                     </Grid>
-                    <Grid
-                      sx={
-                        isMobile ? null : { borderRight: "2px solid #ee2e24" }
-                      }
-                      item
-                      xs={6}
-                      md={4}
-                      lg={3}
-                      xl={3}
-                    >
-                      <div className="text-center">
-                        <div className="d-flex">
-                          <p>{item?.facilities || "NA"}</p>
-                        </div>
-                      </div>
-                    </Grid>
+                    {
+                      isMobile ? null :
+                        <Grid
+                          sx={
+                            isMobile ? null : { borderRight: "2px solid #ee2e24" }
+                          }
+                          item
+                          xs={6}
+                          md={4}
+                          lg={3}
+                          xl={3}
+                        >
+                          <div className="text-center">
+                            <div className="d-flex">
+                              <p>{item?.facilities || "NA"}</p>
+                            </div>
+                          </div>
+                        </Grid>
+                    }
                     <Grid
                       display={"flex"}
                       alignItems={"center"}
                       justifyContent={"center"}
                       item
-                      xs={12}
+                      xs={isMobile ? 6 : 12}
                       md={4}
                       lg={2}
                       xl={2}
@@ -567,7 +554,7 @@ const Detail = ({ data, HotelioReview }) => {
                       </div>
                     </Grid>
                   </Grid>
-                  <hr />
+                  {isMobile ? <hr style={{ margin: '0px 10px' }} /> : <hr />}
                 </CardContent>
               );
             })}

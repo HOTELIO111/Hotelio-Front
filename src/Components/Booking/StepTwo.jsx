@@ -17,7 +17,7 @@ import { Check } from "@mui/icons-material";
 import { useSearchParams } from "react-router-dom";
 import { useAuthContext } from "../../context/userAuthContext";
 import BookingInfo from "./BookingInfo";
-
+import { isMobile } from "react-device-detect";
 import HotelDetail from "./HotelioOffer";
 import { useDispatch, useSelector } from "react-redux";
 import { useCollections } from "../../context/useStateManager";
@@ -119,8 +119,8 @@ const StepTwo = () => {
               </Alert>
 
               {selectedValue === "myself" ? (
-                <Grid container spacing={1}>
-                  <Grid item sm={4}>
+                <Grid container flexDirection={isMobile && 'column'} spacing={1}>
+                  <Grid item sm={12} md={6} lg={4}>
                     <TextField
                       id="outlined-basic"
                       label="Full Name"
@@ -134,7 +134,7 @@ const StepTwo = () => {
                       helperText={formData.name === undefined ? 'Please fill your name' : ''}
                     />
                   </Grid>
-                  <Grid item sm={4}>
+                  <Grid item sm={12} md={6} lg={4}>
                     <TextField
                       id="outlined-basic"
                       label="Email"
@@ -150,7 +150,7 @@ const StepTwo = () => {
                       autoComplete="email"
                     />
                   </Grid>
-                  <Grid item sm={4}>
+                  <Grid item sm={12} md={6} lg={4}>
                     <TextField
                       id="outlined-basic"
                       label="Contact No."
@@ -164,7 +164,7 @@ const StepTwo = () => {
                       helperText={formData.mobileNo === undefined ? 'Please fill your contact number' : ''}
                     />
                   </Grid>
-                  <Grid item sm={8}>
+                  <Grid item sm={12} md={6} lg={8}>
                     <TextField
                       id="outlined-basic"
                       label="Address"
@@ -179,7 +179,7 @@ const StepTwo = () => {
                       helperText={formData.address === undefined ? 'Please fill your address' : ''}
                     />
                   </Grid>
-                  <Grid item sm={4}>
+                  <Grid item sm={12} md={6} lg={4}>
                     <TextField
                       id="outlined-basic"
                       label="City"
@@ -193,7 +193,7 @@ const StepTwo = () => {
                       helperText={formData.city === undefined ? 'Please fill your city' : ''}
                     />
                   </Grid>
-                  <Grid item sm={4}>
+                  <Grid item sm={12} md={6} lg={4}>
                     <TextField
                       id="outlined-basic"
                       label="State"
@@ -208,7 +208,7 @@ const StepTwo = () => {
                       helperText={formData.state === undefined ? 'Please fill your state' : ''}
                     />
                   </Grid>
-                  <Grid item sm={4}>
+                  <Grid item sm={12} md={6} lg={4}>
                     <TextField
                       id="outlined-basic"
                       label="Zip / Pin Code"
@@ -223,7 +223,7 @@ const StepTwo = () => {
                       helperText={formData.zip === undefined ? 'Please fill your zip/pin code' : ''}
                     />
                   </Grid>
-                  <Grid item sm={4}>
+                  <Grid item sm={12} md={6} lg={4}>
                     <TextField
                       id="outlined-basic"
                       label="Country"
@@ -240,8 +240,8 @@ const StepTwo = () => {
                   </Grid>
                 </Grid>
               ) : (
-                <Grid container spacing={1}>
-                  <Grid item sm={4}>
+                <Grid container flexDirection={isMobile && 'column'} spacing={1}>
+                  <Grid item sm={12} md={6} lg={4}>
                     <TextField
                       InputProps={{ className: 'custom-input' }}
                       id="outlined-basic"
@@ -255,7 +255,7 @@ const StepTwo = () => {
                       helperText={formData.name === undefined ? 'Please fill your name' : ''}
                     />
                   </Grid>
-                  <Grid item sm={4}>
+                  <Grid item sm={12} md={6} lg={4}>
                     <TextField
                       InputProps={{ className: 'custom-input' }}
                       id="outlined-basic"
@@ -270,7 +270,7 @@ const StepTwo = () => {
                       helperText={formData.email === undefined ? 'Please fill your email' : ''}
                     />
                   </Grid>
-                  <Grid item sm={4}>
+                  <Grid item sm={12} md={6} lg={4}>
                     <TextField
                       InputProps={{ className: 'custom-input' }}
                       id="outlined-basic"
@@ -284,7 +284,7 @@ const StepTwo = () => {
                       helperText={formData.mobileNo === undefined ? 'Please fill your contact number' : ''}
                     />
                   </Grid>
-                  <Grid item sm={8}>
+                  <Grid item sm={12} md={6} lg={8}>
                     <TextField
                       InputProps={{ className: 'custom-input' }}
                       id="outlined-basic"
@@ -300,7 +300,7 @@ const StepTwo = () => {
                       helperText={formData.address === undefined ? 'Please fill your address' : ''}
                     />
                   </Grid>
-                  <Grid item sm={4}>
+                  <Grid item sm={12} md={6} lg={4}>
                     <TextField
                       InputProps={{ className: 'custom-input' }}
                       id="outlined-basic"
@@ -314,7 +314,7 @@ const StepTwo = () => {
                       helperText={formData.city === undefined ? 'Please fill your city' : ''}
                     />
                   </Grid>
-                  <Grid item sm={4}>
+                  <Grid item sm={12} md={6} lg={4}>
                     <TextField
                       InputProps={{ className: 'custom-input' }}
                       id="outlined-basic"
@@ -329,7 +329,7 @@ const StepTwo = () => {
                       helperText={formData.state === undefined ? 'Please fill your state' : ''}
                     />
                   </Grid>
-                  <Grid item sm={4}>
+                  <Grid item sm={12} md={6} lg={4}>
                     <TextField
                       InputProps={{ className: 'custom-input' }}
                       id="outlined-basic"
@@ -344,7 +344,7 @@ const StepTwo = () => {
                       helperText={formData.zip === undefined ? 'Please fill your zip/pin code' : ''}
                     />
                   </Grid>
-                  <Grid item sm={4}>
+                  <Grid item sm={12} md={6} lg={4}>
                     <TextField
                       InputProps={{ className: 'custom-input' }}
                       id="outlined-basic"

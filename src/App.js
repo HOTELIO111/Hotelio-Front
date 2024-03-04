@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Contact from "./Pages/Contact/Contact";
 import About from "./Pages/About Us/About";
 import Home from "./Pages/Home/Home";
@@ -61,6 +61,8 @@ function App() {
   //   }
   // }, []);
 
+  const location = useLocation();
+
   const hotelioroomsStructuredData = {
     "@context": "https://schema.org/",
     "@type": "WebSite",
@@ -83,7 +85,7 @@ function App() {
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             backgroundAttachment: "fixed",
-            height: '100vh'
+            height: `${location.pathname === '/favourite' ? '100vh' : 'auto'}`
           }
           : {}
       }
