@@ -11,6 +11,7 @@ import { GetHotelioReviewReducer, GetHotelioSingleReviewReducer } from "./Hoteli
 import { GetAllFavouriteReducer } from "./favouriteReducers";
 import { GetAllRecommendedReducer } from "./recommendedReducers";
 import { GetAllCollectionReducer } from "./hotelioCollectionReducers";
+import { GetAllSliderReducer } from "./SliderReducer";
 
 const rootReducers = combineReducers({
   GetSearchedHotelsReducers,
@@ -29,7 +30,8 @@ const rootReducers = combineReducers({
   GetAllFavouriteReducer,
   GetAllBookingOffersReducers,
   GetAllRecommendedReducer,
-  GetAllCollectionReducer
+  GetAllCollectionReducer,
+  GetAllSliderReducer
 });
 
 export default rootReducers;

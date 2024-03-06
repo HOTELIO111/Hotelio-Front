@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Navbar from "../../Components/Navbar/Navbar";
 import Footer from "../../Components/footer/Footer";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import style from "./home.module.css";
 import { Typography, useMediaQuery } from "@mui/material";
 import Process from "../../Components/Process/Process";
@@ -12,11 +12,20 @@ import Testimonial from "../../Components/Testimonial/Testimonial";
 import MobileNav from "../../Components/MobileComponent/MobileNav";
 import FirstTimePopup from "../FirstTimePopup/FirstTimePopup";
 import { Helmet } from "react-helmet";
+import { GetAllSliderAction } from "../../store/actions/SliderAction";
 
 const Home = () => {
 
-  const HotelReview = useSelector((state) => state.GetHotelioReviewReducer.data);
+  const dispatch = useDispatch()
 
+  useEffect(() => {
+    dispatch(GetAllSliderAction())
+  }, [])
+
+
+  const HotelReview = useSelector((state) => state.GetHotelioReviewReducer.data);
+  const HotelSlider = useSelector((state) => state.GetAllSliderReducer.data);
+  console.log(HotelSlider)
   const isXtraSmallScreen = useMediaQuery("(max-width: 450px)");
   useEffect(() => {
     const hasSeenPopup = localStorage.getItem('hasSeenPopup');
@@ -86,7 +95,7 @@ const Home = () => {
           </h2>
         </div>
 
-        <SliderCarousel />
+        {HotelSlider?.data?.length > 0 ? <SliderCarousel SliderData={HotelSlider} /> : null}
 
 
         <div className="p-2 pb-4">

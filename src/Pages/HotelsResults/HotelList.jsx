@@ -412,12 +412,9 @@ const HotelList = ({
                     <div
                       className={`align-items-center p-2 ${style.BookingCardColor} ${style.mobflex}`}
                     >
-                      <h4>
+                      <Typography variant="h5">
                         {setPrice(items)} &nbsp;
-                        <span>
-                          <del>200</del>
-                        </span>
-                      </h4>{" "}
+                      </Typography>{" "}
                       <span className="text-danger">64% off</span>
                     </div>
                   </div>

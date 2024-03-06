@@ -1,21 +1,23 @@
-import * as React from 'react';
-import Swal from 'sweetalert2';
-import Grid from '@mui/material/Grid';
-import Skeleton from "react-loading-skeleton";
-import { useDispatch, useSelector } from 'react-redux';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useAuthContext } from "../../context/userAuthContext";
-import { GetBookingHistoryAction } from '../../store/actions/BookingHistoryAction';
-import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Card, CardActions, CardContent, Container, IconButton, Modal, Rating, TextareaAutosize, Typography } from '@mui/material';
-import moment from 'moment/moment';
-import { CreateHotelioReview } from '../../store/actions/HotelioReviewAction';
+import * as React from 'react'
+import Swal from 'sweetalert2'
+import moment from 'moment/moment'
+import Grid from '@mui/material/Grid'
+import Skeleton from "react-loading-skeleton"
+import { isMobile } from 'react-device-detect'
+import { useDispatch, useSelector } from 'react-redux'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { useAuthContext } from "../../context/userAuthContext"
+import { GetBookingHistoryAction } from '../../store/actions/BookingHistoryAction'
+import { CreateHotelioReview } from '../../store/actions/HotelioReviewAction'
+import { RxCrossCircled } from "react-icons/rx";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Card, CardActions, CardContent, Container, IconButton, Modal, Rating, TextareaAutosize, Typography } from '@mui/material'
 
 
 export default function List() {
 
     const dispatch = useDispatch()
-    const { currentUser } = useAuthContext();
-    const [open, setOpen] = React.useState(false);
+    const { currentUser } = useAuthContext()
+    const [open, setOpen] = React.useState(false)
     const [hotelId, setHotelId] = React.useState('')
     const [bookingId, setBookingId] = React.useState('')
     const [customerId, setCustomerId] = React.useState('')
@@ -24,27 +26,23 @@ export default function List() {
         setHotelId(hoteid)
         setBookingId(bookingid)
         setCustomerId(customerid)
-    };
-    const handleClose = () => setOpen(false);
-    const BookingData = useSelector((state) => state.GetBookingHistoryReducers);
-    const reviewData = useSelector((state) => state.GetHotelioReviewReducer);
-
-    console.log(hotelId)
-    console.log(bookingId)
-    console.log(customerId)
-
+    }
+    const handleClose = () => setOpen(false)
+    const BookingData = useSelector((state) => state.GetBookingHistoryReducers)
+    const reviewData = useSelector((state) => state.GetHotelioReviewReducer)
+    console.log(BookingData)
     React.useEffect(() => {
-        dispatch(GetBookingHistoryAction(currentUser?._id));
+        dispatch(GetBookingHistoryAction(currentUser?._id))
     }, [currentUser])
 
 
     const totalLengthOfStay = (checkIn, checkOut) => {
-        const newCheckIn = new Date(checkIn);
-        const newCheckOut = new Date(checkOut);
-        const timeDifference = newCheckOut.getTime() - newCheckIn.getTime();
-        const totalDays = timeDifference / (1000 * 3600 * 24);
-        return totalDays;
-    };
+        const newCheckIn = new Date(checkIn)
+        const newCheckOut = new Date(checkOut)
+        const timeDifference = newCheckOut.getTime() - newCheckIn.getTime()
+        const totalDays = timeDifference / (1000 * 3600 * 24)
+        return totalDays
+    }
 
 
     const AlertBox = () => {
@@ -68,90 +66,7 @@ export default function List() {
     }
 
 
-    const handleRatingChange = (fieldName, newValue) => {
-        setFormData((prevData) => ({
-            ...prevData,
-            [fieldName]: newValue,
-        }));
-    };
-
-    const handleTextareaChange = (e) => {
-        e.preventDefault();
-        const { name, value } = e.target;
-
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
-    };
-
-
-    const [formData, setFormData] = React.useState({
-        message: "",
-        ratings: 0,
-        valueOfMoney: 0,
-        cleanliness: 0,
-        comfort: 0,
-        customer: '',
-        hotel: '',
-        booking: ''
-    })
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-
-        const formDataToSend = {
-            message: formData.message,
-            ratings: formData.ratings,
-            valueOfMoney: formData.valueOfMoney,
-            cleanliness: formData.cleanliness,
-            comfort: formData.comfort,
-            customer: customerId,
-            hotel: hotelId,
-            booking: bookingId
-        };
-
-        console.log(formDataToSend)
-
-        try {
-            await dispatch(CreateHotelioReview(formDataToSend));
-
-            if (reviewData.data) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Hey! your review is captured',
-                    showConfirmButton: false,
-                    timer: 1500,
-                });
-
-                dispatch(GetBookingHistoryAction(currentUser._id));
-                handleClose()
-                setFormData({
-                    message: "",
-                    ratings: 0,
-                    valueOfMoney: 0,
-                    cleanliness: 0,
-                    comfort: 0,
-                    customer: '',
-                    hotel: '',
-                    booking: ""
-                })
-
-                // Handle success or navigate to another page
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Please try again.',
-                });
-            }
-        } catch (error) {
-            console.error('Error submitting form:', error);
-            // Handle error, show a message or take appropriate action
-        }
-    };
-
-    const ReviewModal = ({ handleRatingChange, handleSubmit, formData, handleChange, setFormData }) => {
+    const ReviewModal = ({ open, handleClose }) => {
 
         const style = {
             position: 'absolute',
@@ -167,6 +82,89 @@ export default function List() {
             textAlign: 'center'
         }
 
+        const handleRatingChange = (fieldName, newValue) => {
+            setFormData((prevData) => ({
+                ...prevData,
+                [fieldName]: newValue,
+            }))
+        }
+
+        const handleTextareaChange = (e) => {
+            e.preventDefault()
+            const { name, value } = e.target
+
+            setFormData((prevData) => ({
+                ...prevData,
+                [name]: value,
+            }))
+        }
+
+
+        const [formData, setFormData] = React.useState({
+            message: "",
+            ratings: 0,
+            valueOfMoney: 0,
+            cleanliness: 0,
+            comfort: 0,
+            customer: '',
+            hotel: '',
+            booking: ''
+        })
+
+        const handleSubmit = async (event) => {
+            event.preventDefault()
+
+            const formDataToSend = {
+                message: formData.message,
+                ratings: formData.ratings,
+                valueOfMoney: formData.valueOfMoney,
+                cleanliness: formData.cleanliness,
+                comfort: formData.comfort,
+                customer: customerId,
+                hotel: hotelId,
+                booking: bookingId
+            }
+
+            console.log(formDataToSend)
+
+            try {
+                await dispatch(CreateHotelioReview(formDataToSend))
+
+                if (reviewData.data) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Hey! your review is captured',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+
+                    dispatch(GetBookingHistoryAction(currentUser._id))
+                    handleClose()
+                    setFormData({
+                        message: "",
+                        ratings: 0,
+                        valueOfMoney: 0,
+                        cleanliness: 0,
+                        comfort: 0,
+                        customer: '',
+                        hotel: '',
+                        booking: ""
+                    })
+
+                    // Handle success or navigate to another page
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Please try again.',
+                    })
+                }
+            } catch (error) {
+                console.error('Error submitting form:', error)
+                // Handle error, show a message or take appropriate action
+            }
+        }
+
 
         return (
             <Modal
@@ -176,10 +174,14 @@ export default function List() {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
+
                     <form onSubmit={handleSubmit}>
-                        <Typography id="modal-modal-title" variant="h6">
-                            Please share your review
-                        </Typography>
+                        <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+                            <Typography id="modal-modal-title" variant="h6">
+                                Please share your review
+                            </Typography>
+                            <Button variant="text" onClick={handleClose} color="error" size="medium"><RxCrossCircled size={30} /></Button>
+                        </Box>
                         <hr />
                         <div className='py-2'>
                             <Typography component="legend">Value of Money</Typography>
@@ -226,8 +228,10 @@ export default function List() {
                                 onChange={handleTextareaChange}
                                 className='border p-1' cols={50} rows={5} />
                         </div>
-                        <div className="d-flex justify"></div>
-                        <Button variant="contained" type='submit' color="primary" size="medium">Share</Button>
+                        <div className="d-flex justify-content-around align-items-center">
+                            <Button variant="contained" type='submit' color="error" size="medium">Share</Button>
+                            <Button variant="outlined" onClick={handleClose} color="error" size="medium">Close</Button>
+                        </div>
                     </form>
 
                 </Box>
@@ -241,7 +245,7 @@ export default function List() {
             <Typography py={3} component="div" fontWeight={600} variant="h4">
                 Booking History
             </Typography>
-            <ReviewModal handleRatingChange={handleRatingChange} handleSubmit={handleSubmit} formData={formData} handleTextareaChange={handleTextareaChange} setFormData={setFormData} />
+            <ReviewModal open={open} handleClose={handleClose} />
             {
                 BookingData?.data ?
                     BookingData?.data?.data?.map((item, index) => {
@@ -283,9 +287,12 @@ export default function List() {
                                                                 <Button onClick={AlertBox} sx={{ ml: 1 }} variant="outlined" color="error" size="medium">Cancel</Button>
                                                             </div>
                                                         </Grid>
-                                                        <Grid item xs={12} lg={6} xl={6} sx={{ display: 'flex', justifyContent: 'end' }}>
-                                                            <Button variant="contained" color='error' onClick={() => handleOpen(item.hotel[0]._id, item._id, item.customer)} size="medium">Share review</Button>
-                                                        </Grid>
+                                                        {
+                                                            isMobile ? null :
+                                                                <Grid item xs={12} lg={6} xl={6} sx={{ display: 'flex', justifyContent: 'end' }}>
+                                                                    <Button variant="contained" color='error' onClick={() => handleOpen(item.hotel[0]._id, item._id, item.customer)} size="medium">Share review</Button>
+                                                                </Grid>
+                                                        }
                                                     </Grid>
 
                                                 </CardActions>
@@ -307,109 +314,122 @@ export default function List() {
 
                                                 <Grid spacing={1} p={1} container>
                                                     <Grid item xs={12} lg={6}>
-                                                        <div className="d-flex align-items-center border-bottom">
-                                                            <Typography fontWeight={700} variant="p">
+                                                        <div className={`d-flex align-items-center border-bottom ${isMobile && 'justify-content-around'}`}>
+                                                            <Typography fontWeight={700} variant={isMobile ? 'caption' : 'p'}>
                                                                 BOOKING ID :
                                                             </Typography>
-                                                            <Typography fontWeight={800} sx={{ pl: 2.5 }} variant="h6">
+                                                            <Typography fontWeight={800} sx={{ pl: 2.5 }} variant={isMobile ? 'caption' : 'h6'}>
                                                                 {item?.bookingId}
                                                             </Typography>
                                                         </div>
                                                     </Grid>
                                                     <Grid item xs={12} lg={6}>
-                                                        <div className="d-flex align-items-center border-bottom">
-                                                            <Typography fontWeight={700} variant="p">
+                                                        <div className={`d-flex align-items-center border-bottom ${isMobile && 'justify-content-around'}`}>
+                                                            <Typography fontWeight={700} variant={isMobile ? 'caption' : 'p'}>
                                                                 BOOKING DATE & TIME :
                                                             </Typography>
-                                                            <Typography sx={{ pl: 2.5 }} variant="h6">
+                                                            <Typography sx={{ pl: 2.5 }} variant={isMobile ? 'caption' : 'h6'}>
                                                                 {moment(item?.dateOfBooking).format('DD-MM-YYYY, h:mm a')}
                                                             </Typography>
                                                         </div>
                                                     </Grid>
                                                     <Grid item xs={12} lg={6}>
-                                                        <div className="d-flex align-items-center  border-bottom">
-                                                            <Typography fontWeight={700} variant="p">
+                                                        <div className={`d-flex align-items-center border-bottom ${isMobile && 'justify-content-around'}`}>
+                                                            <Typography fontWeight={700} variant={isMobile ? 'caption' : 'p'}>
                                                                 CHECK IN :
                                                             </Typography>
-                                                            <Typography sx={{ pl: 2.5 }} variant="h6">
+                                                            <Typography sx={{ pl: 2.5 }} variant={isMobile ? 'caption' : 'h6'}>
                                                                 {moment(item?.bookingDate?.checkIn).format('DD-MM-YYYY, h:mm a')}
                                                             </Typography>
                                                         </div>
                                                     </Grid>
                                                     <Grid item xs={12} lg={6}>
-                                                        <div className="d-flex align-items-center  border-bottom">
-                                                            <Typography fontWeight={700} variant="p">
+                                                        <div className={`d-flex align-items-center border-bottom ${isMobile && 'justify-content-around'}`}>
+                                                            <Typography fontWeight={700} variant={isMobile ? 'caption' : 'p'}>
                                                                 CHECK OUT :
                                                             </Typography>
-                                                            <Typography sx={{ pl: 2.5 }} variant="h6">
+                                                            <Typography sx={{ pl: 2.5 }} variant={isMobile ? 'caption' : 'h6'}>
                                                                 {moment(item?.bookingDate?.checkOut).format('DD-MM-YYYY, h:mm a')}
                                                             </Typography>
                                                         </div>
                                                     </Grid>
                                                     <Grid item xs={12} lg={6}>
-                                                        <div className="d-flex align-items-center  border-bottom">
-                                                            <Typography fontWeight={700} variant="p">
+                                                        <div className={`d-flex align-items-center border-bottom ${isMobile && 'justify-content-around'}`}>
+                                                            <Typography fontWeight={700} variant={isMobile ? 'caption' : 'p'}>
                                                                 NO OF DAYS & NIGHT :
                                                             </Typography>
-                                                            <Typography sx={{ pl: 2.5 }} variant="h6">
+                                                            <Typography sx={{ pl: 2.5 }} variant={isMobile ? 'caption' : 'h6'}>
                                                                 {totalLengthOfStay(item?.bookingDate?.checkIn, item?.bookingDate?.checkOut)} NIGHT
                                                             </Typography>
                                                         </div>
                                                     </Grid>
                                                     <Grid item xs={12} lg={6}>
-                                                        <div className="d-flex align-items-center  border-bottom">
-                                                            <Typography fontWeight={700} variant="p">
+                                                        <div className={`d-flex align-items-center border-bottom ${isMobile && 'justify-content-around'}`}>
+                                                            <Typography fontWeight={700} variant={isMobile ? 'caption' : 'p'}>
                                                                 NO OF GUEST :
                                                             </Typography>
-                                                            <Typography sx={{ pl: 2.5 }} variant="h6">
+                                                            <Typography sx={{ pl: 2.5 }} variant={isMobile ? 'caption' : 'h6'}>
                                                                 {item?.numberOfGuests?.adults} Guest, {item?.numberOfRooms} Room
                                                             </Typography>
                                                         </div>
                                                     </Grid>
                                                     <Grid item xs={12} lg={6}>
-                                                        <div className="d-flex align-items-center border-bottom">
-                                                            <Typography fontWeight={700} variant="p">
+                                                        <div className={`d-flex align-items-center border-bottom ${isMobile && 'justify-content-around'}`}>
+                                                            <Typography fontWeight={700} variant={isMobile ? 'caption' : 'p'}>
                                                                 TXN ID :
                                                             </Typography>
-                                                            <Typography sx={{ pl: 2.5 }} variant="h6">
+                                                            <Typography sx={{ pl: 2.5 }} variant={isMobile ? 'caption' : 'h6'}>
                                                                 NA
                                                             </Typography>
                                                         </div>
                                                     </Grid>
                                                     <Grid item xs={12} lg={6}>
-                                                        <div className="d-flex align-items-center  border-bottom">
-                                                            <Typography fontWeight={700} variant="p">
+                                                        <div className={`d-flex align-items-center border-bottom ${isMobile && 'justify-content-around'}`}>
+                                                            <Typography fontWeight={700} variant={isMobile ? 'caption' : 'p'}>
                                                                 BOOKING STATUS :
                                                             </Typography>
-                                                            <Typography sx={{ pl: 2.5 }} variant="h6">
+                                                            <Typography sx={{ pl: 2.5 }} variant={isMobile ? 'caption' : 'h6'}>
                                                                 {item?.bookingStatus}
                                                             </Typography>
                                                         </div>
                                                     </Grid>
                                                     <Grid item xs={12} lg={6}>
-                                                        <div className="d-flex align-items-center">
-                                                            <Typography fontWeight={700} variant="p">
+                                                        <div className={`d-flex align-items-center border-bottom ${isMobile && 'justify-content-around'}`}>
+                                                            <Typography fontWeight={700} variant={isMobile ? 'caption' : 'p'}>
                                                                 PAYMENT METHOD :
                                                             </Typography>
-                                                            <Typography sx={{ pl: 2 }} variant="h6">
-                                                                {item?.payment?.paymentType}
+                                                            <Typography sx={{ pl: 2 }} variant={isMobile ? 'caption' : 'h6'}>
+                                                                {item?.payment?.paymentType || 'NA'}
                                                             </Typography>
                                                         </div>
                                                     </Grid>
                                                     <Grid item xs={12} lg={6}>
-                                                        <div className="d-flex align-items-center">
-                                                            <Typography fontWeight={700} variant="p">
+                                                        <div className={`d-flex align-items-center border-bottom ${isMobile && 'justify-content-around'}`}>
+                                                            <Typography fontWeight={700} variant={isMobile ? 'caption' : 'p'}>
                                                                 PAID AMOUNT :
                                                             </Typography>
-                                                            <Typography sx={{ pl: 2 }} variant="h6">
-                                                                {item?.payment?.payments && item.payment.payments.length === 0 ? (
-                                                                    <Button variant="contained" size='small' color="primary">
-                                                                        Pay Now
-                                                                    </Button>
-                                                                ) : (
-                                                                    item?.payment?.payments
-                                                                )}
-
+                                                            <Typography sx={{ pl: 2 }} variant={isMobile ? 'caption' : 'h6'}>
+                                                                {item?.payment?.paidamount || 'NA'}
+                                                            </Typography>
+                                                        </div>
+                                                    </Grid>
+                                                    {<Grid item xs={12} lg={6}>
+                                                        <div className={`d-flex align-items-center ${isMobile && 'justify-content-around border-bottom'}`}>
+                                                            <Typography fontWeight={700} variant={isMobile ? 'caption' : 'p'}>
+                                                                BALANCE AMOUNT :
+                                                            </Typography>
+                                                            <Typography sx={{ pl: 2 }} variant={isMobile ? 'caption' : 'h6'}>
+                                                                {item?.payment?.balanceAmt || 'NA'}
+                                                            </Typography>
+                                                        </div>
+                                                    </Grid>}
+                                                    <Grid item xs={12} lg={6}>
+                                                        <div className={`d-flex align-items-center ${isMobile && 'justify-content-around border-bottom'}`}>
+                                                            <Typography fontWeight={700} variant={isMobile ? 'caption' : 'p'}>
+                                                                TOTAL AMOUNT :
+                                                            </Typography>
+                                                            <Typography sx={{ pl: 2 }} variant={isMobile ? 'caption' : 'h6'}>
+                                                                {item?.payment?.totalamount || 'NA'}
                                                             </Typography>
                                                         </div>
                                                     </Grid>
@@ -475,6 +495,6 @@ export default function List() {
                         </Grid>
                     </Grid>
             }
-        </Container>
-    );
+        </Container >
+    )
 }

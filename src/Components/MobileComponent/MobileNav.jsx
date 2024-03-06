@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, FormControl, Grid, IconButton, Box, Typography } from '@mui/material';
 import MobileFooter from './MobileFooter';
 import Premiumcard from './Premiumcard';
@@ -18,11 +19,16 @@ import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import { useSearch } from '../../context/useSearch';
 import { useCollections } from '../../context/useStateManager';
 import { convertDatesToUTC } from '../../Utilis/_fuctions';
+import { GetAllCollectionAction } from '../../store/actions/hotelioCollectionActions';
+import { GetAllRecommendationAction } from '../../store/actions/recommendedAction';
+import { useAuthContext } from '../../context/userAuthContext';
 
 const MobileNav = () => {
 
 
     const navigate = useNavigate();
+    const dispatch = useDispatch()
+    const { currentUser } = useAuthContext();
     const { selectedPlace, setSelectedPlace, placeData } = useSearch();
     const [searchParams, setSearchParams] = useSearchParams();
     const currentSearchParams = Object.fromEntries(searchParams.entries());
@@ -44,6 +50,17 @@ const MobileNav = () => {
         sort: "popularity",
 
     };
+
+    useEffect(() => {
+        dispatch(GetAllCollectionAction())
+    }, [])
+
+    useEffect(() => {
+        dispatch(GetAllRecommendationAction(currentUser?._id))
+    }, [currentUser])
+
+    const CollectionData = useSelector((state) => state.GetAllCollectionReducer.data);
+    const RecommededData = useSelector((state) => state.GetAllRecommendedReducer.data);
 
     const SearchTheField = () => {
         if (placeData?.address === undefined)
@@ -302,17 +319,20 @@ const MobileNav = () => {
 
                             <Premiumcard />
 
-                            <h5 style={{ borderRadius: '50px 0px 50px 0px', background: '#ee2e24' }} className='p-2 py-2 pl-4 text-white'><b>Explore Locations</b></h5>
+                            <h5 style={{ borderRadius: '50px 0px 50px 0px', background: '#ee2e24', fontWeight: 700 }} className='p-2 py-2 pl-4 text-white'>Explore Locations</h5>
 
                             <MobileDestination />
 
-                            <h5 style={{ borderRadius: '50px 0px 50px 0px', background: '#ee2e24' }} className='p-2 py-2 pl-4 text-white'><b>Our collection</b></h5>
+                            <h5 style={{ borderRadius: '50px 0px 50px 0px', background: '#ee2e24', fontWeight: 700 }} className='p-2 py-2 pl-4 text-white'>Our collection</h5>
 
-                            <MobileCollections />
+                            <MobileCollections CollectionData={CollectionData} />
 
-                            <h5 style={{ borderRadius: '50px 0px 50px 0px', background: '#ee2e24' }} className='p-2 py-2 pl-4 text-white'><b>Recommendation</b></h5>
-
-                            <MobileRecommended />
+                            {RecommededData?.data?.length > 0 ?
+                                <>
+                                    <h5 style={{ borderRadius: '50px 0px 50px 0px', background: '#ee2e24', fontWeight: 700 }} className='p-2 py-2 pl-4 text-white'>Recommendation</h5>
+                                    <MobileRecommended RecommededData={RecommededData} />
+                                </> : null
+                            }
                         </div>
                     </Grid>
                     <Grid item xs={12}>

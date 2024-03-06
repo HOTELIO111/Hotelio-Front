@@ -23,18 +23,8 @@ const StyledCard = styled(Card)`
 `;
 
 
-const MobileRecommended = () => {
+const MobileRecommended = ({RecommededData}) => {
 
-    const { currentUser } = useAuthContext();
-
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(GetAllRecommendationAction(currentUser?._id))
-    }, [currentUser])
-
-
-    const RecommededData = useSelector((state) => state.GetAllRecommendedReducer.data);
 
     const [titles, setTitles] = useState({});
 

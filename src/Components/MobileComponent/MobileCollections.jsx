@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { Card, CardContent, Typography, Paper } from '@mui/material';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux'
-import { GetAllCollectionAction } from '../../store/actions/hotelioCollectionActions';
 
 
 
@@ -23,17 +21,9 @@ const StyledCard = styled(Card)`
 `;
 
 
-const MobileCollections = () => {
+const MobileCollections = ({ CollectionData }) => {
 
 
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(GetAllCollectionAction())
-    }, [])
-
-
-    const CollectionData = useSelector((state) => state.GetAllCollectionReducer.data);
 
     return (
         <>
