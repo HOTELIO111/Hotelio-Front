@@ -260,7 +260,7 @@ const Navbar = ({ list }) => {
             <div className="col-12 p-0">
               <nav
                 style={{
-                  background: "#fff",
+                  background: "#fff", borderBottom: '2px solid #ee2e24'
                 }}
                 className={style.main_nav}
               >
@@ -537,11 +537,11 @@ const Navbar = ({ list }) => {
                     </div>
                   </div>
                 </div>
-                <div
+                {/* <div
                   className={`py-2 text-white text-center ${style.navRemove}`}
                 >
                   <CitywiseDropedown CityWiseCityList={citites} />
-                </div>
+                </div> */}
               </nav>
             </div>
           </div>
