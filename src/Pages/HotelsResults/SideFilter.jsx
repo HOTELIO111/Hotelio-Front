@@ -425,7 +425,7 @@ const SideFilter = (setFilterData, filterData) => {
         </div>
         <hr />
       </Grid>
-      {/* <Grid item xs={12}>
+      <Grid item xs={12}>
         <div>
           <h5>Accommodation Types</h5>
           {roomType?.map((roomType, index) => (
@@ -447,7 +447,7 @@ const SideFilter = (setFilterData, filterData) => {
           ))}
         </div>
         <hr />
-      </Grid> */}
+      </Grid>
       <Grid item sx={{ p: 2 }} xs={12}>
         <Typography
           sx={{ display: "flex", justifyContent: "space-between" }}
@@ -483,7 +483,7 @@ const SideFilter = (setFilterData, filterData) => {
           valueLabelFormat={(value) => `${value} Km`}
         />
       </Grid> */}
-      <Grid item xs={12}>
+      {/* <Grid item xs={12}>
         <div>
           <h5>Hotelio Collection</h5>
           {categoryData.map((item, index) => (
@@ -502,7 +502,7 @@ const SideFilter = (setFilterData, filterData) => {
           ))}
         </div>
         <hr />
-      </Grid>
+      </Grid> */}
       <Grid item xs={12}>
         <div>
           <h5>Vacation Escapes</h5>
