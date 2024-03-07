@@ -366,19 +366,6 @@ const StepsForm = () => {
                       autoFocus
                     />
                   </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    sx={{ display: "flex", justifyContent: "end" }}
-                  >
-                    <Typography
-                      color={"error"}
-                      style={{ cursor: "pointer" }}
-                      onClick={() => navigate("/forget-password")}
-                    >
-                      Forgot password?
-                    </Typography>
-                  </Grid>
                 </>
               ) : null}
             </ThemeProvider>

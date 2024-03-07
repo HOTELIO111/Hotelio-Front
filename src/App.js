@@ -109,8 +109,6 @@ function App() {
         <Route path="/booking" element={<Booking />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms-condition" element={<Terms />} />
-        <Route path="/Terms&condition" element={<TermsMob />} />
-        <Route path="/Privacy&policy" element={<PrivacyMob />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/booking-history" element={<YourBooking />} />
         <Route path="/About_Us" element={<AboutMob />} />
@@ -132,7 +130,9 @@ function App() {
 
         <Route path="/favourite" element={<Favourite />} />
         <Route path="/offer" element={<MobileOffer />} />
-
+        <Route path="/Privacy&policy" element={<PrivacyMob />} />
+        <Route path="/Terms&condition" element={<TermsMob />} />
+        
         {/* Travel Partner */}
 
         <Route path="/Travel-Partner-Auth" element={<TravelLoginSignup />} />

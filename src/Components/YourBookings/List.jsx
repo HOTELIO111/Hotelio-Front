@@ -283,8 +283,8 @@ export default function List() {
                                                     <Grid spacing={1} container>
                                                         <Grid item xs={12} lg={6} xl={6}>
                                                             <div>
-                                                                <Button color='error' href={`/searched-hotel/${item?.hotel?.[0]?._id}`} variant="contained" size="medium">View Hotel</Button>
-                                                                <Button onClick={AlertBox} sx={{ ml: 1 }} variant="outlined" color="error" size="medium">Cancel</Button>
+                                                                {/* <Button color='error' href={`/searched-hotel/${item?.hotel?.[0]?._id}`} variant="contained" size="medium">View Hotel</Button> */}
+                                                                <Button onClick={AlertBox} sx={{ ml: 1, borderRadius: '25px' }} variant="outlined" color="error" size="medium">Cancel</Button>
                                                             </div>
                                                         </Grid>
                                                         {

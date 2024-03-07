@@ -327,6 +327,7 @@ body {
 }
 
 @media (max-width: 991px) {
+
   html,
   body {
     overflow-x: hidden;
@@ -344,6 +345,11 @@ body {
   .mobile-bottom-fix-big {
     margin-bottom: 60px;
   }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
 }
 
 /* For WebKit based browsers (Chrome, Safari) */
@@ -489,6 +495,7 @@ body {
 }
 
 @keyframes hotelioLoader {
+
   0%,
   100% {
     color: red;
@@ -512,13 +519,15 @@ body {
 .MapViewOnClick:hover {
   box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.15);
 }
+
 .animatedElement {
   width: 50px;
   height: 50px;
   background-color: blue;
   position: absolute;
   top: 0;
-  left: 50%; /* Center the element horizontally */
+  left: 50%;
+  /* Center the element horizontally */
   animation: moveDown 3s linear infinite;
 }
 
@@ -526,8 +535,10 @@ body {
   0% {
     top: 0;
   }
+
   100% {
-    top: 100%; /* Adjust the final position as needed */
+    top: 100%;
+    /* Adjust the final position as needed */
   }
 }
 
@@ -542,6 +553,7 @@ body {
   color: white;
   user-select: none;
 }
+
 .ButtonPrimary:hover {
   background-color: #973732;
   border: 1px solid #973732;
@@ -561,4 +573,3 @@ body {
   background-color: #4d4d53;
   border: 1px solid #4d4d53;
 }
-
