@@ -251,68 +251,29 @@ export default function List() {
                     BookingData?.data?.data?.map((item, index) => {
                         return (
                             <Grid container spacing={0} my={1} key={index} sx={{ boxShadow: '10px 10px 34px 0px rgba(0,0,0,0.15)' }}>
-                                <Grid item xs={12} lg={4}>
-                                    <img
-                                        style={{ borderRadius: '5px 0px 0px 0px', width: '100%', maxHeight: '250px', objectFit: 'cover', minHeight: '250px' }}
-                                        src={item?.hotel?.[0]?.hotelCoverImg}
-                                        alt="hotel"
-                                    />
-                                </Grid>
-                                <Grid item xs={12} lg={8}>
-                                    <Card sx={{ display: 'flex', borderRadius: '0px 5px 0px 0px', height: '100%' }}>
-                                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                                            <CardContent sx={{ flex: '1 0 auto' }}>
-                                                <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-                                                    <Typography component="div" variant="h5">
+                                <Grid item xs={12} sm={12} lg={12}>
+                                    <Card sx={{ boxShadow: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset' }} className="p-1">
+                                        <CardContent sx={{ display: 'flex', alignItems: 'start', gap: '5px', flexDirection: isMobile ? 'column' : 'row' }}>
+                                            <Box sx={{ maxHeight: isMobile ? '' : '200px', maxWidth: "400px", minHeight: '150px' }} >
+                                                <img
+                                                    style={{ borderRadius: '5px', width: '100%', objectFit: 'cover' }}
+                                                    src={item?.hotel?.[0]?.hotelCoverImg}
+                                                    alt="hotel"
+                                                />
+                                            </Box>
+                                            <Box>
+                                                <Box display={isMobile ? '' : 'flex'} px={1} justifyContent={'space-between'} alignItems={'center'}>
+                                                    <Typography variant="h5" fontWeight={800}>
                                                         {item?.hotel?.[0]?.hotelName}
                                                     </Typography>
-                                                    {/* <Timer initialTime={time} /> */}
+                                                    <Box display={'flex'}>
+                                                        <Rating name="read-only" value={item?.hotel?.[0]?.hotelRatings} readOnly />
+                                                        <Typography component="div" variant="p">
+                                                            {item?.hotel?.[0]?.reviews.length} ({item?.hotel?.[0]?.reviews.length} reviews)
+                                                        </Typography>
+                                                    </Box>
                                                 </Box>
-                                                <Typography component="div" variant="p">
-                                                    {item?.hotel?.[0]?.reviews.length} ({item?.hotel?.[0]?.reviews.length} reviews)
-                                                </Typography>
-                                                <Rating name="read-only" value={item?.hotel?.[0]?.hotelRatings} readOnly />
-                                            </CardContent>
-                                            <Box sx={{ pl: 1, pb: 1 }}>
-                                                {item?.hotel?.[0]?.discription && (
-                                                    <span>
-                                                        {item?.hotel[0]?.discription.substring(0, 200)}...
-                                                    </span>
-                                                )}
-                                                <CardActions>
-                                                    <Grid spacing={1} container>
-                                                        <Grid item xs={12} lg={6} xl={6}>
-                                                            <div>
-                                                                {/* <Button color='error' href={`/searched-hotel/${item?.hotel?.[0]?._id}`} variant="contained" size="medium">View Hotel</Button> */}
-                                                                <Button onClick={AlertBox} sx={{ ml: 1, borderRadius: '25px' }} variant="outlined" color="error" size="medium">Cancel</Button>
-                                                            </div>
-                                                        </Grid>
-                                                        {
-                                                            isMobile ? null :
-                                                                <Grid item xs={12} lg={6} xl={6} sx={{ display: 'flex', justifyContent: 'end' }}>
-                                                                    <Button variant="contained" color='error' onClick={() => handleOpen(item.hotel[0]._id, item._id, item.customer)} size="medium">Share review</Button>
-                                                                </Grid>
-                                                        }
-                                                    </Grid>
-
-                                                </CardActions>
-                                            </Box>
-                                        </Box>
-                                    </Card>
-                                </Grid>
-                                <Grid sx={{ borderTop: '2px solid #ee2e24' }} item xs={12} sm={12}>
-                                    <Accordion sx={{ borderRadius: '0px' }}>
-                                        <AccordionSummary
-                                            expandIcon={<ExpandMoreIcon />}
-                                            aria-controls="panel1a-content"
-                                            id="panel1a-header"
-                                        >
-                                            <Button variant="contained" color='error' size="medium">Check Details</Button>
-                                        </AccordionSummary>
-                                        <AccordionDetails>
-                                            <Card sx={{ bgcolor: 'transparent', boxShadow: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset', borderRadius: '15px' }} className="p-1">
-
-                                                <Grid spacing={1} p={1} container>
+                                                <Grid p={1} container>
                                                     <Grid item xs={12} lg={6}>
                                                         <div className={`d-flex align-items-center border-bottom ${isMobile && 'justify-content-around'}`}>
                                                             <Typography fontWeight={700} variant={isMobile ? 'caption' : 'p'}>
@@ -408,7 +369,7 @@ export default function List() {
                                                             <Typography fontWeight={700} variant={isMobile ? 'caption' : 'p'}>
                                                                 PAID AMOUNT :
                                                             </Typography>
-                                                            <Typography sx={{ pl: 2 }} variant={isMobile ? 'caption' : 'h6'}>
+                                                            <Typography sx={{ pl: 2 }} color={'green'} variant={isMobile ? 'caption' : 'h6'}>
                                                                 {item?.payment?.paidamount || 'NA'}
                                                             </Typography>
                                                         </div>
@@ -418,7 +379,7 @@ export default function List() {
                                                             <Typography fontWeight={700} variant={isMobile ? 'caption' : 'p'}>
                                                                 BALANCE AMOUNT :
                                                             </Typography>
-                                                            <Typography sx={{ pl: 2 }} variant={isMobile ? 'caption' : 'h6'}>
+                                                            <Typography sx={{ pl: 2 }} color={'error'} variant={isMobile ? 'caption' : 'h6'}>
                                                                 {item?.payment?.balanceAmt || 'NA'}
                                                             </Typography>
                                                         </div>
@@ -435,10 +396,26 @@ export default function List() {
                                                     </Grid>
 
                                                 </Grid>
+                                            </Box>
+                                        </CardContent>
+                                        <CardActions>
+                                            <Grid spacing={1} container>
+                                                <Grid item xs={12} lg={6} xl={6}>
+                                                    <div>
+                                                        {/* <Button color='error' href={`/searched-hotel/${item?.hotel?.[0]?._id}`} variant="contained" size="medium">View Hotel</Button> */}
+                                                        <Button onClick={AlertBox} sx={{ ml: 1, borderRadius: '25px' }} variant="outlined" color="error" size="medium">Cancel Booking</Button>
+                                                    </div>
+                                                </Grid>
+                                                {
+                                                    isMobile ? null :
+                                                        <Grid item xs={12} lg={6} xl={6} sx={{ display: 'flex', justifyContent: 'end' }}>
+                                                            <Button variant="contained" color='error' onClick={() => handleOpen(item.hotel[0]._id, item._id, item.customer)} size="medium">Share review</Button>
+                                                        </Grid>
+                                                }
+                                            </Grid>
 
-                                            </Card>
-                                        </AccordionDetails>
-                                    </Accordion>
+                                        </CardActions>
+                                    </Card>
                                 </Grid>
                             </Grid>
                         )

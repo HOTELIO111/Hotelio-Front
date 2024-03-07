@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import style from "./navbar.module.css";
 import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import $ from "jquery";
+import { useDispatch, useSelector } from 'react-redux';
 import Dates from "../date/Date";
 import hotel from "../../images/hotel-bg.webp";
 import { styled, alpha } from "@mui/material/styles";
@@ -43,7 +44,7 @@ const Navbar = ({ list }) => {
   const { selectedPlace, setSelectedPlace, placeData } = useSearch();
 
   const open = Boolean(anchorEl);
-
+  const CollectionData = useSelector((state) => state.GetAllCollectionReducer.data)
   const [Login, setLogin] = useState(null);
   const openBox = Boolean(Login);
   const handleClickLogin = (event) => {
@@ -765,6 +766,7 @@ const Navbar = ({ list }) => {
             </div>
             <div style={{ marginTop: "50px" }} className="container">
               <QuickFilterNav
+                CollectionData={CollectionData}
                 setSelectedCategory={setSelectedCategory}
                 selectedCategory={selectedCategory}
               />

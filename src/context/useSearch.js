@@ -49,7 +49,8 @@ const SearchProvider = ({ children }) => {
     fetchData();
   }, [selectedPlace]);
 
-  const GetLocationData = async (endpoint, filter, currentSearchParams) => {
+  const 
+  GetLocationData = async (endpoint, filter, currentSearchParams) => {
     let newFilter = {};
 
     if (filter !== null) {

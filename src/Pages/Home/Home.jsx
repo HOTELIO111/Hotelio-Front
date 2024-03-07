@@ -22,10 +22,8 @@ const Home = () => {
     dispatch(GetAllSliderAction())
   }, [])
 
-
   const HotelReview = useSelector((state) => state.GetHotelioReviewReducer.data);
   const HotelSlider = useSelector((state) => state.GetAllSliderReducer.data);
-  console.log(HotelSlider)
   const isXtraSmallScreen = useMediaQuery("(max-width: 450px)");
   useEffect(() => {
     const hasSeenPopup = localStorage.getItem('hasSeenPopup');
