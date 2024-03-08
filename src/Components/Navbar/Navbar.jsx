@@ -339,25 +339,34 @@ const Navbar = ({ list }) => {
                           <BsFillBuildingsFill /> Become a Hotelio Partner
                         </NavLink>
                       </li> */}
-                      <li
-                        style={{
-                          listStyle: "none",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      >
-                        <NavLink
-                          to={"https://admin.hoteliorooms.com/"}
-                          className={`${!list ? "text-dark" : ""}`}
+                      {!currentUser ? (
+                        <li
+                          style={{
+                            listStyle: "none",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
                         >
-                          <DomainAddIcon /> LIST YOUR PROPERTY
-                        </NavLink>
-                      </li>
-                      {/* <li style={{ listStyle: 'none' }}>
-                        <NavLink to="/contact">+91 (811)55 10050</NavLink>
-                      </li> */}
-
+                          <NavLink
+                            to={"https://admin.hoteliorooms.com/"}
+                            className={`${!list ? "text-dark" : ""}`}
+                          >
+                            <DomainAddIcon /> LIST YOUR PROPERTY
+                          </NavLink>
+                        </li>
+                      ) : (
+                        <li
+                          style={{
+                            listStyle: "none",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <NavLink to="/contact"><CallIcon /> +91 (811)55 10050</NavLink>
+                        </li>
+                      )}
                       {!currentUser ? (
                         <>
                           <NavLink
@@ -510,7 +519,7 @@ const Navbar = ({ list }) => {
                                   About Us
                                 </NavLink>
                               </MenuItem>
-                              <MenuItem onClick={handleClose} disableRipple>
+                              <MenuItem disableRipple>
                                 <div onClick={HandleLogOutCustomer}>
                                   Log Out
                                 </div>

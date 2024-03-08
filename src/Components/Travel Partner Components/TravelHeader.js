@@ -161,7 +161,7 @@ const TravelHeader = () => {
   return (
 
     <div>
-      <Grid spacing={1} container sx={{ borderBottom: '2px solid #ee2e24' }}>
+      <Grid spacing={1} alignItems={'center'} container sx={{ borderBottom: '2px solid #ee2e24' }}>
         <Grid item xs={12} sm={2}>
           <img onClick={() => navigate('/Travel-Partner-Home')} src={HotelioLogo} style={{ width: '150px' }} alt="Logo" />
         </Grid>
