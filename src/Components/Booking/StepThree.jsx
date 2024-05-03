@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import React from "react";
 import "./BookingSteps.css";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import BookingInfo from "./BookingInfo";
 import CcavForm from "./CcavForm";
-import { useBooking } from "../../context/useBooking";
-import { useAuthContext } from "../../context/userAuthContext";
+import Countdown from "react-countdown";
+import BookingInfo from "./BookingInfo";
 import { useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
+import { useBooking } from "../../context/useBooking";
+import { Box, Grid, Tooltip, Typography } from "@mui/material";
 import { useCollections } from "../../context/useStateManager";
-import moment from "moment/moment";
+import { isMobile } from "react-device-detect";
 
 const StepThree = () => {
 
@@ -19,125 +19,89 @@ const StepThree = () => {
   const roomData = hotelData?.rooms?.find((item) => item._id === roomId);
   const { BillingCalculate, BookingDetails } = useBooking();
   const userBookingDetails = BookingDetails;
-  // const userBookingDetails = useSelector((state) => state.GetBookingRegisterReducer?.data?.message?.data);
+  const calculate = useSelector((state) => state.GetHotelBillCalculationReducers?.data?.data);
   const { formData } = useCollections();
-  const searchQuery = new URLSearchParams(document.location.search);
-  const { currentUser } = useAuthContext();
-  const currentSearchParam = Object.fromEntries(searchQuery?.entries());
-  const navigate = useNavigate();
-  // Calculate the total night stay
-  const totalLengthOfStay = (checkIn, checkOut) => {
-    const newCheckIn = new Date(checkIn);
-    const newCheckOut = new Date(checkOut);
-    const timeDifference = newCheckOut.getTime() - newCheckIn.getTime();
-    const totalDays = timeDifference / (1000 * 3600 * 24);
-    return totalDays;
+
+  // Renderer callback with condition
+  const renderer = ({ minutes, seconds, completed }) => {
+    if (completed) {
+      // Render a completed state
+      return document.getElementById('FormfillDone').click();
+    } else {
+      // Render a countdown
+      return <Typography variant="h6" gutterBottom className="text-warning fw-bolder">Timer: {minutes}:{seconds}</Typography>;
+    }
   };
-  //   credentials
-  const checkIn = currentSearchParam.checkIn;
-  const checkOut = currentSearchParam.checkOut;
-  const qunatityRooms = currentSearchParam.totalRooms;
-  const totalGuest = currentSearchParam.totalGuest;
-  const priceOfaRoom = roomData?.price;
-  const totalDays = totalLengthOfStay(checkIn, checkOut);
-  // const currentDate = new Date.now();
-  // credentials ----------------------------
-
-  const [timeRemaining, setTimeRemaining] = useState(moment.duration(10, "minutes"));
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      // Decrease the remaining time by 1 second
-      setTimeRemaining((prevTime) => moment.duration(prevTime - 1000));
-
-      // Check if the timer has reached zero
-      if (timeRemaining <= 0) {
-        clearInterval(intervalId);
-        // Perform any action when the timer reaches zero
-        console.log("Timer reached zero!");
-        navigate('/YourBooking')
-      }
-    }, 1000);
-
-    // Clean up the interval on component unmount
-    return () => clearInterval(intervalId);
-  }, [timeRemaining]);
-
-  const formattedTime = moment.utc(timeRemaining.asMilliseconds()).format("mm:ss");
-
-  const calculate = BillingCalculate(
-    priceOfaRoom,
-    null,
-    qunatityRooms,
-    12,
-    checkIn,
-    checkOut,
-    currentUser
-  );
 
 
   return (
-    <div className="container p-2">
+    <div className="p-2">
       <Grid container spacing={2}>
         <BookingInfo />
         <Grid item sm={12} md={6} lg={8} xl={8}>
           {/* Conditionally render content based on activeTab */}
           <Grid container spacing={2} mb={2}>
             <Grid item sm={12}>
-              <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}
-                style={{ border: "2px solid #ee2e24", background: 'linear-gradient(338deg, rgba(243,200,198,1) 35%, rgba(255,255,255,1) 100%)' }}
-                className="px-2 fw-bolder rounded"
-              >
-                <Typography variant="h5" gutterBottom>
-                  {formData?.name}
-                </Typography>
-                <Typography variant="p" gutterBottom>
-                  {formData?.email}
-                </Typography>
-                <Typography variant="p" gutterBottom>
-                  {formData?.mobileNo}
-                </Typography>
+              <Box className='rounded' style={{
+                border: "2px solid #ee2e24"
+              }}>
+                <Box
+                  display={'flex'} color={'#ee2e24'} flexDirection={isMobile ? 'column' : 'row'} justifyContent={'space-between'} alignItems={'center'} p={1} className="fw-bolder">
+                  <Typography fontWeight={600} variant="h5" gutterBottom>
+                    {formData?.name}
+                  </Typography>
+                  <Typography fontWeight={600} variant="h5" gutterBottom>
+                    {formData?.email}
+                  </Typography>
+                  <Typography fontWeight={600} variant="h5" gutterBottom>
+                    {formData?.mobileNo}
+                  </Typography>
+                </Box>
+                <Box display={'flex'} gap={isMobile ? 1 : 5} flexDirection={isMobile ? 'column' : 'row'} justifyContent={'space-between'} alignItems={'center'} p={1} >
+
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    className="text-danger fw-bolder"
+                  >
+                    Total Amount to be Paid - ₹ {calculate?.totalAmountToPay}
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    textTransform={'uppercase'}
+                    className="text-warning fw-bolder"
+                  >
+                    {userBookingDetails?.bookingStatus}
+                  </Typography>
+                  <Countdown date={Date.now(userBookingDetails?.createdAt) + 300000}
+                    renderer={renderer}
+                  />
+                </Box>
+                <Box p={1} >
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    className="text-danger fw-bolder"
+                  >
+                    Order ID <Tooltip title="Your Order Id"> <span style={{ fontFamily: 'sans-serif', color: '#74E291', textDecoration: 'underline' }}> {userBookingDetails?.bookingId}</span></Tooltip> has been generated, but the booking is pending. Please make the payment to confirm your booking.
+                  </Typography>
+                </Box>
               </Box>
-            </Grid>
-            <Grid item sm="12">
-              <Typography
-                variant="h5"
-                gutterBottom
-                className="text-danger fw-bolder"
-              >
-                Order ID <span style={{ fontFamily: 'sans-serif', color: '#74E291' }}> {userBookingDetails?.bookingId} </span> has been generated, but the booking is pending. Please make the payment to confirm your booking.
-              </Typography>
-
-              <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} >
-
-                <Typography
-                  variant="h5"
-                  gutterBottom
-                  className="text-danger fw-bolder"
-                >
-                  {calculate?._totalAmountToPaid?.head} &nbsp;₹ {calculate?._totalAmountToPaid?.value}
-                </Typography>
-                <Typography
-                  variant="h5"
-                  gutterBottom
-                  className="text-warning fw-bolder"
-                >
-                  Timer: {formattedTime}
-                </Typography>
-              </Box>
-
             </Grid>
             <Grid item sm="12" >
               <CcavForm
                 BOOKINGDATA={userBookingDetails}
                 BILL={BillingCalculate}
                 roomData={roomData}
+                DATAA={formData}
+                actualPricetoPay={calculate?.totalAmountToPay}
               />
             </Grid>
           </Grid>
         </Grid>
       </Grid>
-    </div>
+    </div >
   );
 };
 

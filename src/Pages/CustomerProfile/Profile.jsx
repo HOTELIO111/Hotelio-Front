@@ -22,7 +22,7 @@ import { API_URL } from "../../config";
 
 const Profile = () => {
 
-  const { sendOtp, otpResp, Loader, setLoader, currentUser, setCurrentUser } =
+  const { sendOtp, otpResp, Loader, currentUser, setCurrentUser } =
     useAuthContext();
   // State variables
   const [profiledetailUpdate, setprofiledetailUpdate] = useState(false);
@@ -156,7 +156,7 @@ const Profile = () => {
     <div className="p-1">
       <Grid
         container
-        className={isMobile ? "mb-5" : "min-vh-100 mt-5"}
+        className={isMobile ? "mb-5" : "min-vh-100"}
         spacing={1}
       >
         <WaitLoader loading={Loader} />
@@ -186,7 +186,7 @@ const Profile = () => {
               <div className={`${style.image}`} style={{ maxWidth: '100%', position: 'relative' }}>
                 <img
                   src={currentUser?.avatar || "https://i.postimg.cc/bryMmCQB/profile-image.jpg"}
-                  alt="Profile Image"
+                  alt="ProfileImage"
                 />
                 <div style={{ position: 'absolute', left: '60%', transform: 'translateX(-50%)', bottom: 0 }}>
                   <IconButton onClick={() => document.getElementById('clickMe').click()} variant='text'><BorderColorIcon color='dark' /></IconButton>
@@ -404,7 +404,7 @@ const Profile = () => {
                 </Typography>
               </div>
             </Card>
-            <Card className="p-3" sx={{ ml: 1, maxWidth: "400px", background: 'transparent', boxShadow: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset', borderRadius: '15px', display: 'grid', placeItems: 'center' }}>
+            <Card className="p-3" sx={{ ml: 1, maxWidth: "550px", background: 'transparent', boxShadow: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset', borderRadius: '15px', display: 'grid', placeItems: 'center' }}>
               <div>
                 <Typography variant="h6" fontWeight={700}>
                   Get 999 INR instantly Credit in your account on Sign Up. Also become eligible for refer and earn.

@@ -7,13 +7,12 @@ import {
   Box,
   Card,
   Grid,
-  InputLabel,
   TextField,
   Typography,
 } from "@mui/material";
 import Skeleton from "react-loading-skeleton";
 
-function CcavForm({ BOOKINGDATA, BILL, roomData }) {
+function CcavForm({ BOOKINGDATA, BILL, roomData, DATAA, actualPricetoPay }) {
   const inputStyle = {
     border: "none",
     borderBottom: "0px solid #000", // Optional: Add a bottom border for better visibility
@@ -42,15 +41,15 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
     currentUser
   );
 
-  const HandleCheckOutPayment = async (BOOKINGDATA, BILL) => {
+  const HandleCheckOutPayment = async (BOOKINGDATA, BILL, DATAA) => {
     const formData = {
       room: BOOKINGDATA?.room?._id,
       hotel: BOOKINGDATA?.hotel?._id,
-      billing_address: document.querySelector('input[name="billing_address"]').value || '',
-      billing_city: document.querySelector('input[name="billing_city"]').value || '',
-      billing_state: document.querySelector('input[name="billing_state"]').value || '',
-      billing_zip: document.querySelector('input[name="billing_zip"]').value || '',
-      billing_country: document.querySelector('input[name="billing_country"]').value || '',
+      billing_address: DATAA?.address,
+      billing_city: DATAA?.city,
+      billing_state: DATAA?.state,
+      billing_zip: DATAA?.zip,
+      billing_country: DATAA?.country,
       merchant_param1: document.querySelector('input[name="merchant_param1"]').value || 'Part Pay',
       guest: {
         name: BOOKINGDATA?.guest?.name,
@@ -149,7 +148,9 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   style={inputStyle}
                   margin="normal"
                   name="billing_address"
+                  value={DATAA?.address}
                   placeholder="Enter Billing Address"
+                  readOnly
                 />
               </Grid>
               <Grid
@@ -310,7 +311,8 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   type="text"
                   style={inputStyle}
                   name="amount"
-                  value="1.00"
+                  value={"1"}
+                  // value={actualPricetoPay}
                   placeholder="Amount"
                   readOnly
                 />
@@ -413,6 +415,8 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   margin="normal"
                   name="billing_city"
                   placeholder="Enter Billing City"
+                  value={DATAA?.city}
+                  readOnly
                 />
               </Grid>
               <Grid
@@ -438,7 +442,9 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   style={inputStyle}
                   margin="normal"
                   name="billing_state"
+                  value={DATAA?.state}
                   placeholder="Enter Billing State"
+                  readOnly
                 />
               </Grid>
               <Grid
@@ -464,7 +470,9 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   style={inputStyle}
                   margin="normal"
                   name="billing_zip"
+                  value={DATAA?.zip}
                   placeholder="Enter Billing Zip"
+                  readOnly
                 />
               </Grid>
               <Grid
@@ -490,7 +498,9 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   style={inputStyle}
                   margin="normal"
                   name="billing_country"
+                  value={DATAA?.country}
                   placeholder="Enter Billing Country"
+                  readOnly
                 />
               </Grid>
               <Grid
@@ -553,10 +563,19 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                 />
               </Grid>
 
-              <Grid item xs={12} lg={12} p={1}>
+              <Grid item xs={12} lg={6} p={1}>
+                <input
+                  type="submit"
+                  name="merchant_param1"
+                  value="Part Pay"
+                  style={{ padding: "1rem 0rem", borderRadius: "27px", margin: '1px' }}
+                />
+              </Grid>
+              <Grid item xs={12} lg={6} p={1}>
                 <LoadingButton
                   fullWidth
                   // loading={true}
+                  id="FormfillDone"
                   type="submit"
                   onClick={() =>
                     HandleCheckOutPayment(userBookingDetails, calculate)

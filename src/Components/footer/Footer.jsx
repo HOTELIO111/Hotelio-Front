@@ -17,7 +17,6 @@ import SendIcon from "@mui/icons-material/Send";
 import Applestore from "../../images/apple.png";
 import Playstore from "../../images/playstored.png";
 import { AiFillCaretRight } from "react-icons/ai";
-import SavingsIcon from "@mui/icons-material/Savings";
 import FilterVintageIcon from "@mui/icons-material/FilterVintage";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
@@ -30,7 +29,6 @@ import RUPAYLOGO from "../../images/RUPAYLogo.webp";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { GetPopularLocationAction } from "../../store/actions/locationsActions";
-import { useSearch } from "../../context/useSearch";
 import { MdHomeWork } from "react-icons/md";
 import { BsFillBuildingsFill } from "react-icons/bs";
 import { HiBuildingOffice2 } from "react-icons/hi2";
@@ -39,37 +37,11 @@ import { HiBuildingOffice2 } from "react-icons/hi2";
 
 const Footer = () => {
   const isXtraSmallScreen = useMediaQuery("(max-width:320px)");
-  const { GetLocationData } = useSearch();
   const allLocation = useSelector(
     (state) => state.GetALlPopularLocationReducer
   );
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
-
-  const locations = [
-    "Hotelio near me",
-    "Hotelio in Manali",
-    "Hotelio in Nanital",
-    "Hotelio in Mount Abu",
-    "Hotelio in Agra",
-    "Hotelio in Agra",
-    "Hotelio in Agra",
-    "Hotelio in Agra",
-    "Hotelio in Agra",
-    "Hotelio in Agra",
-    // Add more locations here...
-  ];
-
-  const generateListItems = () => {
-    return locations.map((location, index) => (
-      <li key={index}>
-        <span style={{ cursor: "pointer" }} onClick={() => navigate("/:city")}>
-          {location} <AiFillCaretRight />
-        </span>
-      </li>
-    ));
-  };
 
   const HandleLocationSearch = async (item) => {
     // const data = await GetLocationData(
@@ -83,7 +55,7 @@ const Footer = () => {
   };
   useEffect(() => {
     dispatch(GetPopularLocationAction());
-  }, []);
+  }, [dispatch]);
 
   return (
     <footer
@@ -171,7 +143,7 @@ const Footer = () => {
 
                 <ul className={`${style.fList} mt-4`}>
                   <li className={style.fListItem}>
-                    <Link to="/about" className="d-flex justify-content-start">
+                    <Link to="/about-us" className="d-flex justify-content-start">
                       <InfoIcon className="me-2" />
                       <span className="fs-6">About Us</span>
                     </Link>
@@ -211,7 +183,7 @@ const Footer = () => {
                   </li>
                   <li className={style.fListItem}>
                     <Link
-                      to="/hoteliomember"
+                      to="/hotelio-member"
                       className="d-flex justify-content-start"
                     >
                       <GroupAddIcon className="me-2" />

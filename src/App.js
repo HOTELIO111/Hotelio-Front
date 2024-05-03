@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Contact from "./Pages/Contact/Contact";
 import About from "./Pages/About Us/About";
 import Home from "./Pages/Home/Home";
@@ -9,7 +9,6 @@ import Forgetpass from "./Pages/Forgetpassword/Forgetpass";
 import Changepassword from "./Pages/ChangePassword/Changepassword";
 import SearchBar from "./Components/SearchBar/SearchBar";
 import PageNotFound from "./Components/No Data Page/PageNotFound";
-import Featured_skeleton from "./Components/Skeletons/Featured_skeleton";
 import PublicRoute from "./Components/Routes/PublicRoute";
 import CustomerPro from "./Pages/CustomerProfile/CustomerPro";
 import YourBooking from "./Components/YourBookings/YourBooking";
@@ -29,7 +28,6 @@ import Booking from "./Pages/Booking/Booking";
 import Refund from "./Pages/Refund/Refund";
 import SuccessPage from "./Pages/TransectionPage/SuccessPage";
 import FailedPage from "./Pages/TransectionPage/FailedPage";
-import { useAuthContext } from "./context/userAuthContext";
 import { isMobile } from "react-device-detect";
 import MobileBackground from "./images/MobileBackground.jpg";
 import { useEffect } from "react";
@@ -39,34 +37,32 @@ import TravelProfile from "./Pages/Travel Partner Pages/TravelProfile";
 import AllCities from "./Pages/AllCities/AllCities";
 import CcavForm from "./Components/Booking/CcavForm";
 import SeprateLocation from './Pages/SepratePage/SeprateLocation'
-import { ToastContainer } from "react-toastify";
+import TravelHotels from "./Pages/Travel Partner Pages/TravelHotels";
 
 function App() {
-  const { currentUser } = useAuthContext();
 
-  useEffect(() => {
-    // Check if the browser supports geolocation
-    if ("geolocation" in navigator) {
-      // Ask for the user's location
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          // Store the user's location in state
-          window.localStorage.setItem(
-            "location",
-            JSON.stringify({
-              longitude: position.coords.longitude,
-              latitude: position.coords.latitude,
-            })
-          );
-        },
-        (error) => {
-          console.error("Error getting location:", error);
-        }
-      );
-    } else {
-      console.log("Geolocation is not available in this browser.");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if ("geolocation" in navigator) {
+  //     navigator?.geolocation.getCurrentPosition(
+  //       (position) => {
+  //         window.localStorage.setItem(
+  //           "location",
+  //           JSON.stringify({
+  //             longitude: position.coords.longitude,
+  //             latitude: position.coords.latitude,
+  //           })
+  //         );
+  //       },
+  //       (error) => {
+  //         console.error("Error getting location:", error);
+  //       }
+  //     );
+  //   } else {
+  //     console.log("Geolocation is not available in this browser.");
+  //   }
+  // }, []);
+
+  const location = useLocation();
 
   const hotelioroomsStructuredData = {
     "@context": "https://schema.org/",
@@ -90,6 +86,7 @@ function App() {
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             backgroundAttachment: "fixed",
+            height: `${location.pathname === '/favourite' ? '100vh' : 'auto'}`
           }
           : {}
       }
@@ -104,27 +101,24 @@ function App() {
         <Route path="/search" element={<SearchBar />} />
         <Route path="/signup" element={<PublicRoute Component={Signup} />} />
         <Route path="/signin" element={<PublicRoute Component={Signin} />} />
-        <Route path="/forgetpassword" element={<Forgetpass />} />
+        <Route path="/forget-password" element={<Forgetpass />} />
         <Route
           path="/reset/password"
           element={<PublicRoute Component={Changepassword} />}
         />
         <Route path="/" element={<Home />} />
         <Route path="/booking" element={<Booking />} />
-        <Route path="/skeleton" element={<Featured_skeleton />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms-condition" element={<Terms />} />
-        <Route path="/Terms&condition" element={<TermsMob />} />
-        <Route path="/Privacy&policy" element={<PrivacyMob />} />
         <Route path="/privacy" element={<Privacy />} />
-        <Route path="/YourBooking" element={<YourBooking />} />
+        <Route path="/booking-history" element={<YourBooking />} />
         <Route path="/About_Us" element={<AboutMob />} />
         <Route path="/Contact_Us" element={<ContactUsMob />} />
-        <Route path="/about" element={<About />} />
-        <Route path={`/CustomerProfile/:id`} element={<CustomerPro />} />
-        <Route path="/searchedhotels" element={<HotelResults />} />
-        <Route path="/searchedhotel/:id" element={<HotelDetail />} />
-        <Route path="/hoteliomember" element={<Member />} />
+        <Route path="/about-us" element={<About />} />
+        <Route path={`/customer-profile/:id`} element={<CustomerPro />} />
+        <Route path="/searched-hotels" element={<HotelResults />} />
+        <Route path="/searched-hotel/:id" element={<HotelDetail />} />
+        <Route path="/hotelio-member" element={<Member />} />
         <Route path="/JoinOurNetwork" element={<JoinOurNetwork />} />
         <Route path="/Refund" element={<Refund />} />
         <Route path="/Transaction_Status" element={<SuccessPage />} />
@@ -137,12 +131,15 @@ function App() {
 
         <Route path="/favourite" element={<Favourite />} />
         <Route path="/offer" element={<MobileOffer />} />
+        <Route path="/Privacy&policy" element={<PrivacyMob />} />
+        <Route path="/Terms&condition" element={<TermsMob />} />
 
         {/* Travel Partner */}
 
         <Route path="/Travel-Partner-Auth" element={<TravelLoginSignup />} />
         <Route path="/Travel-Partner-Home" element={<TravelHome />} />
         <Route path="/Travel-Partner-Profile" element={<TravelProfile />} />
+        <Route path="/Travel-Partner-Hotels" element={<TravelHotels />} />
       </Routes>
     </div >
   );

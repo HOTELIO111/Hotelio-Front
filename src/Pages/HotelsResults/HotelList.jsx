@@ -18,6 +18,7 @@ import HotelListBack from "../../images/HotelListBack.jpg";
 import { useEffect } from "react";
 import Skeleton from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
+import { isMobile } from "react-device-detect";
 import { GetAlltheRoomTypes } from "../../store/actions/roomCategoriesAction";
 
 const HotelList = ({
@@ -135,6 +136,17 @@ const HotelList = ({
     updateSearchQuery({ page: pagination, pageSize: 5 });
   }, [pagination]);
 
+  const TruncateText = ({ text, words }) => {
+    const truncatedText = text.split(' ').slice(0, words).join(' ');
+
+    return (
+      <span style={{ fontWeight: '500' }} title={text}>
+        {truncatedText}
+        {text.split(' ').length > words && '...'}
+      </span>
+    );
+  };
+
   return hotels === null ? (
     <WaitLoader loading="true" />
   ) : (
@@ -142,7 +154,7 @@ const HotelList = ({
       {/* First hotel card */}
       <Grid sx={{ margin: "10px 0px" }} container>
         <Grid item xs={12}>
-          <Typography variant="h3" fontWeight={700}>
+          <Typography variant={isMobile ? 'h5' : 'h3'} fontWeight={isMobile ? 500 : 700}>
             Welcome To Hotelio, Your Travel Partner
           </Typography>
         </Grid>
@@ -162,12 +174,12 @@ const HotelList = ({
         >
           <div className="d-flex justify-content-between align-items-center">
             <h4>
-              <b>Here is your Searched Results of {location}</b>
+              <b>{isMobile ? null : 'Here is your Searched Results of'} {location}</b>
             </h4>
             <Select
               value={currentSearchParams.sort}
               onChange={handleRatingFilterChange}
-              sx={{ marginBottom: "10px", width: 200 }}
+              sx={{ marginBottom: "10px", width: 200, fontWeight: '700' }}
             >
               <MenuItem value="popularity">Popularity</MenuItem>
               <MenuItem value="ratings">Guest Rating</MenuItem>
@@ -268,7 +280,7 @@ const HotelList = ({
                   {/* <div className="w-100"> */}
 
                   <img
-                    className="rounded"
+                    className="rounded-3"
                     style={{ height: "180px", width: "100%" }}
                     src={items.hotelCoverImg}
                     alt="eyd"
@@ -282,55 +294,77 @@ const HotelList = ({
                   lg={5}
                   xl={5}
                 >
-                  <div className="px-3">
-                    <div className="d-flex align-items-start pb-4 flex-column">
-                      <h4>{items?.hotelName}</h4>
-                      <h5 className="fw-bold fs-6 text-danger">
-                        {items?.hotelType?.title}
-                      </h5>
-                    </div>
-                    <h6>
-                      {items?.locality} ,{items?.city} &nbsp;,{items?.state}
-                    </h6>
-
-                    <div>
-                      <h5 className="fs-6 fw-bold py-2">
-                        {
-                          AllRoomsData?.data?.find(
-                            (x) => x._id === items?.rooms[0]?.roomType
-                          ).title
+                  <div className={isMobile ? 'p-3' : 'px-3'}>
+                    <div className={isMobile && 'd-flex justify-content-between align-items-center'}>
+                      <div className={`${isMobile ? '' : 'pb-4'} d-flex align-items-start flex-column`}>
+                        {isMobile ?
+                          <TruncateText text={items?.hotelName} words={11} /> :
+                          <Typography variant="h6">{items?.hotelName}</Typography>
                         }
-                      </h5>
+                        <Typography className="fw-bold fs-6 text-danger">
+                          {items?.hotelType?.title}
+                        </Typography>
+                      </div>
+                      {
+                        isMobile ?
+                          <div className="d-flex flex-column flex-xs-column flex-md-row flex-lg-row flex-xl-row align-items-center justify-content-between">
+                            <Rating
+                              name="read-only"
+                              value={items?.hotelRatings}
+                              readOnly
+                            />
+                            {console.log(items)}
+                            <Typography variant="body1" fontWeight={700}>
+                              {items?.hotelRatings || ""} | 233 (reviews)
+                            </Typography>
+                          </div> : null
+                      }
                     </div>
-                    <div>
-                      {items?.rooms[0]?.roomType?.amenties?.map(
-                        (item, index) => (
-                          <Chip
-                            key={index}
-                            label={item.title}
-                            sx={{
-                              mr: 1,
-                              mb: 1,
-                              background: "#6b0000",
-                              color: "#ffd700",
-                            }}
-                          />
-                        )
-                      )}
-                    </div>
-                    <div className="d-flex align-items-center">
-                      <Rating
-                        name="read-only"
-                        value={items?.hotelRatings}
-                        readOnly
-                      />
-                      <h6>
-                        <b>{items?.hotelRatings || ""}</b>&nbsp; |{" "}
-                        <span className="px-2 text-success fw-bold">
-                          233 (reviews)
-                        </span>
-                      </h6>
-                    </div>
+                    {
+                      isMobile ? null :
+                        <>
+                          <h6>
+                            {items?.locality} ,{items?.city} &nbsp;,{items?.state}
+                          </h6>
+
+                          <div>
+                            <h5 className="fs-6 fw-bold py-2">
+                              {
+                                AllRoomsData?.data?.find(
+                                  (x) => x._id === items?.rooms[0]?.roomType
+                                )?.title
+                              }
+                            </h5>
+                          </div>
+                          <div>
+                            {items?.rooms[0]?.roomType?.amenties?.map(
+                              (item, index) => (
+                                <Chip
+                                  key={index}
+                                  label={item.title}
+                                  sx={{
+                                    mr: 1,
+                                    mb: 1,
+                                    background: "#6b0000",
+                                    color: "#ffd700",
+                                  }}
+                                />
+                              )
+                            )}
+                          </div>
+                          <div className="d-flex flex-column flex-xs-column flex-md-row flex-lg-row flex-xl-row align-items-center justify-content-between">
+                            <Rating
+                              name="read-only"
+                              value={items?.hotelRatings}
+                              readOnly
+                            />
+                            {console.log(items)}
+                            <Typography variant="body1" fontWeight={700}>
+                              {items?.hotelRatings || ""} | 233 (reviews)
+                            </Typography>
+                          </div>
+                        </>
+                    }
                   </div>
                 </Grid>
                 <Grid
@@ -347,7 +381,7 @@ const HotelList = ({
                           onClick={() => {
                             if (loggedIn) {
                               navigate(
-                                `/searchedhotel/${items._id}?${bookingQueries}`
+                                `/searched-hotel/${items._id}?${bookingQueries}`
                               );
                             } else {
                               navigate("/signin");
@@ -367,7 +401,7 @@ const HotelList = ({
                           color="error"
                           onClick={() =>
                             navigate(
-                              `/searchedhotel/${items._id}?${bookingQueries}`
+                              `/searched-hotel/${items._id}?${bookingQueries}`
                             )
                           }
                         >
@@ -378,12 +412,9 @@ const HotelList = ({
                     <div
                       className={`align-items-center p-2 ${style.BookingCardColor} ${style.mobflex}`}
                     >
-                      <h4>
+                      <Typography variant="h5">
                         {setPrice(items)} &nbsp;
-                        <span>
-                          <del>{items?.rooms[0]?.prevPrice}</del>
-                        </span>
-                      </h4>{" "}
+                      </Typography>{" "}
                       <span className="text-danger">64% off</span>
                     </div>
                   </div>

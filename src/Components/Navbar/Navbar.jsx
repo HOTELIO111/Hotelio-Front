@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./navbar.module.css";
 import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import $ from "jquery";
+import { useDispatch, useSelector } from 'react-redux';
 import Dates from "../date/Date";
 import hotel from "../../images/hotel-bg.webp";
 import { styled, alpha } from "@mui/material/styles";
@@ -34,7 +35,6 @@ import { convertDatesToUTC } from "../../Utilis/_fuctions";
 import { useCollections } from "../../context/useStateManager";
 import { useSearch } from "../../context/useSearch";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
-import { useDispatch, useSelector } from "react-redux";
 
 const Navbar = ({ list }) => {
   // Locatio Asked function
@@ -44,7 +44,7 @@ const Navbar = ({ list }) => {
   const { selectedPlace, setSelectedPlace, placeData } = useSearch();
 
   const open = Boolean(anchorEl);
-
+  const CollectionData = useSelector((state) => state.GetAllCollectionReducer.data)
   const [Login, setLogin] = useState(null);
   const openBox = Boolean(Login);
   const handleClickLogin = (event) => {
@@ -216,7 +216,7 @@ const Navbar = ({ list }) => {
   }, []);
 
 
-  // ---------------------------------search the hotel -------------------------------------------------------------------------
+  // ---------------------------------search the hotel -----------------------------
   const searchData = {
     location: placeData?.address,
     lng: placeData?.longitude,
@@ -241,7 +241,7 @@ const Navbar = ({ list }) => {
     if (manageRoom[0].guest === 0)
       return window.alert("please select the room and guest ");
     const queryString = new URLSearchParams(searchData).toString();
-    navigate(`/searchedhotels?${queryString}`);
+    navigate(`/searched-hotels?${queryString}`);
   };
 
   const MarginMobile = {
@@ -261,7 +261,7 @@ const Navbar = ({ list }) => {
             <div className="col-12 p-0">
               <nav
                 style={{
-                  background: "#fff",
+                  background: "#fff", borderBottom: '2px solid #ee2e24'
                 }}
                 className={style.main_nav}
               >
@@ -316,7 +316,7 @@ const Navbar = ({ list }) => {
                         }}
                       >
                         <NavLink
-                          to="/about"
+                          to="/about-us"
                           className={`${!list ? "text-dark" : ""}`}
                         >
                           {/* {console.log(GetPlaceInfo('chennai')) */}
@@ -333,31 +333,40 @@ const Navbar = ({ list }) => {
                       >
                         <NavLink
                           target="_blank"
-                          to="/hoteliomember"
+                          to="/hotelio-member"
                           className={`${!list ? "text-dark" : ""}`}
                         >
                           <BsFillBuildingsFill /> Become a Hotelio Partner
                         </NavLink>
                       </li> */}
-                      <li
-                        style={{
-                          listStyle: "none",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      >
-                        <NavLink
-                          to={"https://admin.hoteliorooms.com/"}
-                          className={`${!list ? "text-dark" : ""}`}
+                      {!currentUser ? (
+                        <li
+                          style={{
+                            listStyle: "none",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
                         >
-                          <DomainAddIcon /> LIST YOUR PROPERTY
-                        </NavLink>
-                      </li>
-                      {/* <li style={{ listStyle: 'none' }}>
-                        <NavLink to="/contact">+91 (811)55 10050</NavLink>
-                      </li> */}
-
+                          <NavLink
+                            to={"https://admin.hoteliorooms.com/"}
+                            className={`${!list ? "text-dark" : ""}`}
+                          >
+                            <DomainAddIcon /> LIST YOUR PROPERTY
+                          </NavLink>
+                        </li>
+                      ) : (
+                        <li
+                          style={{
+                            listStyle: "none",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <NavLink to="/contact"><CallIcon /> +91 (811)55 10050</NavLink>
+                        </li>
+                      )}
                       {!currentUser ? (
                         <>
                           <NavLink
@@ -475,7 +484,7 @@ const Navbar = ({ list }) => {
                               >
                                 <NavLink
                                   className="text-dark"
-                                  to={`/CustomerProfile/${currentUser._id}`}
+                                  to={`/customer-profile/${currentUser._id}`}
                                 >
                                   My Profile
                                 </NavLink>
@@ -487,9 +496,9 @@ const Navbar = ({ list }) => {
                               >
                                 <NavLink
                                   className="text-dark"
-                                  to="/YourBooking"
+                                  to="/booking-history"
                                 >
-                                  My Booking
+                                  Booking History
                                 </NavLink>
                               </MenuItem>
                               <MenuItem
@@ -506,11 +515,11 @@ const Navbar = ({ list }) => {
                                 disableRipple
                                 sx={{ textAlign: "center" }}
                               >
-                                <NavLink className="text-dark" to="/about">
+                                <NavLink className="text-dark" to="/about-us">
                                   About Us
                                 </NavLink>
                               </MenuItem>
-                              <MenuItem onClick={handleClose} disableRipple>
+                              <MenuItem disableRipple>
                                 <div onClick={HandleLogOutCustomer}>
                                   Log Out
                                 </div>
@@ -524,7 +533,7 @@ const Navbar = ({ list }) => {
                         <span className={style.main_white_button}></span>
                       </li>
                     </ul>
-                    <a
+                    <div
                       className={`${style.menu_trigger} ${menuOpen ? style.active : ""
                         }`}
                       onClick={() => {
@@ -535,14 +544,14 @@ const Navbar = ({ list }) => {
                       }}
                     >
                       <span>Menu</span>
-                    </a>
+                    </div>
                   </div>
                 </div>
-                <div
+                {/* <div
                   className={`py-2 text-white text-center ${style.navRemove}`}
                 >
                   <CitywiseDropedown CityWiseCityList={citites} />
-                </div>
+                </div> */}
               </nav>
             </div>
           </div>
@@ -766,6 +775,7 @@ const Navbar = ({ list }) => {
             </div>
             <div style={{ marginTop: "50px" }} className="container">
               <QuickFilterNav
+                CollectionData={CollectionData}
                 setSelectedCategory={setSelectedCategory}
                 selectedCategory={selectedCategory}
               />

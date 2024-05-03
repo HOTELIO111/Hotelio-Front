@@ -324,7 +324,7 @@ const HotelsCard = ({
                           onClick={() => {
                             if (loggedIn) {
                               navigate(
-                                `/searchedhotel/${items._id}?${queryString(
+                                `/searched-hotel/${items._id}?${queryString(
                                   currentSearchParams,
                                   checkInCheckOut
                                 )}`
@@ -347,7 +347,7 @@ const HotelsCard = ({
                           color="error"
                           onClick={() =>
                             navigate(
-                              `/searchedhotel/${items._id}?${queryString(
+                              `/searched-hotel/${items._id}?${queryString(
                                 currentSearchParams,
                                 checkInCheckOut
                               )}`

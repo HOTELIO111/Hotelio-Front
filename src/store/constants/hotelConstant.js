@@ -5,3 +5,7 @@ export const HOTEL_GET_API_ERROR = 'HOTEL_GET_API_ERROR'
 export const GET_SINGLEHOTEL_API_LOADING = "GET_SINGLEHOTEL_API_LOADING"
 export const GET_SINGLEHOTEL_API_ERROR = "GET_SINGLEHOTEL_API_ERROR"
 export const GET_SINGLEHOTEL_API_SUCCESS = "GET_SINGLEHOTEL_API_SUCCESS"
+
+export const GET_HotelBillCalculation_API_LOADING = "GET_HotelBillCalculation_API_LOADING"
+export const GET_HotelBillCalculation_API_ERROR = "GET_HotelBillCalculation_API_ERROR"
+export const GET_HotelBillCalculation_API_SUCCESS = "GET_HotelBillCalculation_API_SUCCESS"

@@ -483,7 +483,7 @@ const SideFilter = (setFilterData, filterData) => {
           valueLabelFormat={(value) => `${value} Km`}
         />
       </Grid> */}
-      <Grid item xs={12}>
+      {/* <Grid item xs={12}>
         <div>
           <h5>Hotelio Collection</h5>
           {categoryData.map((item, index) => (
@@ -502,7 +502,7 @@ const SideFilter = (setFilterData, filterData) => {
           ))}
         </div>
         <hr />
-      </Grid>
+      </Grid> */}
       <Grid item xs={12}>
         <div>
           <h5>Vacation Escapes</h5>
@@ -567,7 +567,6 @@ const SideFilter = (setFilterData, filterData) => {
             </div>
           ))}
         </div>
-        <hr />
       </Grid>
     </Grid>
   );

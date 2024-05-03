@@ -13,12 +13,11 @@ const BookingProvider = ({ children }) => {
   const [BookingDetails, setBookingDetails] = useState(null);
 
 
-
   const CreateBooking = async (formData) => {
     try {
       const response = await instance.post("/hotel/book/create/pre-booking", formData)
       if (response.status === 200) {
-        setBookingDetails(response.data.message.data)
+        setBookingDetails(response.data.data)
         return { error: false, status: 200 }
       }
     } catch (error) {
