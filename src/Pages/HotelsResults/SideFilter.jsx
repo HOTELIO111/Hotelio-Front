@@ -567,7 +567,6 @@ const SideFilter = (setFilterData, filterData) => {
             </div>
           ))}
         </div>
-        <hr />
       </Grid>
     </Grid>
   );

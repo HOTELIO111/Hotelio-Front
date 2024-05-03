@@ -37,6 +37,7 @@ import TravelProfile from "./Pages/Travel Partner Pages/TravelProfile";
 import AllCities from "./Pages/AllCities/AllCities";
 import CcavForm from "./Components/Booking/CcavForm";
 import SeprateLocation from './Pages/SepratePage/SeprateLocation'
+import TravelHotels from "./Pages/Travel Partner Pages/TravelHotels";
 
 function App() {
 
@@ -132,12 +133,13 @@ function App() {
         <Route path="/offer" element={<MobileOffer />} />
         <Route path="/Privacy&policy" element={<PrivacyMob />} />
         <Route path="/Terms&condition" element={<TermsMob />} />
-        
+
         {/* Travel Partner */}
 
         <Route path="/Travel-Partner-Auth" element={<TravelLoginSignup />} />
         <Route path="/Travel-Partner-Home" element={<TravelHome />} />
         <Route path="/Travel-Partner-Profile" element={<TravelProfile />} />
+        <Route path="/Travel-Partner-Hotels" element={<TravelHotels />} />
       </Routes>
     </div >
   );
