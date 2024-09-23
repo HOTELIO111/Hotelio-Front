@@ -1,0 +1,32 @@
+.TermsContainer {
+  margin-top: 100px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.PrivacyText {
+  font-family: Arial, sans-serif;
+  color: #333;
+  line-height: 1.6;
+  margin: 20px 0;
+}
+
+.PrivacyText h4 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.PrivacyText p {
+  margin-bottom: 15px;
+}
+
+.PrivacyText ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.PrivacyText ul li {
+  margin-bottom: 10px;
+}

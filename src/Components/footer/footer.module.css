@@ -1,0 +1,146 @@
+.footer {
+  font-size: 12px;
+}
+
+.footerBanner {
+  /* background: url('https://dxdesignz.github.io/CHINES-NOODLE/IMG/back.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat; */
+  background-color: #ff0000;
+  border-top-right-radius: 150px !important;
+}
+
+.fLists {
+  margin-bottom: 50px;
+}
+
+.fList {
+  list-style: none;
+  padding-left: 10px;
+}
+
+.fListItem {
+  font-size: 18px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.fListItem a {
+  color: white;
+}
+
+.fText {
+  text-align: center;
+  color: white;
+}
+
+.insta {
+  /* border: 1px solid black; */
+  background-color: white;
+  /* color: black; */
+  color: #c32aa3;
+  border-radius: 50%;
+  padding: 10px;
+}
+
+.tweeter {
+  /* border: 1px solid black; */
+  background-color: white;
+  /* color: black; */
+  color: #1da1f2;
+  border-radius: 50%;
+  padding: 10px;
+}
+
+.facebook {
+  /* border: 1px solid black; */
+  background-color: white;
+  /* color: black; */
+  color: #1877f2;
+  border-radius: 50%;
+  padding: 10px;
+}
+
+.linkedin {
+  /* border: 1px solid black; */
+  background-color: white;
+  /* color: black; */
+  color: #0077b5;
+  border-radius: 50%;
+  padding: 10px;
+}
+
+.custom {
+  padding: 1px;
+}
+
+.insta:hover {
+  transform: scale3d(1.3, 1.3, 1.3);
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.linkedin:hover {
+  transform: scale3d(1.3, 1.3, 1.3);
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.facebook:hover {
+  transform: scale3d(1.3, 1.3, 1.3);
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.tweeter:hover {
+  transform: scale3d(1.3, 1.3, 1.3);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.acceptPaymentStyle {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+.acceptPaymentStyle > img {
+  aspect-ratio: 2/1;
+  object-fit: contain;
+  padding: 0.5rem;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.536);
+}
+
+@media screen and (max-width: 768px) {
+  .insta {
+    padding: 5px;
+  }
+
+  .tweeter {
+    padding: 5px;
+  }
+
+  .facebook {
+    padding: 5px;
+  }
+
+  .linkedin {
+    padding: 5px;
+  }
+
+  .mobremove {
+    display: none;
+  }
+}
+
+.locationFooter {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  color: yellow;
+  padding: 1rem 0rem;
+  gap: 1rem; /* Add a gap between grid items if desired */
+}

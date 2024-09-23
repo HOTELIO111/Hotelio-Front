@@ -1,0 +1,19 @@
+.carousel {
+  max-height: "134px" !important;
+  width: 450px !important;
+}
+
+.slider-wrapper {
+  margin-left: 25px !important;
+}
+
+.thumbs-wrapper {
+  display: none;
+}
+
+.customChip {
+  padding: 5px 10px;
+  border-radius: 10px;
+  color: #ee2e24;
+  border: .5px solid gray;
+}

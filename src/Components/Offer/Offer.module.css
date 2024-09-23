@@ -1,0 +1,28 @@
+.featuredContainer:hover {
+  transform: scale(1.2);
+}
+
+.textColourwithPadding {
+  border-radius: 15px;
+  padding: 5rem;
+}
+
+
+.textColourwithPadding>h4 {
+  color: #ee2e24;
+}
+
+.OfferContainer {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background: radial-gradient(circle, rgba(25, 255, 156, 0.5551470588235294) 0%, rgba(255, 255, 255, 0.6924019607843137) 100%);
+  padding: 0 5rem;
+  overflow: hidden;
+  clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+}
+
+
+@media only screen and (max-width: 600px) {
+  .containerMobileBehavior {
+    display: none;
+  }
+}

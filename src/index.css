@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap');
+@import 'atropos/scss';
+
+
+body {
+  margin: 0;
+  font-family: 'Baloo 2'
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+.css-10judt7-control:hover {
+  border-color: #ffffff !important;
+}
+
+.css-15noair-control:hover {
+  border-color: #ffffff !important;
+}

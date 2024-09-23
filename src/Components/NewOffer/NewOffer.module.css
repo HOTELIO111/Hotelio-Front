@@ -1,0 +1,11 @@
+.OffertextAlign>li {
+    text-align: left;
+    word-break: normal;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .mobdisplaynone {
+        display: none;
+    }
+}

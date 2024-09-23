@@ -1,0 +1,15 @@
+.MiddlePadding {
+    padding: 3rem;
+    color: black;
+}
+.rowRevert {
+    --mdb-gutter-x: revert !important;
+  }
+
+@media (max-width:786px) {
+
+    .MiddlePadding {
+        padding: 0rem 1rem;
+    }
+
+}

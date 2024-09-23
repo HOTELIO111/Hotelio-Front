@@ -1,0 +1,41 @@
+.featuredContainer {
+  border-radius: 15px;
+  background: radial-gradient(circle, rgba(220, 167, 93, 0.555) 0%, rgba(255, 255, 255, 0.6924019607843137) 100%);
+}
+
+.featuredContainerOne {
+  display: grid;
+  place-items: center;
+  /* background: linear-gradient(to right, rgba(255, 107, 77, 0.2), rgba(255, 107, 77, 0.208)), url('https://img.freepik.com/free-photo/beautiful-girl-standing-boat-looking-mountains-ratchaprapha-dam-khao-sok-national-park-surat-thani-province-thailand_335224-849.jpg?w=1060&t=st=1689576446~exp=1689577046~hmac=a29d208e4d311bd4b4e4a5a96cc006f523ddbefd71fd1358e6372e6932a653eb'); */
+  background: url('https://img.freepik.com/free-photo/beautiful-girl-standing-boat-looking-mountains-ratchaprapha-dam-khao-sok-national-park-surat-thani-province-thailand_335224-849.jpg?w=1060&t=st=1689576446~exp=1689577046~hmac=a29d208e4d311bd4b4e4a5a96cc006f523ddbefd71fd1358e6372e6932a653eb');
+  background-attachment: fixed;
+  height: 45vh;
+  width: 90vw;
+  background-position: center;
+  background-size: cover;
+
+}
+
+.textColourwithPadding {
+  border-radius: 15px;
+}
+
+.textColourwithPadding>h4 {
+  color: #ee2e24;
+}
+
+
+@media (max-width:786px) {
+
+  .featuredContainer {
+    clip-path: inset(4% 4% 4% 4%);
+    padding: 2rem 1rem !important;
+    border-radius: 60px !important;
+  }
+
+  .textColourwithPadding {
+    border-radius: 10px;
+    padding: 0rem;
+  }
+
+}
