@@ -110,7 +110,7 @@ const HotelList = ({
       const minPrice = roomData?.rooms?.sort((a, b) => b?.price - a?.price);
       price = minPrice[0].price;
     } else {
-      price = roomData?.rooms[0]?.price;
+      price = roomData?.rooms?.[0]?.price;
     }
     return price;
   };
@@ -275,6 +275,7 @@ const HotelList = ({
             </React.Fragment>
           ) : (
             <Card
+              key={items._id}
               style={{ border: "2px solid #ee2e24" }}
               fluid="true"
               sx={{ p: 1, my: 1, borderRadius: 4 }}
@@ -344,33 +345,33 @@ const HotelList = ({
 
                         <div>
                           <h5 className="fs-6 fw-bold py-2">
-                            {
+                            {items?.rooms?.length > 0 &&
                               AllRoomsData?.data?.find(
-                                (x) => x._id === items?.rooms[0]?.roomType
-                              )?.title
-                            }
+                                (x) => x._id === items.rooms[0].roomType
+                              )?.title}
                           </h5>
                         </div>
                         <div>
-                          {items?.rooms[0]?.roomType?.amenties?.map(
-                            (item, index) => (
-                              <Chip
-                                key={index}
-                                label={item.title}
-                                sx={{
-                                  mr: 1,
-                                  mb: 1,
-                                  background: "#6b0000",
-                                  color: "#ffd700",
-                                }}
-                              />
-                            )
-                          )}
+                          {items?.rooms?.[0]?.roomType?.amenties?.length > 0 &&
+                            items.rooms[0].roomType.amenties.map(
+                              (item, index) => (
+                                <Chip
+                                  key={index}
+                                  label={item.title}
+                                  sx={{
+                                    mr: 1,
+                                    mb: 1,
+                                    background: "#6b0000",
+                                    color: "#ffd700",
+                                  }}
+                                />
+                              )
+                            )}
                         </div>
                         <div className="d-flex flex-column flex-xs-column flex-md-row flex-lg-row flex-xl-row align-items-center justify-content-between">
                           <Rating
                             name="read-only"
-                            value={items?.hotelRatings}
+                            value={items?.hotelRatings || 0}
                             readOnly
                           />
                           {console.log(items)}

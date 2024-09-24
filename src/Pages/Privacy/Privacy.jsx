@@ -8,7 +8,7 @@ const Privacy = () => {
     <div>
       <Navbar />
       <div className={`text-center p-5 rounded ${style.TermsContainer}`}>
-        <h1>Hotelio Privacy & Policy</h1>
+        <h1>Hotelio Privacy Policy</h1>
       </div>
       <div className="container">
         <h4 className="py-3">
