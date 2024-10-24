@@ -1,26 +1,24 @@
+import { LoadingButton } from "@mui/lab";
 import {
   Checkbox,
   FormControlLabel,
   Grid,
+  Radio,
   Slider,
   Typography,
-  Radio,
-  RadioGroup,
 } from "@mui/material";
-import React, { useRef, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import { useAuthContext } from "../../context/userAuthContext";
-import { useEffect } from "react";
-import MobileDate from "../../Components/MobileComponent/MobileDate";
-import { LoadingButton } from "@mui/lab";
-import GlobalModal from "../../Components/Global/GlobalModal";
-import { convertDatesFromUTC, convertDatesToUTC } from "../../Utilis/_fuctions";
-import { useCollections } from "../../context/useStateManager";
-import { useSearch } from "../../context/useSearch";
+import React, { useEffect, useRef, useState } from "react";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import { useSearchParams } from "react-router-dom";
+import GlobalModal from "../../Components/Global/GlobalModal";
+import MobileDate from "../../Components/MobileComponent/MobileDate";
+import { convertDatesToUTC } from "../../Utilis/_fuctions";
+import { useSearch } from "../../context/useSearch";
+import { useCollections } from "../../context/useStateManager";
+import { useAuthContext } from "../../context/userAuthContext";
 
 const SideFilter = (setFilterData, filterData) => {
-  const [priceRange, setPriceRange] = useState([0, 20000]);
+  const [priceRange, setPriceRange] = useState([]);
   const { roomType, amenities, propertyType } = useAuthContext();
   const [selectedRoomTypes, setSelectedRoomTypes] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -461,7 +459,10 @@ const SideFilter = (setFilterData, filterData) => {
         </Typography>
         <Slider
           getAriaLabel={() => "Minimum distance shift"}
-          value={[currentSearchParams.priceMin, currentSearchParams.priceMax]}
+          value={[
+            Number(currentSearchParams.priceMin) || 0,
+            Number(currentSearchParams.priceMax) || 20000,
+          ]}
           onChange={handlePriceChange}
           valueLabelDisplay="auto"
           min={0}
@@ -483,7 +484,7 @@ const SideFilter = (setFilterData, filterData) => {
           valueLabelFormat={(value) => `${value} Km`}
         />
       </Grid> */}
-      <Grid item xs={12}>
+      {/* <Grid item xs={12}>
         <div>
           <h5>Hotelio Collection</h5>
           {categoryData.map((item, index) => (
@@ -502,7 +503,7 @@ const SideFilter = (setFilterData, filterData) => {
           ))}
         </div>
         <hr />
-      </Grid>
+      </Grid> */}
       <Grid item xs={12}>
         <div>
           <h5>Vacation Escapes</h5>

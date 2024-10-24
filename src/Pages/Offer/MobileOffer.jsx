@@ -1,16 +1,28 @@
-import React, { useState } from 'react'
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-import { Button, Card, CardContent, Grid, Typography } from '@mui/material';
-import MobileHeader from '../../Components/MobileComponent/MobileHeader';
-import MobileFooter from '../../Components/MobileComponent/MobileFooter';
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import { BiSolidOffer } from "react-icons/bi"
+import { useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { GetAllBookingOffers } from '../../store/actions/OfferActions'
+import MobileHeader from '../../Components/MobileComponent/MobileHeader'
+import MobileFooter from '../../Components/MobileComponent/MobileFooter'
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
+import { Button, Card, CardContent, Box, Typography } from '@mui/material'
+
 
 
 const MobileOffer = () => {
 
     const navigate = useNavigate()
 
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(GetAllBookingOffers())
+    }, [])
+
+
+    const OfferData = useSelector((state) => state.GetAllBookingOffersReducers.data);
+    
     const FavouriteData = [
         {
             id: 1,
@@ -43,11 +55,6 @@ const MobileOffer = () => {
     ]
 
 
-    const StyledCard = styled(Card)`
-    min-width: 155px;
-    padding-bottom: 10%;
-     margin-bottom: 2%;
-`;
     const [link, setLink] = useState('https://www.hoteliorooms.com/');
     const [isCopied, setIsCopied] = useState(false);
 
@@ -79,34 +86,25 @@ const MobileOffer = () => {
                     {isCopied ? 'Copied!' : 'Refer Copy Link'}
                 </Button>
             </Card>
-            <Grid container paddingBottom={10} spacing={1}>
-
+            <Box>
                 {
-                    FavouriteData.map((card, index) => (
-
-                        <Grid sx={{ padding: 0 }} item xs={6} md={6}>
-                            <StyledCard key={index}>
-
-                                <CardContent>
-                                    <img src={card.image} className='rounded' alt={`Image ${index}`} />
-                                    <div className="d-flex justify-content-between">
-                                        <Typography variant="caption" display="block" gutterBottom>
-                                            {card.title}
-                                        </Typography>
-                                        <Typography color={'#ee2e24'} variant="caption" display="block" gutterBottom>
-                                            {card.content}
-                                        </Typography>
-                                    </div>
-                                    {/* <Typography variant='small'></Typography> */}
-                                    <Typography variant="caption" display="block" gutterBottom>
-                                        Grab up to <b style={{ color: '#ee2e24' }}>50%</b> OFF with Hotelio
+                    OfferData?.data?.map((item, index) => (
+                        <Card key={index} sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                            <BiSolidOffer size={100} color='#ee2e24' />
+                            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                                <CardContent sx={{ flex: '1 0 auto' }}>
+                                    <Typography component="div" variant="h5">
+                                        {item?.code}
+                                    </Typography>
+                                    <Typography variant="subtitle2" color="text.secondary" component="div">
+                                        {item?.description}
                                     </Typography>
                                 </CardContent>
-                            </StyledCard>
-                        </Grid>
+                            </Box>
+                        </Card>
                     ))
                 }
-            </Grid>
+            </Box>
             <div>
                 <MobileFooter />
             </div>

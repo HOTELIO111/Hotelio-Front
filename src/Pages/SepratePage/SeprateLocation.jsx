@@ -208,7 +208,7 @@ const SeprateLocation = () => {
       {/* {console.log(metaData)} */}
       {isMobile ? <MobileHeader /> : <Navbar />}
       <Container
-        sx={isMobile ? { marginBottom: 7 } : { marginTop: 11 }}
+        sx={isMobile ? { marginBottom: 7 } : { marginTop: 5 }}
         maxWidth="xl"
       >
         <Grid container spacing={1}>

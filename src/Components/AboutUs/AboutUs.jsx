@@ -1,7 +1,6 @@
 import React from 'react'
 import style from './AboutUs.module.css'
 import AboutUsImage from '../../images/AboutUs.webp'
-import AboutUsBanner from '../../images/AboutUsBanner.png'
 import { NavLink } from 'react-router-dom'
 
 const AboutUs = () => {
@@ -25,12 +24,12 @@ const AboutUs = () => {
 
                                 India's leading online booking platform, revolutionizes the way travelers find and book accommodations. With our user-friendly app and website, we bring easy and comfortable stays to your fingertips. Explore our vast network of premium hotels, budget-friendly options, and authentic homestays. As India's first AI-enabled platform, we prioritize your comfort and provide hassle-free check-ins. Join us on a journey where travel meets convenience, and let Hotelio be your trusted partner for unforgettable stays India's leading online booking wherever your adventures take you. Hotelio is owned by Houda Carjour Tourism Pvt Ltd, India's Number 1 Fastest Leading Hotel Chain.
 
-                                <span><NavLink style={{ color: '#FFD700' }} to='/about'> Read more...</NavLink></span>
+                                <span><NavLink style={{ color: '#FFD700' }} to='/about-us'> Read more...</NavLink></span>
                             </div>
                         </div>
                     </div>
                             <div className='col-xl-4'>
-                                <img width={400} src={AboutUsImage} className='rounded' />
+                                <img width={400} src={AboutUsImage} className='rounded' alt='...' />
                             </div>
                 </div>
             </div>

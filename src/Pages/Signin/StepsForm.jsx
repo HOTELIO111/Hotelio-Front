@@ -11,12 +11,11 @@ import {
 import React, { useState } from "react";
 import LoginMoto from "../../images/HotelioLogo.png";
 import { FcGoogle } from "react-icons/fc";
-import { NavLink, Navigate, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { MuiOtpInput } from "mui-one-time-password-input";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import axios from "axios";
 import {
-  ManageStorage,
   buildQueryString,
   validateInput,
 } from "../../Utilis/_fuctions";
@@ -37,10 +36,10 @@ const StepsForm = () => {
               backgroundColor: "#fff",
             },
             "& .MuiInput-underline::before": {
-              borderBottom: "2px solid #ee2e24", // Change to your desired active color
+              borderBottom: "2px solid #ee2e24",
             },
             "& .MuiInput-underline::after": {
-              borderBottom: "2px solid #ee2e24", // Change to your desired active color
+              borderBottom: "2px solid #ee2e24",
             },
           },
         },
@@ -59,20 +58,14 @@ const StepsForm = () => {
     mobileNo: "",
     password: "",
   });
-  //  current user and set current user
 
-  // fuctions form the userAuthcontext =
   const {
     setIsUser,
     isUser,
     Loader,
     setLoader,
     login,
-    logOut,
-    currentUser,
     setCurrentUser,
-    token,
-    setToken,
   } = useAuthContext();
 
   const handleNext = () => {
@@ -372,19 +365,6 @@ const StepsForm = () => {
                       sx={{ width: 300 }}
                       autoFocus
                     />
-                  </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    sx={{ display: "flex", justifyContent: "end" }}
-                  >
-                    <Typography
-                      color={"error"}
-                      style={{ cursor: "pointer" }}
-                      onClick={() => navigate("/forgetpassword")}
-                    >
-                      Forgot password?
-                    </Typography>
                   </Grid>
                 </>
               ) : null}

@@ -2,9 +2,6 @@
 .multi-step-form {
   /* max-width: 1200px; */
   margin: 0 auto;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .stepper {
@@ -158,10 +155,53 @@ input {
   backface-visibility: hidden;
 }
 
+.step3container {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr 2fr;
+}
+
+.paymentMethod {
+  width: 100%;
+  margin: auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 10px;
+  & button {
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    & .imgDiv {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      border-radius: 999px;
+      padding: 10px;
+      & img {
+        width: 30px;
+        height: 30px;
+      }
+    }
+    & .contentDiv {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+  }
+}
+
 /* ... Rest of the CSS ... */
 
 @media screen and (max-width: 768px) {
-
   /* Adjust styling for smaller screens */
   .credit-card {
     max-width: 100%;

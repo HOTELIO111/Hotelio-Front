@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CardMember from "./CardMember";
 import style from './Member.module.css'
-import { Accordion, AccordionDetails, AccordionSummary, Button, Container, Grid, Typography } from "@mui/material";
-import SavingsIcon from '@mui/icons-material/Savings';
-import ScheduleIcon from '@mui/icons-material/Schedule';
-import LocalPoliceIcon from '@mui/icons-material/LocalPolice';
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Container, Grid, Typography } from "@mui/material";
 import SpeedOutlinedIcon from '@mui/icons-material/SpeedOutlined';
 import TrendingUpOutlinedIcon from '@mui/icons-material/TrendingUpOutlined';
 import DomainAddOutlinedIcon from '@mui/icons-material/DomainAddOutlined';
@@ -19,26 +16,25 @@ import ResonsImage from '../../images/reasonsImage.jpg'
 import HoteliLogo from '../../images/HotelioLogo.png'
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import EmailIcon from '@mui/icons-material/Email';
-import BusinessImageFirst from '../../images/BusinessImageFirst.webp'
 import { useNavigate } from "react-router-dom";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { isMobile } from "react-device-detect";
+import Atropos from 'atropos/react';
+// import BusinessImageFirst from '../../images/BusinessImageFirst.webp'
 
 const Member = () => {
 
   const [underlineColor, setUnderlineColor] = useState('#0d6efd');
-  const colors = ['#0d6efd', '#fff', '#ee2e24']; // Define your desired colors
-  const animationDuration = 3000; // Define the duration of the animation in milliseconds
+  const colors = ['#0d6efd', '#fff', '#ee2e24'];
+  const animationDuration = 3000;
 
   const [openAccordion, setOpenAccordion] = useState(null);
 
   const handleAccordionClick = (index) => {
     if (openAccordion === index) {
-      // If the clicked accordion is already open, close it.
       setOpenAccordion(null);
     } else {
-      // Open the clicked accordion and close the others.
       setOpenAccordion(index);
     }
   };
@@ -53,78 +49,85 @@ const Member = () => {
     }, animationDuration);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [colors, animationDuration]);
+
 
   return (
     <div
     >
       <div className={isMobile && 'mb-4 p-2'}>
         <Grid container spacing={1}>
-          <Grid item sx={{ display: 'grid', placeItems: 'center' }} xs={12} lg={3} xl={4}>
-            <div onClick={() => naviagte('/')} className="d-flex align-items-center justify-content-start">
+          <Grid item xs={12} lg={3} xl={4}>
+            <Box onClick={() => naviagte('/')} display={'flex'} justifyContent={'start'} alignItems={'center'}>
               <img style={{ height: '120px', width: '150px' }} className={isMobile ? 'w-50 h-50' : ''} src={HoteliLogo} alt="logo" />
               <h3 style={{ color: '#ee2e24' }}>Business</h3>
-            </div>
+            </Box>
           </Grid>
           <Grid item sx={{ display: 'grid', placeItems: 'center', textAlign: 'center' }} xs={12} lg={4} xl={4}>
             <Typography color='error' fontWeight={800} variant={isMobile ? 'caption' : 'h5'}>Welcome To Hotelio, Your Travel Partner</Typography>
           </Grid>
           <Grid sx={{ display: 'grid', placeItems: 'center' }} item xs={12} lg={5} xl={4}>
-            <div className="d-flex justify-content-end align-items-center">
+            <Box display={'flex'} justifyContent={'end'} alignItems={'center'}>
               <Typography color='error' sx={{ pr: 2 }} variant={isMobile ? 'caption' : 'h6'}><LocalPhoneIcon /> +91 (811) 5510050</Typography>
               <Typography color='error' sx={{ borderLeft: '1px solid #ee2e24', padding: '0px 10px' }} variant={isMobile ? 'caption' : 'h6'}><EmailIcon /> info@hoteliorooms.com</Typography>
-            </div>
+            </Box>
           </Grid>
         </Grid>
       </div>
       <section
-        // className={`${style.MemberBackgroundS}`}
         style={{ backgroundColor: 'skyblue', backgroundSize: 'cover', backgroundPosition: 'bottom', backgroundAttachment: 'fixed' }}
       >
         <CardMember />
         <Grid container paddingX={5} paddingY={2} spacing={1} bgcolor={'#ffffff'} >
           <Grid item xs={12} lg={5} xl={5} sx={{ display: 'grid', placeItems: 'center' }} >
-            <div style={{ clipPath: 'circle(74.4% at 23% 23%)' }}>
-              <img src={ResonsImage} alt="Bunisesspromises" />
-            </div>
+            <Atropos
+              activeOffset={40}
+              shadow={false}
+            >
+              <div style={{ clipPath: 'circle(74.4% at 23% 23%)' }}>
+                <img src={ResonsImage} alt="Bunisesspromises" />
+              </div>
+            </Atropos>
           </Grid>
           <Grid item xs={12} lg={7} xl={7} sx={{ display: 'grid', placeItems: 'center' }} >
-            <Typography marginY={5} fontWeight={800} variant={isMobile ? 'h6' : 'h4'} color={'#87ceeb'} sx={{ borderBottom: `2px solid ${underlineColor}` }}>So many reasons become a partner</Typography>
+            <Typography marginY={5} fontWeight={800} variant={isMobile ? 'h6' : 'h4'} color={'#87ceeb'} sx={{ borderBottom: `2px solid ${underlineColor}` }}>
+              So many reasons become a partner
+            </Typography>
             <div>
               <ul>
                 <li style={{ padding: '10px 0px' }}>
-                  <div className="d-flex text-dark align-items-center">
+                  <Box display={'flex'} alignItems={'center'} color={'black'} >
                     <SpeedOutlinedIcon sx={{ fontSize: 40 }} />
                     <Typography variant="h5" fontWeight={600} style={{ marginLeft: '10px' }}>Gets bookings Fast</Typography>
-                  </div>
+                  </Box>
                   <Typography variant="subtitle1">Get easy access to 4000+ Hotelio properties with up to 40% savings, manage all your company bookings on a single portal, and say good-bye to third-party commissions.</Typography>
                 </li>
                 <li style={{ padding: '10px 0px' }}>
-                  <div className="d-flex text-dark align-items-center">
+                  <Box display={'flex'} alignItems={'center'} color={'black'}>
                     <TrendingUpOutlinedIcon sx={{ fontSize: 40 }} />
                     <Typography variant="h5" fontWeight={600} sx={{ marginLeft: '10px' }}>Stand out from the competition</Typography>
-                  </div>
+                  </Box>
                   <Typography variant="subtitle1">With Hotelio Business effortless interface, have all your bookings at your fingertips anytime you need them.</Typography>
                 </li>
                 <li style={{ padding: '10px 0px' }}>
-                  <div className="d-flex text-dark align-items-center">
+                  <Box display={'flex'} alignItems={'center'} color={'black'}>
                     <DomainAddOutlinedIcon sx={{ fontSize: 40 }} />
                     <Typography variant="h5" fontWeight={600} sx={{ marginLeft: '10px' }}>List any property type</Typography>
-                  </div>
+                  </Box>
                   <Typography variant="subtitle1">Get invoices directly from us without any human intervention, and always be in the know.</Typography>
                 </li>
                 <li style={{ padding: '10px 0px' }}>
-                  <div className="d-flex text-dark align-items-center">
+                  <Box display={'flex'} alignItems={'center'} color={'black'}>
                     <LanguageOutlinedIcon sx={{ fontSize: 40 }} />
                     <Typography variant="h5" fontWeight={600} sx={{ marginLeft: '10px' }}>Reach a global audience</Typography>
-                  </div>
+                  </Box>
                   <Typography variant="subtitle1">With Hotelio Business effortless interface, have all your bookings at your fingertips anytime you need them.</Typography>
                 </li>
                 <li style={{ padding: '10px 0px' }}>
-                  <div className="d-flex text-dark align-items-center">
+                  <Box display={'flex'} alignItems={'center'} color={'black'}>
                     <SupportAgentOutlinedIcon sx={{ fontSize: 40 }} />
                     <Typography variant="h5" fontWeight={600} sx={{ marginLeft: '10px' }}>Support</Typography>
-                  </div>
+                  </Box>
                   <Typography variant="subtitle1">Get invoices directly from us without any human intervention, and always be in the know.</Typography>
                 </li>
               </ul>
@@ -221,38 +224,43 @@ const Member = () => {
             </div>
           </Grid>
           <Grid item xs={12} lg={7} xl={7} sx={{ display: 'grid', placeItems: 'center' }}>
-            <div >
-              <Accordion
-                sx={{
-                  width: isMobile ? 300 : 600,
-                  boxShadow: '3px 3px 6px 0px rgba(204, 219, 232, 0.5) inset, -3px -3px 6px 1px rgba(255, 255, 255, 0.5) inset',
-                  color: '#ee2e24'
-                }}
-                expanded={openAccordion === 0} onChange={() => handleAccordionClick(0)}>
-                <AccordionSummary expandIcon={openAccordion === 0 ? <RemoveIcon /> : <AddIcon />}>
-                  <Typography variant="h6">Claim input credit in every state</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography variant="body">Under GST, online travel agents and hotels provide invoices that include charges for GST. But if you have bookings in multiple states, claiming credit input on these is more than a little complicated. We issue our invoices from the state each hotel is in, which means you can claim input credit for the full GST amount against your GST liability</Typography>
-                </AccordionDetails>
-              </Accordion>
-              <Accordion sx={{ width: isMobile ? 300 : 600, boxShadow: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset', color: '#ee2e24' }} expanded={openAccordion === 1} onChange={() => handleAccordionClick(1)}>
-                <AccordionSummary expandIcon={openAccordion === 1 ? <RemoveIcon /> : <AddIcon />}>
-                  <Typography variant="h6">Claim input credit for full GST amount</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography variant="body">Every time you make a fresh booking, you have to go through the process of adding a new vendor to your system. Enter Hotelio. We only require one-time registration of vendors and allow one-time payments to be made against a particular corporate code, saving you hours of desk time and more than one headache</Typography>
-                </AccordionDetails>
-              </Accordion>
-              <Accordion sx={{ width: isMobile ? 300 : 600, boxShadow: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset', color: '#ee2e24' }} expanded={openAccordion === 2} onChange={() => handleAccordionClick(2)}>
-                <AccordionSummary expandIcon={openAccordion === 2 ? <RemoveIcon /> : <AddIcon />}>
-                  <Typography variant="h6">One-time Vendor Registration & Payments</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography variant="body">Thanks to GST, every hotel booking now splits into multiple points of contact: the hotel and the travel agent. If there are any questions that need answering, you’ll have to reach out to multiple people. Unless you book through Hotelio. We give you a single invoice, a single booking ID, and a single person to get in touch for any queries: Your Hotelio Relationship Manager</Typography>
-                </AccordionDetails>
-              </Accordion>
-            </div>
+            <Atropos
+              activeOffset={40}
+              shadow={false}
+            >
+              <Box >
+                <Accordion
+                  sx={{
+                    width: isMobile ? 300 : 600,
+                    boxShadow: '3px 3px 6px 0px rgba(204, 219, 232, 0.5) inset, -3px -3px 6px 1px rgba(255, 255, 255, 0.5) inset',
+                    color: '#ee2e24'
+                  }}
+                  expanded={openAccordion === 0} onChange={() => handleAccordionClick(0)}>
+                  <AccordionSummary expandIcon={openAccordion === 0 ? <RemoveIcon /> : <AddIcon />}>
+                    <Typography variant="h6">Claim input credit in every state</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography variant="body">Under GST, online travel agents and hotels provide invoices that include charges for GST. But if you have bookings in multiple states, claiming credit input on these is more than a little complicated. We issue our invoices from the state each hotel is in, which means you can claim input credit for the full GST amount against your GST liability</Typography>
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion sx={{ width: isMobile ? 300 : 600, boxShadow: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset', color: '#ee2e24' }} expanded={openAccordion === 1} onChange={() => handleAccordionClick(1)}>
+                  <AccordionSummary expandIcon={openAccordion === 1 ? <RemoveIcon /> : <AddIcon />}>
+                    <Typography variant="h6">Claim input credit for full GST amount</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography variant="body">Every time you make a fresh booking, you have to go through the process of adding a new vendor to your system. Enter Hotelio. We only require one-time registration of vendors and allow one-time payments to be made against a particular corporate code, saving you hours of desk time and more than one headache</Typography>
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion sx={{ width: isMobile ? 300 : 600, boxShadow: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset', color: '#ee2e24' }} expanded={openAccordion === 2} onChange={() => handleAccordionClick(2)}>
+                  <AccordionSummary expandIcon={openAccordion === 2 ? <RemoveIcon /> : <AddIcon />}>
+                    <Typography variant="h6">One-time Vendor Registration & Payments</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography variant="body">Thanks to GST, every hotel booking now splits into multiple points of contact: the hotel and the travel agent. If there are any questions that need answering, you’ll have to reach out to multiple people. Unless you book through Hotelio. We give you a single invoice, a single booking ID, and a single person to get in touch for any queries: Your Hotelio Relationship Manager</Typography>
+                  </AccordionDetails>
+                </Accordion>
+              </Box>
+            </Atropos>
           </Grid>
 
 
@@ -316,7 +324,7 @@ const Member = () => {
               <Grid item xs={12} lg={6} textAlign={"center"} className={isMobile && 'border-bottom border-danger"'}>
                 <u><Typography fontWeight={700} variant="h5">About</Typography></u>
                 <ul>
-                  <li><Typography sx={{ cursor: 'pointer' }} onClick={() => naviagte('/about')} fontWeight={600} variant="subtitle1">- About US</Typography></li>
+                  <li><Typography sx={{ cursor: 'pointer' }} onClick={() => naviagte('/about-us')} fontWeight={600} variant="subtitle1">- About US</Typography></li>
                   <li><Typography sx={{ cursor: 'pointer' }} onClick={() => naviagte('/contact')} fontWeight={600} variant="subtitle1">- Contact US</Typography></li>
                 </ul>
               </Grid>

@@ -1,15 +1,11 @@
 import {
   Alert,
   Box,
-  Button,
   Card,
   CardContent,
-  Chip,
   FormControl,
   FormControlLabel,
   Grid,
-  IconButton,
-  Modal,
   Radio,
   RadioGroup,
   TextField,
@@ -17,70 +13,59 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import PersonIcon from "@mui/icons-material/Person";
-import Dates from "../date/Date";
 import { Check } from "@mui/icons-material";
 import { useSearchParams } from "react-router-dom";
 import { useAuthContext } from "../../context/userAuthContext";
 import BookingInfo from "./BookingInfo";
-
-import HotelDetail from "./HotelioOffer";
+import { isMobile } from "react-device-detect";
+import HotelOffer from "./HotelioOffer";
 import { useDispatch, useSelector } from "react-redux";
 import { useCollections } from "../../context/useStateManager";
 import { GetBookingOffers } from "../../store/actions/OfferActions";
-import { GetBookingRegister } from "../../store/actions/BookingAction";
 import { useBooking } from "../../context/useBooking";
 
 const StepTwo = () => {
-
-  const [searchParmas, setSearchParamas] = useSearchParams()
-  const dispatch = useDispatch()
+  const [searchParmas, setSearchParamas] = useSearchParams();
+  const dispatch = useDispatch();
   const { formData, handleFormData, setFormData } = useCollections();
-  const roomId = searchParmas.get('rid')
-  const { Gst, coupon } = useBooking()
+  const roomId = searchParmas.get("rid");
+  const totalGuest = searchParmas.get("totalGuest");
+  const { Gst } = useBooking();
   const { currentUser } = useAuthContext();
   const HotelData = useSelector((state) => state.GetSingleHotelReducers);
   const { data: hotelData } = HotelData || {};
   const roomData = hotelData?.rooms?.find((item) => item._id === roomId);
-
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 500,
-    bgcolor: "background.paper",
-    border: "2px solid #fff",
-    boxShadow: 24,
-    p: 2,
-    textAlign: "center",
-    borderRadius: "8px",
-  };
-
-  const [open, setOpen] = React.useState(false);
-  const handleClose = () => setOpen(false);
   const [selectedValue, setSelectedValue] = useState("myself");
   const handleRadioChange = (event) => {
     setSelectedValue(event.target.value);
   };
 
-  const [searchBookingInfo, setSearchBookingInfo] = useState(JSON.parse(window.localStorage.getItem('search')))
+  const [searchBookingInfo, setSearchBookingInfo] = useState(
+    JSON.parse(window.localStorage.getItem("search"))
+  );
 
-
-  const HandleBookingCreate = ({ hotel, room, formdata, searchBookingInfo, customer, gst, discounts }) => {
+  const HandleBookingCreate = ({
+    hotel,
+    room,
+    formdata,
+    searchBookingInfo,
+    customer,
+    gst,
+    discounts,
+  }) => {
     const currentDate = new Date().toISOString();
-
     const bookingObject = {
       room: room?._id,
       hotel: hotel?._id,
       guest: formdata,
       bookingDate: {
         checkIn: searchBookingInfo?.checkIn,
-        checkOut: searchBookingInfo?.checkOut
+        checkOut: searchBookingInfo?.checkOut,
       },
       amount: room?.price,
       dateOfBooking: currentDate,
       numberOfGuests: {
-        adults: searchBookingInfo?.totalGuest
+        adults: searchBookingInfo?.totalGuest,
       },
       numberOfRooms: searchBookingInfo?.totalRooms,
       bookingSource: "website",
@@ -89,10 +74,13 @@ const StepTwo = () => {
         gst: gst,
       },
       specialRequests: "*",
-      discountInfo: discounts?.map((item) => ({ name: item.code, amount: item.amount }))
+      discountInfo: discounts?.map((item) => ({
+        name: item.code,
+        amount: item.amount,
+      })),
     };
     // Store the bookingObject in sessionStorage
-    return bookingObject
+    return bookingObject;
   };
 
   useEffect(() => {
@@ -103,46 +91,45 @@ const StepTwo = () => {
       searchBookingInfo: searchBookingInfo,
       gst: Gst,
       formdata: formData,
-      discounts: [{ code: "WELCOME200", amount: 200 }],
+      discounts: [],
     });
-    sessionStorage.setItem('bookingObject', JSON.stringify(data));
-  }, [hotelData, roomData, currentUser, searchBookingInfo, Gst, formData.email, formData.name, formData.mobileNo]);
-
+    sessionStorage.setItem("bookingObject", JSON.stringify(data));
+  }, [
+    hotelData,
+    roomData,
+    currentUser,
+    searchBookingInfo,
+    Gst,
+    formData.email,
+    formData.name,
+    formData.mobileNo,
+  ]);
 
   useEffect(() => {
     if (searchBookingInfo.hid && searchBookingInfo.rid) {
-      dispatch(GetBookingOffers(searchBookingInfo.hid, searchBookingInfo.rid, "customer"))
+      dispatch(
+        GetBookingOffers(
+          searchBookingInfo.hid,
+          searchBookingInfo.rid,
+          "customer",
+          roomData?.roomType?._id
+        )
+      );
     }
-  }, [searchBookingInfo])
-
+  }, [searchBookingInfo, roomData]);
 
   useEffect(() => {
     if (currentUser) {
-      setFormData({ name: currentUser?.name, email: currentUser.email, mobileNo: currentUser?.mobileNo })
+      setFormData({
+        name: currentUser?.name,
+        email: currentUser?.email,
+        mobileNo: currentUser?.mobileNo,
+      });
     }
-  }, [currentUser])
-
+  }, [currentUser]);
 
   return (
-    <div className="container p-2">
-      {/* <Modal
-        sx={{ zIndex: "1000" }}
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-
-          <Dates />
-          <div className="my-2 d-flex justify-content-between">
-            <Button variant="contained">Submit</Button>
-            <Button sx={{ ml: 1 }} onClick={handleClose} variant="outlined">
-              Cancel
-            </Button>
-          </div>
-        </Box>
-      </Modal> */}
+    <div className="p-2">
       <Grid container spacing={2}>
         <Grid item xs={12} sm={12} md={6} lg={8} xl={8}>
           <Card style={{ border: "2px solid #ee2e24" }} className="w-100">
@@ -150,95 +137,334 @@ const StepTwo = () => {
               <Typography sx={{ mb: 1.5 }} color="text-dark" fontWeight={700}>
                 Enter your details
               </Typography>
-              <Alert severity="success" color="info">
+              <Alert severity="success" variant="filled" color="info">
                 {selectedValue === "myself"
                   ? "Almost done! Just fill the * required info"
                   : "Just fill guest details"}
               </Alert>
 
-              {selectedValue === "myself" ? (
-                <div style={{ display: 'flex', gap: '5px' }}>
+              {/* {selectedValue === "myself" ? ( */}
+              <Grid container flexDirection={isMobile && "column"} spacing={1}>
+                <Grid item sm={12} md={6} lg={4}>
                   <TextField
-                    InputProps={{ className: "custom-input" }}
-                    id="outlined-basic"
+                    id="fullName"
                     label="Full Name"
                     margin="normal"
+                    className="w-100"
                     name="name"
                     value={formData.name || ""}
                     onChange={handleFormData}
                     variant="outlined"
                     required
-                    helperText={formData.name === undefined ? 'Please fill your email' : ''}
+                    helperText={
+                      formData.name === undefined
+                        ? `Please fill ${
+                            selectedValue === "myself" ? "your" : "guest"
+                          } name`
+                        : ""
+                    }
                   />
-
+                </Grid>
+                <Grid item sm={12} md={6} lg={4}>
                   <TextField
-                    InputProps={{ className: "custom-input" }}
-                    id="outlined-basic"
+                    id="email"
                     label="Email"
                     margin="normal"
+                    className="w-100"
                     name="email"
                     value={formData.email || ""}
                     onChange={handleFormData}
                     variant="outlined"
                     required
-                    error
-                    helperText={formData.email === undefined ? 'Please fill your email' : ''}
+                    helperText={
+                      formData.email === undefined
+                        ? `Please fill ${
+                            selectedValue === "myself" ? "your" : "guest"
+                          } email`
+                        : ""
+                    }
+                    autoComplete="email"
                   />
+                </Grid>
+                <Grid item sm={12} md={6} lg={4}>
                   <TextField
-                    InputProps={{ className: "custom-input" }}
-                    id="outlined-basic"
+                    id="contactNo"
                     label="Contact No."
-                    value={formData.mobileNo || ''}
+                    className="w-100"
+                    value={formData.mobileNo || ""}
                     name="mobileNo"
                     onChange={handleFormData}
                     margin="normal"
                     variant="outlined"
                     required
-                    helperText={formData.mobileNo === undefined ? 'Please fill your email' : ''}
+                    helperText={
+                      formData.mobileNo === undefined
+                        ? `Please fill ${
+                            selectedValue === "myself" ? "your" : "guest"
+                          } contact number`
+                        : ""
+                    }
                   />
-
-                  {/* <Button onClick={() => HandleBookingCreate({ hotel: hotelData, room: roomData, searchBookingInfo: searchBookingInfo, formdata: formData, discounts: [{ name: "WELCOME200", amount: 200 }], customer: currentUser, gst: Gst })}>test</Button> */}
-                </div>
-              ) : (
-                <div style={{ display: 'flex', gap: '5px' }}>
+                </Grid>
+                <Grid item sm={12} md={6} lg={8}>
                   <TextField
-                    InputProps={{ className: "custom-input" }}
-                    id="outlined-basic"
-                    label="Full Name"
+                    id="address"
+                    label="Address"
                     margin="normal"
-                    value={formData.name || ""}
-                    name="name"
+                    className="w-100"
+                    name="address"
+                    value={formData.address || ""}
                     onChange={handleFormData}
                     variant="outlined"
                     required
+                    helperText={
+                      formData.address === undefined
+                        ? `Please fill ${
+                            selectedValue === "myself" ? "your" : "guest"
+                          } address`
+                        : ""
+                    }
                   />
+                </Grid>
+                <Grid item sm={12} md={6} lg={4}>
                   <TextField
-                    InputProps={{ className: "custom-input" }}
-                    id="outlined-basic"
-                    label="Email"
+                    id="city"
+                    label="City"
                     margin="normal"
-                    value={formData.email || ""}
-                    name="email"
+                    className="w-100"
+                    name="city"
+                    value={formData.city || ""}
                     onChange={handleFormData}
-                    sx={{ ml: 1 }}
                     variant="outlined"
                     required
+                    helperText={
+                      formData.city === undefined
+                        ? `Please fill ${
+                            selectedValue === "myself" ? "your" : "guest"
+                          } city`
+                        : ""
+                    }
                   />
-                  <br />
-
+                </Grid>
+                <Grid item sm={12} md={6} lg={4}>
                   <TextField
-                    InputProps={{ className: "custom-input" }}
-                    id="outlined-basic"
-                    label="Contact No."
-                    value={formData.mobileNo || ''}
-                    name="mobileNo"
+                    id="state"
+                    label="State"
+                    margin="normal"
+                    className="w-100"
+                    name="state"
+                    value={formData.state || ""}
+                    onChange={handleFormData}
+                    variant="outlined"
+                    required
+                    helperText={
+                      formData.state === undefined
+                        ? `Please fill ${
+                            selectedValue === "myself" ? "your" : "guest"
+                          } state`
+                        : ""
+                    }
+                  />
+                </Grid>
+                <Grid item sm={12} md={6} lg={4}>
+                  <TextField
+                    id="zip"
+                    label="Zip / Pin Code"
+                    value={formData.zip || ""}
+                    name="zip"
+                    className="w-100"
                     onChange={handleFormData}
                     margin="normal"
                     variant="outlined"
                     required
+                    helperText={
+                      formData.zip === undefined
+                        ? `Please fill ${
+                            selectedValue === "myself" ? "your" : "guest"
+                          } zip/pin code`
+                        : ""
+                    }
                   />
-                </div>
-              )}
+                </Grid>
+                <Grid item sm={12} md={6} lg={4}>
+                  <TextField
+                    id="country"
+                    label="Country"
+                    value={formData.country || ""}
+                    name="country"
+                    className="w-100"
+                    onChange={handleFormData}
+                    margin="normal"
+                    variant="outlined"
+                    required
+                    helperText={
+                      formData.country === undefined
+                        ? `Please fill ${
+                            selectedValue === "myself" ? "your" : "guest"
+                          } country`
+                        : ""
+                    }
+                  />
+                </Grid>
+              </Grid>
+              {/* ) : (
+                <Grid
+                  container
+                  flexDirection={isMobile && "column"}
+                  spacing={1}
+                >
+                  <Grid item sm={12} md={6} lg={4}>
+                    <TextField
+                      InputProps={{ className: "custom-input" }}
+                      id="outlined-basic"
+                      label="Full Name"
+                      margin="normal"
+                      name="name"
+                      value={"" || formData.name}
+                      onChange={handleFormData}
+                      variant="outlined"
+                      required
+                      helperText={
+                        formData.name === undefined
+                          ? "Please fill your name"
+                          : ""
+                      }
+                    />
+                  </Grid>
+                  <Grid item sm={12} md={6} lg={4}>
+                    <TextField
+                      InputProps={{ className: "custom-input" }}
+                      id="outlined-basic"
+                      label="Email"
+                      margin="normal"
+                      name="email"
+                      value={formData.email || ""}
+                      onChange={handleFormData}
+                      variant="outlined"
+                      required
+                      error={formData.email === undefined}
+                      helperText={
+                        formData.email === undefined
+                          ? "Please fill your email"
+                          : ""
+                      }
+                    />
+                  </Grid>
+                  <Grid item sm={12} md={6} lg={4}>
+                    <TextField
+                      InputProps={{ className: "custom-input" }}
+                      id="outlined-basic"
+                      label="Contact No."
+                      value={formData.mobileNo || ""}
+                      name="mobileNo"
+                      onChange={handleFormData}
+                      margin="normal"
+                      variant="outlined"
+                      required
+                      helperText={
+                        formData.mobileNo === undefined
+                          ? "Please fill your contact number"
+                          : ""
+                      }
+                    />
+                  </Grid>
+                  <Grid item sm={12} md={6} lg={8}>
+                    <TextField
+                      InputProps={{ className: "custom-input" }}
+                      id="outlined-basic"
+                      label="Address"
+                      margin="normal"
+                      name="address"
+                      value={formData.address || ""}
+                      onChange={handleFormData}
+                      variant="outlined"
+                      className="w-100"
+                      required
+                      error={formData.address === undefined}
+                      helperText={
+                        formData.address === undefined
+                          ? "Please fill your address"
+                          : ""
+                      }
+                    />
+                  </Grid>
+                  <Grid item sm={12} md={6} lg={4}>
+                    <TextField
+                      InputProps={{ className: "custom-input" }}
+                      id="outlined-basic"
+                      label="City"
+                      margin="normal"
+                      name="city"
+                      value={formData.city || ""}
+                      onChange={handleFormData}
+                      variant="outlined"
+                      required
+                      helperText={
+                        formData.city === undefined
+                          ? "Please fill your city"
+                          : ""
+                      }
+                    />
+                  </Grid>
+                  <Grid item sm={12} md={6} lg={4}>
+                    <TextField
+                      InputProps={{ className: "custom-input" }}
+                      id="outlined-basic"
+                      label="State"
+                      margin="normal"
+                      name="state"
+                      value={formData.state || ""}
+                      onChange={handleFormData}
+                      variant="outlined"
+                      required
+                      error={formData.state === undefined}
+                      helperText={
+                        formData.state === undefined
+                          ? "Please fill your state"
+                          : ""
+                      }
+                    />
+                  </Grid>
+                  <Grid item sm={12} md={6} lg={4}>
+                    <TextField
+                      InputProps={{ className: "custom-input" }}
+                      id="outlined-basic"
+                      label="Zip / Pin Code"
+                      value={formData.zip || ""}
+                      name="zip"
+                      onChange={handleFormData}
+                      margin="normal"
+                      variant="outlined"
+                      required
+                      error={formData.zip === undefined}
+                      helperText={
+                        formData.zip === undefined
+                          ? "Please fill your zip/pin code"
+                          : ""
+                      }
+                    />
+                  </Grid>
+                  <Grid item sm={12} md={6} lg={4}>
+                    <TextField
+                      InputProps={{ className: "custom-input" }}
+                      id="outlined-basic"
+                      label="Country"
+                      value={formData.country || ""}
+                      name="country"
+                      onChange={handleFormData}
+                      margin="normal"
+                      variant="outlined"
+                      required
+                      error={formData.country === undefined}
+                      helperText={
+                        formData.country === undefined
+                          ? "Please fill your country"
+                          : ""
+                      }
+                    />
+                  </Grid>
+                </Grid>
+              )} */}
 
               <Typography
                 sx={{ mt: 1.5, mb: 1.5 }}
@@ -269,7 +495,7 @@ const StepTwo = () => {
             </CardContent>
           </Card>
 
-          <HotelDetail />
+          <HotelOffer />
 
           <Card style={{ border: "2px solid #ee2e24" }} className="w-100">
             <CardContent>
@@ -279,36 +505,57 @@ const StepTwo = () => {
 
               <Box className="d-flex flex-wrap gap-2">
                 {roomData?.roomType?.amenties?.map((item, index) => (
-                  <div>
+                  <div key={index}>
                     <Check />
                     {item?.title}
                   </div>
                 ))}
+
                 {roomData?.roomType?.includeFacilities?.map((item, index) => (
-                  <div>
+                  <div key={index}>
                     <Check />
                     {item.title}
                   </div>
                 ))}
               </Box>
-              <Typography
+              <Box
                 display={"flex"}
+                justifyContent={"space-between"}
                 alignItems={"center"}
-                sx={{
-                  fontSize: 14,
-                  fontWeight: 800,
-                  pl: 1.5,
-                  marginTop: "1rem",
-                }}
-                gutterBottom
+                mt={2}
               >
-                Guests Allowed:{" "}
-                {[...Array(roomData?.roomType?.personAllowed)]?.map(
-                  (item, index) => (
+                <Typography
+                  display={"flex"}
+                  alignItems={"center"}
+                  sx={{
+                    fontSize: 14,
+                    fontWeight: 800,
+                  }}
+                  gutterBottom
+                >
+                  No Of Guests:{" "}
+                  {Array.from({ length: totalGuest }).map((_, index) => (
                     <PersonIcon key={index} />
-                  )
-                )}
-              </Typography>
+                  ))}
+                </Typography>
+                <Typography
+                  display={"flex"}
+                  alignItems={"center"}
+                  sx={{
+                    fontSize: 14,
+                    fontWeight: 800,
+                  }}
+                  gutterBottom
+                >
+                  Guests Allowed:{" "}
+                  {Array.from({
+                    length: roomData?.roomType?.personAllowed,
+                  }).map((_, index) => (
+                    <PersonIcon key={index} />
+                  ))}
+                  / Per Room
+                </Typography>
+              </Box>
             </CardContent>
           </Card>
         </Grid>

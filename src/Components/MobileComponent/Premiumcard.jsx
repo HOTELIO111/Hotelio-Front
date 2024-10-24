@@ -42,7 +42,7 @@ const Premiumcard = () => {
             <Grid container spacing={2}>
                 {cardData.map((card, index) => (
                     <Grid key={index} item xs={4} sm={4} md={3}>
-                        <Card onClick={() => navigate('/searchedhotels')} style={cardStyles}>
+                        <Card onClick={() => navigate('/searched-hotels')} style={cardStyles}>
                             <CardMedia
                                 component="img"
                                 alt={`Image ${index + 1}`}

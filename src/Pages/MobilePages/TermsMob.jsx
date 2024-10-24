@@ -1,10 +1,14 @@
 import React from 'react'
 import style from '../Terms/Terms.module.css'
 import MobileFooter from '../../Components/MobileComponent/MobileFooter'
+import MobileHeader from '../../Components/MobileComponent/MobileHeader'
 
 const TermsMob = () => {
     return (
         <>
+            <div>
+                <MobileHeader />
+            </div>
             <div
                 className={` text-center p-5 mt-0  rounded ${style.TermsContainer}`}
             >

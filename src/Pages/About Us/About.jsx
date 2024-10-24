@@ -31,12 +31,12 @@ const About = () => {
           content="About One of the best Luxury hotel in Lucknow. Hotelio have verdant grounds and its unrivalled service. Our luxurious rooms and suites feature elegant decor."
         />
         {/* Cononical tag:-  */}
-        <link rel="canonical" href="https://www.hoteliorooms.com/about" />
+        <link rel="canonical" href="https://www.hoteliorooms.com/about-us" />
 
         {/* OG Tag:- */}
         <meta property="og:title" content="About Us | Best Luxury Hotel In Delhi India" />
         <meta property="og:site_name" content="Hotelio" />
-        <meta property="og:url" content="https://www.hoteliorooms.com/about" />
+        <meta property="og:url" content="https://www.hoteliorooms.com/about-us" />
         <meta property="og:description" content="About One of the best Luxury hotel in Lucknow. Hotelio have verdant grounds and its unrivalled service. Our luxurious rooms and suites feature elegant decor." />
         <meta property="og:type" content="" />
         <meta property="og:image" content="https://www.hoteliorooms.com/static/media/HotelioLogo.8079a48b3c088ec911fa.png" />

@@ -3,17 +3,17 @@ import { API_URL } from "../../config";
 import { useBooking } from "../../context/useBooking";
 import { LoadingButton } from "@mui/lab";
 import { useAuthContext } from "../../context/userAuthContext";
-import {
-  Box,
-  Card,
-  Grid,
-  InputLabel,
-  TextField,
-  Typography,
-} from "@mui/material";
-import Skeleton from "react-loading-skeleton";
+import { Box, Card, Grid, TextField, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-function CcavForm({ BOOKINGDATA, BILL, roomData }) {
+function CcavForm({
+  BOOKINGDATA,
+  BILL,
+  roomData,
+  DATAA,
+  actualPricetoPay,
+  setIsPaying,
+}) {
   const inputStyle = {
     border: "none",
     borderBottom: "0px solid #000", // Optional: Add a bottom border for better visibility
@@ -23,6 +23,7 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
   };
 
   const searchQuery = new URLSearchParams(document.location.search);
+  const navigate = useNavigate();
   const { currentUser } = useAuthContext();
   const currentSearchParam = Object.fromEntries(searchQuery?.entries());
   const checkIn = currentSearchParam.checkIn;
@@ -30,8 +31,12 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
   const qunatityRooms = currentSearchParam.totalRooms;
   const totalGuest = currentSearchParam.totalGuest;
   const priceOfaRoom = roomData?.price;
-  const { userBookingDetails, BillingCalculate, CreatePreBooking } =
-    useBooking();
+  const {
+    userBookingDetails,
+    BillingCalculate,
+    CreatePreBooking,
+    openRazorPay,
+  } = useBooking();
   const calculate = BillingCalculate(
     priceOfaRoom,
     null,
@@ -42,58 +47,80 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
     currentUser
   );
 
-  const HandleCheckOutPayment = async (BOOKINGDATA, BILL) => {
-    const formData = {
-      room: BOOKINGDATA?.room?._id,
-      hotel: BOOKINGDATA?.hotel?._id,
-      billing_address: document.querySelector('input[name="billing_address"]').value || '',
-      billing_city: document.querySelector('input[name="billing_city"]').value || '',
-      billing_state: document.querySelector('input[name="billing_state"]').value || '',
-      billing_zip: document.querySelector('input[name="billing_zip"]').value || '',
-      billing_country: document.querySelector('input[name="billing_country"]').value || '',
-      merchant_param1: document.querySelector('input[name="merchant_param1"]').value || 'Part Pay',
-      guest: {
-        name: BOOKINGDATA?.guest?.name,
-        email: BOOKINGDATA?.guest?.email,
-        mobileNo: BOOKINGDATA?.guest?.mobileNo,
-      },
-      bookingDate: {
-        checkIn: BOOKINGDATA?.bookingDate?.checkIn,
-        checkOut: BOOKINGDATA?.bookingDate?.checkOut,
-      },
-      amount: BILL?._totalAmountToPaid?.value,
-      dateOfBooking: BOOKINGDATA?.dateOfBooking,
-      additionalCharges: {
-        gst: BILL?.gstAmount,
-        serviceFee: BILL?.serviceFee,
-      },
-      promoCode: BILL?.CouponName,
-      discountInfo: [
-        BILL?._totalDiscount?.sub?.map((item) => ({
-          type: item.head,
-          rate: item.value,
-        })),
-      ],
-      numberOfGuests: {
-        adults: parseInt(BOOKINGDATA?.numberOfGuests?.adults),
-      },
-      numberOfRooms: BOOKINGDATA?.numberOfRooms,
-      bookingSource: "Website",
-      customer: BOOKINGDATA?.customer?._id,
-    };
-
-    const PreBookingResponse = await CreatePreBooking(formData);
-    ////----- - - - -- - - - Prebooking api check krke booking id genreate then yaha aao  ----------------------------
+  const handlePayNow = async (e) => {
+    e.preventDefault();
+    window.scrollTo(0, 0);
+    setIsPaying(true);
+    //  openRazorPay(actualPricetoPay);
   };
+
+  //   const HandleCheckOutPayment = async (BOOKINGDATA, BILL, DATAA) => {
+  //     // debugger;
+  //     // console.log(BOOKINGDATA, roomData);
+  //     const formData = {
+  //       room: BOOKINGDATA?.room,
+  //       hotel: BOOKINGDATA?.hotel,
+  //       billing_address: DATAA?.address,
+  //       billing_city: DATAA?.city,
+  //       billing_state: DATAA?.state,
+  //       billing_zip: DATAA?.zip,
+  //       billing_country: DATAA?.country,
+  //       merchant_param1:
+  //         document.querySelector('input[name="merchant_param1"]').value ||
+  //         "Part Pay",
+  //       guest: {
+  //         name: BOOKINGDATA?.guest?.name,
+  //         email: BOOKINGDATA?.guest?.email,
+  //         mobileNo: BOOKINGDATA?.guest?.mobileNo,
+  //       },
+  //       bookingDate: {
+  //         checkIn: BOOKINGDATA?.bookingDate?.checkIn,
+  //         checkOut: BOOKINGDATA?.bookingDate?.checkOut,
+  //       },
+  //       amount: BILL?._totalAmountToPaid?.value,
+  //       dateOfBooking: BOOKINGDATA?.dateOfBooking,
+  //       additionalCharges: {
+  //         gst: BILL?.gstAmount,
+  //         serviceFee: BILL?.serviceFee,
+  //       },
+  //       promoCode: BILL?.CouponName,
+  //       discountInfo: BILL?._totalDiscount?.sub?.map((item) => ({
+  //         // type: item.head,
+  //         name: item.head,
+  //         amount: item.value,
+  //         // rate: item.value,
+  //       })),
+
+  //       numberOfGuests: {
+  //         adults: parseInt(BOOKINGDATA?.numberOfGuests?.adults),
+  //       },
+  //       numberOfRooms: BOOKINGDATA?.numberOfRooms,
+  //       bookingSource: "Website",
+  //       customer: BOOKINGDATA?.customer?._id,
+  //       specialRequests: "*",
+  //     };
+
+  //     const PreBookingResponse = await CreatePreBooking(formData);
+  //     ////----- - - - -- - - - Prebooking api check krke booking id genreate then yaha aao  ----------------------------
+  //   };
 
   return (
     <div>
       <Box>
-        <Card sx={{ p: 2, borderRadius: 2, border: "2px solid #ee2e24", background: 'linear-gradient(338deg, rgba(243,200,198,1) 35%, rgba(255,255,255,1) 100%)' }}>
+        <Card
+          sx={{
+            p: 2,
+            borderRadius: 2,
+            border: "2px solid #ee2e24",
+            background:
+              "linear-gradient(338deg, rgba(243,200,198,1) 35%, rgba(255,255,255,1) 100%)",
+          }}
+        >
           <form
             method="POST"
             name="customerData"
-            action={`${API_URL}/ccav/ccavRequestHandler`}
+            onSubmit={handlePayNow}
+            // action={`${API_URL}/ccav/ccavRequestHandler`} // ccavenue form action
           >
             <Grid container spacing={1}>
               <Grid
@@ -149,7 +176,9 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   style={inputStyle}
                   margin="normal"
                   name="billing_address"
+                  value={DATAA?.address}
                   placeholder="Enter Billing Address"
+                  readOnly
                 />
               </Grid>
               <Grid
@@ -310,7 +339,7 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   type="text"
                   style={inputStyle}
                   name="amount"
-                  value="1.00"
+                  value={actualPricetoPay}
                   placeholder="Amount"
                   readOnly
                 />
@@ -413,6 +442,8 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   margin="normal"
                   name="billing_city"
                   placeholder="Enter Billing City"
+                  value={DATAA?.city}
+                  readOnly
                 />
               </Grid>
               <Grid
@@ -438,7 +469,9 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   style={inputStyle}
                   margin="normal"
                   name="billing_state"
+                  value={DATAA?.state}
                   placeholder="Enter Billing State"
+                  readOnly
                 />
               </Grid>
               <Grid
@@ -464,7 +497,9 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   style={inputStyle}
                   margin="normal"
                   name="billing_zip"
+                  value={DATAA?.zip}
                   placeholder="Enter Billing Zip"
+                  readOnly
                 />
               </Grid>
               <Grid
@@ -490,7 +525,9 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                   style={inputStyle}
                   margin="normal"
                   name="billing_country"
+                  value={DATAA?.country}
                   placeholder="Enter Billing Country"
+                  readOnly
                 />
               </Grid>
               <Grid
@@ -553,14 +590,25 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
                 />
               </Grid>
 
-              <Grid item xs={12} lg={12} p={1}>
+              <Grid item xs={12} lg={6} p={1}>
+                <input
+                  type="submit"
+                  name="merchant_param1"
+                  value="Part Pay"
+                  style={{
+                    padding: "1rem 0rem",
+                    borderRadius: "27px",
+                    margin: "1px",
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} lg={6} p={1}>
                 <LoadingButton
                   fullWidth
                   // loading={true}
+                  id="FormfillDone"
                   type="submit"
-                  onClick={() =>
-                    HandleCheckOutPayment(userBookingDetails, calculate)
-                  }
+                  //   onClick={() => HandleCheckOutPayment(BOOKINGDATA, calculate)}
                   color="error"
                   sx={{ padding: "1rem 0rem", borderRadius: "27px", margin: 1 }}
                   variant="contained"
@@ -573,273 +621,8 @@ function CcavForm({ BOOKINGDATA, BILL, roomData }) {
               type="text"
               name="merchant_param1"
               value="Part Pay"
-              style={{ visibility: 'hidden', display: 'none' }}
+              style={{ visibility: "hidden", display: "none" }}
             />
-
-            {/* <table width="100%" height="100" border="1" align="center">
-              <tr>
-                <td>Parameter Name:</td>
-                <td>Parameter Value:</td>
-              </tr>
-              <tr>
-                <td colspan="2">Compulsory information</td>
-              </tr>
-              <tr>
-                <td>Merchant Id</td>
-                <td>
-                  <input
-                    type="text"
-                    name="merchant_id"
-                    id="merchant_id"
-                    value="2779245"
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Order Id</td>
-                <td>
-                  <input type="text" name="order_id" value="1234" />
-                </td>
-              </tr>
-              <tr>
-                <td>Currency</td>
-                <td>
-                  <input type="text" name="currency" value="INR" />
-                </td>
-              </tr>
-              <tr>
-                <td>Amount</td>
-                <td>
-                  <input type="text" name="amount" value="1.00" />
-                </td>
-              </tr>
-              <tr>
-                <td>Redirect URL</td>
-                <td>
-                  <input
-                    type="text"
-                    name="redirect_url"
-                    value={`${API_URL}/ccav/ccavResponseHandler`}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Cancel URL</td>
-                <td>
-                  <input
-                    type="text"
-                    name="cancel_url"
-                    value={`${API_URL}/ccav/ccavResponseHandler`}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Language</td>
-                <td>
-                  <input type="text" name="language" id="language" value="EN" />
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2">Billing information(optional):</td>
-              </tr>
-              <tr>
-                <td>Billing Name</td>
-                <td>
-                  <input
-                    type="text"
-                    name="billing_name"
-                    value={BOOKINGDATA?.guest?.name}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Billing Address:</td>
-                <td>
-                  <input
-                    type="text"
-                    name="billing_address"
-                    value={BOOKINGDATA?.hotel?.address}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Billing City:</td>
-                <td>
-                  <input
-                    type="text"
-                    name="billing_city"
-                    value={BOOKINGDATA?.hotel?.city}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Billing State:</td>
-                <td>
-                  <input
-                    type="text"
-                    name="billing_state"
-                    value={BOOKINGDATA?.hotel?.state}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Billing Zip:</td>
-                <td>
-                  <input
-                    type="text"
-                    name="billing_zip"
-                    value={BOOKINGDATA?.hotel?.zipCode}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Billing Country:</td>
-                <td>
-                  <input
-                    type="text"
-                    name="billing_country"
-                    value={BOOKINGDATA?.hotel?.country}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Billing Tel:</td>
-                <td>
-                  <input
-                    type="text"
-                    name="billing_tel"
-                    value={BOOKINGDATA?.customer?.mobileNo}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Billing Email:</td>
-                <td>
-                  <input
-                    type="text"
-                    name="billing_email"
-                    value={BOOKINGDATA?.customer?.email}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2">Shipping information(optional):</td>
-              </tr>
-              <tr>
-                <td>Shipping Name</td>
-                <td>
-                  <input type="text" name="delivery_name" value="Sam" />
-                </td>
-              </tr>
-              <tr>
-                <td>Shipping Address:</td>
-                <td>
-                  <input type="text" name="delivery_address" value="Vile Parle" />
-                </td>
-              </tr>
-              <tr>
-                <td>Shipping City:</td>
-                <td>
-                  <input type="text" name="delivery_city" value="Mumbai" />
-                </td>
-              </tr>
-              <tr>
-                <td>Shipping State:</td>
-                <td>
-                  <input type="text" name="delivery_state" value="Maharashtra" />
-                </td>
-              </tr>
-              <tr>
-                <td>Shipping Zip:</td>
-                <td>
-                  <input type="text" name="delivery_zip" value="400038" />
-                </td>
-              </tr>
-              <tr>
-                <td>Shipping Country:</td>
-                <td>
-                  <input type="text" name="delivery_country" value="India" />
-                </td>
-              </tr>
-              <tr>
-                <td>Shipping Tel:</td>
-                <td>
-                  <input type="text" name="delivery_tel" value="0123456789" />
-                </td>
-              </tr>
-              <tr>
-                <td>Merchant Param1</td>
-                <td>
-                  <input
-                    type="text"
-                    name="merchant_param1"
-                    value="additional Info."
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Merchant Param2</td>
-                <td>
-                  <input
-                    type="text"
-                    name="merchant_param2"
-                    value="additional Info."
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Merchant Param3</td>
-                <td>
-                  <input
-                    type="text"
-                    name="merchant_param3"
-                    value="additional Info."
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Merchant Param4</td>
-                <td>
-                  <input
-                    type="text"
-                    name="merchant_param4"
-                    value="additional Info."
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Merchant Param5</td>
-                <td>
-                  <input
-                    type="text"
-                    name="merchant_param5"
-                    value="additional Info."
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Promo Code:</td>
-                <td>
-                  <input type="text" name="promo_code" value="" />
-                </td>
-              </tr>
-              <tr>
-                <td>Customer Id:</td>
-                <td>
-                  <input
-                    type="text"
-                    name="customer_identifier"
-                    value={BOOKINGDATA?.customer?._id}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td></td>
-                <td>
-                  <input type="submit" value="Checkout" />
-                </td>
-              </tr>
-            </table> */}
           </form>
         </Card>
       </Box>
