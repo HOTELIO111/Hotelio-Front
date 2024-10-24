@@ -14,7 +14,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { BookingProvider } from "./context/useBooking";
 import CssBaseline from "@mui/material/CssBaseline";
 import { StateManagerProvider } from "./context/useStateManager";
-import 'atropos/css'
+import "atropos/css";
 const customTheme = createTheme({
   typography: {
     fontFamily: "Baloo 2",
@@ -30,16 +30,16 @@ root.render(
     <StateManagerProvider>
       <SearchProvider>
         <AuthProvider>
-          <BookingProvider>
-            <BrowserRouter>
+          <BrowserRouter>
+            <BookingProvider>
               <ThemeProvider theme={customTheme}>
                 <Provider store={store}>
                   <CssBaseline />
                   <App />
                 </Provider>
               </ThemeProvider>
-            </BrowserRouter>
-          </BookingProvider>
+            </BookingProvider>
+          </BrowserRouter>
         </AuthProvider>
       </SearchProvider>
     </StateManagerProvider>

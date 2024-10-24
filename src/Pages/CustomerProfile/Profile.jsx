@@ -21,7 +21,6 @@ import axios from "axios";
 import { API_URL } from "../../config";
 
 const Profile = () => {
-
   const { sendOtp, otpResp, Loader, currentUser, setCurrentUser } =
     useAuthContext();
   // State variables
@@ -33,8 +32,6 @@ const Profile = () => {
   const handelDetailUpdate = () => setprofiledetailUpdate(false);
   const handelUpdateEmailOpen = () => setUpdateEmail(true);
   const handeleEmailUpdate = () => setUpdateEmail(false);
-
-
 
   const handleImageChange = async (e) => {
     const file = e.target.files[0];

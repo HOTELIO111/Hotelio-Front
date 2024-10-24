@@ -26,11 +26,11 @@ const SuccessPage = () => {
       //   navigate(`/CustomerProfile/${currentUser?._id}`);
       // }, 2000); 
     } else {
-      setPaymentStatus("Success");
+      setPaymentStatus("success");
 
       // Simulate a 2-minute timeout before navigating
       setTimeout(() => {
-        navigate(`/CustomerProfile/${currentUser?._id}`);
+        navigate(`/customer-profile/${currentUser?._id}`);
       }, 2000);
     }
   }, [currentUser, navigate]);

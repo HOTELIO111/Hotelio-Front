@@ -9,7 +9,8 @@ const useStateManager = createContext();
 const StateManagerProvider = ({ children }) => {
   const [checkInCheckOut, setCheckInCheckOut] = useState([]);
   const [formData, setFormData] = useState({});
-  const [applicableOffer, setApplicableOffer] = useState(null)
+  const [applicableOffer, setApplicableOffer] = useState(null);
+  const [addWalletOffer, setAddWalletOffer] = useState(true);
 
   // Get the addressInfo from google
 
@@ -37,7 +38,7 @@ const StateManagerProvider = ({ children }) => {
   const handleCityClick = async (city) => {
     const checkIn = new Date();
     const checkOut = new Date(checkIn.getTime() + 24 * 60 * 60 * 1000);
-    const { geometry, location} = await GetPlaceInfo(city);
+    const { geometry, location } = await GetPlaceInfo(city);
 
     // Construct the search data
     const searchData = {
@@ -63,7 +64,6 @@ const StateManagerProvider = ({ children }) => {
 
   const dateFormat = "YYYY/MM/DD";
 
-
   const handleFormData = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -86,7 +86,9 @@ const StateManagerProvider = ({ children }) => {
         setFormData,
         applicableOffer,
         setApplicableOffer,
-        handleFormData
+        handleFormData,
+        addWalletOffer,
+        setAddWalletOffer,
       }}
     >
       {children}
@@ -94,8 +96,6 @@ const StateManagerProvider = ({ children }) => {
   );
 };
 
-const useCollections = () => {
-  return useContext(useStateManager);
-};
+const useCollections = () => useContext(useStateManager);
 
 export { useCollections, StateManagerProvider };
