@@ -12,7 +12,7 @@ const YourBooking = () => {
     <div>
       <div style={{ position: 'absolute', zIndex: 1 }}>
         {isMobile ? <MobileHeader /> : <Navbar />}
-        <div style={isMobile ? { paddingBottom: '70px' } : { marginTop: '70px' }}>
+        <div style={isMobile ? { paddingBottom: '70px' } : { marginTop: '20px' }}>
           <List />
         </div>
         {isMobile ? <MobileFooter /> : <Footer />}

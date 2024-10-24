@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./WeServe.module.css"; // Assuming you have a separate CSS module for styling
+import styles from "./WeServe.module.css";
 import worldMap from "../../images/worldMap.png";
 import WeserveImage from "../../images/WeserveImage.webp";
 import style from "./WeServe.module.css";
@@ -14,7 +14,7 @@ const WeServe = () => {
     >
       <div className={`row p-2 ${style.rowRevert}`}>
         <div className="col-xl-6 col-sm-12">
-          <img src={WeserveImage} alt="Weserve Banner" width={'100%'} />
+          <img src={WeserveImage} alt="Weserve Banner" width={'100%'} height={'100%'} />
         </div>
         <div
           className="col-xl-6 col-sm-12"

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux'
 import Navbar from "../../Components/Navbar/Navbar";
 import Footer from "../../Components/footer/Footer";
 import HotelCover from "./HotelCover";
@@ -12,6 +13,7 @@ import MobileHeader from "../../Components/MobileComponent/MobileHeader";
 import MobileFooter from "../../Components/MobileComponent/MobileFooter";
 import PageLoader from "../../Utilis/PageLoader";
 import { Helmet } from "react-helmet";
+import { GetSingleHotelioReview } from "../../store/actions/HotelioReviewAction";
 
 const HotelDetail = () => {
   const { id } = useParams();
@@ -35,6 +37,15 @@ const HotelDetail = () => {
 
     GetHoteldata();
   }, [id]);
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(GetSingleHotelioReview(data?._id))
+  }, [data])
+  console.log('hotelid', data?._id)
+  const HotelioReview = useSelector((state) => state.GetHotelioSingleReviewReducer?.data?.data[0]);
+  console.log(HotelioReview)
 
   return (
     <>
@@ -100,14 +111,14 @@ const HotelDetail = () => {
                   className="bg-success text-center"
                   variant="h5"
                 >
-                  4.5
+                  {data?.hotelRatings}
                 </Typography>
                 <Typography
                   className="bg-secondary p-1 text-nowrap"
                   variant="caption"
                   display="block"
                 >
-                  14 Rating
+                  {HotelioReview?.reviews.length} Rating
                 </Typography>
               </div>
             </Grid>
@@ -115,7 +126,7 @@ const HotelDetail = () => {
         </Container>
       </div>
       <Container sx={isMobile ? { mb: 10 } : null}>
-        <Detail data={data} />
+        <Detail data={data} HotelioReview={HotelioReview} />
       </Container>
       {isMobile ? <MobileFooter /> : <Footer />}
     </>

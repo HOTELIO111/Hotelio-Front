@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Card, CardContent, Typography, Paper, Button } from '@mui/material';
 import AllcitiesIcon from '../../images/AllcitiesIcon.jpg'
 import LocationIcon from '../../images/LocationIcon.png'
@@ -20,6 +20,9 @@ const CardContainer = styled(Paper)`
   overflow-x: auto;
   background: transparent !important;
   box-shadow: none !important;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const StyledCard = styled(Card)`

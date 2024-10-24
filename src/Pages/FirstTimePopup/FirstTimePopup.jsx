@@ -5,7 +5,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
-import { Typography } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import { isMobile } from 'react-device-detect';
 
 function FirstTimePopup() {
@@ -34,23 +34,25 @@ function FirstTimePopup() {
 
     return (
         <Dialog open={open} onClose={handleClose}>
-            {/* <DialogTitle>First-Time Popup</DialogTitle> */}
             <DialogContent>
-                <DialogContentText className='text-center'>
-                    <Typography fontWeight={700} variant={isMobile ? 'body1' : 'h5'}>Get 999 INR instantly Credit in your account on Sign Up. Also become eligible for refer and earn.</Typography>
-                </DialogContentText>
-                <div className='d-flex justify-content-center align-items-center mt-3'>
+                <Box textAlign={'center'}>
+                    <Typography fontWeight={700} variant={isMobile ? 'body1' : 'h5'}>
+                        Get 999 INR instantly Credit in your account on Sign Up. Also become eligible for refer and earn.
+                    </Typography>
+                </Box>
+                <Box display={'flex'} justifyContent={'center'} alignItems={'center'} mt={3} >
                     <Button size='sm' variant='contained' onClick={copyTextToClipboard} color="error">
                         COPY CODE
                     </Button>
                     <div style={{ border: '3px dotted #ee2e24', padding: '3px' }}>
-                        <Typography variant='body1' fontWeight={700} >GET999INR</Typography>
+                        <Typography variant='body1' fontWeight={700} >
+                            GET999INR
+                        </Typography>
                     </div>
-                </div>
+                </Box>
             </DialogContent>
             <DialogActions>
-
-                <Button variant='outlined' onClick={handleClose} color="error">
+                <Button size='small' variant='outlined' onClick={handleClose} color="error">
                     Close
                 </Button>
             </DialogActions>

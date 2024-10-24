@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import Featured_skeleton from "../Skeletons/Featured_skeleton";
+import FeaturedSkeleton from "../Skeletons/FeaturedSkeleton";
 
 const FeaturedProperties = () => {
   const dispatch = useDispatch();
@@ -196,7 +196,7 @@ const FeaturedProperties = () => {
                 </div>
               );
             })}
-          {featuredData.length === 0 && <Featured_skeleton />}
+          {featuredData.length === 0 && <FeaturedSkeleton />}
         </div>
       </div>
     </>

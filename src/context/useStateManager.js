@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState } from "react";
 import { createContext, useContext } from "react";
 import instance from "../store/_utils";
@@ -10,6 +9,8 @@ const useStateManager = createContext();
 const StateManagerProvider = ({ children }) => {
   const [checkInCheckOut, setCheckInCheckOut] = useState([]);
   const [formData, setFormData] = useState({});
+  const [applicableOffer, setApplicableOffer] = useState(null);
+  const [addWalletOffer, setAddWalletOffer] = useState(true);
 
   // Get the addressInfo from google
 
@@ -37,7 +38,7 @@ const StateManagerProvider = ({ children }) => {
   const handleCityClick = async (city) => {
     const checkIn = new Date();
     const checkOut = new Date(checkIn.getTime() + 24 * 60 * 60 * 1000);
-    const { geometry, location, data } = await GetPlaceInfo(city);
+    const { geometry, location } = await GetPlaceInfo(city);
 
     // Construct the search data
     const searchData = {
@@ -56,13 +57,12 @@ const StateManagerProvider = ({ children }) => {
 
     // Construct the URL with query parameters
     const queryParams = new URLSearchParams(searchData);
-    const targetURL = `/searchedhotels?${queryParams.toString()}`;
+    const targetURL = `/searched-hotels?${queryParams.toString()}`;
 
     window.location.href = targetURL;
   };
 
   const dateFormat = "YYYY/MM/DD";
-
 
   const handleFormData = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -84,7 +84,11 @@ const StateManagerProvider = ({ children }) => {
         handleCityClick,
         formData,
         setFormData,
-        handleFormData
+        applicableOffer,
+        setApplicableOffer,
+        handleFormData,
+        addWalletOffer,
+        setAddWalletOffer,
       }}
     >
       {children}
@@ -92,8 +96,6 @@ const StateManagerProvider = ({ children }) => {
   );
 };
 
-const useCollections = () => {
-  return useContext(useStateManager);
-};
+const useCollections = () => useContext(useStateManager);
 
 export { useCollections, StateManagerProvider };

@@ -14,8 +14,6 @@ import { useState } from 'react';
 import style from '../Navbar/navbar.module.css'
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../context/userAuthContext';
-import { API_URL } from '../../config';
-import { Axios } from 'axios';
 import { useCollections } from '../../context/useStateManager';
 import { convertDatesToUTC } from '../../Utilis/_fuctions';
 import { isMobile, isMobileOnly } from 'react-device-detect';
@@ -29,31 +27,27 @@ const TravelHeader = () => {
   // -------------------------- MOdal controllers-----------------------------
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
 
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
-  const [openOptions, setOpenOptions] = useState(false);
   const { checkInCheckOut, setCheckInCheckOut } = useCollections();
   const navigate = useNavigate()
 
-  const [citites, setCities] = useState(null);
+  // const [citites, setCities] = useState(null);
   const [selectedCity, setSlectedCity] = useState(null);
   const [geoLoc, setGeoLoc] = useState({ longitude: "", latitude: "" });
-  const GetAllCities = async () => {
-    try {
-      const response = await Axios.get(`${API_URL}/hotel/get/city`);
-      if (response.status === 200) {
-        setCities(response.data.data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const GetAllCities = async () => {
+  //   try {
+  //     const response = await Axios.get(`${API_URL}/hotel/get/city`);
+  //     if (response.status === 200) {
+  //       setCities(response.data.data);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const [manageRoom, setManageRoom] = useState([{ room: 1, guest: 1 }]);
 
@@ -77,7 +71,7 @@ const TravelHeader = () => {
     if (manageRoom[0].guest === 0)
       return window.alert("please select the room and guest ");
     const queryString = new URLSearchParams(searchData).toString();
-    navigate(`/searchedhotels?${queryString}`);
+    navigate(`/searched-hotels?${queryString}`);
     console.log(checkInCheckOut);
   };
 
@@ -133,9 +127,9 @@ const TravelHeader = () => {
   const autoCompleteRef = useRef();
   const inputRef = useRef();
 
-  useEffect(() => {
-    GetAllCities();
-  }, []);
+  // useEffect(() => {
+  //   GetAllCities();
+  // }, []);
 
   useEffect(() => {
     try {
@@ -167,7 +161,7 @@ const TravelHeader = () => {
   return (
 
     <div>
-      <Grid spacing={1} container sx={{ borderBottom: '2px solid #ee2e24' }}>
+      <Grid spacing={1} alignItems={'center'} container sx={{ borderBottom: '2px solid #ee2e24' }}>
         <Grid item xs={12} sm={2}>
           <img onClick={() => navigate('/Travel-Partner-Home')} src={HotelioLogo} style={{ width: '150px' }} alt="Logo" />
         </Grid>

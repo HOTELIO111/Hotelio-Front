@@ -2,15 +2,19 @@ import React, { useState } from "react";
 import style from "./contact.module.css";
 import Navbar from "../../Components/Navbar/Navbar";
 import Footer from "../../Components/footer/Footer";
-import { TextField, Button, FormControl, InputLabel, Select, MenuItem, TextareaAutosize, Card, createTheme, ThemeProvider } from '@mui/material';
+import { TextField, Button, TextareaAutosize, Card, createTheme, ThemeProvider } from '@mui/material';
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import LocalPhoneRoundedIcon from "@mui/icons-material/LocalPhoneRounded";
+import { useDispatch } from "react-redux";
 import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
 import TtyIcon from '@mui/icons-material/Tty';
-// import ContactImg from '../../images/ContactImage.png'
 import HotelioLogo from '../../images/HotelioLogo.png'
+import Swal from "sweetalert2";
+import { GetHotelioContact } from "../../store/actions/HotelioContactAction";
 
 const Contact = () => {
+
+  const dispatch = useDispatch()
 
   const theme = createTheme({
     components: {
@@ -22,10 +26,10 @@ const Contact = () => {
               backgroundColor: '#fff',
             },
             '& .MuiInput-underline::before': {
-              borderBottom: '2px solid #ee2e24', // Change to your desired active color
+              borderBottom: '2px solid #ee2e24',
             },
             '& .MuiInput-underline::after': {
-              borderBottom: '2px solid #ee2e24', // Change to your desired active color
+              borderBottom: '2px solid #ee2e24',
             },
           },
         },
@@ -36,9 +40,9 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    mobile: '',
-    serviceType: '',
-    description: '',
+    mobileNo: '',
+    // serviceType: '',
+    disc: '',
   });
 
   const handleInputChange = (event) => {
@@ -52,7 +56,18 @@ const Contact = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     // Handle form submission logic here
-    console.log(formData);
+    dispatch(GetHotelioContact(formData))
+    Swal.fire({
+      title: "Thank You!",
+      text: "Your request has been sent to the Hotelio team. We will connect with you soon.",
+      icon: "success"
+    })
+    setFormData({
+      name: '',
+      email: '',
+      mobileNo: '',
+      disc: '',
+    });
   };
 
   return (
@@ -133,14 +148,20 @@ const Contact = () => {
                     />
                     <TextField
                       label="Mobile No"
-                      name="mobile"
-                      value={formData.mobile}
-                      onChange={handleInputChange}
+                      name="mobileNo"
+                      type="number"
+                      value={formData.mobileNo}
+                      onChange={(e) => {
+                        const enteredValue = e.target.value.replace(/\D/g, '');
+                        if (enteredValue.length <= 10) {
+                          handleInputChange(e);
+                        }
+                      }}
                       fullWidth
                       required
                       margin="normal"
                     />
-                    <FormControl fullWidth required margin="normal">
+                    {/* <FormControl fullWidth required margin="normal">
                       <InputLabel>Service Type</InputLabel>
                       <Select
                         name="serviceType"
@@ -151,10 +172,10 @@ const Contact = () => {
                         <MenuItem value="service2">Service 2</MenuItem>
                         <MenuItem value="service3">Service 3</MenuItem>
                       </Select>
-                    </FormControl>
+                    </FormControl> */}
                     <TextareaAutosize
-                      name="description"
-                      value={formData.description}
+                      name="disc"
+                      value={formData.disc}
                       onChange={handleInputChange}
                       minRows={5}
                       placeholder="Description"
@@ -170,6 +191,7 @@ const Contact = () => {
           </div>
           <div className={style.map}>
             <iframe
+              title="contactMapLink"
               src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3557.96877780391!2d80.99880607543919!3d26.904485976652023!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjbCsDU0JzE2LjIiTiA4McKwMDAnMDUuMCJF!5e0!3m2!1sen!2sin!4v1696829941027!5m2!1sen!2sin"
               height="470"
               style={{ border: "0", borderRadius: '24px' }}

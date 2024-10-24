@@ -25,9 +25,9 @@ import { Carousel } from "react-responsive-carousel";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import "./Detail.css";
 
-const Detail = ({ data }) => {
+const Detail = ({ data, HotelioReview }) => {
   const navigate = useNavigate();
-
+  console.log(data);
   const { searchParams, setSearchParams } = useSearchParams();
   const searchQuery = new URLSearchParams(document.location.search);
   const currentSearchParams = Object.fromEntries(searchQuery?.entries());
@@ -37,7 +37,7 @@ const Detail = ({ data }) => {
     checkOut: currentSearchParams.checkOut,
     totalRooms: currentSearchParams.totalRooms,
     totalGuest: currentSearchParams.totalGuest,
-  }
+  };
 
   const bookingQueries = new URLSearchParams(SearchParams).toString();
 
@@ -207,12 +207,15 @@ const Detail = ({ data }) => {
       rid: roomid?._id,
     }).toString();
     if (loggedIn) {
-      window.localStorage.setItem('search', JSON.stringify({ hid: hotelid._id, rid: roomid._id, ...SearchParams }))
-      return `/booking?${query}&${bookingQueries}`
+      window.localStorage.setItem(
+        "search",
+        JSON.stringify({ hid: hotelid._id, rid: roomid._id, ...SearchParams })
+      );
+      return `/booking?${query}&${bookingQueries}`;
     } else {
-      return `/signin`
+      return `/signin`;
     }
-  }
+  };
 
   return (
     <div>
@@ -222,39 +225,43 @@ const Detail = ({ data }) => {
             <h4 className="py-3 text-dark">Description</h4>
             <Typography variant="p">{data?.discription || "NA"}</Typography>
           </div>
-          <hr />
-          <div className="px-2">
-            <h4 className="py-3 text-dark">Amenities & Facilities</h4>
-            <div className="d-flex align-items-center ">
-              <img
-                style={{ height: "250px", width: "250px" }}
-                src={Welcome}
-                alt="welcome"
-              />
-              <div
-                className=""
-                style={{
-                  maxWidth: "30vw",
-                  height: "30vh",
-                }}
-              >
-                <ul
-                  className="d-flex gap-2"
-                  style={{ display: "flex", flexWrap: "wrap" }}
-                >
-                  {/* ------------------------------------------------------ Map the Hotel Ammenities list (function defined upper side ) ------------------------------------------------- */}
-                  {AllAmentitesAndFacilities(data?.rooms)
-                    ?.allAmentiesFacilities?.slice(0, 10)
-                    ?.map((item, index) => (
-                      <div className="customChip " key={index}>
-                        {item}
-                      </div>
-                    ))}
-                </ul>
+          {isMobile ? null : (
+            <>
+              <hr />
+              <div className="px-2">
+                <h4 className="py-3 text-dark">Amenities & Facilities</h4>
+                <div className="d-flex align-items-center ">
+                  <img
+                    style={{ height: "250px", width: "250px" }}
+                    src={Welcome}
+                    alt="welcome"
+                  />
+                  <div
+                    className=""
+                    style={{
+                      maxWidth: "30vw",
+                      height: "30vh",
+                    }}
+                  >
+                    <ul
+                      className="d-flex gap-2"
+                      style={{ display: "flex", flexWrap: "wrap" }}
+                    >
+                      {/* ------------------------------------------------------ Map the Hotel Ammenities list (function defined upper side ) ------------------------------------------------- */}
+                      {AllAmentitesAndFacilities(data?.rooms)
+                        ?.allAmentiesFacilities?.slice(0, 10)
+                        ?.map((item, index) => (
+                          <div className="customChip " key={index}>
+                            {item}
+                          </div>
+                        ))}
+                    </ul>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <hr />
+              <hr />
+            </>
+          )}
         </Grid>
         <Grid
           sx={{ display: "grid", placeItems: "center" }}
@@ -298,34 +305,38 @@ const Detail = ({ data }) => {
                 <div className="d-flex justify-content-evenly align-items-center">
                   <div className="border">
                     <Typography className="bg-success text-center" variant="h5">
-                      4.5
+                      {data?.hotelRatings}
                     </Typography>
                     <Typography
                       className="bg-secondary text-nowrap p-1"
                       variant="p"
                     >
-                      14 Rating
+                      {HotelioReview?.reviews.length} Rating
                     </Typography>
                   </div>
                   <div
                     className="d-flex flex-column align-items-center"
                     style={{ maxHeight: "135px", width: 110 }}
                   >
-                    <CircularProgressWithLabel value={75} />
+                    <CircularProgressWithLabel
+                      value={HotelioReview?.valueOfMoney}
+                    />
                     <p className="fw-bold mt-1">Value of Money</p>
                   </div>
                   <div
                     className="d-flex flex-column align-items-center"
                     style={{ maxHeight: "135px", width: 100 }}
                   >
-                    <CircularProgressWithLabel value={80} />
+                    <CircularProgressWithLabel
+                      value={HotelioReview?.cleanliness}
+                    />
                     <p className="fw-bold mt-1">Cleanliness</p>
                   </div>
                   <div
                     className="d-flex flex-column align-items-center"
                     style={{ maxHeight: "135px", width: 100 }}
                   >
-                    <CircularProgressWithLabel value={90} />
+                    <CircularProgressWithLabel value={HotelioReview?.comfort} />
                     <p className="fw-bold mt-1">Comfort</p>
                   </div>
 
@@ -336,103 +347,42 @@ const Detail = ({ data }) => {
                     showStatus={false}
                     showIndicators={false}
                   >
-                    <div>
-                      <Card
-                        sx={{
-                          maxHeight: "134px",
-                          width: 400,
-                          p: 1,
-                          boxShadow:
-                            "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
-                          color: "#4d4d4d",
-                          marginLeft: "10px",
-                        }}
-                      >
-                        <div>
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Perspiciatis maxime officiis error id nesciunt
-                          quos officia.
-                        </div>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-evenly",
-                            alignItems: "center",
-                            borderTop: "1px solid #ee2e24",
-                            borderBottom: "1px solid #ee2e24",
+                    {HotelioReview?.reviews.map((item, index) => (
+                      <div>
+                        <Card
+                          key={index}
+                          sx={{
+                            maxHeight: "134px",
+                            width: 400,
+                            p: 1,
+                            boxShadow:
+                              "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
+                            color: "#4d4d4d",
+                            marginLeft: "10px",
                           }}
                         >
-                          <Rating name="read-only" value={3} readOnly />
-                          <Typography variant="subtitle2">
-                            Adam Smith
-                          </Typography>
-                        </div>
-                      </Card>
-                    </div>
-                    <div>
-                      <Card
-                        sx={{
-                          maxHeight: "134px",
-                          width: 400,
-                          p: 1,
-                          boxShadow:
-                            "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
-                          color: "#4d4d4d",
-                        }}
-                      >
-                        <div>
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Perspiciatis maxime officiis error id nesciunt
-                          quos officia.
-                        </div>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-evenly",
-                            alignItems: "center",
-                            borderTop: "1px solid #ee2e24",
-                            borderBottom: "1px solid #ee2e24",
-                          }}
-                        >
-                          <Rating name="read-only" value={3} readOnly />
-                          <Typography variant="subtitle2">
-                            Adam Smith
-                          </Typography>
-                        </div>
-                      </Card>
-                    </div>
-                    <div>
-                      <Card
-                        sx={{
-                          maxHeight: "134px",
-                          width: 400,
-                          p: 1,
-                          boxShadow:
-                            "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
-                          color: "#4d4d4d",
-                        }}
-                      >
-                        <div>
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Perspiciatis maxime officiis error id nesciunt
-                          quos officia.
-                        </div>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-evenly",
-                            alignItems: "center",
-                            borderTop: "1px solid #ee2e24",
-                            borderBottom: "1px solid #ee2e24",
-                          }}
-                        >
-                          <Rating name="read-only" value={3} readOnly />
-                          <Typography variant="subtitle2">
-                            Adam Smith
-                          </Typography>
-                        </div>
-                      </Card>
-                    </div>
+                          <div>{item?.message}</div>
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-evenly",
+                              alignItems: "center",
+                              borderTop: "1px solid #ee2e24",
+                              borderBottom: "1px solid #ee2e24",
+                            }}
+                          >
+                            <Rating
+                              name="read-only"
+                              value={item?.ratings}
+                              readOnly
+                            />
+                            <Typography variant="subtitle2">
+                              {item?.customer[0]?.name}
+                            </Typography>
+                          </div>
+                        </Card>
+                      </div>
+                    ))}
                   </Carousel>
                 </div>
               </CardContent>
@@ -468,46 +418,26 @@ const Detail = ({ data }) => {
                     currentSearchParams.checkIn,
                     currentSearchParams.checkOut
                   ) && (
-                      <div
-                        style={{
-                          cursor: "not-allowed",
-                          display: "grid",
-                          placeItems: "center",
-                          position: "absolute",
-                          background: "#ffffffba",
-                          zIndex: "1000",
-                          width: "100%",
-                          height: "100%",
-                        }}
-                      >
-                        <div>
-                          <Typography variant="h6" color="error" fontWeight={800}>
-                            Room Not Available
-                          </Typography>
-                        </div>
-                      </div>
-                    )}
-                  <Grid container spacing={1}>
-                    {/* <Grid
-                      item
-                      xs={12}
-                      sx={{
+                    <div
+                      style={{
                         cursor: "not-allowed",
                         display: "grid",
                         placeItems: "center",
                         position: "absolute",
                         background: "#ffffffba",
-                        width: "1100px",
-                        marginTop: "5px",
-                        zIndex: "1200",
+                        zIndex: "1000",
+                        width: "100%",
+                        height: "100%",
                       }}
                     >
-                      <div className="p-5">
+                      <div>
                         <Typography variant="h6" color="error" fontWeight={800}>
                           Room Not Available
                         </Typography>
                       </div>
-                    </Grid> */}
+                    </div>
+                  )}
+                  <Grid container spacing={1}>
                     <Grid
                       sx={
                         isMobile ? null : { borderRight: "2px solid #ee2e24" }
@@ -572,7 +502,7 @@ const Detail = ({ data }) => {
                       xl={2}
                     >
                       {/* -------------------------------------------------Mapped the price of every room ---------------------------------------------------------- */}
-                      <div>
+                      <div className={isMobile ? "px-2 text-center" : null}>
                         <Typography variant="h6">
                           ₹ {item.price}{" "}
                           <span className="text-secondary">
@@ -592,28 +522,30 @@ const Detail = ({ data }) => {
                         </Typography>
                       </div>
                     </Grid>
-                    <Grid
-                      sx={
-                        isMobile ? null : { borderRight: "2px solid #ee2e24" }
-                      }
-                      item
-                      xs={6}
-                      md={4}
-                      lg={3}
-                      xl={3}
-                    >
-                      <div className="text-center">
-                        <div className="d-flex">
-                          <p>{item?.facilities || "NA"}</p>
+                    {isMobile ? null : (
+                      <Grid
+                        sx={
+                          isMobile ? null : { borderRight: "2px solid #ee2e24" }
+                        }
+                        item
+                        xs={6}
+                        md={4}
+                        lg={3}
+                        xl={3}
+                      >
+                        <div className="text-center">
+                          <div className="d-flex">
+                            <p>{item?.facilities || "NA"}</p>
+                          </div>
                         </div>
-                      </div>
-                    </Grid>
+                      </Grid>
+                    )}
                     <Grid
                       display={"flex"}
                       alignItems={"center"}
                       justifyContent={"center"}
                       item
-                      xs={12}
+                      xs={isMobile ? 6 : 12}
                       md={4}
                       lg={2}
                       xl={2}
@@ -621,14 +553,24 @@ const Detail = ({ data }) => {
                       <div className="text-center">
                         <Button
                           variant="contained"
-                          sx={{ borderRadius: "50px", boxShadow: 'rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset' }}
+                          sx={{
+                            borderRadius: "50px",
+                            boxShadow:
+                              "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset",
+                          }}
                           color="error"
                         >
-                          <Link style={{ color: '#fff' }} target="_blank" to={HandleNavigations(data, item, bookingQueries)}>Book Now</Link>                        </Button>
+                          <Link
+                            style={{ color: "#fff" }}
+                            to={HandleNavigations(data, item, bookingQueries)}
+                          >
+                            Book Now
+                          </Link>
+                        </Button>
                       </div>
                     </Grid>
                   </Grid>
-                  <hr />
+                  {isMobile ? <hr style={{ margin: "0px 10px" }} /> : <hr />}
                 </CardContent>
               );
             })}
@@ -733,7 +675,7 @@ const Detail = ({ data }) => {
           </div>
         </Grid>
       </Grid>
-    </div >
+    </div>
   );
 };
 

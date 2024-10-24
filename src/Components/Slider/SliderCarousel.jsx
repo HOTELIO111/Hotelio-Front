@@ -10,8 +10,9 @@ const responsive = {
     1024: { items: 3 },
 };
 
-const SliderCarousel = () => {
+const SliderCarousel = ({ SliderData }) => {
     const items = [
+
         // Slide 1
         <div style={{ maxHeight: '500px' }} className="item mx-2" data-value="1">
             <img style={{ height: '250px', width: '100%' }} className='rounded' src={ImageOne} alt="" />
@@ -44,7 +45,13 @@ const SliderCarousel = () => {
             mouseTracking
             autoPlay
             infinite
-            items={items}
+            items={
+                SliderData?.data?.map((item, index) => (
+                    <div key={index} style={{ maxHeight: '500px' }} className="item mx-2" data-value={index}>
+                        <img style={{ height: '250px', width: '100%' }} className='rounded' src={item?.img} alt="" />
+                    </div>
+                ))
+            }
             responsive={responsive}
             disableDotsControls
             disableButtonsControls // Disable the left and right navigation icons

@@ -1,7 +1,7 @@
 import * as React from "react";
 import Skeleton from "@mui/material/Skeleton";
 
-const Featured_skeleton = () => {
+const FeaturedSkeleton = () => {
   const data = [1, 2, 3, 3];
 
   return (
@@ -34,4 +34,4 @@ const Featured_skeleton = () => {
   );
 };
 
-export default Featured_skeleton;
+export default FeaturedSkeleton;

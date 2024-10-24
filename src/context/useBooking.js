@@ -1,37 +1,40 @@
 import axios from "axios";
 import { useContext } from "react";
 import { createContext } from "react";
-import { API_URL } from "../config";
+import { API_URL, RAZORPAY_KEY_ID } from "../config";
 import { useState } from "react";
 import { totalLengthOfStay } from "../Utilis/_fuctions";
 import instance from "../store/_utils";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const BookingContext = createContext();
 
 const BookingProvider = ({ children }) => {
   const [BookingDetails, setBookingDetails] = useState(null);
-
-
+  const navigate = useNavigate();
 
   const CreateBooking = async (formData) => {
     try {
-      const response = await instance.post("/hotel/book/create/pre-booking", formData)
+      const response = await instance.post(
+        "/hotel/book/create/pre-booking",
+        formData
+      );
       if (response.status === 200) {
-        setBookingDetails(response.data.message.data)
-        return { error: false, status: 200 }
+        setBookingDetails(response.data.data);
+        return { error: false, status: 200 };
       }
     } catch (error) {
       if (error.response && error.response.status === 404) {
-        return { error: true, status: 404 }
+        return { error: true, status: 404 };
       } else {
-        return { error: true, message: error.message }
+        return { error: true, message: error.message };
       }
     }
   };
 
   const [coupon, setCoupon] = useState();
-  const [Gst, setGst] = useState("18");
+  const [Gst, setGst] = useState(18);
   const [userBookingDetails, setUserBookingDetails] = useState({});
   const [finalBookingData, setFinalBookingData] = useState({});
 
@@ -167,12 +170,81 @@ const BookingProvider = ({ children }) => {
     }
   };
 
+  const openRazorPay = async () => {
+    let amount = BookingDetails?.totalAmount;
+    // console.log(BookingDetails.totalAmount);
+    const response = await instance.post("/razorpay/create-order", { amount });
+    const { data } = await response.data;
+    // console.log("data", data);
+
+    const options = {
+      key: RAZORPAY_KEY_ID,
+      currency: data.currency,
+      name: "Hotelio",
+      description: "Booking Room",
+      image: "../images/HotelioLogo.png",
+      order_id: data.id,
+      handler: async function (response) {
+        // mandatory data for booking validation because the ccavenue returns this data as well, so I add this dummy data to not break the code. I am filling the data which I can fill, and the rest of the data is dummy data.
+        let mandetoryData = {
+          order_id: BookingDetails?.bookingId,
+          tracking_id: "123456",
+          bank_ref_no: "123456",
+          order_status: "Pending",
+          failure_message: "",
+          payment_mode: "Razorpay",
+          card_name: "Visa",
+          status_code: "0",
+          status_message: "Pending",
+          currency: "INR",
+          amount: BookingDetails?.amount,
+          billing_name: BookingDetails?.guest?.name,
+          billing_address: "",
+          billing_city: "",
+          billing_state: "",
+          billing_zip: "",
+          billing_country: "",
+          billing_tel: BookingDetails?.guest?.mobileNo,
+          billing_email: BookingDetails?.guest?.email,
+          trans_date: "",
+          offer_type: BookingDetails?.discountInfo[0]?._id,
+          offer_code: BookingDetails?.discountInfo[0]?.name,
+          discount_value: BookingDetails?.discountInfo[0]?.amount,
+          mer_amount: BookingDetails?.amount,
+          eci_value: "",
+          retry: "",
+          bin_country: "",
+        };
+        response = { ...response, ...mandetoryData };
+        let res = await instance.post("/razorpay/verify-payment", response);
+        if (res.status === 200) {
+          navigate("/Transaction_Status");
+        }
+      },
+      prefill: {
+        name: BookingDetails?.guest?.name,
+        email: BookingDetails?.guest?.email,
+        contact: BookingDetails?.guest?.mobileNo,
+      },
+      notes: {
+        address: "Hotelio",
+      },
+      theme: {
+        color: "#F37254",
+      },
+    };
+    const rzp1 = new window.Razorpay(options);
+    rzp1.open();
+  };
+
   const CreatePreBooking = async (formData) => {
     try {
       const response = await instance.post(
         "/hotel/book/create/pre-booking",
         formData
       );
+      debugger;
+      console.log(response);
       if (response.status === 200) {
         console.log(response.data);
         return response.data;
@@ -182,9 +254,6 @@ const BookingProvider = ({ children }) => {
       return error;
     }
   };
-
-
-
 
   return (
     <BookingContext.Provider
@@ -204,6 +273,7 @@ const BookingProvider = ({ children }) => {
         calculateAmount,
         BillingCalculate,
         CreatePreBooking,
+        openRazorPay,
       }}
     >
       {children}

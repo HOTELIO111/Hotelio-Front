@@ -12,7 +12,7 @@ const SearchProvider = ({ children }) => {
 
   const getSearchHotel = async (params) => {
     try {
-      const response = await axios.get(`${API_URL}/hotel/search?${params}`);
+      const response = await axios.get(`${API_URL}/hotel/search/hotels?${params}`);
       if (response.status === 200) {
         setHotels(response.data.data);
       }
@@ -49,7 +49,8 @@ const SearchProvider = ({ children }) => {
     fetchData();
   }, [selectedPlace]);
 
-  const GetLocationData = async (endpoint, filter, currentSearchParams) => {
+  const 
+  GetLocationData = async (endpoint, filter, currentSearchParams) => {
     let newFilter = {};
 
     if (filter !== null) {

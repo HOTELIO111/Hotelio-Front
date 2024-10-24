@@ -38,6 +38,36 @@ const GetBookingOffersReducers = (state = initialValues, action) => {
     }
 }
 
+const GetAllBookingOffersReducers = (state = initialValues, action) => {
+    switch (action.type) {
+        case constant.GET_ALL_OFFER_API_LOADING:
+            return {
+                ...state,
+                loading: true,
+                error: false,
+                success: false
+            }
+        case constant.GET_ALL_OFFER_API_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                success: true,
+                error: false,
+                data: action.payload
+            }
+        case constant.GET_ALL_OFFER_API_ERROR:
+            return {
+                ...state,
+                loading: false,
+                success: false,
+                error: true,
+            }
+
+        default:
+            return state
+    }
+}
 
 
-export { GetBookingOffersReducers }
+
+export { GetBookingOffersReducers, GetAllBookingOffersReducers }

@@ -327,6 +327,7 @@ body {
 }
 
 @media (max-width: 991px) {
+
   html,
   body {
     overflow-x: hidden;
@@ -344,6 +345,11 @@ body {
   .mobile-bottom-fix-big {
     margin-bottom: 60px;
   }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
 }
 
 /* For WebKit based browsers (Chrome, Safari) */
@@ -449,42 +455,33 @@ body {
   font-family: "Roboto", sans-serif !important;
   color: #ee2e24 !important;
   background-color: #ee2e243f !important;
-  border-radius: 24px !important;
 }
 
 .css-1x5jdmq {
   font-family: "Roboto", sans-serif !important;
   color: #ee2e24 !important;
   background-color: #ee2e243f !important;
-  border-radius: 24px !important;
 }
 
-.css-1bp1ao6 {
-  border-radius: 24px !important;
-}
+
 
 .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
-  border-radius: 24px !important;
   background-color: #ee2e243f !important;
 }
 
 .css-fvipm8 {
-  border-radius: 24px !important;
   background-color: #ee2e243f !important;
 }
 
 .css-154xyx0-MuiInputBase-root-MuiOutlinedInput-root {
-  border-radius: 24px !important;
   background-color: #ee2e243f !important;
 }
 
 .css-segi59 {
-  border-radius: 24px !important;
   background-color: #ee2e243f !important;
 }
 
 .css-1v4ccyo {
-  border-radius: 24px !important;
   background-color: #ee2e243f !important;
 }
 
@@ -492,19 +489,13 @@ body {
   padding: 10px 14px !important;
 }
 
-.css-1d3z3hw-MuiOutlinedInput-notchedOutline {
-  border-radius: 24px !important;
-}
-
-.css-igs3ac {
-  border-radius: 24px !important;
-}
 
 .css-hyxlzm {
   color: #ee2e24;
 }
 
 @keyframes hotelioLoader {
+
   0%,
   100% {
     color: red;
@@ -528,13 +519,15 @@ body {
 .MapViewOnClick:hover {
   box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.15);
 }
+
 .animatedElement {
   width: 50px;
   height: 50px;
   background-color: blue;
   position: absolute;
   top: 0;
-  left: 50%; /* Center the element horizontally */
+  left: 50%;
+  /* Center the element horizontally */
   animation: moveDown 3s linear infinite;
 }
 
@@ -542,8 +535,10 @@ body {
   0% {
     top: 0;
   }
+
   100% {
-    top: 100%; /* Adjust the final position as needed */
+    top: 100%;
+    /* Adjust the final position as needed */
   }
 }
 
@@ -558,6 +553,7 @@ body {
   color: white;
   user-select: none;
 }
+
 .ButtonPrimary:hover {
   background-color: #973732;
   border: 1px solid #973732;
@@ -577,4 +573,3 @@ body {
   background-color: #4d4d53;
   border: 1px solid #4d4d53;
 }
-

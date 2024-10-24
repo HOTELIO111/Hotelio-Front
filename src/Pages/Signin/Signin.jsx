@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   Grid,
   Typography,
-  createTheme,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -11,7 +10,6 @@ import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { API_URL } from "../../config";
 import MobileFooter from "../../Components/MobileComponent/MobileFooter";
-import LoginLogo from "../../images/HotelioLogo.png";
 import Reception from "../../images/Reception.jpg";
 import { buildQueryString, validateInput } from "../../Utilis/_fuctions";
 import StepsForm from "./StepsForm";
@@ -22,16 +20,10 @@ const Signin = () => {
 
   const [hideOtp, setShowOtp] = useState(false);
   const [inputOtp, setInputOtp] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const [dataFound, setDataFound] = useState(true);
   // already user or not
   const [isUser, setIsUser] = useState(false);
-  const [reEnteredPassword, setReEnteredPassword] = useState("");
-  const [isFocused, setIsFocused] = useState(false);
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+
 
   // loader state
   const [Loader, setLoader] = useState(false);
@@ -193,7 +185,6 @@ const Signin = () => {
           {isMobile ? '' : <Grid sx={{ display: 'grid', placeItems: 'center' }} item xs={0} md={12} lg={7} xl={7}>
             <div className="w-75 h-50 shadow-lg text-center" style={{ background: "rgba(255,255,255,0.011112)", borderRadius: "30px", display: 'grid', placeItems: 'center' }}>
               <Typography
-                className="animate__animated animate__backInUp"
                 sx={{
                   backgroundImage: 'linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%)',
                   backgroundClip: 'text',
