@@ -36,10 +36,10 @@ import TravelHome from "./Pages/Travel Partner Pages/TravelHome";
 import TravelProfile from "./Pages/Travel Partner Pages/TravelProfile";
 import AllCities from "./Pages/AllCities/AllCities";
 import CcavForm from "./Components/Booking/CcavForm";
-import SeprateLocation from './Pages/SepratePage/SeprateLocation'
+import SeprateLocation from "./Pages/SepratePage/SeprateLocation";
+import instance from "./store/_utils";
 
 function App() {
-
   // useEffect(() => {
   //   if ("geolocation" in navigator) {
   //     navigator?.geolocation.getCurrentPosition(
@@ -75,27 +75,45 @@ function App() {
     },
   };
 
+  useEffect(() => {
+    if (localStorage.getItem("customer")) {
+      let customer = JSON.parse(localStorage.getItem("customer"));
+      if (customer.mobileNo) {
+        instance.get(`/api/get?field=${customer.mobileNo}`).then((res) => {
+          if (res.data?.data) {
+            localStorage.setItem("customer", JSON.stringify(res.data.data));
+          }
+        });
+      } else if (customer.email) {
+        instance.get(`/api/get?field=${customer.email}`).then((res) => {
+          if (res.data?.data) {
+            localStorage.setItem("customer", JSON.stringify(res.data.data));
+          }
+        });
+      }
+    }
+  }, []);
+
   return (
     <div
-
       style={
         isMobile
           ? {
-            backgroundImage: `url(${MobileBackground})`,
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            backgroundAttachment: "fixed",
-            height: `${location.pathname === '/favourite' ? '100vh' : 'auto'}`
-          }
+              backgroundImage: `url(${MobileBackground})`,
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              backgroundAttachment: "fixed",
+              height: `${
+                location.pathname === "/favourite" ? "100vh" : "auto"
+              }`,
+            }
           : {}
       }
     >
-
       <script type="application/ld+json">
         {JSON.stringify(hotelioroomsStructuredData)}
       </script>
       <Routes>
-
         <Route path="*" element={<PageNotFound />} />
         <Route path="/search" element={<SearchBar />} />
         <Route path="/signup" element={<PublicRoute Component={Signup} />} />
@@ -123,7 +141,7 @@ function App() {
         <Route path="/Transaction_Status" element={<SuccessPage />} />
         <Route path="/Payment_failed" element={<FailedPage />} />
         <Route path="/allCities" element={<AllCities />} />
-        <Route path='/:city' element={<SeprateLocation />} />
+        <Route path="/:city" element={<SeprateLocation />} />
         <Route path="/ccav" element={<CcavForm />} />
 
         {/* Mobile pages */}
@@ -132,14 +150,14 @@ function App() {
         <Route path="/offer" element={<MobileOffer />} />
         <Route path="/Privacy&policy" element={<PrivacyMob />} />
         <Route path="/Terms&condition" element={<TermsMob />} />
-        
+
         {/* Travel Partner */}
 
         <Route path="/Travel-Partner-Auth" element={<TravelLoginSignup />} />
         <Route path="/Travel-Partner-Home" element={<TravelHome />} />
         <Route path="/Travel-Partner-Profile" element={<TravelProfile />} />
       </Routes>
-    </div >
+    </div>
   );
 }
 

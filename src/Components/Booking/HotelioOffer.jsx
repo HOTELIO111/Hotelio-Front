@@ -22,7 +22,11 @@ const HotelioOffer = () => {
     setAddWalletOffer,
   } = useCollections();
   const handleOfferChange = (event) => {
-    setApplicableOffer(event.target.value);
+    let value = event.target.value;
+    if (value !== "null") {
+      let offer = offerData?.data?.find((item) => item._id === value);
+      setApplicableOffer(offer);
+    }
   };
   const { currentUser } = useAuthContext();
 
@@ -49,14 +53,14 @@ const HotelioOffer = () => {
               aria-labelledby="demo-radio-buttons-group-label"
               name="radio-buttons-group"
               sx={{ ml: 1 }}
-              value={applicableOffer}
+              value={applicableOffer?._id}
               onChange={handleOfferChange}
             >
               <FormControlLabel control={<Radio />} label="None" value={null} />
               {offerData.data.map((item, index) => (
                 <FormControlLabel
                   key={index}
-                  value={item._id}
+                  value={item?._id}
                   control={<Radio />}
                   label={item.code}
                 />
@@ -84,7 +88,7 @@ const HotelioOffer = () => {
           }
           sx={{ ml: 0 }}
           label={`Wallet Offer (Balance - ₹${
-            addWalletOffer === true
+            addWalletOffer === true && currentUser?.wallet.amount > 100
               ? currentUser?.wallet.amount - 100
               : currentUser?.wallet.amount
           })`}

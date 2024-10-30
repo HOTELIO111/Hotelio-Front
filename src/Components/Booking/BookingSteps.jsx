@@ -71,7 +71,7 @@ const BookingSteps = () => {
       bookingObject = JSON.parse(
         window.sessionStorage.getItem("bookingObject")
       );
-
+      console.log("bookingObject", bookingObject);
       const booking = await CreateBooking(bookingObject);
 
       if (!booking.error) {

@@ -59,7 +59,7 @@ const BookingInfo = () => {
       addWalletOffer: addWalletOffer,
     };
     if (applicableOffer) {
-      queryParams.OfferId = applicableOffer;
+      queryParams.OfferId = applicableOffer?._id;
     }
     const billingQuery = new URLSearchParams(queryParams).toString();
     dispatch(GetHotelBillCalculation(billingQuery));

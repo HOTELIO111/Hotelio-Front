@@ -16,7 +16,7 @@ import AddEmailId from "./AddEmailId";
 import PasswordUpdateModal from "./PasswordUpdateModal";
 import moment from "moment/moment";
 import { isMobile } from "react-device-detect";
-import BorderColorIcon from '@mui/icons-material/BorderColor';
+import BorderColorIcon from "@mui/icons-material/BorderColor";
 import axios from "axios";
 import { API_URL } from "../../config";
 
@@ -39,35 +39,38 @@ const Profile = () => {
     if (file) {
       try {
         const formData = new FormData();
-        formData.append('file', file);
+        formData.append("file", file);
 
         // Make the API call using axios
-        const response = await axios.post(`${API_URL}/util/upload/file/directly?fileName=${file.name}`, formData);
+        const response = await axios.post(
+          `${API_URL}/util/upload/file/directly?fileName=${file.name}`,
+          formData
+        );
 
         // Handle the response as needed
-        console.log('File uploaded successfully:', response.data.fileName);
+        console.log("File uploaded successfully:", response.data.fileName);
 
         const userId = currentUser?._id;
-        const avatarUploadResponse = await axios.post(`${API_URL}/api/upload/avatar/${userId}`, {
-          avatar: response.data.fileName,
-        });
+        const avatarUploadResponse = await axios.post(
+          `${API_URL}/api/upload/avatar/${userId}`,
+          {
+            avatar: response.data.fileName,
+          }
+        );
 
-
-        console.log('Avatar uploaded successfully:', avatarUploadResponse.data);
+        console.log("Avatar uploaded successfully:", avatarUploadResponse.data);
 
         setCurrentUser({
           ...currentUser,
           avatar: response.data.fileName,
         });
-
       } catch (error) {
-        console.error('An error occurred while uploading the file:', error);
+        console.error("An error occurred while uploading the file:", error);
       }
     }
 
     // Update state with the selected file
   };
-
 
   // Password update modal handlers
   const handlePasswordUpdateOpen = () => setPasswordUpdateOpen(true);
@@ -79,7 +82,6 @@ const Profile = () => {
       }
     });
   };
-
 
   // sendOtpFunction
   // const sendOtpToNumber = async () => {
@@ -151,15 +153,11 @@ const Profile = () => {
 
   return (
     <div className="p-1">
-      <Grid
-        container
-        className={isMobile ? "mb-5" : "min-vh-100"}
-        spacing={1}
-      >
+      <Grid container className={isMobile ? "mb-5" : "min-vh-100"} spacing={1}>
         <WaitLoader loading={Loader} />
         <Grid xs={12} className="text-center" item>
-          <div className={isMobile ? '' : 'pt-4 my-4'}>
-            <Typography variant={isMobile ? 'h4' : 'h3'} className="mt-2">
+          <div className={isMobile ? "" : "pt-4 my-4"}>
+            <Typography variant={isMobile ? "h4" : "h3"} className="mt-2">
               Welcome to Hotelio! Please Update YourProfile
             </Typography>
             <Typography variant="h6">Membership Offer Coming Soon</Typography>
@@ -175,19 +173,44 @@ const Profile = () => {
                 style={{ color: "#ee2e24", cursor: "pointer" }}
                 onClick={() => setprofiledetailUpdate(true)}
               >
-                <Button color="error" variant="contained">Edit Details</Button>
+                <Button color="error" variant="contained">
+                  Edit Details
+                </Button>
               </div>
             </div>
             <div className={` ${style.content} p-2`}>
-
-              <div className={`${style.image}`} style={{ maxWidth: '100%', position: 'relative' }}>
+              <div
+                className={`${style.image}`}
+                style={{ maxWidth: "100%", position: "relative" }}
+              >
                 <img
-                  src={currentUser?.avatar || "https://i.postimg.cc/bryMmCQB/profile-image.jpg"}
+                  src={
+                    currentUser?.avatar ||
+                    "https://i.postimg.cc/bryMmCQB/profile-image.jpg"
+                  }
                   alt="ProfileImage"
                 />
-                <div style={{ position: 'absolute', left: '60%', transform: 'translateX(-50%)', bottom: 0 }}>
-                  <IconButton onClick={() => document.getElementById('clickMe').click()} variant='text'><BorderColorIcon color='dark' /></IconButton>
-                  <input id='clickMe' style={{ display: 'none' }} type="file" accept="image/*" onChange={handleImageChange} />
+                <div
+                  style={{
+                    position: "absolute",
+                    left: "60%",
+                    transform: "translateX(-50%)",
+                    bottom: 0,
+                  }}
+                >
+                  <IconButton
+                    onClick={() => document.getElementById("clickMe").click()}
+                    variant="text"
+                  >
+                    <BorderColorIcon color="dark" />
+                  </IconButton>
+                  <input
+                    id="clickMe"
+                    style={{ display: "none" }}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                  />
                 </div>
               </div>
 
@@ -252,7 +275,9 @@ const Profile = () => {
                   <span style={{ color: "#ee2e24" }}>Email Id</span>
                   <div className="d-flex justify-content-center align-items-center">
                     <h6 className={` mt-0 ${style.job_discription}`}>
-                      {userEmailId === currentUser?.email ? <EmailIcon /> : null}{" "}
+                      {userEmailId === currentUser?.email ? (
+                        <EmailIcon />
+                      ) : null}{" "}
                       {userEmailId === currentUser?.email ? (
                         userEmailId
                       ) : (
@@ -305,10 +330,11 @@ const Profile = () => {
               </div>
               <hr style={{ margin: "0.2rem 0rem" }} />
               <div
-                className={`mt-1 ${isMobile
-                  ? "text-center"
-                  : "d-flex justify-content-evenly align-items-center"
-                  }  ${style.button}`}
+                className={`mt-1 ${
+                  isMobile
+                    ? "text-center"
+                    : "d-flex justify-content-evenly align-items-center"
+                }  ${style.button}`}
               >
                 {currentUser ? (
                   <TextField
@@ -370,7 +396,15 @@ const Profile = () => {
             style={{ marginBottom: "0.5rem", display: "flex" }}
             className={` ${style.box}`}
           >
-            <Card sx={{ bgcolor: 'transparent', boxShadow: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset', borderRadius: '15px' }} className="p-3">
+            <Card
+              sx={{
+                bgcolor: "transparent",
+                boxShadow:
+                  "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
+                borderRadius: "15px",
+              }}
+              className="p-3"
+            >
               <Typography variant="h5">My Hotelio Wallet</Typography>
               <hr style={{ marginTop: "0px" }} />
               <div className="d-flex align-items-center">
@@ -378,7 +412,7 @@ const Profile = () => {
                   My Hotelio Wallet :
                 </Typography>
                 <Typography sx={{ pl: 2.5 }} variant="h6">
-                  ₹ 999
+                  ₹ {currentUser.wallet.amount}
                 </Typography>
               </div>
               <hr style={{ marginTop: "0px" }} />
@@ -388,7 +422,7 @@ const Profile = () => {
                 </Typography>
                 <Typography sx={{ pl: 2.5 }} variant="h6">
                   {" "}
-                  31 Sep, 2023
+                  {moment(currentUser.wallet.expire).format("DD-MMMM-YYYY")}
                 </Typography>
               </div>
               <hr style={{ marginTop: "0px" }} />
@@ -401,19 +435,36 @@ const Profile = () => {
                 </Typography>
               </div>
             </Card>
-            <Card className="p-3" sx={{ ml: 1, maxWidth: "550px", background: 'transparent', boxShadow: 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset', borderRadius: '15px', display: 'grid', placeItems: 'center' }}>
+            <Card
+              className="p-3"
+              sx={{
+                ml: 1,
+                maxWidth: "550px",
+                background: "transparent",
+                boxShadow:
+                  "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
+                borderRadius: "15px",
+                display: "grid",
+                placeItems: "center",
+              }}
+            >
               <div>
                 <Typography variant="h6" fontWeight={700}>
-                  Get 999 INR instantly Credit in your account on Sign Up. Also become eligible for refer and earn.
+                  Get 999 INR instantly Credit in your account on Sign Up. Also
+                  become eligible for refer and earn.
                 </Typography>
                 <div className="d-flex justify-content-end">
-                  <Button variant="contained" color="error" onClick={copyToClipboard} className="mt-2">
+                  <Button
+                    variant="contained"
+                    color="error"
+                    onClick={copyToClipboard}
+                    className="mt-2"
+                  >
                     {isCopied ? "Copied!" : "Refer Copy Link"}
                   </Button>
                 </div>
               </div>
             </Card>
-
           </div>
           <div
             style={{

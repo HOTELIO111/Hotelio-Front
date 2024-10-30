@@ -47,7 +47,6 @@ export default function List() {
   const BookingData = useSelector((state) => state.GetBookingHistoryReducers);
 
   const reviewData = useSelector((state) => state.GetHotelioReviewReducer);
-  console.log(BookingData);
   React.useEffect(() => {
     changeOnesearchParam("sortby", sortby);
     dispatch(GetBookingHistoryAction(currentUser?._id));
@@ -603,11 +602,11 @@ export default function List() {
                               color={"green"}
                               variant={isMobile ? "caption" : "h6"}
                             >
-                              {item?.payment?.paidamount || "NA"}
+                              {item?.totalAmount || "NA"}
                             </Typography>
                           </div>
                         </Grid>
-                        {
+                        {item?.payment?.balanceAmt !== 0 && (
                           <Grid item xs={12} lg={6}>
                             <div
                               className={`d-flex align-items-center ${
@@ -626,11 +625,11 @@ export default function List() {
                                 color={"error"}
                                 variant={isMobile ? "caption" : "h6"}
                               >
-                                {item?.payment?.balanceAmt || "NA"}
+                                {item?.payment?.balanceAmt || "0"}
                               </Typography>
                             </div>
                           </Grid>
-                        }
+                        )}
                         <Grid item xs={12} lg={6}>
                           <div
                             className={`d-flex align-items-center ${
@@ -647,7 +646,7 @@ export default function List() {
                               sx={{ pl: 2 }}
                               variant={isMobile ? "caption" : "h6"}
                             >
-                              {item?.payment?.totalamount || "NA"}
+                              {item?.totalAmount || "NA"}
                             </Typography>
                           </div>
                         </Grid>

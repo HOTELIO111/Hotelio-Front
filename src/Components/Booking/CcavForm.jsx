@@ -23,7 +23,6 @@ function CcavForm({
   };
 
   const searchQuery = new URLSearchParams(document.location.search);
-  const navigate = useNavigate();
   const { currentUser } = useAuthContext();
   const currentSearchParam = Object.fromEntries(searchQuery?.entries());
   const checkIn = currentSearchParam.checkIn;
@@ -32,10 +31,7 @@ function CcavForm({
   const totalGuest = currentSearchParam.totalGuest;
   const priceOfaRoom = roomData?.price;
   const {
-    userBookingDetails,
     BillingCalculate,
-    CreatePreBooking,
-    openRazorPay,
   } = useBooking();
   const calculate = BillingCalculate(
     priceOfaRoom,
@@ -204,7 +200,7 @@ function CcavForm({
                   style={inputStyle}
                   margin="normal"
                   name="promo_code"
-                  value=""
+                  value={BOOKINGDATA?.discountInfo[0]?.name}
                   placeholder="Promo code"
                   readOnly
                 />

@@ -18,33 +18,38 @@ export const GetSearchedHotel = (query) => {
   };
 };
 
-
 export const GetSingleHotel = (hotelid) => {
   return async (dispatch) => {
-    dispatch({ type: constant.GET_SINGLEHOTEL_API_LOADING })
+    dispatch({ type: constant.GET_SINGLEHOTEL_API_LOADING });
     try {
-      const response = await instance.get(`/hotel/hoteldetails/${hotelid}`)
+      const response = await instance.get(`/hotel/hoteldetails/${hotelid}`);
       if (response.status === 200) {
-        dispatch({ type: constant.GET_SINGLEHOTEL_API_SUCCESS, payload: response.data.data })
+        dispatch({
+          type: constant.GET_SINGLEHOTEL_API_SUCCESS,
+          payload: response.data.data,
+        });
       }
     } catch (error) {
-      dispatch({ type: constant.GET_SINGLEHOTEL_API_ERROR })
+      dispatch({ type: constant.GET_SINGLEHOTEL_API_ERROR });
     }
-  }
-}
+  };
+};
 
 export const GetHotelBillCalculation = (billingQuery) => {
   return async (dispatch) => {
-    dispatch({ type: constant.GET_HotelBillCalculation_API_LOADING })
+    dispatch({ type: constant.GET_HotelBillCalculation_API_LOADING });
     try {
-      const response = await instance.get(`/hotel/book/calculate/bill?${billingQuery}`)
+      const response = await instance.get(
+        `/hotel/book/calculate/bill?${billingQuery}`
+      );
       if (response.status === 200) {
-        dispatch({ type: constant.GET_HotelBillCalculation_API_SUCCESS, payload: response.data })
+        dispatch({
+          type: constant.GET_HotelBillCalculation_API_SUCCESS,
+          payload: response.data,
+        });
       }
     } catch (error) {
-      dispatch({ type: constant.GET_HotelBillCalculation_API_ERROR })
+      dispatch({ type: constant.GET_HotelBillCalculation_API_ERROR });
     }
-  }
-}
-
-// 
+  };
+};

@@ -27,7 +27,13 @@ import { useBooking } from "../../context/useBooking";
 const StepTwo = () => {
   const [searchParmas, setSearchParamas] = useSearchParams();
   const dispatch = useDispatch();
-  const { formData, handleFormData, setFormData } = useCollections();
+  const {
+    formData,
+    handleFormData,
+    setFormData,
+    addWalletOffer,
+    applicableOffer,
+  } = useCollections();
   const roomId = searchParmas.get("rid");
   const totalGuest = searchParmas.get("totalGuest");
   const { Gst } = useBooking();
@@ -79,6 +85,18 @@ const StepTwo = () => {
         amount: item.amount,
       })),
     };
+    if (addWalletOffer) {
+      bookingObject.discountInfo.push({
+        name: "Wallet Offer",
+        amount: 100,
+      });
+    }
+    if (applicableOffer) {
+      bookingObject.discountInfo.push({
+        name: applicableOffer.code,
+        amount: applicableOffer.codeDiscount.amount,
+      });
+    }
     // Store the bookingObject in sessionStorage
     return bookingObject;
   };
@@ -103,6 +121,8 @@ const StepTwo = () => {
     formData.email,
     formData.name,
     formData.mobileNo,
+    addWalletOffer,
+    applicableOffer,
   ]);
 
   useEffect(() => {
