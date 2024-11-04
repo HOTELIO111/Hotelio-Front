@@ -2,30 +2,8 @@ import React from "react";
 import Navbar from "../../Components/Navbar/Navbar";
 import style from "../Terms/Terms.module.css";
 import Footer from "../../Components/footer/Footer";
-import DecorImage from "../../images/DecorImage.png";
 
 const Terms = () => {
-  const termsList = [
-    "Terms of Service",
-    "Terms of Operations",
-    "Payment and Reconciliation",
-    "Hotelio Wizard",
-    "Hotelio Products",
-    "Invoicing",
-    "Set-off",
-    "Taxes",
-    "OTA Related Terms",
-    "Brand Exclusivity",
-    "Right to Audit and Inspect",
-    "Intellectual Property",
-    "Data Privacy and Retention",
-    "Confidentiality",
-    "Term and Termination",
-    "Indemnity",
-    "Limitation of Liability",
-    "Representation and Warranties",
-    "Miscellaneous",
-  ];
 
   return (
     <div>
@@ -39,7 +17,7 @@ const Terms = () => {
       <div
         className={`container ${style.termsBody}`}
         style={{
-          background: `linear-gradient(37deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.4290966386554622) 100%),url(${DecorImage})`,
+          background: `linear-gradient(37deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.4290966386554622) 100%)`,
         }}
       >
         <h4 className="py-3">
