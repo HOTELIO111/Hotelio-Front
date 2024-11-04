@@ -1,6 +1,21 @@
 .TermsContainer {
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    background: radial-gradient(circle, rgb(225 76 117 / 56%) 0%, rgba(255, 255, 255, 0.6924019607843137) 100%);
-    clip-path: polygon(0 0, 100% 10%, 100% 85%, 0 100%);
-  }
-  
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background: radial-gradient(
+    circle,
+    rgb(225 76 117 / 56%) 0%,
+    rgba(255, 255, 255, 0.6924019607843137) 100%
+  );
+  clip-path: polygon(0 0, 100% 10%, 100% 85%, 0 100%);
+}
+
+.termsBody {
+    padding: 20px;
+    font-size: 1.2rem;
+    text-align: justify;
+    & ul{
+        margin-inline: 20px;
+        & .discList li{
+            list-style: initial;
+        }
+    }
+}
