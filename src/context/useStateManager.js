@@ -3,6 +3,7 @@ import { createContext, useContext } from "react";
 import instance from "../store/_utils";
 import { useEffect } from "react";
 import dayjs from "dayjs";
+import { useSearchParams } from "react-router-dom";
 
 const useStateManager = createContext();
 
@@ -11,6 +12,7 @@ const StateManagerProvider = ({ children }) => {
   const [formData, setFormData] = useState({});
   const [applicableOffer, setApplicableOffer] = useState(null);
   const [addWalletOffer, setAddWalletOffer] = useState(true);
+  const [, setSearchParamas] = useSearchParams();
 
   // Get the addressInfo from google
 
@@ -74,6 +76,18 @@ const StateManagerProvider = ({ children }) => {
 
     setCheckInCheckOut([dayjs(today, dateFormat), dayjs(tomorrow, dateFormat)]);
   }, []);
+
+  useEffect(() => {
+    const today = dayjs().format(dateFormat);
+    const tomorrow = dayjs().add(1, "day").format(dateFormat);
+    let searchQuery = new URLSearchParams(document.location.search);
+    let currentSearchParams = Object.fromEntries(searchQuery?.entries());
+    setSearchParamas({
+      ...currentSearchParams,
+      checkIn: today,
+      checkOut: tomorrow,
+    });
+  }, [checkInCheckOut]);
 
   return (
     <useStateManager.Provider

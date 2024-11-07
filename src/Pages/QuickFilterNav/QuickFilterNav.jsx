@@ -6,10 +6,12 @@ import { useNavigate } from "react-router-dom";
 import style from "./QuickFilterNav.module.css";
 import axios from "axios";
 import { Card, CardContent, Grid } from "@mui/material";
+import dayjs from "dayjs";
 
 const QuickFilterNav = ({ CollectionData }) => {
   const navigate = useNavigate();
   const [locationData, setLocationData] = useState(null);
+  const dateFormat = "YYYY/MM/DD";
   const [geoLoc, setGeoLoc] = useState(
     JSON.parse(window.localStorage.getItem("location")) || {}
   );
@@ -64,8 +66,8 @@ const QuickFilterNav = ({ CollectionData }) => {
       lat: geoLoc?.latitude,
       totalRooms: 1,
       totalGuest: 1,
-      checkIn: "2024-03-06T18:30:00.000Z",
-      checkOut: "2024-03-07T18:30:00.000Z",
+      checkIn: dayjs().format(dateFormat),
+      checkOut: dayjs().add(1, "day").format(dateFormat),
       priceMin: 400,
       priceMax: 20000,
       sort: "popularity",
