@@ -12,7 +12,9 @@ const SearchProvider = ({ children }) => {
 
   const getSearchHotel = async (params) => {
     try {
-      const response = await axios.get(`${API_URL}/hotel/search/hotels?${params}`);
+      const response = await axios.get(
+        `${API_URL}/hotel/search/hotels?${params}`
+      );
       if (response.status === 200) {
         setHotels(response.data.data);
       }
@@ -24,15 +26,26 @@ const SearchProvider = ({ children }) => {
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [placeData, setPlaceData] = useState(null);
 
+  const getLattitudeAndLongitude = async (address) => {
+    try {
+      if (address === null) throw new Error("Address is null");
+      const result = await geocodeByAddress(address);
+      const { lat, lng } = result[0].geometry.location;
+      const latitude = lat();
+      const longitude = lng();
+      return { latitude, longitude };
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (selectedPlace !== null) {
-          const result = await geocodeByAddress(selectedPlace?.label);
-
-          const { lat, lng } = result[0].geometry.location;
-          const latitude = lat();
-          const longitude = lng();
+          const { latitude, longitude } = await getLattitudeAndLongitude(
+            selectedPlace?.label
+          );
 
           setPlaceData({
             ...placeData,
@@ -49,8 +62,7 @@ const SearchProvider = ({ children }) => {
     fetchData();
   }, [selectedPlace]);
 
-  const 
-  GetLocationData = async (endpoint, filter, currentSearchParams) => {
+  const GetLocationData = async (endpoint, filter, currentSearchParams) => {
     let newFilter = {};
 
     if (filter !== null) {
@@ -108,8 +120,6 @@ const SearchProvider = ({ children }) => {
       return { error: true, message: error.message };
     }
   };
-
-
 
   return (
     <searchContext.Provider

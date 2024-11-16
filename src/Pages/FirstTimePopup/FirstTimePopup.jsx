@@ -13,6 +13,7 @@ function FirstTimePopup() {
 
     const handleClose = () => {
         setOpen(false);
+        localStorage.setItem("hasSeenPopup", "true");
     };
 
     const copyTextToClipboard = () => {

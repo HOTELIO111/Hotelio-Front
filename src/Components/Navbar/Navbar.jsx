@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import style from "./navbar.module.css";
 import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import $ from "jquery";
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import Dates from "../date/Date";
 import hotel from "../../images/hotel-bg.webp";
 import { styled, alpha } from "@mui/material/styles";
@@ -19,7 +19,28 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import CallIcon from "@mui/icons-material/Call";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import { useMediaQuery } from "@mui/material";
+import {
+  Autocomplete,
+  Box,
+  Checkbox,
+  Chip,
+  Container,
+  createTheme,
+  FormControl,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  TextField,
+  ThemeProvider,
+  Grid,
+  useMediaQuery,
+  IconButton,
+  Stack,
+  Typography,
+  Slider,
+  Paper,
+  CardContent,
+} from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import HotelioLogo from "../../images/HotelioLogo.png";
 import DomainAddIcon from "@mui/icons-material/DomainAdd";
@@ -29,22 +50,57 @@ import QuickFilterNav from "../../Pages/QuickFilterNav/QuickFilterNav";
 import axios from "axios";
 import { API_URL } from "../../config";
 import InfoIcon from "@mui/icons-material/Info";
-import CitywiseDropedown from "../CitywiseDropedown/CitywiseDropedown";
 import { useAuthContext } from "../../context/userAuthContext";
 import { convertDatesToUTC } from "../../Utilis/_fuctions";
 import { useCollections } from "../../context/useStateManager";
 import { useSearch } from "../../context/useSearch";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import { ArrowDropDown, SwapHoriz } from "@mui/icons-material";
+import { DatePicker } from "antd";
+import { airportData } from "../../Utilis/airportData";
 
 const Navbar = ({ list }) => {
   // Locatio Asked function
 
   // Popover Material UI Code
   const [anchorEl, setAnchorEl] = useState(null);
+  const [tab, setTab] = useState("hotel");
+  const [passMenu, setPassMenu] = useState(null);
+  const theme = createTheme({
+    components: {
+      MuiFormControlLabel: {
+        styleOverrides: {
+          root: {
+            marginLeft: 0,
+          },
+        },
+      },
+    },
+    palette: {
+      primary: {
+        main: "#ee2e24",
+      },
+    },
+  });
+  const [flightSearchForm, setFlightSearchForm] = useState({
+    JourneyType: "1",
+    DirectFlight: false,
+    AdultCount: 1,
+    ChildCount: 0,
+    InfantCount: 0,
+    Origin: "",
+    Destination: "",
+    FlightCabinClass: "Economy",
+    PreferredDepartureTime: "",
+    PreferredArrivalTime: "",
+  });
+
   const { selectedPlace, setSelectedPlace, placeData } = useSearch();
 
   const open = Boolean(anchorEl);
-  const CollectionData = useSelector((state) => state.GetAllCollectionReducer.data)
+  const CollectionData = useSelector(
+    (state) => state.GetAllCollectionReducer.data
+  );
   const [Login, setLogin] = useState(null);
   const openBox = Boolean(Login);
   const handleClickLogin = (event) => {
@@ -114,6 +170,18 @@ const Navbar = ({ list }) => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleChangeFlightSearchForm = (e) => {
+    console.log("flightSearchForm", flightSearchForm);
+    setFlightSearchForm({
+      ...flightSearchForm,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmitFlightSearchForm = (e) => {
+    e.preventDefault();
   };
 
   //For Mobile Rsponsive of Navbar Search Bar
@@ -212,9 +280,7 @@ const Navbar = ({ list }) => {
 
   useEffect(() => {
     GetAllCities();
-
   }, []);
-
 
   // ---------------------------------search the hotel -----------------------------
   const searchData = {
@@ -251,8 +317,9 @@ const Navbar = ({ list }) => {
   return (
     <div>
       <header
-        className={`${style.header_area}  ${style.header_sticky} ${style.wow} ${style.slideInDown
-          } ${!list ? "bg-light position-static border-bottom" : ""}`}
+        className={`${style.header_area}  ${style.header_sticky} ${style.wow} ${
+          style.slideInDown
+        } ${!list ? "bg-light position-static border-bottom" : ""}`}
         data-wow-duration="0.75s"
         data-wow-delay="0s"
       >
@@ -261,7 +328,8 @@ const Navbar = ({ list }) => {
             <div className="col-12 p-0">
               <nav
                 style={{
-                  background: "#fff", borderBottom: '2px solid #ee2e24'
+                  background: "#fff",
+                  borderBottom: "2px solid #ee2e24",
                 }}
                 className={style.main_nav}
               >
@@ -364,15 +432,18 @@ const Navbar = ({ list }) => {
                             alignItems: "center",
                           }}
                         >
-                          <NavLink to="/contact"><CallIcon /> +91 (811)55 10050</NavLink>
+                          <NavLink to="/contact">
+                            <CallIcon /> +91 (811)55 10050
+                          </NavLink>
                         </li>
                       )}
                       {!currentUser ? (
                         <>
                           <NavLink
                             to="/contact"
-                            className={`${!list ? "text-dark" : ""} ${style.iconHide
-                              }`}
+                            className={`${!list ? "text-dark" : ""} ${
+                              style.iconHide
+                            }`}
                           >
                             Contact us
                           </NavLink>
@@ -445,13 +516,28 @@ const Navbar = ({ list }) => {
                               display: "flex",
                               justifyContent: "center",
                               alignItems: "center",
-                              gap: '5px'
+                              gap: "5px",
                             }}
                           >
-                            {currentUser?.avatar && <img style={{ width: '50px', height: '50px', borderRadius: '100%', border: '2px solid #ee2e24' }} src={currentUser?.avatar} alt="profile" />}
+                            {currentUser?.avatar && (
+                              <img
+                                style={{
+                                  width: "50px",
+                                  height: "50px",
+                                  borderRadius: "100%",
+                                  border: "2px solid #ee2e24",
+                                }}
+                                src={currentUser?.avatar}
+                                alt="profile"
+                              />
+                            )}
                             <Button
                               id="demo-customized-button"
-                              sx={{ color: "#EE2E24", fontWeight: '700', fontSize: '15px' }}
+                              sx={{
+                                color: "#EE2E24",
+                                fontWeight: "700",
+                                fontSize: "15px",
+                              }}
                               aria-controls={
                                 open ? "demo-customized-menu" : undefined
                               }
@@ -464,8 +550,8 @@ const Navbar = ({ list }) => {
                               {currentUser && currentUser.name
                                 ? currentUser.name
                                 : currentUser.email
-                                  ? currentUser.email
-                                  : currentUser.mobileNo}
+                                ? currentUser.email
+                                : currentUser.mobileNo}
                             </Button>
                             <StyledMenu
                               id="demo-customized-menu"
@@ -534,8 +620,9 @@ const Navbar = ({ list }) => {
                       </li>
                     </ul>
                     <div
-                      className={`${style.menu_trigger} ${menuOpen ? style.active : ""
-                        }`}
+                      className={`${style.menu_trigger} ${
+                        menuOpen ? style.active : ""
+                      }`}
                       onClick={() => {
                         setMenuOpen(!menuOpen);
                         $(`.${style.header_area} .${style.nav}`).slideToggle(
@@ -559,7 +646,6 @@ const Navbar = ({ list }) => {
       </header>
       {/* ----------------------------------------------Banner Section---------------------------------------------------------- */}
 
-
       {list && (
         <>
           <div
@@ -568,218 +654,785 @@ const Navbar = ({ list }) => {
               backgroundImage: `linear-gradient(0deg, rgba(33, 33, 33,0.1), rgb(33, 33, 33,0.2)),url(${hotel})`,
             }}
           >
-            <div className="container">
-              <div className="row">
-                <div className="col-lg-12">
-                  <div className={`${style.top_text} ${style.header_text}`}>
-                    <h2 className={` text-white ${style.text_shadow}`}>
-                      Welcome To Hotelio, Your Travel Partner
-                    </h2>
+            <div className="col-lg-12">
+              <div className={`${style.top_text} ${style.header_text}`}>
+                <h2 className={` text-white ${style.text_shadow}`}>
+                  Welcome To Hotelio, Your Travel Partner
+                </h2>
+              </div>
+            </div>
+            <div className={style.tabContainer}>
+              <div>
+                <button onClick={() => setTab("hotel")}>
+                  <div
+                    className={`${style.svgContainer} ${
+                      tab === "hotel" && style.active
+                    }`}
+                  >
+                    <svg
+                      width="25"
+                      height="25"
+                      viewBox="0 0 38 33"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M36.9444 4.125C37.5276 4.125 38 3.66352 38 3.09375V1.03125C38 0.461484 37.5276 0 36.9444 0H1.05556C0.472361 0 0 0.461484 0 1.03125V3.09375C0 3.66352 0.472361 4.125 1.05556 4.125H2.10979V28.875H1.05556C0.472361 28.875 0 29.3365 0 29.9062V31.9688C0 32.5385 0.472361 33 1.05556 33H16.8889V27.8438C16.8889 27.2766 17.3639 26.8125 17.9444 26.8125H20.0556C20.6361 26.8125 21.1111 27.2766 21.1111 27.8438V33H36.9444C37.5276 33 38 32.5385 38 31.9688V29.9062C38 29.3365 37.5276 28.875 36.9444 28.875H35.8889V4.125H36.9444ZM16.8889 7.0125C16.8889 6.6 17.3111 6.1875 17.7333 6.1875H20.2667C20.6889 6.1875 21.1111 6.6 21.1111 7.0125V9.4875C21.1111 9.9 20.6889 10.3125 20.2667 10.3125H17.7333C17.3111 10.3125 16.8889 9.9 16.8889 9.4875V7.0125ZM16.8889 13.2C16.8889 12.7875 17.3111 12.375 17.7333 12.375H20.2667C20.6889 12.375 21.1111 12.7875 21.1111 13.2V15.675C21.1111 16.0875 20.6889 16.5 20.2667 16.5H17.7333C17.3111 16.5 16.8889 16.0875 16.8889 15.675V13.2ZM8.44444 7.0125C8.44444 6.6 8.86667 6.1875 9.28889 6.1875H11.8222C12.2444 6.1875 12.6667 6.6 12.6667 7.0125V9.4875C12.6667 9.9 12.2444 10.3125 11.8222 10.3125H9.28889C8.86667 10.3125 8.44444 9.9 8.44444 9.4875V7.0125ZM11.8222 16.5H9.28889C8.86667 16.5 8.44444 16.0875 8.44444 15.675V13.2C8.44444 12.7875 8.86667 12.375 9.28889 12.375H11.8222C12.2444 12.375 12.6667 12.7875 12.6667 13.2V15.675C12.6667 16.0875 12.2444 16.5 11.8222 16.5ZM12.6667 24.75C12.6667 21.3327 15.5022 18.5625 19 18.5625C22.4978 18.5625 25.3333 21.3327 25.3333 24.75H12.6667ZM29.5556 15.675C29.5556 16.0875 29.1333 16.5 28.7111 16.5H26.1778C25.7556 16.5 25.3333 16.0875 25.3333 15.675V13.2C25.3333 12.7875 25.7556 12.375 26.1778 12.375H28.7111C29.1333 12.375 29.5556 12.7875 29.5556 13.2V15.675ZM29.5556 9.4875C29.5556 9.9 29.1333 10.3125 28.7111 10.3125H26.1778C25.7556 10.3125 25.3333 9.9 25.3333 9.4875V7.0125C25.3333 6.6 25.7556 6.1875 26.1778 6.1875H28.7111C29.1333 6.1875 29.5556 6.6 29.5556 7.0125V9.4875Z"
+                        fill="white"
+                      />
+                    </svg>
                   </div>
-                </div>
-                <div className="col-lg-12 px-0">
-                  <div className={` ${style.search_form}`}>
-                    <div className="row position-relative">
-                      <div
-                        className={`col-lg-3 align-self-center d-flex align-items-center`}
-                      >
-                        <HotelIcon className="text-danger me-2" />
-                        {/* <input type="text" ref={inputRef} /> */}
-                        <div className="w-100">
-                          <GooglePlacesAutocomplete
-                            onLoadFailed={(error) =>
-                              console.error(
-                                "Could not inject Google script",
-                                error
-                              )
-                            }
-                            placeholder="Enter location"
-                            apiKey={process.env.REACT_APP_GOOGLE_API_KEY}
-                            apiOptions={{
-                              language: "en",
-                              region: "in",
-                              libraries: "places",
-                            }}
-                            selectProps={{
-                              value: selectedPlace,
-                              onChange: setSelectedPlace,
-                              placeholder: "Enter Location",
-                              styles: {
-                                input: (provided) => ({
-                                  ...provided,
-                                  // padding: "px",
-                                  border: "none",
-                                  borderColor: "transparent",
-                                }),
-                                option: (provided) => ({
-                                  ...provided,
-                                  color: "#ee2e24",
-                                  borderBottom: "1px solid gray",
-                                  fontSize: "15px",
-                                  fontWeight: "500",
-                                }),
-                                control: (provided) => ({
-                                  ...provided,
-                                  borderColor: "transparent",
-                                  boxShadow: "none",
-                                }),
-                                menu: (provided) => ({
-                                  ...provided,
-                                  borderColor: "transparent",
-                                  outlineColor: "transparent",
-                                }),
-                              },
-                            }}
-                          />
-                        </div>
-                      </div>
-
-                      <div className={`col-lg-4 align-self-center`}>
-                        <fieldset
-                          style={{ borderRight: "2px solid red" }}
-                          className="d-flex align-items-center justify-content-center"
-                        >
-                          <div>
-                            <CalendarMonthIcon className="text-danger" />
-                            <Dates
-                              setCheckInCheckOut={setCheckInCheckOut}
-                              checkInCheckOut={checkInCheckOut}
-                            />
-                          </div>
-                        </fieldset>
-                      </div>
-
-                      <div
-                        className={
-                          "col-lg-3 align-self-center position-relative"
-                        }
-                      >
-                        <fieldset className="d-flex align-items-center justify-content-center">
-                          <PersonIcon className="text-danger me-2" />
-                          <span
-                            onClick={() => {
-                              setOpenOptions(!openOptions);
-                            }}
-                            className={`d-flex ${style.headerSearchText}`}
+                  <p>Hotel</p>
+                </button>
+                <button onClick={() => setTab("flight")}>
+                  <div
+                    className={`${style.svgContainer} ${
+                      tab === "flight" && style.active
+                    }`}
+                  >
+                    <svg
+                      width="25"
+                      height="25"
+                      viewBox="0 0 32 33"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M6.51937 25.7313L0.642755 22.48L2.57102 20.5293L7.16212 21.1795L14.3242 13.9339L0 6.03802L2.57102 3.43703L20.109 7.98877L27.3171 0.789587C27.8374 0.263196 28.4881 0 29.2692 0C30.0503 0 30.7004 0.263196 31.2195 0.789587C31.7386 1.31598 31.9988 1.97428 32 2.76449C32.0012 3.55469 31.7411 4.21237 31.2195 4.73752L24.0574 11.9832L28.5567 29.7256L25.9856 32.3266L18.1808 17.8354L11.0186 25.081L11.6614 29.7256L9.73314 31.6764L6.51937 25.7313Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </div>
+                  <p>Flight</p>
+                </button>
+              </div>
+            </div>
+            {tab === "hotel" && (
+              <>
+                <div className="container">
+                  <div className="row">
+                    <div className="col-lg-12 px-0">
+                      <div className={` ${style.search_form}`}>
+                        <div className="row position-relative">
+                          <div
+                            className={`col-lg-3 align-self-center d-flex align-items-center`}
                           >
-                            {`${getTotalGuests()} Guests · ${manageRoom.length
-                              } room`}
-                            <div className="ms-3 text-dark">
-                              {openOptions ? (
-                                <ExpandLessIcon />
-                              ) : (
-                                <ExpandMoreIcon />
-                              )}
+                            <HotelIcon className="text-danger me-2" />
+                            {/* <input type="text" ref={inputRef} /> */}
+                            <div className="w-100">
+                              <GooglePlacesAutocomplete
+                                onLoadFailed={(error) =>
+                                  console.error(
+                                    "Could not inject Google script",
+                                    error
+                                  )
+                                }
+                                placeholder="Enter location"
+                                apiKey={process.env.REACT_APP_GOOGLE_API_KEY}
+                                apiOptions={{
+                                  language: "en",
+                                  region: "in",
+                                  libraries: "places",
+                                }}
+                                selectProps={{
+                                  value: selectedPlace,
+                                  onChange: setSelectedPlace,
+                                  placeholder: "Enter Location",
+                                  styles: {
+                                    input: (provided) => ({
+                                      ...provided,
+                                      // padding: "px",
+                                      border: "none",
+                                      borderColor: "transparent",
+                                    }),
+                                    option: (provided) => ({
+                                      ...provided,
+                                      color: "#ee2e24",
+                                      borderBottom: "1px solid gray",
+                                      fontSize: "15px",
+                                      fontWeight: "500",
+                                    }),
+                                    control: (provided) => ({
+                                      ...provided,
+                                      borderColor: "transparent",
+                                      boxShadow: "none",
+                                    }),
+                                    menu: (provided) => ({
+                                      ...provided,
+                                      borderColor: "transparent",
+                                      outlineColor: "transparent",
+                                    }),
+                                  },
+                                }}
+                              />
                             </div>
-                          </span>
-                          {openOptions && (
-                            <div className={`shadow-lg p-2 ${style.options}`}>
-                              <div className="row m-0 p-0">
-                                <div className="col">
-                                  <div className="d-flex justify-content-evenly">
-                                    <h5>Rooms</h5>
-                                    <h5>Guests</h5>
-                                  </div>
-                                </div>
+                          </div>
+
+                          <div className={`col-lg-4 align-self-center`}>
+                            <fieldset
+                              style={{ borderRight: "2px solid red" }}
+                              className="d-flex align-items-center justify-content-center"
+                            >
+                              <div>
+                                <CalendarMonthIcon className="text-danger" />
+                                <Dates
+                                  setCheckInCheckOut={setCheckInCheckOut}
+                                  checkInCheckOut={checkInCheckOut}
+                                />
                               </div>
-                              {/* Mapped the rooms data */}
-                              {manageRoom.map((item, index) => (
-                                <div className="row m-0 p-0">
-                                  <div className="col-4">
-                                    <div className={style.optionItem}>
-                                      <div>Rooms</div>
-                                      <div>{item.room}</div>
+                            </fieldset>
+                          </div>
+
+                          <div
+                            className={
+                              "col-lg-3 align-self-center position-relative"
+                            }
+                          >
+                            <fieldset className="d-flex align-items-center justify-content-center">
+                              <PersonIcon className="text-danger me-2" />
+                              <span
+                                onClick={() => {
+                                  setOpenOptions(!openOptions);
+                                }}
+                                className={`d-flex ${style.headerSearchText}`}
+                              >
+                                {`${getTotalGuests()} Guests · ${
+                                  manageRoom.length
+                                } room`}
+                                <div className="ms-3 text-dark">
+                                  {openOptions ? (
+                                    <ExpandLessIcon />
+                                  ) : (
+                                    <ExpandMoreIcon />
+                                  )}
+                                </div>
+                              </span>
+                              {openOptions && (
+                                <div
+                                  className={`shadow-lg p-2 ${style.options}`}
+                                >
+                                  <div className="row m-0 p-0">
+                                    <div className="col">
+                                      <div className="d-flex justify-content-evenly">
+                                        <h5>Rooms</h5>
+                                        <h5>Guests</h5>
+                                      </div>
                                     </div>
                                   </div>
-                                  <div className="col-8">
-                                    <div className={style.optionItem}>
-                                      <span className={`${style.optionText} `}>
-                                        Guests
-                                      </span>
-                                      <div
-                                        className={`ms-1 ${style.optionCounter}`}
-                                      >
-                                        <button
-                                          disabled={item.guest <= 0}
-                                          className={`btn btn-primary d-flex justify-content-center align-items-center ${style.optionCounterButton}`}
+                                  {/* Mapped the rooms data */}
+                                  {manageRoom.map((item, index) => (
+                                    <div className="row m-0 p-0">
+                                      <div className="col-4">
+                                        <div className={style.optionItem}>
+                                          <div>Rooms</div>
+                                          <div>{item.room}</div>
+                                        </div>
+                                      </div>
+                                      <div className="col-8">
+                                        <div className={style.optionItem}>
+                                          <span
+                                            className={`${style.optionText} `}
+                                          >
+                                            Guests
+                                          </span>
+                                          <div
+                                            className={`ms-1 ${style.optionCounter}`}
+                                          >
+                                            <button
+                                              disabled={item.guest <= 0}
+                                              className={`btn btn-primary d-flex justify-content-center align-items-center ${style.optionCounterButton}`}
+                                              onClick={() =>
+                                                HandleManageRoom("d", index)
+                                              }
+                                            >
+                                              <RemoveIcon />
+                                            </button>
+                                            <span
+                                              className={
+                                                style.optionCounterNumber
+                                              }
+                                            >
+                                              {item.guest}
+                                            </span>
+                                            <button
+                                              className={`btn btn-primary d-flex justify-content-center align-items-center ${style.optionCounterButton}`}
+                                              onClick={() =>
+                                                HandleManageRoom("i", index)
+                                              }
+                                            >
+                                              <AddIcon />
+                                            </button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  ))}
+
+                                  <div className="row m-0 p-0">
+                                    <div className="col">
+                                      <div className="d-flex justify-content-evenly align-items-center">
+                                        <div
+                                          className={`${style.optionText} `}
+                                          style={{ marginRight: "10px" }}
                                           onClick={() =>
-                                            HandleManageRoom("d", index)
+                                            ManageRoomAddandDelete("remove")
                                           }
                                         >
-                                          <RemoveIcon />
-                                        </button>
-                                        <span
-                                          className={style.optionCounterNumber}
-                                        >
-                                          {item.guest}
-                                        </span>
-                                        <button
-                                          className={`btn btn-primary d-flex justify-content-center align-items-center ${style.optionCounterButton}`}
+                                          Delete Room
+                                        </div>
+                                        <div
+                                          className={`${
+                                            manageRoom.length === 7
+                                              ? style.optionTextDisable
+                                              : style.optionText
+                                          }`}
                                           onClick={() =>
-                                            HandleManageRoom("i", index)
+                                            ManageRoomAddandDelete("add")
                                           }
                                         >
-                                          <AddIcon />
-                                        </button>
+                                          Add Room
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
-                              ))}
+                              )}
+                            </fieldset>
+                          </div>
 
-                              <div className="row m-0 p-0">
-                                <div className="col">
-                                  <div className="d-flex justify-content-evenly align-items-center">
-                                    <div
-                                      className={`${style.optionText} `}
-                                      style={{ marginRight: "10px" }}
-                                      onClick={() =>
-                                        ManageRoomAddandDelete("remove")
-                                      }
-                                    >
-                                      Delete Room
-                                    </div>
-                                    <div
-                                      className={`${manageRoom.length === 7
-                                        ? style.optionTextDisable
-                                        : style.optionText
-                                        }`}
-                                      onClick={() =>
-                                        ManageRoomAddandDelete("add")
-                                      }
-                                    >
-                                      Add Room
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          )}
-                        </fieldset>
-                      </div>
-
-                      <div className={"col-lg-2"}>
-                        <fieldset>
-                          <button
-                            className={style.main_button}
-                            onClick={() => SearchTheField()}
-                          >
-                            <SearchIcon /> Search Now
-                          </button>
-                        </fieldset>
+                          <div className={"col-lg-2"}>
+                            <fieldset>
+                              <button
+                                className={style.main_button}
+                                onClick={() => SearchTheField()}
+                              >
+                                <SearchIcon /> Search Now
+                              </button>
+                            </fieldset>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div style={{ marginTop: "50px" }} className="container">
-              <QuickFilterNav
-                CollectionData={CollectionData}
-                setSelectedCategory={setSelectedCategory}
-                selectedCategory={selectedCategory}
-              />
-            </div>
+                <div style={{ marginTop: "50px" }} className="container">
+                  <QuickFilterNav
+                    CollectionData={CollectionData}
+                    setSelectedCategory={setSelectedCategory}
+                    selectedCategory={selectedCategory}
+                  />
+                </div>
+              </>
+            )}
+            {tab === "flight" && (
+              <ThemeProvider theme={theme}>
+                <Container
+                  maxWidth={"md"}
+                  sx={{
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                  }}
+                >
+                  <Box padding={2}>
+                    <FormControl
+                      onSubmit={handleSubmitFlightSearchForm}
+                      sx={{ width: "100%" }}
+                    >
+                      <Box
+                        width={"100%"}
+                        display={"flex"}
+                        justifyContent={"space-between"}
+                      >
+                        <RadioGroup
+                          row
+                          name="JourneyType"
+                          value={flightSearchForm.JourneyType}
+                          onChange={handleChangeFlightSearchForm}
+                          sx={{ gap: 3 }}
+                        >
+                          <FormControlLabel
+                            value="1"
+                            control={<Radio hidden />}
+                            label={
+                              <Chip
+                                label="One Way"
+                                clickable
+                                variant={
+                                  flightSearchForm.JourneyType === "1"
+                                    ? "filled"
+                                    : "outlined"
+                                }
+                                color="primary"
+                                size="medium"
+                                sx={{
+                                  fontSize: "1.2rem",
+                                  borderWidth: "2px",
+                                }}
+                              />
+                            }
+                          />
+                          <FormControlLabel
+                            value="2"
+                            control={<Radio hidden />}
+                            label={
+                              <Chip
+                                label="Round-Trip"
+                                clickable
+                                variant={
+                                  flightSearchForm.JourneyType === "2"
+                                    ? "filled"
+                                    : "outlined"
+                                }
+                                color="primary"
+                                size="medium"
+                                sx={{
+                                  fontSize: "1.2rem",
+                                  borderWidth: "2px",
+                                }}
+                              />
+                            }
+                          />
+                        </RadioGroup>
+                        <FormControlLabel
+                          label={
+                            <Chip
+                              label="Direct Flight"
+                              clickable
+                              variant={
+                                flightSearchForm.DirectFlight === true
+                                  ? "filled"
+                                  : "outlined"
+                              }
+                              color="primary"
+                              size="small"
+                            />
+                          }
+                          control={
+                            <Checkbox
+                              name="DirectFlight"
+                              checked={flightSearchForm.DirectFlight}
+                              onChange={(e) =>
+                                setFlightSearchForm({
+                                  ...flightSearchForm,
+                                  DirectFlight: e.target.checked,
+                                })
+                              }
+                            />
+                          }
+                        />
+                      </Box>
+                      <Grid
+                        container
+                        position={"relative"}
+                        spacing={2}
+                        mt={1}
+                        width={"100%"}
+                      >
+                        <Grid item xs={12} sm={6}>
+                          <Autocomplete
+                            freeSolo
+                            options={airportData}
+                            value={flightSearchForm.Origin}
+                            onSelect={handleChangeFlightSearchForm}
+                            getOptionLabel={(option) => {
+                              if (option) {
+                                return (
+                                  option.airport_name +
+                                    " (" +
+                                    option.airport_code +
+                                    ")" || ""
+                                );
+                              }
+                              return "";
+                            }}
+                            renderInput={(params) => (
+                              <TextField
+                                {...params}
+                                label="To"
+                                variant="outlined"
+                              />
+                            )}
+                          />
+                        </Grid>
+                        <Grid
+                          item
+                          sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50% , -50%)",
+                          }}
+                        >
+                          <IconButton>
+                            <SwapHoriz />
+                          </IconButton>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                          <Autocomplete
+                            freeSolo
+                            options={[
+                              "Mumbai",
+                              "Delhi",
+                              "Bangalore",
+                              "Chennai",
+                            ]}
+                            renderInput={(params) => (
+                              <TextField
+                                {...params}
+                                label="From"
+                                variant="outlined"
+                              />
+                            )}
+                          />
+                        </Grid>
+                      </Grid>
+                      <Grid container spacing={2} mt={1}>
+                        <Grid item xs={12} sm={6}>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "stretch",
+                              padding: 1,
+                              marginTop: -1,
+                              marginRight: 1,
+                              gap: 2,
+                              borderRadius: 1,
+                              border: "1px solid #e0e0e0",
+                              "&:focus-within": {
+                                borderColor: "primary.main",
+                                borderWidth: 2,
+                              },
+                              "&:hover": {
+                                borderColor: "black",
+                              },
+                            }}
+                          >
+                            <DatePicker
+                              style={{ width: "100%", padding: 0 }}
+                              placeholder="Departure Date"
+                              variant="borderless"
+                              value={flightSearchForm.DepartureDate}
+                            />
+                            {flightSearchForm.JourneyType === "2" && (
+                              <>
+                                <Box
+                                  sx={{
+                                    bgcolor: "rgba(0, 0, 0,0.2)",
+                                    padding: 0.1,
+                                  }}
+                                />
+                                <DatePicker
+                                  style={{ width: "100%", padding: 0 }}
+                                  placeholder="Return Date"
+                                  variant="borderless"
+                                />
+                              </>
+                            )}
+                          </Box>
+                        </Grid>
+                        <Grid item position={"relative"} xs={12} sm={6}>
+                          <Button
+                            id="passenger-menu"
+                            sx={{
+                              width: "100%",
+                              padding: 1.5,
+                              marginTop: -1,
+                              marginLeft: -1,
+                              marginRight: 4,
+                              justifyContent: "space-between",
+                              gap: 2,
+                              borderRadius: 1,
+                              boxSizing: "border-box",
+                              border: "1px solid #e0e0e0",
+                              "&:focus-within": {
+                                borderColor: "primary.main",
+                                borderWidth: 2,
+                              },
+                              "&:hover": {
+                                borderColor: "black",
+                              },
+                            }}
+                            onClick={(e) => setPassMenu(e.currentTarget)}
+                          >
+                            <Typography variant="body1">
+                              2 Passengers . Economy
+                            </Typography>
+                            <ArrowDropDown
+                              sx={{
+                                padding: 0,
+                                [menuOpen ? "transform" : ""]: menuOpen
+                                  ? "rotate(180deg)"
+                                  : "",
+                              }}
+                            />
+                          </Button>
+                          <Menu
+                            anchorEl={passMenu}
+                            open={Boolean(passMenu)}
+                            anchorOrigin={{
+                              vertical: "bottom",
+                              horizontal: "right",
+                            }}
+                            transformOrigin={{
+                              vertical: "top",
+                              horizontal: "right",
+                            }}
+                            MenuListProps={{
+                              "aria-labelledby": "passenger-menu",
+                            }}
+                            sx={{
+                              "& .MuiMenu-paper": {
+                                width: "300px",
+                              },
+                            }}
+                            onClose={() => setPassMenu(null)}
+                          >
+                            <Box paddingX={3}>
+                              <Stack width={"-webkit-fill-available"}>
+                                <Box
+                                  display={"flex"}
+                                  justifyContent={"space-between"}
+                                  alignItems={"center"}
+                                  paddingX={2}
+                                >
+                                  <Typography variant="subtitle1">
+                                    Adults
+                                  </Typography>
+                                  <Typography variant="subtitle1">4</Typography>
+                                </Box>
+                                <Slider min={1} max={10} step={1} />
+                              </Stack>
+                            </Box>
+                            <Box paddingX={3}>
+                              <Stack width={"-webkit-fill-available"}>
+                                <Box
+                                  display={"flex"}
+                                  justifyContent={"space-between"}
+                                  alignItems={"center"}
+                                  paddingX={2}
+                                >
+                                  <Typography variant="subtitle1">
+                                    Children
+                                  </Typography>
+                                  <Typography variant="subtitle1">4</Typography>
+                                </Box>
+                                <Slider min={0} max={10} step={1} />
+                              </Stack>
+                            </Box>
+                            <Box paddingX={3}>
+                              <Stack width={"-webkit-fill-available"}>
+                                <Box
+                                  display={"flex"}
+                                  justifyContent={"space-between"}
+                                  alignItems={"center"}
+                                  paddingX={2}
+                                >
+                                  <Typography variant="subtitle1">
+                                    Infants
+                                  </Typography>
+                                  <Typography variant="subtitle1">4</Typography>
+                                </Box>
+                                <Slider min={0} max={10} step={1} />
+                              </Stack>
+                            </Box>
+                            <Box
+                              paddingX={3}
+                              sx={{
+                                flexDirection: "column",
+                              }}
+                            >
+                              <Typography variant="h6" component={"h6"}>
+                                Select Class
+                              </Typography>
+                              <RadioGroup
+                                sx={{
+                                  flexDirection: "row",
+                                  gap: 2,
+                                  justifyContent: "center",
+                                  mt: 2,
+                                }}
+                              >
+                                <FormControlLabel
+                                  value="1"
+                                  control={<Radio hidden />}
+                                  label={
+                                    <Button variant="outlined">Economy</Button>
+                                  }
+                                />
+                                <FormControlLabel
+                                  value="1"
+                                  control={<Radio hidden />}
+                                  label={
+                                    <Button variant="outlined">Economy</Button>
+                                  }
+                                />
+                                <FormControlLabel
+                                  value="1"
+                                  control={<Radio hidden />}
+                                  label={
+                                    <Button variant="outlined">Economy</Button>
+                                  }
+                                />
+                                <FormControlLabel
+                                  value="1"
+                                  control={<Radio hidden />}
+                                  label={
+                                    <Button variant="outlined">Economy</Button>
+                                  }
+                                />
+                              </RadioGroup>
+                            </Box>
+                          </Menu>
+                        </Grid>
+                      </Grid>
+                      <Grid container spacing={2} mt={2} px={2}>
+                        <Box
+                          sx={{
+                            width: "100%",
+                            border: "1px solid #e0e0e0",
+                            display: "flex",
+                            borderRadius: 1,
+                            "&:hover": {
+                              borderColor: "black",
+                            },
+                            "&:focus-within": {
+                              borderColor: "primary.main",
+                              borderWidth: 2,
+                            },
+                          }}
+                        >
+                          <CardContent>
+                            <Typography noWrap color={"primary.main"}>
+                              Special Fares
+                            </Typography>
+                          </CardContent>
+                          <RadioGroup
+                            value={flightSearchForm.SpecialFares}
+                            onChange={handleChangeFlightSearchForm}
+                            sx={{
+                              padding: 0,
+                              display: "flex",
+                              alignItems: "center",
+                              flexDirection: "row",
+                              flexWrap: "nowrap",
+                              justifyContent: "space-around",
+                              width: "-webkit-fill-available",
+                            }}
+                          >
+                            <FormControlLabel
+                              control={<Radio />}
+                              label={<Typography>Student</Typography>}
+                              value={"Student"}
+                              sx={{
+                                border: "1px solid #e0e0e0",
+                                paddingRight: 2,
+                                borderRadius: 1,
+                                "&:has(:checked)": {
+                                  borderColor: "primary.main",
+                                  borderWidth: 2,
+                                  color: "primary.main",
+                                },
+                                "&:has(:checked) p": {
+                                  color: "primary.main",
+                                },
+                              }}
+                            />
+                            <FormControlLabel
+                              control={<Radio />}
+                              label={<Typography>Senior Citizen</Typography>}
+                              value={"Senior Citizen"}
+                              sx={{
+                                border: "1px solid #e0e0e0",
+                                paddingRight: 2,
+                                borderRadius: 1,
+                                "&:has(:checked)": {
+                                  borderColor: "primary.main",
+                                  borderWidth: 2,
+                                  color: "primary.main",
+                                },
+                                "&:has(:checked) p": {
+                                  color: "primary.main",
+                                },
+                              }}
+                            />
+                            <FormControlLabel
+                              control={<Radio />}
+                              label={<Typography>Armed Forces</Typography>}
+                              value={"Armed Forces"}
+                              sx={{
+                                border: "1px solid #e0e0e0",
+                                paddingRight: 2,
+                                borderRadius: 1,
+                                "&:has(:checked)": {
+                                  borderColor: "primary.main",
+                                  borderWidth: 2,
+                                  color: "primary.main",
+                                },
+                                "&:has(:checked) p": {
+                                  color: "primary.main",
+                                },
+                              }}
+                            />
+                            <FormControlLabel
+                              control={<Radio />}
+                              label={<Typography>Doctors & Nurses</Typography>}
+                              value={"Docter&Nurse"}
+                              sx={{
+                                border: "1px solid #e0e0e0",
+                                paddingRight: 2,
+                                borderRadius: 1,
+                                "&:has(:checked)": {
+                                  borderColor: "primary.main",
+                                  borderWidth: 2,
+                                  color: "primary.main",
+                                },
+                                "&:has(:checked) p": {
+                                  color: "primary.main",
+                                },
+                              }}
+                            />
+                            <FormControlLabel
+                              control={<Radio />}
+                              label={<Typography>None</Typography>}
+                              value={""}
+                              sx={{
+                                border: "1px solid #e0e0e0",
+                                paddingRight: 2,
+                                borderRadius: 1,
+                                "&:has(:checked)": {
+                                  borderColor: "primary.main",
+                                  borderWidth: 2,
+                                  color: "primary.main",
+                                },
+                                "&:has(:checked) p": {
+                                  color: "primary.main",
+                                },
+                              }}
+                            />
+                          </RadioGroup>
+                        </Box>
+                      </Grid>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "center",
+                          marginTop: 2,
+                        }}
+                      >
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          sx={{ width: "80%" }}
+                        >
+                          Search Flights
+                        </Button>
+                      </Box>
+                    </FormControl>
+                  </Box>
+                </Container>
+              </ThemeProvider>
+            )}
           </div>
         </>
       )}

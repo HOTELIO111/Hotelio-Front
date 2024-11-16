@@ -491,7 +491,6 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 @media (max-width: 992px) {
-
   .header_area .main_nav .nav li:last-child,
   .background_header .main_nav .nav li:last-child {
     display: none;
@@ -678,7 +677,7 @@ input[type="number"]::-webkit-inner-spin-button {
   font-weight: 800;
   text-transform: capitalize;
   margin-top: 15px;
-  margin-bottom: 45px;
+  margin-bottom: 15px;
 }
 
 div.search_form {
@@ -748,6 +747,53 @@ div.search_form button i {
   background-color: #ff0000;
 }
 
+/* designing tab buttons(hotel, flight,.. */
+.tabContainer{
+    /* background-color: #fff; */
+
+    & > div{
+        width: 50%;
+        margin-inline: auto;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        /* background-color: green; */
+    }
+}
+button:has(.svgContainer) {
+  background-color: transparent;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  font-size: 15px;
+  border-radius: 7px;
+  margin-right: 10px;
+  cursor: pointer;
+  & .svgContainer {
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    border-radius: 9999px;
+    background-color: #ffffff4c;
+    border: 2px solid white;
+  }
+
+  & .active{
+    background-color: #ee2e24;
+  }
+
+  & p {
+    font-size: 18px;
+    font-weight: 500;
+    color: white;
+  }
+}
+
+/* designing flight search component */
+
 @media (max-width: 1024px) {
   .navRemove {
     display: none !important;
@@ -755,7 +801,6 @@ div.search_form button i {
 }
 
 @media (max-width: 992px) {
-
   div.search_form select,
   div.search_form input {
     border: 1px solid #8d99af;
