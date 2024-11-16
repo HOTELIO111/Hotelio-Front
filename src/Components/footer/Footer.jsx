@@ -33,8 +33,6 @@ import { MdHomeWork } from "react-icons/md";
 import { BsFillBuildingsFill } from "react-icons/bs";
 import { HiBuildingOffice2 } from "react-icons/hi2";
 
-
-
 const Footer = () => {
   const isXtraSmallScreen = useMediaQuery("(max-width:320px)");
   const allLocation = useSelector(

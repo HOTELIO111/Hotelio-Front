@@ -1037,7 +1037,7 @@ const Navbar = ({ list }) => {
                             getOptionLabel={(option) => {
                               if (option) {
                                 return (
-                                  option.airport_name +
+                                  option.airport_city_name +
                                     " (" +
                                     option.airport_code +
                                     ")" || ""
@@ -1070,12 +1070,20 @@ const Navbar = ({ list }) => {
                         <Grid item xs={12} sm={6}>
                           <Autocomplete
                             freeSolo
-                            options={[
-                              "Mumbai",
-                              "Delhi",
-                              "Bangalore",
-                              "Chennai",
-                            ]}
+                            options={airportData}
+                            value={flightSearchForm.Origin}
+                            onSelect={handleChangeFlightSearchForm}
+                            getOptionLabel={(option) => {
+                              if (option) {
+                                return (
+                                  option.airport_city_name +
+                                    " (" +
+                                    option.airport_code +
+                                    ")" || ""
+                                );
+                              }
+                              return "";
+                            }}
                             renderInput={(params) => (
                               <TextField
                                 {...params}
