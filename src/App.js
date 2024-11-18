@@ -38,6 +38,7 @@ import AllCities from "./Pages/AllCities/AllCities";
 import CcavForm from "./Components/Booking/CcavForm";
 import SeprateLocation from "./Pages/SepratePage/SeprateLocation";
 import instance from "./store/_utils";
+import FlightSearch from "./Pages/FlightSearch/FlightSearch";
 
 function App() {
   // useEffect(() => {
@@ -143,6 +144,7 @@ function App() {
         <Route path="/allCities" element={<AllCities />} />
         <Route path="/:city" element={<SeprateLocation />} />
         <Route path="/ccav" element={<CcavForm />} />
+        <Route path="/flight/search" element={<FlightSearch />} />
 
         {/* Mobile pages */}
 

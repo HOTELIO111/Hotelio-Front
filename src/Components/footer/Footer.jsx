@@ -81,7 +81,10 @@ const Footer = () => {
             <Grid key={index} item xs={3}>
               <ul>
                 <li>
-                  <span style={{ cursor: "pointer" }} onClick={() => HandleLocationSearch(item)}>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => HandleLocationSearch(item)}
+                  >
                     {item?.endpoint} <AiFillCaretRight />
                   </span>
                 </li>
@@ -93,12 +96,14 @@ const Footer = () => {
       </div>
       <div className="container-fluid">
         <div
-          className={`row  ${isXtraSmallScreen ? "text-start ms-2" : "text-start"
-            } `}
+          className={`row  ${
+            isXtraSmallScreen ? "text-start ms-2" : "text-start"
+          } `}
         >
           <div
-            className={`${isXtraSmallScreen ? "ps-4" : ""
-              } my-1 col-lg-4 col-xl-4 col-sm-12`}
+            className={`${
+              isXtraSmallScreen ? "ps-4" : ""
+            } my-1 col-lg-4 col-xl-4 col-sm-12`}
           >
             <h5 className="text-uppercase" style={{ fontSize: "20px" }}>
               About Us
@@ -130,8 +135,9 @@ const Footer = () => {
           </div>
 
           <div
-            className={`col-lg-5 ${isXtraSmallScreen ? "ps-4" : ""
-              } my-1 col-xl-5 col-sm-12`}
+            className={`col-lg-5 ${
+              isXtraSmallScreen ? "ps-4" : ""
+            } my-1 col-xl-5 col-sm-12`}
           >
             <div className="row">
               <div className=" col-lg-6 col-xl-6 col-xs-12">
@@ -141,7 +147,10 @@ const Footer = () => {
 
                 <ul className={`${style.fList} mt-4`}>
                   <li className={style.fListItem}>
-                    <Link to="/about-us" className="d-flex justify-content-start">
+                    <Link
+                      to="/about-us"
+                      className="d-flex justify-content-start"
+                    >
                       <InfoIcon className="me-2" />
                       <span className="fs-6">About Us</span>
                     </Link>
@@ -196,8 +205,9 @@ const Footer = () => {
                 </h4>
                 <ul className={`${style.fList} mt-4`}>
                   <li
-                    className={` ${style.fListItem} ${isXtraSmallScreen ? "text-center" : "text-start"
-                      }`}
+                    className={` ${style.fListItem} ${
+                      isXtraSmallScreen ? "text-center" : "text-start"
+                    }`}
                   >
                     <Link to="/" className="d-flex justify-content-start">
                       <FilterVintageIcon className="me-2" /> Classic Room
@@ -214,7 +224,10 @@ const Footer = () => {
                     <Link to="/" className="d-flex justify-content-start">
                       <MdHomeWork className="me-2" /> Hotelio Home Stay
                     </Link>
-                    <Link to="/" className="d-flex justify-content-start">
+                    <Link
+                      to="/"
+                      className="d-flex justify-content-start"
+                    >
                       <HiBuildingOffice2 className="me-2" /> Hotelio Premium
                     </Link>
                     <Link to="/" className="d-flex justify-content-start">
@@ -227,8 +240,9 @@ const Footer = () => {
           </div>
 
           <div
-            className={`col-lg-3 ${isXtraSmallScreen ? "ps-4" : ""
-              } my-1 col-xl-3 col-sm-12`}
+            className={`col-lg-3 ${
+              isXtraSmallScreen ? "ps-4" : ""
+            } my-1 col-xl-3 col-sm-12`}
           >
             <h4 className="text-uppercase" style={{ fontSize: "20px" }}>
               Contact Us
@@ -257,16 +271,27 @@ const Footer = () => {
             <div
               className={`${isXtraSmallScreen ? "text-center" : "text-start"}`}
             >
-              <Link target="_blank" to={'https://www.instagram.com/hoteliorooms/?utm_source=ig_web_button_share_sheet&igshid=OGQ5ZDc2ODk2ZA=='}>
+              <Link
+                target="_blank"
+                to={
+                  "https://www.instagram.com/hoteliorooms/?utm_source=ig_web_button_share_sheet&igshid=OGQ5ZDc2ODk2ZA=="
+                }
+              >
                 <InstagramIcon className={`mx-1 fs-1  ${style.insta} `} />
               </Link>
-              <Link target="_blank" to={'https://www.facebook.com/hoteliorooms?mibextid=JRoKGi-'}>
+              <Link
+                target="_blank"
+                to={"https://www.facebook.com/hoteliorooms?mibextid=JRoKGi-"}
+              >
                 <FacebookIcon className={`mx-1 fs-1 ${style.facebook}`} />
               </Link>
               <Link target="_blank">
                 <TwitterIcon className={`mx-1 fs-1 ${style.tweeter}`} />
               </Link>
-              <Link target="_blank" to={'https://www.linkedin.com/company/hoteliorooms/'}>
+              <Link
+                target="_blank"
+                to={"https://www.linkedin.com/company/hoteliorooms/"}
+              >
                 <LinkedInIcon className={`mx-1 fs-1 ${style.linkedin}`} />
               </Link>
             </div>
@@ -278,8 +303,9 @@ const Footer = () => {
 
           <div className="row m-0">
             <div
-              className={`${style.footersec5}  ${isXtraSmallScreen ? "text-center" : "text-start"
-                }  col-xl-3 col-md-12 col-12 `}
+              className={`${style.footersec5}  ${
+                isXtraSmallScreen ? "text-center" : "text-start"
+              }  col-xl-3 col-md-12 col-12 `}
             >
               {/* <InstagramIcon className={`mx-1 fs-1  ${style.insta} `} />
               <FacebookIcon className={`mx-1 fs-1 ${style.facebook}`} />

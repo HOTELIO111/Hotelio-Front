@@ -182,6 +182,7 @@ const Navbar = ({ list }) => {
 
   const handleSubmitFlightSearchForm = (e) => {
     e.preventDefault();
+    navigate("/flight/search")
   };
 
   //For Mobile Rsponsive of Navbar Search Bar
@@ -934,9 +935,8 @@ const Navbar = ({ list }) => {
                   }}
                 >
                   <Box padding={2}>
-                    <FormControl
+                    <form
                       onSubmit={handleSubmitFlightSearchForm}
-                      sx={{ width: "100%" }}
                     >
                       <Box
                         width={"100%"}
@@ -1430,13 +1430,14 @@ const Navbar = ({ list }) => {
                       >
                         <Button
                           variant="contained"
+                          type="submit"
                           color="primary"
                           sx={{ width: "80%" }}
                         >
                           Search Flights
                         </Button>
                       </Box>
-                    </FormControl>
+                    </form>
                   </Box>
                 </Container>
               </ThemeProvider>
