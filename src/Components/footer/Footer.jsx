@@ -32,14 +32,44 @@ import { GetPopularLocationAction } from "../../store/actions/locationsActions";
 import { MdHomeWork } from "react-icons/md";
 import { BsFillBuildingsFill } from "react-icons/bs";
 import { HiBuildingOffice2 } from "react-icons/hi2";
+import dayjs from "dayjs";
+import { useAuthContext } from "../../context/userAuthContext";
 
 const Footer = () => {
   const isXtraSmallScreen = useMediaQuery("(max-width:320px)");
   const allLocation = useSelector(
     (state) => state.GetALlPopularLocationReducer
   );
+  const { roomType, propertyType } = useAuthContext();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  //   todo to handle footer links efectively in future
+  //   searched-hotels?location=India&lng=78.96288&lat=20.593684&checkIn=2024%2F11%2F20&checkOut=2024%2F11%2F21&kmRadius=100000&priceMin=400&priceMax=20000&sort=popularity&page=1&pageSize=5&roomType=6512a74329aec4c48c649367
+  const baseSearch = {
+    location: "India",
+    lng: 78.96288,
+    lat: 20.593684,
+    checkIn: dayjs().format("YYYY/MM/DD"),
+    checkOut: dayjs().add(1, "day").format("YYYY/MM/DD"),
+    kmRadius: 100000,
+    priceMin: 400,
+    priceMax: 20000,
+    sort: "popularity",
+    page: 1,
+    pageSize: 5,
+  };
+
+  const formSearchUrl = ({ roomType = "", hotelType = "" }) => {
+    let search = new URLSearchParams(baseSearch);
+    if (roomType) {
+      search.append("roomType", roomType);
+    }
+    if (hotelType) {
+      search.append("hotelType", hotelType);
+    }
+    return `/searched-hotels?${search.toString()}`;
+  };
 
   const HandleLocationSearch = async (item) => {
     // const data = await GetLocationData(
@@ -209,29 +239,59 @@ const Footer = () => {
                       isXtraSmallScreen ? "text-center" : "text-start"
                     }`}
                   >
-                    <Link to="/" className="d-flex justify-content-start">
-                      <FilterVintageIcon className="me-2" /> Classic Room
-                    </Link>
-                    <Link to="/" className="d-flex justify-content-start">
-                      <WorkspacePremiumIcon className="me-2" /> Delux Room
-                    </Link>
-                    <Link to="/" className="d-flex justify-content-start">
-                      <BusinessCenterIcon className="me-2" /> Executive Room
-                    </Link>
-                    <Link to="/" className="d-flex justify-content-start">
-                      <VideoCameraFrontIcon className="me-2" /> Suites
-                    </Link>
-                    <Link to="/" className="d-flex justify-content-start">
-                      <MdHomeWork className="me-2" /> Hotelio Home Stay
-                    </Link>
                     <Link
-                      to="/"
+                      to={formSearchUrl({
+                        roomType:
+                          roomType[0]?._id || "6512a74329aec4c48c649367",
+                      })}
                       className="d-flex justify-content-start"
                     >
-                      <HiBuildingOffice2 className="me-2" /> Hotelio Premium
+                      <FilterVintageIcon className="me-2" />{" "}
+                      {roomType[0]?.title || "Classic Room"}
                     </Link>
-                    <Link to="/" className="d-flex justify-content-start">
-                      <BsFillBuildingsFill className="me-2" /> Hotelio Budget
+                    <Link
+                      to={formSearchUrl({
+                        roomType:
+                          roomType[1]?._id || "6512a74329aec4c48c649367",
+                      })}
+                      className="d-flex justify-content-start"
+                    >
+                      <WorkspacePremiumIcon className="me-2" />{" "}
+                      {roomType[1]?.title || "Delux Room"}
+                    </Link>
+                    <Link
+                      to={formSearchUrl({ roomType: roomType[2]?._id || "" })}
+                      className="d-flex justify-content-start"
+                    >
+                      <BusinessCenterIcon className="me-2" />{" "}
+                      {roomType[2]?.title || "Executive Room"}
+                    </Link>
+                    <Link
+                      to={formSearchUrl({
+                        hotelType: propertyType[0]?._id || "",
+                      })}
+                      className="d-flex justify-content-start"
+                    >
+                      <MdHomeWork className="me-2" />{" "}
+                      {propertyType[0]?.title || "Hotelio Home Stay"}
+                    </Link>
+                    <Link
+                      to={formSearchUrl({
+                        hotelType: propertyType[1]?._id || "",
+                      })}
+                      className="d-flex justify-content-start"
+                    >
+                      <HiBuildingOffice2 className="me-2" />{" "}
+                      {propertyType[1]?.title || "Hotelio Premium"}
+                    </Link>
+                    <Link
+                      to={formSearchUrl({
+                        hotelType: propertyType[2]?._id || "",
+                      })}
+                      className="d-flex justify-content-start"
+                    >
+                      <BsFillBuildingsFill className="me-2" />{" "}
+                      {propertyType[2]?.title || "Hotelio Budget"}
                     </Link>
                   </li>
                 </ul>
@@ -285,7 +345,7 @@ const Footer = () => {
               >
                 <FacebookIcon className={`mx-1 fs-1 ${style.facebook}`} />
               </Link>
-              <Link target="_blank">
+              <Link target="_blank" to={"https://www.twitter.com"}>
                 <TwitterIcon className={`mx-1 fs-1 ${style.tweeter}`} />
               </Link>
               <Link
