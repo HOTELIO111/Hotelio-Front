@@ -1,3 +1,5 @@
+import { airportData as airports } from "./airportData";
+
 export function validateInput(number) {
   const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(number);
   const isMobileNumber = /^[0-9]{10}$/.test(number);
@@ -173,4 +175,21 @@ export function convertDatesFromUTC(utcDateStrings) {
   });
 
   return dateObjects;
+}
+
+export function filterAirports( searchValue) {
+  const filteredAirports = airports.filter((airport) => {
+    return (
+      airport.airport_code.toLowerCase().includes(searchValue.toLowerCase()) ||
+      airport.airport_name.toLowerCase().includes(searchValue.toLowerCase()) ||
+      airport.airport_city_name
+        .toLowerCase()
+        .includes(searchValue.toLowerCase()) ||
+      airport.airport_country_name
+        .toLowerCase()
+        .includes(searchValue.toLowerCase())
+    );
+  });
+
+  return filteredAirports.slice(0, 5);
 }
