@@ -101,6 +101,9 @@ const SearchProvider = ({ children }) => {
         : 20000,
       pageSize: 20,
       endpoint: endpoint,
+      kmRadius: currentSearchParams?.kmRadius
+        ? currentSearchParams?.kmRadius
+        : 10,
       sort: currentSearchParams?.sort
         ? currentSearchParams?.sort
         : "popularity",
