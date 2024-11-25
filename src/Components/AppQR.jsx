@@ -2,6 +2,7 @@ import { Box, IconButton, Slide, Typography } from "@material-ui/core";
 import CancelIcon from "@mui/icons-material/Cancel";
 import AndroidIcon from "@mui/icons-material/Android";
 import { useState } from "react";
+import HotelioLogo from "../images/HotelioLogo.png";
 
 export default function AppQR() {
   const [open, setOpen] = useState(true);
@@ -13,42 +14,64 @@ export default function AppQR() {
       <Slide in={open} direction="left">
         <Box
           sx={{
-            height: "300px",
-            width: "300px",
-            backgroundColor: "white",
-            borderRadius: "10px",
+            height: "350px",
+            width: "250px",
             boxShadow: 1,
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             position: "fixed",
-            bottom: "10px",
+            bottom: "50px",
             right: "10px",
             zIndex: 1000,
-            overflow: "hidden",
           }}
         >
           <Box
             sx={{
-              height: "300px",
-              width: "300px",
+              height: "100%",
+              width: "100%",
               backgroundColor: "white",
-              borderRadius: "10px",
+              borderRadius: "40px",
               boxShadow: 1,
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
               flexDirection: "column",
               position: "relative",
-              border: "2px solid #f50057",
+            //   border: "2px solid #f50057",
+              paddingBottom: "20px",
             }}
           >
-            <Typography variant="h6" style={{ textAlign: "center" }}>
-              Scan to Download App <br /> and get exclusive offers
-            </Typography>
-            <Box sx={{ position: "absolute", top: "0", right: "0" }}>
+            <img
+              src="/androidpng.png"
+              style={{
+                height: "100%",
+                width: "100%",
+                objectFit: "cover",
+                objectPosition: "top",
+                position: "absolute",
+                top: 0,
+              }}
+              alt=""
+            />
+            <img
+              src={HotelioLogo}
+              alt=""
+              style={{
+                width: "150px",
+                marginTop: "20px",
+              }}
+            />
+            <Box sx={{ position: "absolute", top: "-20px", right: "-20px" }}>
               <IconButton onClick={handleClose}>
-                <CancelIcon sx={{ color: "#FF533B" }} />
+                <CancelIcon
+                  sx={{
+                    color: "#FF533B",
+                    border: "1px solid black",
+                    borderRadius: "9999px",
+                    backgroundColor: "white",
+                  }}
+                />
               </IconButton>
             </Box>
             <img
@@ -56,6 +79,21 @@ export default function AppQR() {
               alt="QR Code"
               style={{ width: "200px", height: "200px" }}
             />
+            <Typography
+              variant="h6"
+              style={{
+                textAlign: "center",
+                backgroundColor: "#FF533B",
+                color: "white",
+                position: "absolute",
+                width: "270px",
+                bottom: "-12%",
+                padding:"5px 0",
+                fontWeight:"bold"
+              }}
+            >
+              Scan to Download App <br /> and get exclusive offers
+            </Typography>
           </Box>
         </Box>
       </Slide>

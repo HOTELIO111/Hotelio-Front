@@ -1,28 +1,29 @@
+@media (max-width: 567px) {
+  .mainDiv {
+    flex-direction: column;
+  }
 
-
-@media (max-width:567px) {
-    .mainDiv {
-        flex-direction: column;
-    }
-
-    .mainDiv>div {
-        max-width: 100%;
-    }
+  .mainDiv > div {
+    max-width: 100%;
+  }
 }
 
-.mainDiv>div>img {
-    box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.2);
+.mainDiv > div > img {
+  box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.2);
 }
 
-.mainDiv>div>h5 {
-    color: #FFD700;
-    text-align: center;
+.mainDiv > div > h5 {
+  color: #ffd700;
+  text-align: center;
 }
 
-.mainDiv>div:hover {
-    transform: scale(1.1);
+.mainDiv > div {
+  transition: all 0.2s;
 }
 
+.mainDiv > div:hover {
+  transform: scale(1.1);
+}
 
 /* .cardStyleCover:hover {
     transform: scale(1.5);

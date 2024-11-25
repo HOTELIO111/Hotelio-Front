@@ -41,6 +41,7 @@ import {
   Paper,
   CardContent,
   Slide,
+  Collapse,
 } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import HotelioLogo from "../../images/HotelioLogo.png";
@@ -59,6 +60,7 @@ import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import { ArrowDropDown, SwapHoriz } from "@mui/icons-material";
 import { DatePicker } from "antd";
 import { airportData } from "../../Utilis/airportData";
+import { TransitionGroup } from "react-transition-group";
 
 const Navbar = ({ list }) => {
   // Locatio Asked function
@@ -712,12 +714,7 @@ const Navbar = ({ list }) => {
               </div>
             </div>
             {tab === "hotel" && (
-              <Slide
-                in={tab === "hotel"}
-                unmountOnExit
-                mountOnEnter
-                direction="right"
-              >
+              <Slide in={tab === "hotel"} direction="right">
                 <Stack>
                   <div className="container">
                     <div className="row">
@@ -804,7 +801,7 @@ const Navbar = ({ list }) => {
                                   onClick={() => {
                                     setOpenOptions(!openOptions);
                                   }}
-                                  className={`d-flex ${style.headerSearchText}`}
+                                  className={`d-flex ${style.headerSearchText} user-select-none`}
                                 >
                                   {`${getTotalGuests()} Guests · ${
                                     manageRoom.length
@@ -817,96 +814,112 @@ const Navbar = ({ list }) => {
                                     )}
                                   </div>
                                 </span>
-                                {openOptions && (
-                                  <div
-                                    className={`shadow-lg p-2 ${style.options}`}
-                                  >
-                                    <div className="row m-0 p-0">
-                                      <div className="col">
-                                        <div className="d-flex justify-content-evenly">
-                                          <h5>Rooms</h5>
-                                          <h5>Guests</h5>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    {/* Mapped the rooms data */}
-                                    {manageRoom.map((item, index) => (
+                                <div className={style.optionContainer}>
+                                  <Collapse in={openOptions}>
+                                    <div
+                                      className={`shadow-lg p-2 ${style.options}`}
+                                    >
                                       <div className="row m-0 p-0">
-                                        <div className="col-4">
-                                          <div className={style.optionItem}>
-                                            <div>Rooms</div>
-                                            <div>{item.room}</div>
+                                        <div className="col">
+                                          <div className="d-flex justify-content-evenly">
+                                            <h5>Rooms</h5>
+                                            <h5>Guests</h5>
                                           </div>
                                         </div>
-                                        <div className="col-8">
-                                          <div className={style.optionItem}>
-                                            <span
-                                              className={`${style.optionText} `}
-                                            >
-                                              Guests
-                                            </span>
+                                      </div>
+                                      {/* Mapped the rooms data */}
+                                      <TransitionGroup>
+                                        {manageRoom.map((item, index) => (
+                                          <Collapse key={index}>
+                                            <div className="row m-0 p-0">
+                                              <div className="col-4">
+                                                <div
+                                                  className={style.optionItem}
+                                                >
+                                                  <div>Rooms</div>
+                                                  <div>{item.room}</div>
+                                                </div>
+                                              </div>
+                                              <div className="col-8">
+                                                <div
+                                                  className={style.optionItem}
+                                                >
+                                                  <span
+                                                    className={`${style.optionText} `}
+                                                  >
+                                                    Guests
+                                                  </span>
+                                                  <div
+                                                    className={`ms-1 ${style.optionCounter}`}
+                                                  >
+                                                    <button
+                                                      disabled={item.guest <= 0}
+                                                      className={`btn btn-primary d-flex justify-content-center align-items-center ${style.optionCounterButton}`}
+                                                      onClick={() =>
+                                                        HandleManageRoom(
+                                                          "d",
+                                                          index
+                                                        )
+                                                      }
+                                                    >
+                                                      <RemoveIcon />
+                                                    </button>
+                                                    <span
+                                                      className={
+                                                        style.optionCounterNumber
+                                                      }
+                                                    >
+                                                      {item.guest}
+                                                    </span>
+                                                    <button
+                                                      className={`btn btn-primary d-flex justify-content-center align-items-center ${style.optionCounterButton}`}
+                                                      onClick={() =>
+                                                        HandleManageRoom(
+                                                          "i",
+                                                          index
+                                                        )
+                                                      }
+                                                    >
+                                                      <AddIcon />
+                                                    </button>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </Collapse>
+                                        ))}
+                                      </TransitionGroup>
+
+                                      <div className="row m-0 p-0">
+                                        <div className="col">
+                                          <div className="d-flex justify-content-evenly align-items-center">
                                             <div
-                                              className={`ms-1 ${style.optionCounter}`}
+                                              className={`${style.optionText} `}
+                                              style={{ marginRight: "10px" }}
+                                              onClick={() =>
+                                                ManageRoomAddandDelete("remove")
+                                              }
                                             >
-                                              <button
-                                                disabled={item.guest <= 0}
-                                                className={`btn btn-primary d-flex justify-content-center align-items-center ${style.optionCounterButton}`}
-                                                onClick={() =>
-                                                  HandleManageRoom("d", index)
-                                                }
-                                              >
-                                                <RemoveIcon />
-                                              </button>
-                                              <span
-                                                className={
-                                                  style.optionCounterNumber
-                                                }
-                                              >
-                                                {item.guest}
-                                              </span>
-                                              <button
-                                                className={`btn btn-primary d-flex justify-content-center align-items-center ${style.optionCounterButton}`}
-                                                onClick={() =>
-                                                  HandleManageRoom("i", index)
-                                                }
-                                              >
-                                                <AddIcon />
-                                              </button>
+                                              Delete Room
+                                            </div>
+                                            <div
+                                              className={`${
+                                                manageRoom.length === 7
+                                                  ? style.optionTextDisable
+                                                  : style.optionText
+                                              }`}
+                                              onClick={() =>
+                                                ManageRoomAddandDelete("add")
+                                              }
+                                            >
+                                              Add Room
                                             </div>
                                           </div>
                                         </div>
                                       </div>
-                                    ))}
-
-                                    <div className="row m-0 p-0">
-                                      <div className="col">
-                                        <div className="d-flex justify-content-evenly align-items-center">
-                                          <div
-                                            className={`${style.optionText} `}
-                                            style={{ marginRight: "10px" }}
-                                            onClick={() =>
-                                              ManageRoomAddandDelete("remove")
-                                            }
-                                          >
-                                            Delete Room
-                                          </div>
-                                          <div
-                                            className={`${
-                                              manageRoom.length === 7
-                                                ? style.optionTextDisable
-                                                : style.optionText
-                                            }`}
-                                            onClick={() =>
-                                              ManageRoomAddandDelete("add")
-                                            }
-                                          >
-                                            Add Room
-                                          </div>
-                                        </div>
-                                      </div>
                                     </div>
-                                  </div>
-                                )}
+                                  </Collapse>
+                                </div>
                               </fieldset>
                             </div>
 
@@ -936,12 +949,7 @@ const Navbar = ({ list }) => {
               </Slide>
             )}
             {tab === "flight" && (
-              <Slide
-                in={tab === "flight"}
-                mountOnEnter
-                unmountOnExit
-                direction="left"
-              >
+              <Slide in={tab === "flight"} direction="left">
                 <Box>
                   <ThemeProvider theme={theme}>
                     <Container
